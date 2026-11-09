@@ -23,7 +23,7 @@ semantic checks, 3,000 usable entries need 5,000–7,500 candidates and 5,000 ne
 about 8,334–12,500. These are arithmetic scenarios, not observed retention rates.
 At 3–5 clues per entry the corpus requires 9,000–25,000 unique legal clues.
 Assuming 2 minutes per candidate for first review, 1 minute per clue for review,
-and 20% rework, even 3,000 entries with three clues costs approximately 420–480
+and 20% rework, even 3,000 entries with three clues costs approximately 380–480
 review hours at the above candidate yields. The assumptions need timed pilot
 measurements; automated drafting does not remove independent review.
 
@@ -38,3 +38,4 @@ yield/timing probe; independently review 100 target/clue sets; then schedule
 corpus production as explicit work. Keep full corpus, source data and private
 play logs out of this W2 change. Record model-specific rejected pairs separately
 so a later model migration can revisit exclusions without rewriting provenance.
+

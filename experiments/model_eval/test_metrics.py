@@ -1,6 +1,7 @@
 """Boundary tests for benchmark arithmetic, independent of model packages."""
 
 import copy
+import hashlib
 import unittest
 
 from run import ROOT, percentile, rank, read_json, summarize, validate
@@ -34,6 +35,15 @@ class MetricTests(unittest.TestCase):
         invalid["cases"][0]["split"] = "calibration"
         with self.assertRaises(AssertionError):
             validate(invalid)
+
+    def test_fixture_canonical_bytes_match_frozen_digest(self):
+        directory = ROOT / "fixtures/semantic"
+        content = (directory / "fixture.json").read_bytes()
+        self.assertNotIn(b"\r", content)
+        self.assertEqual(
+            hashlib.sha256(content).hexdigest(),
+            (directory / "fixture.sha256").read_text().strip(),
+        )
 
 
 if __name__ == "__main__":

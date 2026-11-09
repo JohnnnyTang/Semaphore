@@ -104,7 +104,7 @@ def build():
         ],
     }
     output = json.dumps(fixture, ensure_ascii=False, indent=2) + "\n"
-    (DEST / "fixture.json").write_text(output, encoding="utf-8")
+    (DEST / "fixture.json").write_text(output, encoding="utf-8", newline="\n")
     digest = hashlib.sha256(output.encode()).hexdigest()
     (DEST / "fixture.sha256").write_text(digest + "\n", encoding="ascii")
     print(
