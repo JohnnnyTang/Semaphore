@@ -1,0 +1,49 @@
+# Local credentials and settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Frontend and build output
+node_modules/
+dist/
+build/
+coverage/
+
+# Local runtime data, private clue logs, model assets and caches
+/data/
+/models/
+/model-cache/
+/.cache/
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+*.log
+*.safetensors
+*.onnx
+
+# Local worktrees and editor/OS state
+/.worktrees/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
