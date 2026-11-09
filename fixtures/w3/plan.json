@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-11-09T10:09:50.277938+00:00",
+  "fixture_sha256": "6ef2b3b9d68d3ad7a219a95cb064a909c01844f0bed360749486830f76f13d13",
+  "inputs": {
+    "calibration-authored.json": "2320081282cdec4ae4079a05b5b4bd33e09a70b99e52cc8e8c61fcfd40542062",
+    "calibration-weak.json": "4a4c37e8e8fb052a4d99f41b513c0e874ce706967f3e839d35415c553a79c703",
+    "calibration-mixed.json": "b27e15580e9bf522551e3f2d1a0cc55bd0f2ee126564991b0d1e8b97a70f8c83",
+    "held_out-authored.json": "8ebf7369b1a1406e3ae3f2e2b553f77b97e451414fef7fa3e095c14552e9b76f",
+    "held_out-weak.json": "72d4312ceceb3ef18f33e3a84ed832351b77c364174abde1328ade465e2fd12b",
+    "held_out-mixed.json": "6f8068140ab1dd3ed3ce69d2fe48c682f7eb66ac24100c2a48437f10aa89406d"
+  },
+  "protocol_hash": "910038622a203fbd9ed010d7d0d7169d35ea3a79d76e879a38e8d77de4d97132",
+  "fingerprint_hash": "657120305f464d0fb6a6006b9dbc8152af04ba30317dadcef1b41af0aa2941a4",
+  "threshold": "0.85 diagnostic only; unchanged regardless of results",
+  "mixed_policy": "every third target uses first other legal target's authored clues",
+  "limitations": [
+    "Synthetic reused vocabulary; prior held-out results already viewed",
+    "No independent authors or marginal-pack labels; no publication calibration"
+  ]
+}

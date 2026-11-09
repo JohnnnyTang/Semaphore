@@ -1,5 +1,11 @@
 # Stage 1 / Wave 3: experiment contract reconciliation
 
+**Closure update, November 9, 2026:** W3 is closed for the bounded W4 prototype.
+The owner explicitly accepted proceeding while retaining the unmet 100 ms Stage 1
+target. See [decision 0004](../decisions/0004-w3-gate-closure.md) and
+[actual-protocol evidence](../evidence/w3/README.md). W4 is ready; it has not been
+dispatched. Earlier gate/outcome descriptions below record the pre-closure state.
+
 Started November 9, 2026 (America/New_York), by owner authorization to check
 LAN Ollama and start the next wave with parallel GPT-6.1 Sol agents at medium
 reasoning effort.
@@ -88,8 +94,9 @@ p95 338.7 ms. The proposed 100 ms full-game target remains unmet; these are
 embedding HTTP measurements, not a game load test. See
 [decision 0003](../decisions/0003-measured-ollama-experiment.md).
 
-The bounded contract work is integrated, but **full W3 is not declared complete**
-and W4 has not been dispatched. Concrete experimental interfaces are available
+Before the closure update above, the bounded contract work was integrated, but
+**full W3 was not declared complete** and W4 had not been dispatched.
+Concrete experimental interfaces were available
 for a prebuilt-schedule prototype. Remaining gates are actual-verifier calibration
 and numeric parity, adaptive casual selection, general lexical coverage and a
 bounded latency investigation. Human play and full 1/4/8-player game load remain

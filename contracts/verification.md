@@ -3,8 +3,10 @@
 This freezes interfaces for W4, not a publication or semantic-quality pass.
 The Ollama connectivity check observes the selected 4B Q4_K_M artifact and 2,560
 dimensions. Synthetic retrieval calibration and held-out results are recorded in
-`docs/evidence/model-evaluation.md`; this verifier's own calibration, cross-runtime
-parity and human play remain gates. Reachability 0.85 is provisional; bottom zone
+`docs/evidence/model-evaluation.md`. Actual-protocol synthetic measurements and
+sampled Python/Node numeric parity are recorded in `docs/evidence/w3/README.md`;
+independent publication calibration, creator parity and human play remain gates.
+Reachability 0.85 is provisional; bottom zone
 3 is the experimental ruleset choice.
 Reports use `measured` or `rejected`; neither authorizes publication. Creator
 self reports are untrusted and never substituted for recomputation.
@@ -58,7 +60,8 @@ keys, no whitespace, no floats, integers restricted to ±(2^53−1). Strings mus
 have no surrogates. This is the specified restricted encoding, not general JCS.
 Fingerprint hashes intentionally use the existing adapter's distinct encoding:
 `json.dumps(identity, sort_keys=True, separators=(",", ":"), allow_nan=False)`
-with default ASCII escaping, UTF-8, SHA-256, without a domain prefix. Preserve
+with default ASCII escaping, UTF-8, SHA-256, prefixed with the exact bytes
+`b"semaphore-ollama-experiment-v1\0"`, matching the adapter and retained reports. Preserve
 raw service model_details. Local parent paths are identity data, not file reads.
 Do not redact or normalize details and keep claiming the original hash.
 

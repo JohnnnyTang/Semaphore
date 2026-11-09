@@ -9,7 +9,11 @@ the hub independently verifies each pack before publication.
 
 ## Project status
 
-Stage 1, Wave 3: model evaluation and bounded experiment contracts are integrated.
+Stage 1, Wave 3 is closed for the bounded W4 prototype; W4 is ready to start.
+The owner accepted the finite-schedule scope while retaining the unmet 100 ms
+Stage 1 target. Actual-protocol synthetic verifier measurements and independent
+Python/Node numeric checks are retained in the
+[closure decision](docs/decisions/0004-w3-gate-closure.md).
 Direct access to the LAN Ollama server and real 2,560-dimensional
 query/entry embeddings are verified for Qwen3-Embedding 4B (Q4_K_M). Contextual
 entries achieved 180/180 held-out top-three results on synthetic clues; embedding
