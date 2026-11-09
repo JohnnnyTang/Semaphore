@@ -1,0 +1,152 @@
+category|label|context|clue1|clue2|clue3
+concrete|apple|apple fruit|orchard snack|cider ingredient|crunchy lunchbox fruit
+concrete|banana|banana fruit|peel before eating|yellow curved snack|monkey lunch
+concrete|orange|orange citrus fruit|vitamin C juice|citrus peel|segments in a lunchbox
+concrete|lemon|lemon citrus fruit|sour yellow citrus|zest for baking|tart yellow garnish
+concrete|bread|bread loaf|toast for breakfast|bakery loaf|sandwich slices
+concrete|cheese|cheese dairy food|aged dairy wedge|pizza topping|milk curds
+concrete|carrot|carrot root vegetable|rabbit snack|orange root|crunchy garden vegetable
+concrete|potato|potato tuber|mashed side dish|fries ingredient|starchy underground crop
+concrete|tomato|tomato fruit|red pasta sauce|salad vine fruit|ketchup ingredient
+concrete|onion|onion vegetable|tearful chopping|layered bulb|soup base
+concrete|spoon|spoon utensil|soup utensil|scoop pudding|stir a bowl
+concrete|fork|fork utensil|prongs at dinner|twirl spaghetti|stab a salad
+concrete|knife|knife utensil|sharp kitchen blade|slice vegetables|cutlery for cutting
+concrete|plate|plate dish|flat dinner dish|serve a meal|tableware beneath food
+concrete|cup|cup drinking vessel|small drinking vessel|handle for tea|hold hot cocoa
+concrete|chair|chair furniture|sit at a desk|seat with a back|dining room furniture
+concrete|table|table furniture|surface for dinner|four legs beneath dishes|place for homework
+concrete|bed|bed furniture|sleep under blankets|mattress support|nighttime resting place
+concrete|lamp|lamp light|desk illumination|bulb with a shade|bedside glow
+concrete|clock|clock timepiece|tell the hour|hands on a dial|ticking on a wall
+concrete|bicycle|bicycle vehicle|pedal to school|two wheels and handlebars|chain powered ride
+concrete|train|train vehicle|railway carriage|locomotive journey|travel on tracks
+concrete|boat|boat vessel|float across a lake|oars and a hull|small watercraft
+concrete|airplane|airplane aircraft|wings above clouds|runway departure|flying passengers
+concrete|umbrella|umbrella rain cover|portable rain shelter|open canopy overhead|stay dry walking
+concrete|hammer|hammer tool|drive a nail|carpenter striking tool|claw at the back
+concrete|saw|saw tool|toothed cutting blade|cut timber|woodworking teeth
+concrete|shovel|shovel digging tool|dig a hole|scoop garden soil|move snow
+concrete|bucket|bucket container|pail of water|carry sand|handle on a deep container
+concrete|ladder|ladder climbing tool|climb to the roof|rungs against a wall|reach a high shelf
+geography|Paris|Paris city in France|Eiffel Tower|French capital|Louvre home
+geography|London|London city in England|Big Ben|British capital|Thames metropolis
+geography|Rome|Rome city in Italy|Colosseum|Italian capital|ancient empire capital
+geography|Madrid|Madrid city in Spain|Spanish capital|Prado museum city|Iberian inland metropolis
+geography|Berlin|Berlin city in Germany|Brandenburg Gate|German capital|divided Cold War city
+geography|Athens|Athens city in Greece|Acropolis|Greek capital|ancient democracy city
+geography|Cairo|Cairo city in Egypt|Egyptian capital|city near Giza|Nile metropolis
+geography|Nairobi|Nairobi city in Kenya|Kenyan capital|East African safari gateway|city beside a national park
+geography|Tokyo|Tokyo city in Japan|Japanese capital|Shibuya crossing|huge metropolis on Honshu
+geography|Beijing|Beijing city in China|Forbidden City|Chinese capital|Tiananmen Square
+geography|Seoul|Seoul city in South Korea|South Korean capital|Han River metropolis|Gyeongbokgung palace city
+geography|Bangkok|Bangkok city in Thailand|Thai capital|Chao Phraya metropolis|Grand Palace city
+geography|Sydney|Sydney city in Australia|harbor opera house|Australian harbor city|Bondi Beach
+geography|Canberra|Canberra city in Australia|Australian capital|planned federal city|parliament in the bush
+geography|Ottawa|Ottawa city in Canada|Canadian capital|Rideau Canal|Parliament Hill city
+geography|Lima|Lima city in Peru|Peruvian capital|Pacific coastal capital|city beside the Rimac
+geography|Andes|Andes mountains|South American mountain chain|Aconcagua range|highlands along the Pacific
+geography|Alps|Alps mountains|European ski range|Mont Blanc mountains|Swiss high peaks
+geography|Himalayas|Himalayas mountains|Everest range|Asian high mountains|roof of the world peaks
+geography|Sahara|Sahara desert|North African sand sea|vast hot desert|dunes south of the Mediterranean
+geography|Gobi|Gobi desert|Mongolian desert|cold Asian desert|arid land north of China
+geography|Amazon|Amazon river|South American rainforest river|huge tropical river basin|river across northern Brazil
+geography|Nile|Nile river|Egyptian river|waterway through Sudan|ancient pharaohs river
+geography|Danube|Danube river|Vienna waterway|river through Budapest|European river to the Black Sea
+geography|Pacific Ocean|Pacific Ocean|largest ocean|water between Asia and America|Ring of Fire waters
+geography|Atlantic Ocean|Atlantic Ocean|water between Europe and America|ocean crossed by early explorers|Bermuda waters
+geography|Indian Ocean|Indian Ocean|waters south of India|ocean beside Madagascar|monsoon ocean basin
+geography|Arctic Ocean|Arctic Ocean|North Pole waters|smallest ocean|ice covered polar sea
+geography|Iceland|Iceland country|geysers and volcanoes island|Reykjavik country|North Atlantic island nation
+geography|New Zealand|New Zealand country|kiwi bird homeland|Wellington country|two main islands near Australia
+ambiguous|bank|bank financial institution|deposit savings|take out a loan|cash teller
+ambiguous|bat|bat flying mammal|nocturnal winged mammal|echolocation in caves|hang upside down
+ambiguous|crane|crane lifting machine|construction lifting arm|hoist steel beams|tower on a building site
+ambiguous|seal|seal marine mammal|flippers on the shore|whiskered sea mammal|rest on an ice floe
+ambiguous|mouse|mouse computer device|click a cursor|scroll wheel|desktop pointing device
+ambiguous|spring|spring season|flowers after winter|season of new growth|March equinox season
+ambiguous|fall|fall season|autumn leaves|season before winter|harvest season
+ambiguous|date|date fruit|sweet palm fruit|sticky dried snack|desert palm crop
+ambiguous|palm|palm tree|tropical fronds|coconut tree family|oasis tree
+ambiguous|bark|bark tree covering|outer tree covering|rough trunk surface|woodland protective skin
+ambiguous|trunk|trunk elephant nose|elephant nose|long flexible snout|pachyderm drinking hose
+ambiguous|sole|sole fish|flat sea fish|delicate white fillet|seabed dwelling seafood
+ambiguous|bass|bass musical range|low musical register|deep singing voice|low end of a song
+ambiguous|pitch|pitch musical frequency|high or low note|tune frequency|vocal note height
+ambiguous|scale|scale weighing device|weigh ingredients|measure body weight|balance for mass
+ambiguous|match|match fire starter|strike to light|tiny wooden flame|ignite a candle
+ambiguous|light|light illumination|visible brightness|photons|opposite of darkness
+ambiguous|jam|jam fruit preserve|spread on toast|sweet fruit preserve|jar of cooked berries
+ambiguous|mint|mint herb|cool flavored herb|fresh green garnish|cool breath flavor
+ambiguous|sage|sage herb|savory gray green herb|stuffing seasoning|aromatic culinary leaves
+ambiguous|port|port harbor|ships docking|cargo harbor|seaside shipping terminal
+ambiguous|draft|draft preliminary writing|unfinished manuscript|first version of an essay|rough written proposal
+ambiguous|current|current electric flow|flow of electric charge|amperes|electrons through a wire
+ambiguous|charge|charge electrical property|positive or negative electricity|static electricity quantity|electrical property of particles
+ambiguous|cell|cell biological unit|smallest living unit|membrane and cytoplasm|microscopic life compartment
+ambiguous|organ|organ musical instrument|pipes in a cathedral|keyboard with pedals|church music machine
+ambiguous|rock|rock stone|solid mineral chunk|pebble material|geology specimen
+ambiguous|fan|fan cooling device|spinning blades for a breeze|move air indoors|desk cooling appliance
+ambiguous|watch|watch wrist timepiece|time on your wrist|strap and dial|wearable timekeeper
+ambiguous|ring|ring jewelry|finger jewelry|wedding band|gold circle for a hand
+multiword|traffic light|traffic light road signal|red amber green|intersection signal|stop and go lamps
+multiword|fire engine|fire engine emergency vehicle|red emergency truck|hose carrying vehicle|ladder truck siren
+multiword|ice cream|ice cream dessert|frozen scoop dessert|cone in summer|sweet frozen dairy
+multiword|hot dog|hot dog food|sausage in a bun|ballpark snack|mustard topped street food
+multiword|peanut butter|peanut butter spread|nutty sandwich spread|sticky jar for toast|jelly sandwich partner
+multiword|washing machine|washing machine appliance|laundry drum|spin cycle|clean clothes appliance
+multiword|dishwasher|dishwasher appliance|automatic plate cleaner|kitchen rinse cycle|wash cutlery after dinner
+multiword|vacuum cleaner|vacuum cleaner appliance|suck dust from carpet|household suction appliance|floor cleaning nozzle
+multiword|coffee maker|coffee maker appliance|brew a morning cup|filter and carafe|drip brewing appliance
+multiword|microwave oven|microwave oven appliance|reheat leftovers quickly|turntable kitchen appliance|popcorn heating box
+multiword|tooth brush|tooth brush hygiene tool|bristles for oral hygiene|scrub molars|bathroom brushing tool
+multiword|dental floss|dental floss hygiene tool|string between teeth|clean between molars|remove trapped food
+multiword|first aid kit|first aid kit supplies|bandages in a box|emergency wound supplies|portable injury care
+multiword|sleeping bag|sleeping bag camping gear|camping bedtime sack|zippered outdoor bedding|warm cocoon in a tent
+multiword|picnic basket|picnic basket container|woven lunch carrier|park meal container|blanket lunch hamper
+multiword|tennis racket|tennis racket sports gear|strings hit a ball|court sports bat|serve across a net
+multiword|soccer ball|soccer ball sports gear|kick into a goal|round football|pentagon patterned sports sphere
+multiword|baseball glove|baseball glove sports gear|leather catching mitt|fielder hand protection|catch a pitch
+multiword|swimming pool|swimming pool structure|chlorinated laps|lanes for water exercise|backyard diving water
+multiword|roller coaster|roller coaster amusement ride|theme park thrill ride|loops on rails|steep amusement drops
+multiword|ferris wheel|ferris wheel amusement ride|rotating fairground cabins|high circular carnival ride|slow skyline ride
+multiword|solar panel|solar panel energy device|sunlight into electricity|rooftop photovoltaic array|renewable energy slab
+multiword|wind turbine|wind turbine energy device|rotor harvesting breezes|tall renewable power tower|blades generating electricity
+multiword|rain forest|rain forest ecosystem|humid tropical canopy|dense jungle ecosystem|wet equatorial woodland
+multiword|coral reef|coral reef ecosystem|colorful underwater habitat|tropical marine colonies|snorkeling ecosystem
+multiword|shooting star|shooting star meteor|streak across night sky|wish on a meteor|burning space debris
+multiword|northern lights|northern lights aurora|aurora in the sky|polar colored curtains|green sky glow
+multiword|black hole|black hole cosmic object|gravity traps photons|event horizon|collapsed massive star remnant
+multiword|space station|space station orbital habitat|orbiting crew habitat|astronaut laboratory|inhabited orbital platform
+multiword|lunar eclipse|lunar eclipse event|Earth shadow on the Moon|red Moon event|full Moon darkening
+biology|mitochondrion|mitochondrion cell organelle|cellular energy factory|ATP production site|double membrane organelle
+biology|ribosome|ribosome cell structure|protein assembly machinery|translate messenger RNA|small subunits making proteins
+biology|nucleus|nucleus cell organelle|cellular DNA enclosure|membrane around chromosomes|genetic control compartment
+biology|chloroplast|chloroplast cell organelle|photosynthesis organelle|green plant energy capture|chlorophyll compartment
+biology|lysosome|lysosome cell organelle|digest cellular waste|enzyme filled recycling sac|intracellular breakdown compartment
+biology|vacuole|vacuole cell organelle|plant storage sac|maintain turgor pressure|large fluid compartment
+biology|cytoplasm|cytoplasm cell material|gel inside cells|organelle surrounding fluid|cell contents outside the nucleus
+biology|membrane|membrane cell boundary|selective cellular barrier|phospholipid bilayer|controls entry into cells
+biology|chromosome|chromosome genetic structure|condensed DNA package|paired genetic structures|visible during cell division
+biology|gene|gene genetic unit|hereditary instruction segment|DNA coding unit|inherited molecular instruction
+biology|allele|allele genetic variant|alternative genetic version|dominant or recessive variant|one form of a hereditary unit
+biology|enzyme|enzyme protein catalyst|biological catalyst|speeds up biochemical reactions|active site protein
+biology|antibody|antibody immune protein|immune recognition protein|bind a specific antigen|Y shaped defense molecule
+biology|antigen|antigen immune target|immune recognition target|foreign molecular marker|triggers specific immune response
+biology|neuron|neuron nerve cell|nerve impulse cell|axon and dendrites|electrical signaling cell
+biology|synapse|synapse nerve junction|junction between nerve cells|neurotransmitter crossing|communication gap between nerves
+biology|axon|axon nerve projection|long nerve output fiber|carries impulses away|myelin wrapped projection
+biology|dendrite|dendrite nerve projection|branching nerve receiver|incoming neural signals|tree shaped nerve extensions
+biology|capillary|capillary blood vessel|tiny exchange vessel|one cell thick vessel wall|microscopic circulation link
+biology|artery|artery blood vessel|vessel away from heart|pulsating muscular vessel|high pressure blood route
+biology|vein|vein blood vessel|vessel returning to heart|valves against backflow|low pressure blood route
+biology|platelet|platelet blood component|clot forming fragment|plug a wound|tiny hemostasis component
+biology|hemoglobin|hemoglobin blood protein|oxygen carrying red pigment|iron containing blood protein|binds oxygen in red cells
+biology|alveolus|alveolus lung structure|tiny lung air sac|gas exchange pocket|pulmonary diffusion surface
+biology|nephron|nephron kidney unit|kidney filtering unit|glomerulus and tubule|urine formation structure
+biology|glomerulus|glomerulus kidney structure|capillary tuft in kidney|initial blood filtration|Bowman capsule contents
+biology|xylem|xylem plant tissue|plant water transport tissue|roots to leaves plumbing|woody vascular tissue
+biology|phloem|phloem plant tissue|plant sugar transport tissue|sieve tubes|moves photosynthesis products
+biology|stoma|stoma plant pore|leaf gas exchange pore|guard cell opening|tiny leaf breathing hole
+biology|pollen|pollen plant material|flower reproductive dust|bee carried grains|male seed plant particles
+

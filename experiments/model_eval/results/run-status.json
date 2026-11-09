@@ -1,0 +1,33 @@
+{
+  "format_version": "model-eval-attempt-v1",
+  "date": "2026-11-08",
+  "baseline_commit": "80ebde2bec2289002f9bd58c6e131ad8627dc9d8",
+  "fixture_sha256": "6ef2b3b9d68d3ad7a219a95cb064a909c01844f0bed360749486830f76f13d13",
+  "status": "blocked_before_inference",
+  "attempts": [
+    {
+      "model": "bge",
+      "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "command": "python experiments/model_eval/run.py fetch --model bge --cache D:/code/Semaphore/model-cache",
+      "transport": "default Hugging Face Hub/Xet",
+      "outcome": "metadata fetched; weight transfer stalled; coordinator-bounded interruption"
+    },
+    {
+      "model": "bge",
+      "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "command": "python experiments/model_eval/run.py fetch --model bge --cache D:/code/Semaphore/model-cache",
+      "environment": {"HF_HUB_DISABLE_XET": "1", "HF_HUB_DOWNLOAD_TIMEOUT": "30", "HF_HUB_ETAG_TIMEOUT": "15"},
+      "outcome": "peer closed connection without sending complete message body; automatic resume interrupted",
+      "received_bytes_reported": 84283322,
+      "expected_weight_bytes_reported": 437955512
+    }
+  ],
+  "candidate_status": {
+    "bge": "asset incomplete; no inference",
+    "gte": "not attempted after large-asset network failure; no inference",
+    "nomic": "not attempted after large-asset network failure; native support not model-load tested"
+  },
+  "measurements": null,
+  "model_recommendation": null,
+  "next_step": "Complete pinned asset downloads, run calibration, record encoding policy, then run held-out split without tuning."
+}
