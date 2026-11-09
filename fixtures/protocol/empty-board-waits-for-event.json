@@ -1,0 +1,482 @@
+{
+  "fixture_version": "experiment-v1",
+  "source_trace": "empty-board-waits-for-event.json",
+  "envelopes": [
+    {
+      "protocol": "experiment-v1",
+      "sequence": 0,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "empty-board-waits-for-event",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": "synthetic-challenge"
+        },
+        "mode": "event",
+        "elapsed_ms": 0,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 200,
+        "next_spawn_ms": 100,
+        "status": "active",
+        "board": [
+          "a"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 1,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "empty-board-waits-for-event",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": "synthetic-challenge"
+        },
+        "mode": "event",
+        "elapsed_ms": 10,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 200,
+        "next_spawn_ms": 100,
+        "status": "active",
+        "board": [
+          "a"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "e1",
+          "target": "a",
+          "admitted_ms": 10
+        },
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "e1",
+        "outcome": "pending",
+        "applied_revision": 1,
+        "target": "a",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 2,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "empty-board-waits-for-event",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": "synthetic-challenge"
+        },
+        "mode": "event",
+        "elapsed_ms": 20,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 200,
+        "next_spawn_ms": 100,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "e1",
+        "outcome": "clear",
+        "applied_revision": 2,
+        "target": "a",
+        "target_rank": 1,
+        "ranked_board": [
+          "a"
+        ],
+        "score_delta": 100
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 3,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "empty-board-waits-for-event",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": "synthetic-challenge"
+        },
+        "mode": "event",
+        "elapsed_ms": 30,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 200,
+        "next_spawn_ms": 100,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "e2",
+        "outcome": "no_target",
+        "applied_revision": 2,
+        "target": null,
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 4,
+      "kind": "spawn",
+      "snapshot": {
+        "game_id": "empty-board-waits-for-event",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": "synthetic-challenge"
+        },
+        "mode": "event",
+        "elapsed_ms": 100,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 200,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "b"
+        ],
+        "target": "b",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 5,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "empty-board-waits-for-event",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": "synthetic-challenge"
+        },
+        "mode": "event",
+        "elapsed_ms": 110,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 200,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "b"
+        ],
+        "target": "b",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 1,
+        "pending": {
+          "command_id": "e3",
+          "target": "b",
+          "admitted_ms": 110
+        },
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "e3",
+        "outcome": "pending",
+        "applied_revision": 4,
+        "target": "b",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 6,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "empty-board-waits-for-event",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": "synthetic-challenge"
+        },
+        "mode": "event",
+        "elapsed_ms": 120,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 200,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 5,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "e3",
+        "outcome": "clear",
+        "applied_revision": 5,
+        "target": "b",
+        "target_rank": 1,
+        "ranked_board": [
+          "b"
+        ],
+        "score_delta": 100
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 7,
+      "kind": "terminal",
+      "snapshot": {
+        "game_id": "empty-board-waits-for-event",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": "synthetic-challenge"
+        },
+        "mode": "event",
+        "elapsed_ms": 200,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 200,
+        "next_spawn_ms": null,
+        "status": "over",
+        "board": [],
+        "target": null,
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "event_complete",
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": null
+    }
+  ]
+}

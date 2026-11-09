@@ -1,0 +1,432 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://semaphore.invalid/contracts/events.schema.json",
+  "$ref": "#/$defs/envelope",
+  "$defs": {
+    "pending": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "command_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "admitted_ms": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "command_id",
+        "target",
+        "admitted_ms"
+      ]
+    },
+    "identities": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pack_digest": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "model_fingerprint": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "ruleset_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "config_digest": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "challenge_digest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "pack_digest",
+        "model_fingerprint",
+        "ruleset_id",
+        "config_digest",
+        "challenge_digest"
+      ]
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "game_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "identities": {
+          "$ref": "#/$defs/identities"
+        },
+        "mode": {
+          "enum": [
+            "casual",
+            "event"
+          ]
+        },
+        "elapsed_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "status": {
+          "enum": [
+            "active",
+            "over"
+          ]
+        },
+        "board": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "uniqueItems": true,
+          "maxItems": 12
+        },
+        "target": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "clears": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "next_spawn_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "next_spawn_ms": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deadline_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "capacity": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 12
+        },
+        "zone_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 11
+        },
+        "pending": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/pending"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "end_reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "overflow",
+                "pack_cleared",
+                "pack_exhausted",
+                "event_complete",
+                "interrupted"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "entries": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label"
+            ],
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "game_id",
+        "identities",
+        "mode",
+        "elapsed_ms",
+        "status",
+        "board",
+        "target",
+        "score",
+        "clears",
+        "level",
+        "revision",
+        "next_spawn_index",
+        "next_spawn_ms",
+        "deadline_ms",
+        "capacity",
+        "zone_size",
+        "pending",
+        "end_reason",
+        "entries"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "active"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "end_reason": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "end_reason": {
+                "enum": [
+                  "overflow",
+                  "pack_cleared",
+                  "pack_exhausted",
+                  "event_complete",
+                  "interrupted"
+                ]
+              },
+              "pending": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "command_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "outcome": {
+          "enum": [
+            "pending",
+            "clear",
+            "miss",
+            "game_over",
+            "busy",
+            "stale_revision",
+            "no_target",
+            "clue_empty",
+            "clue_too_long",
+            "clue_control_character",
+            "clue_forbidden",
+            "inference_failed",
+            "inference_timeout",
+            "overloaded",
+            "command_conflict"
+          ]
+        },
+        "applied_revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "target": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target_rank": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ranked_board": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "uniqueItems": true,
+          "maxItems": 12
+        },
+        "score_delta": {
+          "enum": [
+            0,
+            100
+          ]
+        }
+      },
+      "required": [
+        "command_id",
+        "outcome",
+        "applied_revision",
+        "target",
+        "target_rank",
+        "ranked_board",
+        "score_delta"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "clear"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "score_delta": {
+                "const": 100
+              },
+              "target": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "target_rank": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 11
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "score_delta": {
+                "const": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "const": "experiment-v1"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "kind": {
+          "enum": [
+            "snapshot",
+            "receipt",
+            "spawn",
+            "terminal"
+          ]
+        },
+        "snapshot": {
+          "$ref": "#/$defs/snapshot"
+        },
+        "receipt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/receipt"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "protocol",
+        "sequence",
+        "kind",
+        "snapshot",
+        "receipt"
+      ]
+    }
+  }
+}

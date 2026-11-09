@@ -1,0 +1,512 @@
+{
+  "fixture_version": "experiment-v1",
+  "source_trace": "equal-time-overflow-beats-inference.json",
+  "envelopes": [
+    {
+      "protocol": "experiment-v1",
+      "sequence": 0,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "equal-time-overflow-beats-inference",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 0,
+        "capacity": 4,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": 100,
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 1,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "equal-time-overflow-beats-inference",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 50,
+        "capacity": 4,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": 100,
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "o1",
+          "target": "a",
+          "admitted_ms": 50
+        },
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "o1",
+        "outcome": "pending",
+        "applied_revision": 1,
+        "target": "a",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 2,
+      "kind": "terminal",
+      "snapshot": {
+        "game_id": "equal-time-overflow-beats-inference",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 100,
+        "capacity": 4,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow",
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "o1",
+        "outcome": "game_over",
+        "applied_revision": 2,
+        "target": "a",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 3,
+      "kind": "terminal",
+      "snapshot": {
+        "game_id": "equal-time-overflow-beats-inference",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 100,
+        "capacity": 4,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow",
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "o1",
+        "outcome": "game_over",
+        "applied_revision": 2,
+        "target": "a",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 4,
+      "kind": "terminal",
+      "snapshot": {
+        "game_id": "equal-time-overflow-beats-inference",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 100,
+        "capacity": 4,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow",
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "o1",
+        "outcome": "game_over",
+        "applied_revision": 2,
+        "target": "a",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 5,
+      "kind": "terminal",
+      "snapshot": {
+        "game_id": "equal-time-overflow-beats-inference",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 100,
+        "capacity": 4,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow",
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "o2",
+        "outcome": "game_over",
+        "applied_revision": 2,
+        "target": "a",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 6,
+      "kind": "terminal",
+      "snapshot": {
+        "game_id": "equal-time-overflow-beats-inference",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 110,
+        "capacity": 4,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow",
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "o1",
+        "outcome": "game_over",
+        "applied_revision": 2,
+        "target": "a",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 7,
+      "kind": "terminal",
+      "snapshot": {
+        "game_id": "equal-time-overflow-beats-inference",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 120,
+        "capacity": 4,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow",
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": null
+    }
+  ]
+}

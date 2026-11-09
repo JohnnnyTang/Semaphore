@@ -1,0 +1,333 @@
+{
+  "fixture_version": "experiment-v1",
+  "source_trace": "exact-ties-and-miss.json",
+  "envelopes": [
+    {
+      "protocol": "experiment-v1",
+      "sequence": 0,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "exact-ties-and-miss",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 0,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "b",
+          "a",
+          "c"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 1,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "exact-ties-and-miss",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 10,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "b",
+          "a",
+          "c"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "t1",
+          "target": "a",
+          "admitted_ms": 10
+        },
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "t1",
+        "outcome": "pending",
+        "applied_revision": 1,
+        "target": "a",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 2,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "exact-ties-and-miss",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 20,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "t1",
+        "outcome": "miss",
+        "applied_revision": 2,
+        "target": "a",
+        "target_rank": 2,
+        "ranked_board": [
+          "c",
+          "a",
+          "b"
+        ],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 3,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "exact-ties-and-miss",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 30,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "t2",
+          "target": "a",
+          "admitted_ms": 30
+        },
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "t2",
+        "outcome": "pending",
+        "applied_revision": 3,
+        "target": "a",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 4,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "exact-ties-and-miss",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 40,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "b",
+          "c"
+        ],
+        "target": "b",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "t2",
+        "outcome": "clear",
+        "applied_revision": 4,
+        "target": "a",
+        "target_rank": 1,
+        "ranked_board": [
+          "a",
+          "b",
+          "c"
+        ],
+        "score_delta": 100
+      }
+    }
+  ]
+}

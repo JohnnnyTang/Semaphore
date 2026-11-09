@@ -1,0 +1,1297 @@
+{
+  "fixture_version": "experiment-v1",
+  "source_trace": "legality-and-target-only-clear.json",
+  "envelopes": [
+    {
+      "protocol": "experiment-v1",
+      "sequence": 0,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 0,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 1,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 1,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l1",
+        "outcome": "clue_forbidden",
+        "applied_revision": 0,
+        "target": "car",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 2,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 2,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l2",
+        "outcome": "clue_forbidden",
+        "applied_revision": 0,
+        "target": "car",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 3,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 3,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l3",
+        "outcome": "clue_forbidden",
+        "applied_revision": 0,
+        "target": "car",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 4,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 4,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l4",
+        "outcome": "clue_empty",
+        "applied_revision": 0,
+        "target": "car",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 5,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 5,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l5",
+        "outcome": "clue_too_long",
+        "applied_revision": 0,
+        "target": "car",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 6,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 6,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l6",
+        "outcome": "clue_control_character",
+        "applied_revision": 0,
+        "target": "car",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 7,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 7,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l7",
+        "outcome": "clue_forbidden",
+        "applied_revision": 0,
+        "target": "car",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 8,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 10,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "l8",
+          "target": "car",
+          "admitted_ms": 10
+        },
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l8",
+        "outcome": "pending",
+        "applied_revision": 1,
+        "target": "car",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 9,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 20,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "glacier",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l8",
+        "outcome": "clear",
+        "applied_revision": 2,
+        "target": "car",
+        "target_rank": 1,
+        "ranked_board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "score_delta": 100
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 10,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 21,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "glacier",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l9",
+        "outcome": "clue_forbidden",
+        "applied_revision": 2,
+        "target": "glacier",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 11,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 22,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "glacier",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l10",
+        "outcome": "clue_forbidden",
+        "applied_revision": 2,
+        "target": "glacier",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 12,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 30,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "glacier",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "l11",
+          "target": "glacier",
+          "admitted_ms": 30
+        },
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l11",
+        "outcome": "pending",
+        "applied_revision": 3,
+        "target": "glacier",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 13,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 40,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "oxbow-lake",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l11",
+        "outcome": "clear",
+        "applied_revision": 4,
+        "target": "glacier",
+        "target_rank": 1,
+        "ranked_board": [
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "score_delta": 100
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 14,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 41,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "oxbow-lake",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l12",
+        "outcome": "clue_forbidden",
+        "applied_revision": 4,
+        "target": "oxbow-lake",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 15,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 42,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "oxbow-lake",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l13",
+        "outcome": "clue_forbidden",
+        "applied_revision": 4,
+        "target": "oxbow-lake",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 16,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 50,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "oxbow-lake",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 5,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "l14",
+          "target": "oxbow-lake",
+          "admitted_ms": 50
+        },
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l14",
+        "outcome": "pending",
+        "applied_revision": 5,
+        "target": "oxbow-lake",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 17,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 60,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "run"
+        ],
+        "target": "run",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l14",
+        "outcome": "clear",
+        "applied_revision": 6,
+        "target": "oxbow-lake",
+        "target_rank": 1,
+        "ranked_board": [
+          "oxbow-lake",
+          "run"
+        ],
+        "score_delta": 100
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 18,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 61,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "run"
+        ],
+        "target": "run",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l15",
+        "outcome": "clue_forbidden",
+        "applied_revision": 6,
+        "target": "run",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 19,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 62,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "run"
+        ],
+        "target": "run",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l16",
+        "outcome": "clue_forbidden",
+        "applied_revision": 6,
+        "target": "run",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 20,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 70,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "run"
+        ],
+        "target": "run",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 7,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "l17",
+          "target": "run",
+          "admitted_ms": 70
+        },
+        "end_reason": null,
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l17",
+        "outcome": "pending",
+        "applied_revision": 7,
+        "target": "run",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 21,
+      "kind": "terminal",
+      "snapshot": {
+        "game_id": "legality-and-target-only-clear",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 80,
+        "capacity": 6,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "over",
+        "board": [],
+        "target": null,
+        "score": 400,
+        "clears": 4,
+        "level": 1,
+        "revision": 8,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": "pack_cleared",
+        "entries": {
+          "car": {
+            "label": "car"
+          },
+          "glacier": {
+            "label": "glacier"
+          },
+          "oxbow-lake": {
+            "label": "oxbow lake"
+          },
+          "run": {
+            "label": "run"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "l17",
+        "outcome": "clear",
+        "applied_revision": 8,
+        "target": "run",
+        "target_rank": 1,
+        "ranked_board": [
+          "run"
+        ],
+        "score_delta": 100
+      }
+    }
+  ]
+}

@@ -1,0 +1,293 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Semaphore experiment API",
+    "version": "experiment-v1",
+    "description": "In-memory LAN experiment only. No production account or upload API."
+  },
+  "paths": {
+    "/experiment/v1/games": {
+      "post": {
+        "operationId": "createGame",
+        "responses": {
+          "201": {
+            "description": "Authoritative full envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "events.schema.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "http.schema.json#/$defs/create"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/experiment/v1/games/{game_id}": {
+      "get": {
+        "operationId": "getGame",
+        "responses": {
+          "200": {
+            "description": "Authoritative full envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "events.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "game_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ]
+      }
+    },
+    "/experiment/v1/games/{game_id}/commands": {
+      "post": {
+        "operationId": "submitClue",
+        "responses": {
+          "200": {
+            "description": "Authoritative full envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "events.schema.json"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Authoritative full envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "events.schema.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "game_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "http.schema.json#/$defs/command"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/experiment/v1/games/{game_id}/receipts/{command_id}": {
+      "get": {
+        "operationId": "getReceipt",
+        "responses": {
+          "200": {
+            "description": "Authoritative full envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "events.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "game_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "command_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ]
+      }
+    },
+    "/experiment/v1/games/{game_id}/quit": {
+      "post": {
+        "operationId": "quitGame",
+        "responses": {
+          "200": {
+            "description": "Authoritative full envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "events.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "game_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ]
+      }
+    }
+  }
+}
