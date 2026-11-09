@@ -1,0 +1,587 @@
+{
+  "fixture_version": "s1-w2-game-trace-1",
+  "scenario": "legality-and-target-only-clear",
+  "seed": 1729,
+  "provenance": "synthetic-author-authored; MIT",
+  "mode": "casual",
+  "config": {
+    "capacity": 6,
+    "zone_size": 1
+  },
+  "entries": {
+    "car": {
+      "label": "car",
+      "aliases": [
+        "automobile"
+      ],
+      "inflections": [
+        "cars"
+      ]
+    },
+    "glacier": {
+      "label": "glacier",
+      "inflections": [
+        "glaciers"
+      ],
+      "forbidden": [
+        "glacial"
+      ]
+    },
+    "oxbow-lake": {
+      "label": "oxbow lake",
+      "aliases": [
+        "cutoff lake"
+      ]
+    },
+    "run": {
+      "label": "run",
+      "inflections": [
+        "running",
+        "ran"
+      ]
+    }
+  },
+  "schedule": [],
+  "deadline_ms": 1000,
+  "initial_state": {
+    "status": "active",
+    "board": [
+      "car",
+      "glacier",
+      "oxbow-lake",
+      "run"
+    ],
+    "target": "car",
+    "score": 0,
+    "clears": 0,
+    "level": 1,
+    "revision": 0,
+    "next_spawn_index": 0,
+    "pending": null,
+    "end_reason": null
+  },
+  "events": [
+    {
+      "at_ms": 1,
+      "kind": "admit",
+      "command_id": "l1",
+      "clue": "CAR!",
+      "expected_revision": 0,
+      "expected_result": "clue_forbidden",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 2,
+      "kind": "admit",
+      "command_id": "l2",
+      "clue": "two cars",
+      "expected_revision": 0,
+      "expected_result": "clue_forbidden",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 3,
+      "kind": "admit",
+      "command_id": "l3",
+      "clue": "automobile",
+      "expected_revision": 0,
+      "expected_result": "clue_forbidden",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 4,
+      "kind": "admit",
+      "command_id": "l4",
+      "clue": "!!!",
+      "expected_revision": 0,
+      "expected_result": "clue_empty",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 5,
+      "kind": "admit",
+      "command_id": "l5",
+      "clue": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "expected_revision": 0,
+      "expected_result": "clue_too_long",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 6,
+      "kind": "admit",
+      "command_id": "l6",
+      "clue": "a\u0000b",
+      "expected_revision": 0,
+      "expected_result": "clue_control_character",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 7,
+      "kind": "admit",
+      "command_id": "l7",
+      "clue": "\uff23\uff21\uff32",
+      "expected_revision": 0,
+      "expected_result": "clue_forbidden",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 10,
+      "kind": "admit",
+      "command_id": "l8",
+      "clue": "carpet",
+      "expected_revision": 0,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "car",
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "car",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "l8",
+          "target": "car",
+          "admitted_ms": 10
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 20,
+      "kind": "complete",
+      "command_id": "l8",
+      "scores": {
+        "car": 0.9,
+        "glacier": 0.8,
+        "oxbow-lake": 0.7,
+        "run": 0.6
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "glacier",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 21,
+      "kind": "admit",
+      "command_id": "l9",
+      "clue": "glaciers",
+      "expected_revision": 2,
+      "expected_result": "clue_forbidden",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "glacier",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 22,
+      "kind": "admit",
+      "command_id": "l10",
+      "clue": "glacial ice",
+      "expected_revision": 2,
+      "expected_result": "clue_forbidden",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "glacier",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 30,
+      "kind": "admit",
+      "command_id": "l11",
+      "clue": "ice river",
+      "expected_revision": 2,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "glacier",
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "glacier",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "l11",
+          "target": "glacier",
+          "admitted_ms": 30
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 40,
+      "kind": "complete",
+      "command_id": "l11",
+      "scores": {
+        "glacier": 0.9,
+        "oxbow-lake": 0.8,
+        "run": 0.7
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "oxbow-lake",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 41,
+      "kind": "admit",
+      "command_id": "l12",
+      "clue": "oxbow, lake",
+      "expected_revision": 4,
+      "expected_result": "clue_forbidden",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "oxbow-lake",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 42,
+      "kind": "admit",
+      "command_id": "l13",
+      "clue": "cutoff lake",
+      "expected_revision": 4,
+      "expected_result": "clue_forbidden",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "oxbow-lake",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 50,
+      "kind": "admit",
+      "command_id": "l14",
+      "clue": "horseshoe water",
+      "expected_revision": 4,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "oxbow-lake",
+          "run"
+        ],
+        "target": "oxbow-lake",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 5,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "l14",
+          "target": "oxbow-lake",
+          "admitted_ms": 50
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 60,
+      "kind": "complete",
+      "command_id": "l14",
+      "scores": {
+        "oxbow-lake": 0.9,
+        "run": 0.1
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "run"
+        ],
+        "target": "run",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 61,
+      "kind": "admit",
+      "command_id": "l15",
+      "clue": "running",
+      "expected_revision": 6,
+      "expected_result": "clue_forbidden",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "run"
+        ],
+        "target": "run",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 62,
+      "kind": "admit",
+      "command_id": "l16",
+      "clue": "ran quickly",
+      "expected_revision": 6,
+      "expected_result": "clue_forbidden",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "run"
+        ],
+        "target": "run",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 70,
+      "kind": "admit",
+      "command_id": "l17",
+      "clue": "sprint",
+      "expected_revision": 6,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "run"
+        ],
+        "target": "run",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 7,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "l17",
+          "target": "run",
+          "admitted_ms": 70
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 80,
+      "kind": "complete",
+      "command_id": "l17",
+      "scores": {
+        "run": 0.9
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "over",
+        "board": [],
+        "target": null,
+        "score": 400,
+        "clears": 4,
+        "level": 1,
+        "revision": 8,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": "pack_cleared"
+      }
+    }
+  ]
+}

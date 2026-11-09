@@ -1,0 +1,114 @@
+{
+  "fixture_version": "s1-w2-game-trace-1",
+  "scenario": "bottom-three-target-only",
+  "seed": 1729,
+  "provenance": "synthetic-author-authored; MIT",
+  "mode": "casual",
+  "config": {
+    "capacity": 6,
+    "zone_size": 3
+  },
+  "entries": {
+    "a": {
+      "label": "glacier",
+      "inflections": [
+        "glaciers"
+      ],
+      "forbidden": [
+        "glacial"
+      ]
+    },
+    "b": {
+      "label": "oxbow lake",
+      "aliases": [
+        "cutoff lake"
+      ]
+    },
+    "c": {
+      "label": "sand dune"
+    },
+    "d": {
+      "label": "plateau"
+    },
+    "e": {
+      "label": "valley"
+    },
+    "f": {
+      "label": "delta"
+    }
+  },
+  "schedule": [],
+  "deadline_ms": 1000,
+  "initial_state": {
+    "status": "active",
+    "board": [
+      "a",
+      "b",
+      "c"
+    ],
+    "target": "a",
+    "score": 0,
+    "clears": 0,
+    "level": 1,
+    "revision": 0,
+    "next_spawn_index": 0,
+    "pending": null,
+    "end_reason": null
+  },
+  "events": [
+    {
+      "at_ms": 10,
+      "kind": "admit",
+      "command_id": "z1",
+      "clue": "sand dune",
+      "expected_revision": 0,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "z1",
+          "target": "a",
+          "admitted_ms": 10
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 20,
+      "kind": "complete",
+      "command_id": "z1",
+      "scores": {
+        "a": 0.1,
+        "b": 0.4,
+        "c": 0.9
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "b"
+        ],
+        "target": "b",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    }
+  ]
+}

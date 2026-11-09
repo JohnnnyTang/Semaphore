@@ -1,0 +1,214 @@
+{
+  "fixture_version": "s1-w2-game-trace-1",
+  "scenario": "empty-board-waits-for-event",
+  "seed": 1729,
+  "provenance": "synthetic-author-authored; MIT",
+  "mode": "event",
+  "config": {
+    "capacity": 6,
+    "zone_size": 1
+  },
+  "entries": {
+    "a": {
+      "label": "glacier",
+      "inflections": [
+        "glaciers"
+      ],
+      "forbidden": [
+        "glacial"
+      ]
+    },
+    "b": {
+      "label": "oxbow lake",
+      "aliases": [
+        "cutoff lake"
+      ]
+    },
+    "c": {
+      "label": "sand dune"
+    },
+    "d": {
+      "label": "plateau"
+    },
+    "e": {
+      "label": "valley"
+    },
+    "f": {
+      "label": "delta"
+    }
+  },
+  "schedule": [
+    {
+      "at_ms": 100,
+      "entry_id": "b"
+    }
+  ],
+  "deadline_ms": 200,
+  "initial_state": {
+    "status": "active",
+    "board": [
+      "a"
+    ],
+    "target": "a",
+    "score": 0,
+    "clears": 0,
+    "level": 1,
+    "revision": 0,
+    "next_spawn_index": 0,
+    "pending": null,
+    "end_reason": null
+  },
+  "events": [
+    {
+      "at_ms": 10,
+      "kind": "admit",
+      "command_id": "e1",
+      "clue": "ice",
+      "expected_revision": 0,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "e1",
+          "target": "a",
+          "admitted_ms": 10
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 20,
+      "kind": "complete",
+      "command_id": "e1",
+      "scores": {
+        "a": 0.9
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 30,
+      "kind": "admit",
+      "command_id": "e2",
+      "clue": "river",
+      "expected_revision": 2,
+      "expected_result": "no_target",
+      "expected_state": {
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 100,
+      "kind": "spawn",
+      "entry_id": "b",
+      "expected_result": "spawn",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "b"
+        ],
+        "target": "b",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 110,
+      "kind": "admit",
+      "command_id": "e3",
+      "clue": "river",
+      "expected_revision": 3,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "b"
+        ],
+        "target": "b",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 1,
+        "pending": {
+          "command_id": "e3",
+          "target": "b",
+          "admitted_ms": 110
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 120,
+      "kind": "complete",
+      "command_id": "e3",
+      "scores": {
+        "b": 0.9
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 5,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 200,
+      "kind": "deadline",
+      "expected_result": "event_complete",
+      "expected_state": {
+        "status": "over",
+        "board": [],
+        "target": null,
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "event_complete"
+      }
+    }
+  ]
+}

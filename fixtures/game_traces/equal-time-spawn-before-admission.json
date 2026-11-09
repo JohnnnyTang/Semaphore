@@ -1,0 +1,164 @@
+{
+  "fixture_version": "s1-w2-game-trace-1",
+  "scenario": "equal-time-spawn-before-admission",
+  "seed": 1729,
+  "provenance": "synthetic-author-authored; MIT",
+  "mode": "casual",
+  "config": {
+    "capacity": 6,
+    "zone_size": 1
+  },
+  "entries": {
+    "a": {
+      "label": "glacier",
+      "inflections": [
+        "glaciers"
+      ],
+      "forbidden": [
+        "glacial"
+      ]
+    },
+    "b": {
+      "label": "oxbow lake",
+      "aliases": [
+        "cutoff lake"
+      ]
+    },
+    "c": {
+      "label": "sand dune"
+    },
+    "d": {
+      "label": "plateau"
+    },
+    "e": {
+      "label": "valley"
+    },
+    "f": {
+      "label": "delta"
+    }
+  },
+  "schedule": [
+    {
+      "at_ms": 100,
+      "entry_id": "c"
+    }
+  ],
+  "deadline_ms": 1000,
+  "initial_state": {
+    "status": "active",
+    "board": [
+      "a",
+      "b"
+    ],
+    "target": "a",
+    "score": 0,
+    "clears": 0,
+    "level": 1,
+    "revision": 0,
+    "next_spawn_index": 0,
+    "pending": null,
+    "end_reason": null
+  },
+  "events": [
+    {
+      "at_ms": 100,
+      "kind": "spawn",
+      "entry_id": "c",
+      "expected_result": "spawn",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 100,
+      "kind": "admit",
+      "command_id": "s1",
+      "clue": "ice",
+      "expected_revision": 0,
+      "expected_result": "stale_revision",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 110,
+      "kind": "admit",
+      "command_id": "s2",
+      "clue": "ice",
+      "expected_revision": 1,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": {
+          "command_id": "s2",
+          "target": "a",
+          "admitted_ms": 110
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 120,
+      "kind": "complete",
+      "command_id": "s2",
+      "scores": {
+        "a": 0.9,
+        "b": 0.4,
+        "c": 0.1
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "b",
+          "c"
+        ],
+        "target": "b",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    }
+  ]
+}
