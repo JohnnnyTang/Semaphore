@@ -1,11 +1,101 @@
-# W2 semantic evaluation evidence
+# Semantic evaluation evidence
 
-November 9 update: the owner has selected `qwen3-embedding:4b` for LAN Ollama
-development. Its adapter and evaluation runner are prepared without real-model
-access. Follow [decision 0002](../decisions/0002-lan-ollama-development.md) and the
-[current runner instructions](../../experiments/model_eval/README.md). The
-three-candidate selection requirement below is historical and superseded for
-development; no Qwen quality, latency or GPU result has been measured yet.
+November 9 update: the owner-selected `qwen3-embedding:4b` now has measured LAN
+calibration and held-out evidence. Context-enriched entries perform strongly on
+this synthetic fixture; measured embedding HTTP p95 already exceeds the proposed
+100 ms full-game goal. Development selection remains distinct from release acceptance.
+
+## Qwen4B LAN measurements, November 9, 2026
+
+Preserved reports: [calibration](ollama/qwen4b-calibration.json),
+[policy freeze](ollama/policy-freeze.json), [held out](ollama/qwen4b-held-out.json).
+Both runs used the unchanged fixture hash recorded below, native 2,560 dimensions,
+Q4_K_M model digest `df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907`,
+Ollama 0.40.15, and `semaphore-qwen4b-association-v1`. Calibration was reviewed
+before held-out inference: context (`embed_text`) became the primary entry mode;
+label-only remains the preregistered comparison. The instruction, unprefixed
+entries, 512 context, no truncation, normalization checks and both modes were
+unchanged. No prompt, dimension, threshold or near-tie search was performed.
+The freeze records the calibration SHA and precedes the held-out report timestamp;
+the held-out report binds that same calibration SHA and fingerprint.
+
+| Split / entry mode | 6-entry top-three | 12-entry top-three | 20-entry top-three |
+| --- | --- | --- | --- |
+| Calibration / label, 270 clues | 98.52% | 97.41% | 96.30% |
+| Calibration / context, 270 clues | 100% | 99.63% | 99.63% |
+| Held out / label, 180 clues | 98.89% | 96.11% | 89.44% |
+| Held out / context, 180 clues | 100% | 100% | 100% |
+
+Median rank is 1 in every category/stack/mode/split. At 20 entries, label-only
+ambiguity drops from 83.33% calibration to 63.89% held out; context reaches 100%
+in both. Held-out label concrete is 88.89%, biology 94.44%, geography and multiword
+100%; all held-out context categories reach 100%. Calibration context has one
+20-entry miss, `concrete-03-c2`, rank 4, with `multiword-14`, `concrete-09` and
+`concrete-06` ahead. Label-only `ambiguous-07` has ranks 16/17/20 across its three
+calibration clues, illustrating sense ambiguity. Context resolves that case.
+These are authored clues and contexts from one fixture, not independent human
+generalization or evidence that context always improves arbitrary packs.
+
+| Pack view | Calibration label / context | Held-out label / context |
+| --- | --- | --- |
+| General intended-good | 98.15% / 100% (54 targets) | 94.44% / 100% (36) |
+| Biology difficult | 94.44% / 100% (18) | 91.67% / 100% (12) |
+| Weak generic control | 14.44% / 10% (90) | 15% / 16.67% (60) |
+
+Pack percentages summarize top-three reachability after five deterministic
+20-entry decoy samples: median rank across samples per clue, then across authored
+clues per target. They are not the per-clue fixed-stack percentages above and
+do not calibrate the separate W3 publication verifier or its sampling contract.
+The extreme weak control separates well from intended-good views, but does not
+locate a defensible boundary among marginal packs. The proposed 85% publication
+threshold remains provisional; no numeric threshold is selected from held-out
+results. Obtain independently authored, borderline and adversarial packs using
+the actual verifier protocol before claiming publication calibration.
+
+Context nearest neighbors include `geography-24`/`geography-25` (0.9433),
+`geography-19`/`geography-20` (0.9379), `geography-24`/`geography-26` (0.9343)
+and `biology-26`/`biology-27` (0.8951). These close related entries justify retaining
+hard decoys and human review; successful authored-clue ranks do not prove that
+entries are interchangeable or that a production near-tie tolerance is validated.
+
+| HTTP performance | Calibration | Held out |
+| --- | --- | --- |
+| Warm serial p50 / p95, ms | 131.0 / 191.9 | 148.9 / 201.9 |
+| Eight-worker p50 / p95, ms | 306.7 / 373.4 | 299.5 / 338.7 |
+| Batch-16 clue embeddings / second | 39.46 | 41.82 |
+
+Each run measured 100 serial and 100 concurrent single-clue operations, followed
+by all selected clues in batches of 16. Digest inventory checks are included in
+each operation; socket timeout was 30 seconds. No failed operation was converted
+to a score. First requests (0.201/0.184 seconds) are not cold-load measurements.
+Warm serial embedding p95 alone misses the proposed 100 ms game round-trip goal;
+this does not constitute a full-game latency test. Eight workers are a request
+probe, not eight-player gameplay with uploads, event delivery and bounded queues.
+Next performance work should use a bounded representative server load probe,
+separate inventory/transport/inference timing, and test queue/deadline behavior.
+Any optimization comparison needs fixed pin settings and a fresh performance
+run; do not retune semantic policy against these held-out ranks. If the goal
+remains unattainable, explicitly revise development latency scope with the owner.
+
+Client reports capture Windows 11/Python 3.12. Server inventory reports 2,647,539,056
+loaded bytes and the same `size_vram`, with context 512 and runner `llamacpp`.
+This is server-reported allocation, not independently verified GPU execution.
+Owner-reported hardware: NVIDIA 5090, 32 GB VRAM, Windows, NVIDIA driver 610.88.
+Exact GPU SKU, OS version/build, CPU/RAM, server load and `ollama ps` offload
+verification are still missing. No release GPU, CPU-only/8 GB or full-game
+acceptance is established. The historical client inventory below is not server
+hardware. Reports were reviewed for raw clues/vectors and endpoint/client paths;
+none are present. The server-supplied generic model-blob parent path is retained
+inside the fingerprint to preserve its hash and the calibration binding.
+
+Validation: seven `tests/test_ollama_eval.py` tests and five historical evaluator
+unit tests pass. A first pytest invocation hit sandbox temporary-directory
+permissions; rerunning with a workspace temporary directory passed all seven.
+Both full real-model runs completed with unchanged pre/post identity and passed
+response validation. See [decision 0002](../decisions/0002-lan-ollama-development.md)
+and the [runner instructions](../../experiments/model_eval/README.md).
+
+## Historical CPU comparison (superseded for development)
 
 Date: November 8, 2026. Status: fixture and harness implemented; model-selection
 gate remains open until the three pinned candidates have comparable measurements.
