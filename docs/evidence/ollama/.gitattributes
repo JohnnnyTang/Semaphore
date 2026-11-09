@@ -1,2 +1,2 @@
 # Reports bind exact output bytes; preserve Windows-generated calibration hashes.
-*.json -text
+*.json -text whitespace=cr-at-eol
