@@ -1,0 +1,348 @@
+{
+  "fixture_version": "s1-w2-game-trace-1",
+  "scenario": "fifth-clear-advances-level",
+  "seed": 1729,
+  "provenance": "synthetic-author-authored; MIT",
+  "mode": "casual",
+  "config": {
+    "capacity": 8,
+    "zone_size": 1
+  },
+  "entries": {
+    "a": {
+      "label": "glacier",
+      "inflections": [
+        "glaciers"
+      ],
+      "forbidden": [
+        "glacial"
+      ]
+    },
+    "b": {
+      "label": "oxbow lake",
+      "aliases": [
+        "cutoff lake"
+      ]
+    },
+    "c": {
+      "label": "sand dune"
+    },
+    "d": {
+      "label": "plateau"
+    },
+    "e": {
+      "label": "valley"
+    },
+    "f": {
+      "label": "delta"
+    }
+  },
+  "schedule": [],
+  "deadline_ms": 1000,
+  "initial_state": {
+    "status": "active",
+    "board": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f"
+    ],
+    "target": "a",
+    "score": 0,
+    "clears": 0,
+    "level": 1,
+    "revision": 0,
+    "next_spawn_index": 0,
+    "pending": null,
+    "end_reason": null
+  },
+  "events": [
+    {
+      "at_ms": 10,
+      "kind": "admit",
+      "command_id": "v0",
+      "clue": "association 0",
+      "expected_revision": 0,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "v0",
+          "target": "a",
+          "admitted_ms": 10
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 20,
+      "kind": "complete",
+      "command_id": "v0",
+      "scores": {
+        "a": 1.0,
+        "b": 0.9,
+        "c": 0.8,
+        "d": 0.7,
+        "e": 0.6,
+        "f": 0.5
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "b",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 30,
+      "kind": "admit",
+      "command_id": "v1",
+      "clue": "association 1",
+      "expected_revision": 2,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "b",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "v1",
+          "target": "b",
+          "admitted_ms": 30
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 40,
+      "kind": "complete",
+      "command_id": "v1",
+      "scores": {
+        "b": 1.0,
+        "c": 0.9,
+        "d": 0.8,
+        "e": 0.7,
+        "f": 0.6
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "c",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 50,
+      "kind": "admit",
+      "command_id": "v2",
+      "clue": "association 2",
+      "expected_revision": 4,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "c",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 5,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "v2",
+          "target": "c",
+          "admitted_ms": 50
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 60,
+      "kind": "complete",
+      "command_id": "v2",
+      "scores": {
+        "c": 1.0,
+        "d": 0.9,
+        "e": 0.8,
+        "f": 0.7
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "d",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 70,
+      "kind": "admit",
+      "command_id": "v3",
+      "clue": "association 3",
+      "expected_revision": 6,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "d",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 7,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "v3",
+          "target": "d",
+          "admitted_ms": 70
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 80,
+      "kind": "complete",
+      "command_id": "v3",
+      "scores": {
+        "d": 1.0,
+        "e": 0.9,
+        "f": 0.8
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "e",
+          "f"
+        ],
+        "target": "e",
+        "score": 400,
+        "clears": 4,
+        "level": 1,
+        "revision": 8,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 90,
+      "kind": "admit",
+      "command_id": "v4",
+      "clue": "association 4",
+      "expected_revision": 8,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "e",
+          "f"
+        ],
+        "target": "e",
+        "score": 400,
+        "clears": 4,
+        "level": 1,
+        "revision": 9,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "v4",
+          "target": "e",
+          "admitted_ms": 90
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 100,
+      "kind": "complete",
+      "command_id": "v4",
+      "scores": {
+        "e": 1.0,
+        "f": 0.9
+      },
+      "expected_result": "clear",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "f"
+        ],
+        "target": "f",
+        "score": 500,
+        "clears": 5,
+        "level": 2,
+        "revision": 10,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    }
+  ]
+}

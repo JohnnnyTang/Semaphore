@@ -1,0 +1,242 @@
+{
+  "fixture_version": "s1-w2-game-trace-1",
+  "scenario": "equal-time-overflow-beats-inference",
+  "seed": 1729,
+  "provenance": "synthetic-author-authored; MIT",
+  "mode": "casual",
+  "config": {
+    "capacity": 4,
+    "zone_size": 1
+  },
+  "entries": {
+    "a": {
+      "label": "glacier",
+      "inflections": [
+        "glaciers"
+      ],
+      "forbidden": [
+        "glacial"
+      ]
+    },
+    "b": {
+      "label": "oxbow lake",
+      "aliases": [
+        "cutoff lake"
+      ]
+    },
+    "c": {
+      "label": "sand dune"
+    },
+    "d": {
+      "label": "plateau"
+    },
+    "e": {
+      "label": "valley"
+    },
+    "f": {
+      "label": "delta"
+    }
+  },
+  "schedule": [
+    {
+      "at_ms": 100,
+      "entry_id": "d"
+    }
+  ],
+  "deadline_ms": 1000,
+  "initial_state": {
+    "status": "active",
+    "board": [
+      "a",
+      "b",
+      "c"
+    ],
+    "target": "a",
+    "score": 0,
+    "clears": 0,
+    "level": 1,
+    "revision": 0,
+    "next_spawn_index": 0,
+    "pending": null,
+    "end_reason": null
+  },
+  "events": [
+    {
+      "at_ms": 50,
+      "kind": "admit",
+      "command_id": "o1",
+      "clue": "ice",
+      "expected_revision": 0,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "o1",
+          "target": "a",
+          "admitted_ms": 50
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 100,
+      "kind": "spawn",
+      "entry_id": "d",
+      "expected_result": "overflow",
+      "expected_state": {
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow"
+      }
+    },
+    {
+      "at_ms": 100,
+      "kind": "admit",
+      "command_id": "o1",
+      "clue": "ice",
+      "expected_revision": 0,
+      "expected_result": "game_over",
+      "expected_state": {
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow"
+      }
+    },
+    {
+      "at_ms": 100,
+      "kind": "complete",
+      "command_id": "o1",
+      "scores": {
+        "a": 1,
+        "b": 0.2,
+        "c": 0.1,
+        "d": 0
+      },
+      "expected_result": "game_over",
+      "expected_state": {
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow"
+      }
+    },
+    {
+      "at_ms": 100,
+      "kind": "admit",
+      "command_id": "o2",
+      "clue": "water",
+      "expected_revision": 2,
+      "expected_result": "game_over",
+      "expected_state": {
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow"
+      }
+    },
+    {
+      "at_ms": 110,
+      "kind": "admit",
+      "command_id": "o1",
+      "clue": "ice",
+      "expected_revision": 0,
+      "expected_result": "game_over",
+      "expected_state": {
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow"
+      }
+    },
+    {
+      "at_ms": 120,
+      "kind": "reconnect",
+      "expected_result": "snapshot",
+      "expected_state": {
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": "overflow"
+      }
+    }
+  ]
+}
