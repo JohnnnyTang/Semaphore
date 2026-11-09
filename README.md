@@ -10,8 +10,10 @@ the hub independently verifies each pack before publication.
 ## Project status
 
 Stage 1, Wave 2: the semantic harness, gameplay specification and platform contract
-drafts are integrated for review. Real model measurements remain open after a
-failed weight download. The game, hub, and creator kit are not implemented yet.
+drafts are integrated for review. Qwen3-Embedding 4B is selected for development
+through a LAN Ollama server. Its adapter, offline tests and evaluation runner are
+implemented; real model measurements await the operator's endpoint.
+The game, hub, and creator kit are not implemented yet.
 The repository provides synthetic fixtures, draft validation tools, a provisional
 ranker interface, and automated checks.
 
@@ -25,7 +27,8 @@ ranker interface, and automated checks.
 ## Planned scope
 
 - English-language Arcade mode with server-authoritative gameplay.
-- CPU-based semantic ranking, with no server-side LLM or runtime internet dependency.
+- Server-side semantic ranking using LAN Ollama during development, with no
+  generative LLM or runtime internet dependency. Release hardware remains unvalidated.
 - Lightweight local accounts, versioned packs, and shared leaderboards.
 - A creator CLI and agent skill using the same verification core as the hub.
 - A target of 6–8 simultaneous players on a small LAN server.
@@ -46,9 +49,13 @@ uv run --no-sync pytest
 uv build --no-build-isolation
 ```
 
+For offline validation and the eventual LAN connectivity check, see the
+[Ollama runner instructions](experiments/model_eval/README.md) and
+[development decision](docs/decisions/0002-lan-ollama-development.md).
+
 The lock file records the development dependencies. Initial installation needs
 access to Python packages; the smoke checks use synthetic data and require no
-model download or network service. The fake ranker supplies deterministic test
+model download or external network service. The fake ranker supplies deterministic test
 results, not semantic quality or performance evidence.
 
 GitHub Actions checks pull requests and pushes to `main` and `codex/**` branches.
@@ -59,7 +66,7 @@ See the [automation notes](.github/README.md) for pin maintenance and GitHub set
 
 Wave 2's semantic, gameplay and platform-contract sessions used isolated
 worktrees from the same merged commit. Wave 3 will reconcile their evidence and
-drafts before implementation begins. Real-model experiments opt in with
+drafts before gameplay implementation begins. Historical CPU model experiments opt in with
 `uv sync --locked --group dev --group model-eval`; model assets stay out of Git.
 
 ## License

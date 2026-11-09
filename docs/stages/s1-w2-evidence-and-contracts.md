@@ -1,5 +1,18 @@
 # Stage 1 / Wave 2 evidence and contract drafts
 
+November 9 update: the owner fixed Qwen3-Embedding 4B for LAN Ollama development.
+The adapter, offline tests and evaluation commands are prepared; real measurements
+await the endpoint. The earlier download/comparison next step below is superseded
+by [decision 0002](../decisions/0002-lan-ollama-development.md). W2 remains open.
+
+Local validation for the LAN preparation (November 9): 56 pytest cases pass,
+including the loopback HTTP adapter tests; Ruff lint/format pass; semantic
+validation preserves the frozen fixture hash and all five arithmetic tests pass;
+10 gameplay traces/seven validator tests and the draft schema/manifest checker
+pass; source and wheel builds pass. The sandbox required localhost access for
+the test-only HTTP server. No LAN model endpoint or model weights were accessed.
+Hosted CI, actual GPU loading, semantic quality and latency remain unmeasured.
+
 Status: **draft outputs integrated for review; model measurement gate open**.
 W2 is not complete. Authorized and dispatched November 8, 2026
 (America/New_York), after [PR #1](https://github.com/JohnnnyTang/Semaphore/pull/1)

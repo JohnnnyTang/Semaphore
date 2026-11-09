@@ -10,6 +10,15 @@ retain their evidence and review gates.
 
 Prepared: November 8, 2026.
 
+Updated November 9, 2026: the owner selected `qwen3-embedding:4b` and LAN Ollama
+on an NVIDIA GPU machine for development. The adapter, offline tests and selected
+model evaluation runner are implemented without contacting that machine. This
+supersedes the immediate three-model comparison/CPU development prerequisite;
+earlier wave cards below remain historical planning. Quality, runtime identity,
+thresholds and release hardware remain unvalidated. See
+[decision 0002](docs/decisions/0002-lan-ollama-development.md) and
+[runner commands](experiments/model_eval/README.md). W2's measurement gate stays open.
+
 Source: [Semaphore — Handoff](Semaphore%20%E2%80%94%20Handoff.md), plus the owner's clarifications in this planning conversation.
 
 ## Product understanding
@@ -41,7 +50,7 @@ The critical promise is that associations feel understandable while pressure bui
 | Leaderboards | Permanent histories, no ordinary reset; new pack versions and events create new boards | Stage 1 fairness contract |
 | Offline creator installation | Ship an operator-prepared offline bundle containing CLI dependencies and the pinned model; hub-hosted downloads are optional | Stage 4 planning |
 | Pack license | Required explicit license or rights statement; no automatic license grant/default; redistribution rights checked for bundled content | Stage 1 format contract |
-| Model selection | BGE base is the initial baseline, not a selected winner; benchmark GTE and Nomic alternatives | Stage 1 evidence gate |
+| Development model | Owner selected Qwen3-Embedding 4B via LAN Ollama; calibrate and evaluate that model | Decision 0002; measurement gate remains open |
 
 ## How stages, waves and sessions work
 

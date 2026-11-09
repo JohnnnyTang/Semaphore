@@ -1,5 +1,12 @@
 # W2 semantic evaluation evidence
 
+November 9 update: the owner has selected `qwen3-embedding:4b` for LAN Ollama
+development. Its adapter and evaluation runner are prepared without real-model
+access. Follow [decision 0002](../decisions/0002-lan-ollama-development.md) and the
+[current runner instructions](../../experiments/model_eval/README.md). The
+three-candidate selection requirement below is historical and superseded for
+development; no Qwen quality, latency or GPU result has been measured yet.
+
 Date: November 8, 2026. Status: fixture and harness implemented; model-selection
 gate remains open until the three pinned candidates have comparable measurements.
 No model is selected and no performance or semantic-quality pass is claimed here.
