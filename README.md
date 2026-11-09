@@ -9,10 +9,11 @@ the hub independently verifies each pack before publication.
 
 ## Project status
 
-Stage 1, Wave 2: semantic evidence, gameplay specification and platform contract
-drafts are in progress from the merged Wave 1 baseline. The game, hub, and creator
-kit are not implemented yet. The repository provides a Python package scaffold,
-a synthetic ranker for interface experiments, and automated checks.
+Stage 1, Wave 2: the semantic harness, gameplay specification and platform contract
+drafts are integrated for review. Real model measurements remain open after a
+failed weight download. The game, hub, and creator kit are not implemented yet.
+The repository provides synthetic fixtures, draft validation tools, a provisional
+ranker interface, and automated checks.
 
 - [Product handoff](Semaphore%20%E2%80%94%20Handoff.md)
 - [Project plan](PROJECT_PLAN.md): stages, waves, and parallel worktree sessions,
@@ -56,8 +57,8 @@ Keep the checks green before integration; see the workflow files in
 proposals are configured in [`.github/dependabot.yml`](.github/dependabot.yml).
 See the [automation notes](.github/README.md) for pin maintenance and GitHub settings.
 
-Wave 2's semantic, gameplay and platform-contract sessions run in isolated
-worktrees from the same merged commit. Wave 3 reconciles their evidence and
+Wave 2's semantic, gameplay and platform-contract sessions used isolated
+worktrees from the same merged commit. Wave 3 will reconcile their evidence and
 drafts before implementation begins. Real-model experiments opt in with
 `uv sync --locked --group dev --group model-eval`; model assets stay out of Git.
 

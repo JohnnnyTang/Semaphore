@@ -1,8 +1,10 @@
 # Semaphore project plan
 
 Status: Stage 1 Wave 1 merged in PR #1 on November 8, 2026 (America/New_York).
-The owner authorized Wave 2 with parallel sub-agents; B/C/D are running from
-merged baseline `80ebde2bec2289002f9bd58c6e131ad8627dc9d8`.
+The owner authorized Wave 2 with parallel sub-agents; B/C/D draft outputs are
+integrated on `codex/s1-w2-integration` from merged baseline
+`80ebde2bec2289002f9bd58c6e131ad8627dc9d8`. Model measurement remains open after
+a failed weight download; W2 is not declared complete.
 See [the W2 record](docs/stages/s1-w2-evidence-and-contracts.md). Later waves
 retain their evidence and review gates.
 

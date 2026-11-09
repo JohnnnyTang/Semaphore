@@ -65,6 +65,16 @@ jobs:
         run: uv sync --locked --group dev
       - name: Run tests
         run: uv run --no-sync pytest
+      - name: Validate gameplay specification fixtures
+        run: |
+          uv run --no-sync python fixtures/game_traces/validate.py
+          uv run --no-sync python -m unittest discover -s fixtures/game_traces -p 'test_*.py'
+      - name: Validate semantic fixtures without model downloads
+        run: |
+          uv run --no-sync python experiments/model_eval/run.py validate
+          uv run --no-sync python -m unittest discover -s experiments/model_eval -p 'test_*.py'
+      - name: Validate draft schemas and manifest boundaries
+        run: uv run --no-sync python fixtures/manifests/check_examples.py
       - name: Build source distribution and wheel
         run: uv build --no-build-isolation
       - name: Import the wheel outside the source environment

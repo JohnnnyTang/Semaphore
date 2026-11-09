@@ -1,6 +1,7 @@
 # Stage 1 / Wave 2 session briefs
 
-Status: **dispatched November 8, 2026 after PR #1 merged and W1 checks passed**.
+Status: **dispatched November 8, 2026; draft outputs integrated for review,
+model measurement gate still open**. PR #1 merged and W1 checks passed first.
 Common starting commit: `80ebde2bec2289002f9bd58c6e131ad8627dc9d8`.
 See the [W2 record](s1-w2-evidence-and-contracts.md) for progress and evidence.
 All sessions start from the coordinator's recorded W1 integrated commit, not the

@@ -90,6 +90,7 @@ later work; extrapolating small-fixture throughput is not acceptance evidence.
 W3 must not freeze a model, numeric near-tie policy or publication threshold from
 this infrastructure alone. Before that gate: finish three calibration runs,
 record a fixed encoding policy, run held-out data without further tuning, inspect
-weak/good separation and category failures, and collect actual reference-host
-and human-play evidence. The [source review](content-sources.md) separately keeps
+weak/good separation and category failures, and identify the measured benchmark
+host. Reference-server load and human-play evidence remain Stage 1 exit gates
+for W5 after the W4 playable experiment exists. The [source review](content-sources.md) separately keeps
 corpus licensing, yield and editorial effort gates explicit.
