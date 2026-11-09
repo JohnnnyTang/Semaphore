@@ -1,0 +1,34 @@
+{
+  "fixture_version": "draft-w2",
+  "schema": "manifest.schema.json",
+  "cases": [
+    {
+      "file": "valid-structural.json",
+      "expected": "ok"
+    },
+    {
+      "file": "invalid-uploaded-vectors.json",
+      "expected": "schema_invalid"
+    },
+    {
+      "file": "invalid-missing-license.json",
+      "expected": "schema_invalid"
+    },
+    {
+      "file": "invalid-duplicate-label.json",
+      "expected": "duplicate_entry"
+    },
+    {
+      "file": "invalid-foreign-test-id.json",
+      "expected": "test_coverage"
+    },
+    {
+      "file": "invalid-duplicate-normalized-clue.json",
+      "expected": "duplicate_clue"
+    },
+    {
+      "file": "invalid-handoff-illustration.json",
+      "expected": "schema_invalid"
+    }
+  ]
+}

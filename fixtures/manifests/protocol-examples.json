@@ -1,0 +1,591 @@
+[
+  {
+    "name": "legal command shape",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "submit_clue",
+      "command_id": "cmd-1",
+      "expected_revision": 1,
+      "clue": "orchard fruit"
+    },
+    "valid": true
+  },
+  {
+    "name": "client supplied score refused",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "submit_clue",
+      "command_id": "cmd-1",
+      "expected_revision": 1,
+      "clue": "orchard fruit",
+      "score": 9000
+    },
+    "valid": false
+  },
+  {
+    "name": "snapshot shape",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "snapshot",
+      "command_id": null,
+      "state": {
+        "game_id": "game-fixture",
+        "revision": 1,
+        "server_time_ms": 0,
+        "status": "running",
+        "board": [
+          {
+            "entry_id": "apple",
+            "text": "apple"
+          }
+        ],
+        "target_id": "apple",
+        "score": 0,
+        "level": 1,
+        "next_spawn_ms": 5000,
+        "end_reason": null,
+        "pack_id": "everyday-fixture",
+        "pack_version": "1.0.0",
+        "ruleset_id": "draft-w2-unselected",
+        "model_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "challenge_id": null
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "rejection requires error",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "rejected",
+      "command_id": "cmd-1",
+      "state": {
+        "game_id": "game-fixture",
+        "revision": 1,
+        "server_time_ms": 0,
+        "status": "running",
+        "board": [
+          {
+            "entry_id": "apple",
+            "text": "apple"
+          }
+        ],
+        "target_id": "apple",
+        "score": 0,
+        "level": 1,
+        "next_spawn_ms": 5000,
+        "end_reason": null,
+        "pack_id": "everyday-fixture",
+        "pack_version": "1.0.0",
+        "ruleset_id": "draft-w2-unselected",
+        "model_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "challenge_id": null
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "rejection with error",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "rejected",
+      "command_id": "cmd-1",
+      "state": {
+        "game_id": "game-fixture",
+        "revision": 1,
+        "server_time_ms": 0,
+        "status": "running",
+        "board": [
+          {
+            "entry_id": "apple",
+            "text": "apple"
+          }
+        ],
+        "target_id": "apple",
+        "score": 0,
+        "level": 1,
+        "next_spawn_ms": 5000,
+        "end_reason": null,
+        "pack_id": "everyday-fixture",
+        "pack_version": "1.0.0",
+        "ruleset_id": "draft-w2-unselected",
+        "model_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "challenge_id": null
+      },
+      "error": {
+        "code": "stale_revision",
+        "message": "Refresh authoritative state",
+        "request_id": "request-fixture"
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "game over cannot be running",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "game_over",
+      "command_id": null,
+      "state": {
+        "game_id": "game-fixture",
+        "revision": 1,
+        "server_time_ms": 0,
+        "status": "running",
+        "board": [
+          {
+            "entry_id": "apple",
+            "text": "apple"
+          }
+        ],
+        "target_id": "apple",
+        "score": 0,
+        "level": 1,
+        "next_spawn_ms": 5000,
+        "end_reason": null,
+        "pack_id": "everyday-fixture",
+        "pack_version": "1.0.0",
+        "ruleset_id": "draft-w2-unselected",
+        "model_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "challenge_id": null
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "create game references no client score",
+    "schema": "http.schema.json",
+    "fragment": "#/$defs/createGame",
+    "payload": {
+      "pack_id": "everyday-fixture",
+      "pack_version": "1.0.0"
+    },
+    "valid": true
+  },
+  {
+    "name": "published job requires report",
+    "schema": "http.schema.json",
+    "fragment": "#/$defs/uploadJob",
+    "payload": {
+      "job_id": "job-fixture",
+      "pack_id": "everyday-fixture",
+      "pack_version": "1.0.0",
+      "status": "published"
+    },
+    "valid": false
+  },
+  {
+    "name": "SYNTHETIC report shape only; not measured",
+    "schema": "verification.schema.json",
+    "fragment": "",
+    "payload": {
+      "report_version": "draft-w2",
+      "authority": "hub-recomputed",
+      "manifest_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "semantic_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "vector_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "fingerprint_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "fingerprint": {
+        "repository": "synthetic/schema-fixture",
+        "revision": "0000000000000000000000000000000000000000",
+        "assets": {
+          "weights.safetensors": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "runtime": {
+          "fixture": "0.0.0"
+        },
+        "query_instruction": "",
+        "document_instruction": "",
+        "pooling": "mean",
+        "dimensions": 1,
+        "normalize": true,
+        "dtype": "float32",
+        "max_tokens": 1,
+        "truncation": "reject",
+        "custom_code_sha256": null
+      },
+      "metrics_version": "draft-w2-unselected",
+      "protocol_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "ruleset_id": "draft-w2-unselected",
+      "status": "passed",
+      "metrics": {
+        "entry_count": 40,
+        "legal_clue_count": 120,
+        "reachable_entries": 40,
+        "reachability": 1,
+        "playability": 100,
+        "mean_rank": 1,
+        "duplicate_entry_count": 0
+      },
+      "sample_count": 5,
+      "numeric_tolerance": 1e-05,
+      "flagged_entries": [],
+      "flagged_pairs": [],
+      "diagnostics_truncated": false,
+      "elapsed_ms": 0
+    },
+    "valid": true
+  },
+  {
+    "name": "SYNTHETIC cross schema published job",
+    "schema": "http.schema.json",
+    "fragment": "#/$defs/uploadJob",
+    "payload": {
+      "job_id": "job-fixture",
+      "pack_id": "everyday-fixture",
+      "pack_version": "1.0.0",
+      "status": "published",
+      "report": {
+        "report_version": "draft-w2",
+        "authority": "hub-recomputed",
+        "manifest_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "semantic_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "vector_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "fingerprint_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "fingerprint": {
+          "repository": "synthetic/schema-fixture",
+          "revision": "0000000000000000000000000000000000000000",
+          "assets": {
+            "weights.safetensors": "0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "runtime": {
+            "fixture": "0.0.0"
+          },
+          "query_instruction": "",
+          "document_instruction": "",
+          "pooling": "mean",
+          "dimensions": 1,
+          "normalize": true,
+          "dtype": "float32",
+          "max_tokens": 1,
+          "truncation": "reject",
+          "custom_code_sha256": null
+        },
+        "metrics_version": "draft-w2-unselected",
+        "protocol_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "ruleset_id": "draft-w2-unselected",
+        "status": "passed",
+        "metrics": {
+          "entry_count": 40,
+          "legal_clue_count": 120,
+          "reachable_entries": 40,
+          "reachability": 1,
+          "playability": 100,
+          "mean_rank": 1,
+          "duplicate_entry_count": 0
+        },
+        "sample_count": 5,
+        "numeric_tolerance": 1e-05,
+        "flagged_entries": [],
+        "flagged_pairs": [],
+        "diagnostics_truncated": false,
+        "elapsed_ms": 0
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "floating model revision refused",
+    "schema": "verification.schema.json",
+    "fragment": "",
+    "payload": {
+      "report_version": "draft-w2",
+      "authority": "hub-recomputed",
+      "manifest_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "semantic_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "vector_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "fingerprint_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "fingerprint": {
+        "repository": "synthetic/schema-fixture",
+        "revision": "main",
+        "assets": {
+          "weights.safetensors": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "runtime": {
+          "fixture": "0.0.0"
+        },
+        "query_instruction": "",
+        "document_instruction": "",
+        "pooling": "mean",
+        "dimensions": 1,
+        "normalize": true,
+        "dtype": "float32",
+        "max_tokens": 1,
+        "truncation": "reject",
+        "custom_code_sha256": null
+      },
+      "metrics_version": "draft-w2-unselected",
+      "protocol_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "ruleset_id": "draft-w2-unselected",
+      "status": "passed",
+      "metrics": {
+        "entry_count": 40,
+        "legal_clue_count": 120,
+        "reachable_entries": 40,
+        "reachability": 1,
+        "playability": 100,
+        "mean_rank": 1,
+        "duplicate_entry_count": 0
+      },
+      "sample_count": 5,
+      "numeric_tolerance": 1e-05,
+      "flagged_entries": [],
+      "flagged_pairs": [],
+      "diagnostics_truncated": false,
+      "elapsed_ms": 0
+    },
+    "valid": false
+  },
+  {
+    "name": "role injection refused",
+    "schema": "http.schema.json",
+    "fragment": "#/$defs/account",
+    "payload": {
+      "login": "fixture",
+      "password": "synthetic-passphrase",
+      "role": "admin"
+    },
+    "valid": false
+  },
+  {
+    "name": "target absent from board",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "snapshot",
+      "command_id": null,
+      "state": {
+        "game_id": "game-fixture",
+        "revision": 1,
+        "server_time_ms": 0,
+        "status": "running",
+        "board": [
+          {
+            "entry_id": "apple",
+            "text": "apple"
+          }
+        ],
+        "target_id": "missing",
+        "score": 0,
+        "level": 1,
+        "next_spawn_ms": 5000,
+        "end_reason": null,
+        "pack_id": "everyday-fixture",
+        "pack_version": "1.0.0",
+        "ruleset_id": "draft-w2-unselected",
+        "model_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "challenge_id": null
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "terminal state lacks end reason",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "snapshot",
+      "command_id": null,
+      "state": {
+        "game_id": "game-fixture",
+        "revision": 1,
+        "server_time_ms": 0,
+        "status": "ended",
+        "board": [
+          {
+            "entry_id": "apple",
+            "text": "apple"
+          }
+        ],
+        "target_id": "apple",
+        "score": 0,
+        "level": 1,
+        "next_spawn_ms": null,
+        "end_reason": null,
+        "pack_id": "everyday-fixture",
+        "pack_version": "1.0.0",
+        "ruleset_id": "draft-w2-unselected",
+        "model_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "challenge_id": null
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "terminal state has scheduled spawn",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "snapshot",
+      "command_id": null,
+      "state": {
+        "game_id": "game-fixture",
+        "revision": 1,
+        "server_time_ms": 0,
+        "status": "ended",
+        "board": [
+          {
+            "entry_id": "apple",
+            "text": "apple"
+          }
+        ],
+        "target_id": "apple",
+        "score": 0,
+        "level": 1,
+        "next_spawn_ms": 5000,
+        "end_reason": "overflow",
+        "pack_id": "everyday-fixture",
+        "pack_version": "1.0.0",
+        "ruleset_id": "draft-w2-unselected",
+        "model_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "challenge_id": null
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "running state has end reason",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "snapshot",
+      "command_id": null,
+      "state": {
+        "game_id": "game-fixture",
+        "revision": 1,
+        "server_time_ms": 0,
+        "status": "running",
+        "board": [
+          {
+            "entry_id": "apple",
+            "text": "apple"
+          }
+        ],
+        "target_id": "apple",
+        "score": 0,
+        "level": 1,
+        "next_spawn_ms": 5000,
+        "end_reason": "overflow",
+        "pack_id": "everyday-fixture",
+        "pack_version": "1.0.0",
+        "ruleset_id": "draft-w2-unselected",
+        "model_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "challenge_id": null
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "terminal snapshot invariants",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "snapshot",
+      "command_id": null,
+      "state": {
+        "game_id": "game-fixture",
+        "revision": 1,
+        "server_time_ms": 0,
+        "status": "ended",
+        "board": [
+          {
+            "entry_id": "apple",
+            "text": "apple"
+          }
+        ],
+        "target_id": "apple",
+        "score": 0,
+        "level": 1,
+        "next_spawn_ms": null,
+        "end_reason": "overflow",
+        "pack_id": "everyday-fixture",
+        "pack_version": "1.0.0",
+        "ruleset_id": "draft-w2-unselected",
+        "model_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "challenge_id": null
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "duplicate board ID with different label",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "snapshot",
+      "command_id": null,
+      "state": {
+        "game_id": "game-fixture",
+        "revision": 1,
+        "server_time_ms": 0,
+        "status": "running",
+        "board": [
+          {
+            "entry_id": "apple",
+            "text": "apple"
+          },
+          {
+            "entry_id": "apple",
+            "text": "other label"
+          }
+        ],
+        "target_id": "apple",
+        "score": 0,
+        "level": 1,
+        "next_spawn_ms": 5000,
+        "end_reason": null,
+        "pack_id": "everyday-fixture",
+        "pack_version": "1.0.0",
+        "ruleset_id": "draft-w2-unselected",
+        "model_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "challenge_id": null
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "empty board cannot retain target",
+    "schema": "events.schema.json",
+    "fragment": "",
+    "payload": {
+      "protocol": "draft-w2",
+      "type": "snapshot",
+      "command_id": null,
+      "state": {
+        "game_id": "game-fixture",
+        "revision": 1,
+        "server_time_ms": 0,
+        "status": "running",
+        "board": [],
+        "target_id": "apple",
+        "score": 0,
+        "level": 1,
+        "next_spawn_ms": 5000,
+        "end_reason": null,
+        "pack_id": "everyday-fixture",
+        "pack_version": "1.0.0",
+        "ruleset_id": "draft-w2-unselected",
+        "model_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "challenge_id": null
+      }
+    },
+    "valid": false
+  }
+]

@@ -1,0 +1,48 @@
+{
+  "spec_version": "1",
+  "pack": {
+    "id": "physical-geography-101",
+    "name": "Physical Geography 101",
+    "version": "1.0.0",
+    "author": "nickname",
+    "description": "Landforms and processes",
+    "tags": [
+      "geography"
+    ],
+    "language": "en",
+    "license": "CC-BY-4.0"
+  },
+  "entries": [
+    {
+      "text": "glacier",
+      "forbidden_clues": [
+        "glacial"
+      ],
+      "tier": 1
+    },
+    {
+      "text": "oxbow lake",
+      "embed_text": "oxbow lake, a cut-off river meander",
+      "tier": 2
+    }
+  ],
+  "test_set": {
+    "glacier": [
+      "slow river of ice",
+      "ice age",
+      "crevasse"
+    ]
+  },
+  "test_report": {
+    "reachability": 0.94,
+    "mean_rank": 1.6,
+    "flagged": [
+      "loess"
+    ]
+  },
+  "provenance": {
+    "agent": "self-reported string",
+    "packtool": "0.1.0",
+    "embedding_model": "<id>@<revision>"
+  }
+}
