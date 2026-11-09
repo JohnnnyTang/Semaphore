@@ -23,7 +23,7 @@ statement that planning alone did not authorize implementation remains historica
 
 | Choice | Status and rationale |
 | --- | --- |
-| CPython 3.12, one uv-managed project and committed lock | W1 selection, pending integrated install/build verification. Keep the baseline small; confirm candidate model dependencies in W2 before expanding it. |
+| CPython 3.12, one uv-managed project and committed lock | W1 selection; locked install, tests and package build verified locally on CPython 3.12.12. Keep the baseline small; confirm candidate model dependencies in W2 before expanding it. |
 | pytest and Ruff | W1 checks for behavior, lint and formatting. The dependency lock records exact versions. |
 | Fake ranker and synthetic fixtures | Setup tools only. Their outputs establish deterministic plumbing, not semantic quality, real-model parity or performance. Their interface remains provisional until W3. |
 | Vanilla HTML/CSS/JavaScript for the first browser experiment | W1 scope choice: minimize setup for the small experiment. Reconsider Preact at W3 if W2 interaction requirements justify it; no frontend scaffold or dependency is needed in W1. |

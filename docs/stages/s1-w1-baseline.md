@@ -1,6 +1,6 @@
 # Stage 1 / Wave 1 baseline record
 
-Status: **running; coordinator integration and acceptance pending**.
+Status: **integrated on `codex/s1-w1-baseline`; local acceptance passed**.
 Date: November 8, 2026.
 Starting commit: `ce05b9c7778d5a79681ede0318c36ee544fd6196`.
 
@@ -25,19 +25,37 @@ commit and returns commits, owned paths, checks and unresolved issues.
 
 Before advancing the wave, the coordinator records evidence for:
 
-- [ ] Runtime, CI and documentation changes reviewed and integrated.
-- [ ] A fresh worktree installs the recorded dependency set with `uv sync --locked --group dev`.
-- [ ] Installed package import and meaningful fake-ranker smoke tests pass.
-- [ ] Ruff lint and format checks pass against the integrated baseline.
-- [ ] A package build succeeds using the recorded build dependency strategy.
-- [ ] Workflow syntax/action references checked; distinguish local validation from an actual GitHub run.
-- [ ] [Decision ledger](../decisions/0001-experiment-baseline.md) matches the selected runtime and observed checks.
-- [ ] [W2 briefs](s1-w2-session-briefs.md) have disjoint ownership and adequate inputs.
-- [ ] Integrated baseline commit and any remaining limitations recorded below.
+- [x] Runtime, CI and documentation changes reviewed and integrated.
+- [x] A fresh worktree installs the recorded dependency set with `uv sync --locked --group dev`.
+- [x] Installed package import and meaningful fake-ranker smoke tests pass.
+- [x] Ruff lint and format checks pass against the integrated baseline.
+- [x] A package build succeeds using the recorded build dependency strategy.
+- [x] Workflow syntax/action references checked; distinguish local validation from an actual GitHub run.
+- [x] [Decision ledger](../decisions/0001-experiment-baseline.md) matches the selected runtime and observed checks.
+- [x] [W2 briefs](s1-w2-session-briefs.md) have disjoint ownership and adequate inputs.
+- [x] Integrated baseline commit and any remaining limitations recorded below.
 
-Integrated baseline: **pending**. Local/remote CI results: **pending coordinator
-verification**. The checked-in project configuration and README are the authority
-for exact final development commands if they change during review.
+Integrated code baseline: `a864232` (runtime, CI and decisions), followed by the
+coordinator's documentation/line-ending commit on `codex/s1-w1-baseline`. Record
+the final reviewed branch tip when dispatching W2; it has not been dispatched.
+
+Local evidence on Windows / CPython 3.12.12 / uv 0.9.18:
+
+- Locked sync, Ruff lint/format and all **8 pytest cases passed**.
+- `uv build --no-build-isolation` produced the source distribution and wheel;
+  the runtime worker separately installed the wheel and checked an isolated import.
+- A clean detached worktree at `a864232` repeated locked install, all 8 tests,
+  package build and actionlint 1.7.12. The install reused downloaded cache offline;
+  this is scaffold evidence, not offline game acceptance.
+- Local sandbox restrictions required an in-workspace `UV_CACHE_DIR` and elevated
+  dependency access. A partially interrupted environment was replaced with a
+  fresh verification environment using `--link-mode copy`.
+- Hosted Linux/Windows checks are tracked in the branch's GitHub Actions runs;
+  local success alone does not assert that hosted checks passed.
+
+GitHub Actions is enabled with read-only default workflow permissions. `main`
+currently has no branch protection. Dependabot becomes active when its configuration
+lands on the default branch; no deployment or release publishing is configured.
 
 W1 excludes model choice, model weights, full application scaffolding, auth,
 production contracts and claimed benchmark results. The reference hardware gap is

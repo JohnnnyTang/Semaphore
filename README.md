@@ -9,11 +9,15 @@ the hub independently verifies each pack before publication.
 
 ## Project status
 
-Planning stage. The game, hub, and creator kit are not implemented yet.
+Stage 1, Wave 1: experiment baseline. The game, hub, and creator kit are not
+implemented yet. The repository provides a Python package scaffold, a synthetic
+ranker for interface experiments, and automated checks.
 
 - [Product handoff](Semaphore%20%E2%80%94%20Handoff.md)
 - [Project plan](PROJECT_PLAN.md): stages, waves, and parallel worktree sessions,
   with only Stage 1 planned in detail.
+- [Wave 1 evidence](docs/stages/s1-w1-baseline.md) and
+  [Wave 2 session briefs](docs/stages/s1-w2-session-briefs.md).
 
 ## Planned scope
 
@@ -29,8 +33,29 @@ Implementation will follow the stage → wave → session structure in the proje
 plan. Parallel sessions use separate Git worktrees and integrate at wave
 boundaries. Later stages are detailed as evidence emerges.
 
-Installation and development commands will be added with the first runnable
-implementation.
+Use Python 3.12 and [uv](https://docs.astral.sh/uv/). From the repository root:
+
+```sh
+uv sync --locked --group dev
+uv run --no-sync ruff check .
+uv run --no-sync ruff format --check .
+uv run --no-sync pytest
+uv build --no-build-isolation
+```
+
+The lock file records the development dependencies. Initial installation needs
+access to Python packages; the smoke checks use synthetic data and require no
+model download or network service. The fake ranker supplies deterministic test
+results, not semantic quality or performance evidence.
+
+GitHub Actions checks pull requests and pushes to `main` and `codex/**` branches.
+Keep the checks green before integration; see the workflow files in
+[`.github/workflows`](.github/workflows) for the exact jobs. Dependency update
+proposals are configured in [`.github/dependabot.yml`](.github/dependabot.yml).
+See the [automation notes](.github/README.md) for pin maintenance and GitHub settings.
+
+Wave 2 remains a separate dispatch after the baseline is reviewed. Its semantic,
+gameplay and platform-contract sessions must consume the same integrated commit.
 
 ## License
 
