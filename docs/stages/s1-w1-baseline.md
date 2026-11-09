@@ -1,6 +1,6 @@
 # Stage 1 / Wave 1 baseline record
 
-Status: **integrated on `codex/s1-w1-baseline`; local acceptance passed**.
+Status: **merged to main in PR #1; local and hosted acceptance passed**.
 Date: November 8, 2026.
 Starting commit: `ce05b9c7778d5a79681ede0318c36ee544fd6196`.
 
@@ -35,9 +35,11 @@ Before advancing the wave, the coordinator records evidence for:
 - [x] [W2 briefs](s1-w2-session-briefs.md) have disjoint ownership and adequate inputs.
 - [x] Integrated baseline commit and any remaining limitations recorded below.
 
-Integrated code baseline: `a864232` (runtime, CI and decisions), followed by the
-coordinator's documentation/line-ending commit on `codex/s1-w1-baseline`. Record
-the final reviewed branch tip when dispatching W2; it has not been dispatched.
+Integrated code baseline: `a864232` (runtime, CI and decisions), followed by
+reviewed branch tip `30ef8c93f3878b3714246b65b92a72c71a8cd7eb`.
+[PR #1](https://github.com/JohnnnyTang/Semaphore/pull/1) merged November 8, 2026
+(America/New_York), yielding `80ebde2bec2289002f9bd58c6e131ad8627dc9d8`.
+All W2 workers were dispatched from that merge commit.
 
 Local evidence on Windows / CPython 3.12.12 / uv 0.9.18:
 
@@ -50,8 +52,8 @@ Local evidence on Windows / CPython 3.12.12 / uv 0.9.18:
 - Local sandbox restrictions required an in-workspace `UV_CACHE_DIR` and elevated
   dependency access. A partially interrupted environment was replaced with a
   fresh verification environment using `--link-mode copy`.
-- Hosted Linux/Windows checks are tracked in the branch's GitHub Actions runs;
-  local success alone does not assert that hosted checks passed.
+- Hosted PR checks passed before merge: Python quality, Linux and Windows tests
+  and packaging, and workflow lint.
 
 GitHub Actions is enabled with read-only default workflow permissions. `main`
 currently has no branch protection. Dependabot becomes active when its configuration

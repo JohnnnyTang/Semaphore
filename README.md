@@ -9,15 +9,17 @@ the hub independently verifies each pack before publication.
 
 ## Project status
 
-Stage 1, Wave 1: experiment baseline. The game, hub, and creator kit are not
-implemented yet. The repository provides a Python package scaffold, a synthetic
-ranker for interface experiments, and automated checks.
+Stage 1, Wave 2: semantic evidence, gameplay specification and platform contract
+drafts are in progress from the merged Wave 1 baseline. The game, hub, and creator
+kit are not implemented yet. The repository provides a Python package scaffold,
+a synthetic ranker for interface experiments, and automated checks.
 
 - [Product handoff](Semaphore%20%E2%80%94%20Handoff.md)
 - [Project plan](PROJECT_PLAN.md): stages, waves, and parallel worktree sessions,
   with only Stage 1 planned in detail.
-- [Wave 1 evidence](docs/stages/s1-w1-baseline.md) and
-  [Wave 2 session briefs](docs/stages/s1-w2-session-briefs.md).
+- [Wave 1 evidence](docs/stages/s1-w1-baseline.md),
+  [Wave 2 session briefs](docs/stages/s1-w2-session-briefs.md) and
+  [Wave 2 progress](docs/stages/s1-w2-evidence-and-contracts.md).
 
 ## Planned scope
 
@@ -54,8 +56,10 @@ Keep the checks green before integration; see the workflow files in
 proposals are configured in [`.github/dependabot.yml`](.github/dependabot.yml).
 See the [automation notes](.github/README.md) for pin maintenance and GitHub settings.
 
-Wave 2 remains a separate dispatch after the baseline is reviewed. Its semantic,
-gameplay and platform-contract sessions must consume the same integrated commit.
+Wave 2's semantic, gameplay and platform-contract sessions run in isolated
+worktrees from the same merged commit. Wave 3 reconciles their evidence and
+drafts before implementation begins. Real-model experiments opt in with
+`uv sync --locked --group dev --group model-eval`; model assets stay out of Git.
 
 ## License
 

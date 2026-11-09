@@ -1,9 +1,10 @@
 # Semaphore project plan
 
-Status: Stage 1 Wave 1 implementation authorized by the owner on November 8,
-2026. The baseline setup is integrated on `codex/s1-w1-baseline` and locally
-verified; see [the W1 record](docs/stages/s1-w1-baseline.md). Later waves retain
-their gates.
+Status: Stage 1 Wave 1 merged in PR #1 on November 8, 2026 (America/New_York).
+The owner authorized Wave 2 with parallel sub-agents; B/C/D are running from
+merged baseline `80ebde2bec2289002f9bd58c6e131ad8627dc9d8`.
+See [the W2 record](docs/stages/s1-w2-evidence-and-contracts.md). Later waves
+retain their evidence and review gates.
 
 Prepared: November 8, 2026.
 
