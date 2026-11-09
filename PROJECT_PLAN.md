@@ -1,6 +1,9 @@
 # Semaphore project plan
 
-Status: planning baseline; no implementation authorized by this document alone.
+Status: Stage 1 Wave 1 implementation authorized by the owner on November 8,
+2026. The baseline setup is integrated on `codex/s1-w1-baseline` and locally
+verified; see [the W1 record](docs/stages/s1-w1-baseline.md). Later waves retain
+their gates.
 
 Prepared: November 8, 2026.
 
@@ -21,7 +24,7 @@ The critical promise is that associations feel understandable while pressure bui
 - **Owner confirmed:** lightweight accounts, replacing the handoff's device-token suggestion and earlier exclusion of an accounts system. Interpret as local username/password accounts, without email, OAuth, or external identity services.
 - **Owner confirmed:** target 6–8 concurrent players; CPU-only, 8 GB RAM is the initial benchmark envelope. Exact CPU and OS still need recording before measurements can establish a supported minimum.
 - **Owner confirmed:** persist private clue logs for future pack feedback. Creator visibility is not authorized by that decision.
-- Later-stage detail is deliberately deferred. This document schedules Stage 1 only; it does not start implementation or create worktrees.
+- Later-stage detail is deliberately deferred. This document schedules Stage 1 only. The owner's subsequent instruction authorized repository automation and first-wave implementation in parallel worktrees.
 
 ### Proposed decisions still open to adjustment
 
@@ -47,9 +50,9 @@ The critical promise is that associations feel understandable while pressure bui
 
 ### Worktree and integration protocol
 
-1. At planning kickoff, the workspace contained only the handoff and had no Git metadata. Before implementation worktrees are created, initialize Git and commit the planning baseline; repository setup may complete this prerequisite ahead of Stage 1.
+1. The planning baseline is committed as `ce05b9c`. W1 setup sessions start from that commit; later sessions start from their recorded integrated wave baseline.
 2. A coordinator owns the integration branch, root dependency/lock files, migrations, shared contracts and the plan. Only the coordinator advances the wave baseline.
-3. Use branch IDs such as `s1/w2/b-model-evaluation`; create sibling worktrees in an approved writable location. Do not assume a sibling directory is writable in every agent environment.
+3. Use branch IDs such as `codex/s1-w2-b-model-evaluation`; create worktrees in an approved writable location. This workspace uses ignored `.worktrees/` directories because sibling directories are outside its writable scope.
 4. Every session starts from the same recorded baseline commit for its wave. Dependencies must already be merged; a session must not import another running session's unmerged files.
 5. Each session owns the paths listed below, including its own tests. Shared-interface changes go to the coordinator, who resolves and integrates them before dependent work resumes.
 6. With four agent slots, use one coordinator plus at most three concurrent workers. Do not equate three sessions with a guaranteed threefold speedup.
