@@ -1,5 +1,12 @@
 # Stage 1 / Wave 2 evidence and contract drafts
 
+November 9 follow-up: the endpoint is reachable and full calibration/held-out
+measurements are now recorded in [model evidence](../evidence/model-evaluation.md).
+The retrieval measurement gap below is resolved for the selected development
+model. W3 integrates bounded experiment contracts; see its
+[review record](s1-w3-contract-reconciliation.md) for remaining performance,
+verification and product gates. Earlier progress entries below are historical.
+
 November 9 update: the owner fixed Qwen3-Embedding 4B for LAN Ollama development.
 The adapter, offline tests and evaluation commands are prepared; real measurements
 await the endpoint. The earlier download/comparison next step below is superseded

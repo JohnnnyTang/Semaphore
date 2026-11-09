@@ -67,9 +67,7 @@ def report():
 
 def tokens(text):
     text = normalize(text).casefold()
-    separated = "".join(
-        c if unicodedata.category(c)[0] in "LN" else " " for c in text
-    )
+    separated = "".join(c if unicodedata.category(c)[0] in "LN" else " " for c in text)
     mapping = dict.fromkeys(["car", "cars"], "car")
     mapping.update(dict.fromkeys(["run", "runs", "running", "ran"], "run"))
     return [mapping.get(t, t) for t in separated.split()]
@@ -83,7 +81,7 @@ def legal(clue, target):
         phrase = tokens(text)
         if not phrase:
             raise ValueError("empty lexical phrase")
-        if any(clue_tokens[i:i + len(phrase)] == phrase for i in range(len(clue_tokens))):
+        if any(clue_tokens[i : i + len(phrase)] == phrase for i in range(len(clue_tokens))):
             return False
     return True
 
@@ -95,15 +93,22 @@ def test_manifest_structure_and_legacy_semantic_fixtures():
     for case in cases:
         value = parse((ROOT / "fixtures/manifests" / case["file"]).read_bytes())
         value["spec_version"] = "1-experiment-w3"
-        actual = "schema_invalid" if list(check.iter_errors(value)) else (
-            draft_semantic_error(value) or "ok"
+        actual = (
+            "schema_invalid"
+            if list(check.iter_errors(value))
+            else (draft_semantic_error(value) or "ok")
         )
         assert actual == case["expected"]
 
 
-@pytest.mark.parametrize("field,value", [
-    ("vectors", []), ("spec_version", "1-draft-w2"), ("injected", True),
-])
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("vectors", []),
+        ("spec_version", "1-draft-w2"),
+        ("injected", True),
+    ],
+)
 def test_manifest_rejects_unknown_or_wrong_version(field, value):
     data = manifest()
     data[field] = value
@@ -151,17 +156,20 @@ def test_hash_projection_isolation_and_fixed_w2_vectors():
     assert projected_hash(changed, vectors=True) != projected_hash(data, vectors=True)
 
 
-@pytest.mark.parametrize("clue,target,expected", [
-    ("cars", {"text": "car"}, False),
-    ("carpet", {"text": "car"}, True),
-    ("she ran", {"text": "run"}, False),
-    ("running", {"text": "run"}, False),
-    ("NEW—YORK", {"text": "New York"}, False),
-    ("a cab", {"text": "taxi", "aliases": ["cab"]}, False),
-    ("fruit", {"text": "apple", "forbidden_clues": ["fruit"]}, False),
-    ("!!!", {"text": "car"}, False),
-    ("children", {"text": "child"}, True),  # explicitly unsupported morphology
-])
+@pytest.mark.parametrize(
+    "clue,target,expected",
+    [
+        ("cars", {"text": "car"}, False),
+        ("carpet", {"text": "car"}, True),
+        ("she ran", {"text": "run"}, False),
+        ("running", {"text": "run"}, False),
+        ("NEW—YORK", {"text": "New York"}, False),
+        ("a cab", {"text": "taxi", "aliases": ["cab"]}, False),
+        ("fruit", {"text": "apple", "forbidden_clues": ["fruit"]}, False),
+        ("!!!", {"text": "car"}, False),
+        ("children", {"text": "child"}, True),  # explicitly unsupported morphology
+    ],
+)
 def test_reviewed_legality_subset(clue, target, expected):
     assert legal(clue, target) is expected
 
@@ -177,9 +185,12 @@ def test_total_order_and_deterministic_sampling_reference():
 
     def sample(pool, index):
         rest = [i for i in pool if i != target and i not in hard]
-        rest.sort(key=lambda i: (
-            hashlib.sha256(canonical(["decoy-v1", "0" * 64, target, index, i])).hexdigest(), i
-        ))
+        rest.sort(
+            key=lambda i: (
+                hashlib.sha256(canonical(["decoy-v1", "0" * 64, target, index, i])).hexdigest(),
+                i,
+            )
+        )
         return hard + rest[:14]
 
     samples = [sample(ids, i) for i in range(5)]
@@ -198,11 +209,17 @@ def test_machine_readable_policy_hash_ignores_line_endings():
     assert canonical(json.loads(alternate)) == encoded
 
 
-@pytest.mark.parametrize("raw", [
-    b'{"x":1,"x":2}', b'{"x":NaN}', b'{"x":1e400}',
-    b'\xef\xbb\xbf{}', b'{"x":"\\ud800"}',
-    b'{"x":' + b'[' * 17 + b'0' + b']' * 17 + b'}',
-])
+@pytest.mark.parametrize(
+    "raw",
+    [
+        b'{"x":1,"x":2}',
+        b'{"x":NaN}',
+        b'{"x":1e400}',
+        b"\xef\xbb\xbf{}",
+        b'{"x":"\\ud800"}',
+        b'{"x":' + b"[" * 17 + b"0" + b"]" * 17 + b"}",
+    ],
+)
 def test_strict_parser_rejects_ambiguous_or_unbounded_json(raw):
     with pytest.raises(ValueError, match="invalid_json"):
         parse(raw)

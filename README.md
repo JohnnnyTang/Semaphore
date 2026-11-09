@@ -9,13 +9,15 @@ the hub independently verifies each pack before publication.
 
 ## Project status
 
-Stage 1, Wave 2: the semantic harness, gameplay specification and platform contract
-drafts are integrated for review. Qwen3-Embedding 4B is selected for development
-through a LAN Ollama server. Its adapter, offline tests and evaluation runner are
-implemented; real model measurements await the operator's endpoint.
+Stage 1, Wave 3: model evaluation and bounded experiment contracts are integrated.
+Direct access to the LAN Ollama server and real 2,560-dimensional
+query/entry embeddings are verified for Qwen3-Embedding 4B (Q4_K_M). Contextual
+entries achieved 180/180 held-out top-three results on synthetic clues; embedding
+HTTP p95 was about 202 ms, exceeding the proposed 100 ms game target. See the
+[Wave 3 record](docs/stages/s1-w3-contract-reconciliation.md) for evidence and gates.
 The game, hub, and creator kit are not implemented yet.
-The repository provides synthetic fixtures, draft validation tools, a provisional
-ranker interface, and automated checks.
+The repository provides synthetic fixtures, experiment contracts, validation tools,
+an embedding adapter, a scripted ranker and automated checks.
 
 - [Product handoff](Semaphore%20%E2%80%94%20Handoff.md)
 - [Project plan](PROJECT_PLAN.md): stages, waves, and parallel worktree sessions,
@@ -65,7 +67,7 @@ proposals are configured in [`.github/dependabot.yml`](.github/dependabot.yml).
 See the [automation notes](.github/README.md) for pin maintenance and GitHub settings.
 
 Wave 2's semantic, gameplay and platform-contract sessions used isolated
-worktrees from the same merged commit. Wave 3 will reconcile their evidence and
+worktrees from the same merged commit. Wave 3 reconciles their evidence and
 drafts before gameplay implementation begins. Historical CPU model experiments opt in with
 `uv sync --locked --group dev --group model-eval`; model assets stay out of Git.
 

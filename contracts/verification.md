@@ -2,8 +2,10 @@
 
 This freezes interfaces for W4, not a publication or semantic-quality pass.
 The Ollama connectivity check observes the selected 4B Q4_K_M artifact and 2,560
-dimensions. Calibration, held-out results, cross-runtime parity and human play
-remain evidence gates. Reachability 0.85 and bottom zone 3 are provisional.
+dimensions. Synthetic retrieval calibration and held-out results are recorded in
+`docs/evidence/model-evaluation.md`; this verifier's own calibration, cross-runtime
+parity and human play remain gates. Reachability 0.85 is provisional; bottom zone
+3 is the experimental ruleset choice.
 Reports use `measured` or `rejected`; neither authorizes publication. Creator
 self reports are untrusted and never substituted for recomputation.
 

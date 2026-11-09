@@ -1,5 +1,14 @@
 # Semaphore project plan
 
+November 9, 2026 update: direct LAN Ollama access and real query/entry embeddings
+are verified. The owner authorized the next wave with parallel GPT-6.1 Sol agents
+at medium effort. W3 model evidence and contract reconciliation started from
+`fee011df94ce06afb5e207ac7017b436b6f9ea7c`; see the
+[W3 record](docs/stages/s1-w3-contract-reconciliation.md). The historical status
+below describes the preceding gate. Bounded experiment contracts and measurements
+are now integrated. Full W3 closure remains gated by verifier calibration,
+adaptive casual/lexical policy and the latency miss; W4 has not been dispatched.
+
 Status: Stage 1 Wave 1 merged in PR #1 on November 8, 2026 (America/New_York).
 The owner authorized Wave 2 with parallel sub-agents; B/C/D draft outputs are
 integrated on `codex/s1-w2-integration` from merged baseline

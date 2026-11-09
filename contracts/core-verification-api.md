@@ -16,10 +16,12 @@ from dataclasses import dataclass
 from typing import Any, Protocol
 from collections.abc import Sequence
 
+
 @dataclass(frozen=True)
 class ManifestInput:
     raw: bytes
     manifest: dict[str, Any]  # N-normalized text fields; metadata preserved
+
 
 @dataclass(frozen=True)
 class ManifestHashes:
@@ -27,10 +29,12 @@ class ManifestHashes:
     semantic_hash: str
     vector_hash: str
 
+
 @dataclass(frozen=True)
 class ClueDecision:
     legal: bool
     reason: str | None  # None, empty_tokens, target_phrase
+
 
 @dataclass(frozen=True)
 class RankedEntry:
@@ -39,21 +43,23 @@ class RankedEntry:
     bucket: int
     rank: int  # one-based
 
+
 class Embedder(Protocol):
     def identity(self) -> dict[str, Any]: ...
     def embed_queries(self, texts: Sequence[str]) -> list[list[float]]: ...
     def embed_entries(self, texts: Sequence[str]) -> list[list[float]]: ...
 
+
 def parse_manifest(raw: bytes) -> ManifestInput: ...
 def manifest_hashes(value: ManifestInput) -> ManifestHashes: ...
 def check_clue(clue: str, target: dict[str, Any]) -> ClueDecision: ...
-def rank_vectors(query: Sequence[float], candidates: Sequence[
-    tuple[str, Sequence[float]]
-]) -> tuple[RankedEntry, ...]: ...
-def sample_decoys(semantic_hash: str, target_id: str, sample: int,
-                  entries: Sequence[tuple[str, Sequence[float]]]) -> tuple[str, ...]: ...
-def verify_pack(value: ManifestInput, embedder: Embedder,
-                ruleset_id: str) -> dict[str, Any]: ...
+def rank_vectors(
+    query: Sequence[float], candidates: Sequence[tuple[str, Sequence[float]]]
+) -> tuple[RankedEntry, ...]: ...
+def sample_decoys(
+    semantic_hash: str, target_id: str, sample: int, entries: Sequence[tuple[str, Sequence[float]]]
+) -> tuple[str, ...]: ...
+def verify_pack(value: ManifestInput, embedder: Embedder, ruleset_id: str) -> dict[str, Any]: ...
 ```
 
 `manifest_hashes` uses raw bytes only for manifest_digest and normalized mapping
