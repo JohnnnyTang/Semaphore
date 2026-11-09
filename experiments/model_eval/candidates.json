@@ -1,0 +1,9 @@
+{
+  "format_version": "model-candidates-v1",
+  "resolved_date": "2026-11-08",
+  "models": {
+    "bge": {"repository": "BAAI/bge-base-en-v1.5", "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a", "query_prefix": "", "entry_prefix": "", "postprocess": "l2", "max_tokens": 512},
+    "gte": {"repository": "thenlper/gte-base", "revision": "c078288308d8dee004ab72c6191778064285ec0c", "query_prefix": "", "entry_prefix": "", "postprocess": "l2", "max_tokens": 512},
+    "nomic": {"repository": "nomic-ai/nomic-embed-text-v1.5", "revision": "e9b6763023c676ca8431644204f50c2b100d9aab", "query_prefix": "search_query: ", "entry_prefix": "search_document: ", "postprocess": "layernorm-l2", "max_tokens": 512}
+  }
+}
