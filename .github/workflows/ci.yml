@@ -72,6 +72,7 @@ jobs:
           wheels=(dist/*.whl)
           test "${#wheels[@]}" -eq 1
           read -r python_version < .python-version
+          python_version="${python_version%$'\r'}"
           uv run --isolated --no-project --python "$python_version" --with "${wheels[0]}" python -I -c "import semaphore_core"
 
   workflows:
