@@ -1,0 +1,381 @@
+{
+  "spec_version": "1-draft-w2",
+  "pack": {
+    "id": "everyday-fixture",
+    "name": "Everyday fixture",
+    "version": "1.0.0",
+    "author": "Semaphore synthetic fixture",
+    "description": "Authored schema/hygiene examples; no measured playability claim.",
+    "tags": [
+      "synthetic"
+    ],
+    "language": "en"
+  },
+  "entries": [
+    {
+      "id": "apple",
+      "text": "apple"
+    },
+    {
+      "id": "anchor",
+      "text": "anchor"
+    },
+    {
+      "id": "balloon",
+      "text": "balloon"
+    },
+    {
+      "id": "basket",
+      "text": "basket"
+    },
+    {
+      "id": "bell",
+      "text": "bell"
+    },
+    {
+      "id": "blanket",
+      "text": "blanket"
+    },
+    {
+      "id": "bridge",
+      "text": "bridge"
+    },
+    {
+      "id": "broom",
+      "text": "broom"
+    },
+    {
+      "id": "bucket",
+      "text": "bucket"
+    },
+    {
+      "id": "candle",
+      "text": "candle"
+    },
+    {
+      "id": "carrot",
+      "text": "carrot"
+    },
+    {
+      "id": "castle",
+      "text": "castle"
+    },
+    {
+      "id": "chair",
+      "text": "chair"
+    },
+    {
+      "id": "clock",
+      "text": "clock"
+    },
+    {
+      "id": "cloud",
+      "text": "cloud"
+    },
+    {
+      "id": "compass",
+      "text": "compass"
+    },
+    {
+      "id": "crown",
+      "text": "crown"
+    },
+    {
+      "id": "drum",
+      "text": "drum"
+    },
+    {
+      "id": "feather",
+      "text": "feather"
+    },
+    {
+      "id": "fork",
+      "text": "fork"
+    },
+    {
+      "id": "glacier",
+      "text": "glacier"
+    },
+    {
+      "id": "guitar",
+      "text": "guitar"
+    },
+    {
+      "id": "hammer",
+      "text": "hammer"
+    },
+    {
+      "id": "helmet",
+      "text": "helmet"
+    },
+    {
+      "id": "island",
+      "text": "island"
+    },
+    {
+      "id": "key",
+      "text": "key"
+    },
+    {
+      "id": "ladder",
+      "text": "ladder"
+    },
+    {
+      "id": "lantern",
+      "text": "lantern"
+    },
+    {
+      "id": "lemon",
+      "text": "lemon"
+    },
+    {
+      "id": "mirror",
+      "text": "mirror"
+    },
+    {
+      "id": "needle",
+      "text": "needle"
+    },
+    {
+      "id": "oven",
+      "text": "oven"
+    },
+    {
+      "id": "pencil",
+      "text": "pencil"
+    },
+    {
+      "id": "pillow",
+      "text": "pillow"
+    },
+    {
+      "id": "rope",
+      "text": "rope"
+    },
+    {
+      "id": "shell",
+      "text": "shell"
+    },
+    {
+      "id": "spoon",
+      "text": "spoon"
+    },
+    {
+      "id": "tent",
+      "text": "tent"
+    },
+    {
+      "id": "umbrella",
+      "text": "umbrella"
+    },
+    {
+      "id": "wheel",
+      "text": "wheel"
+    }
+  ],
+  "test_set": {
+    "apple": [
+      "orchard fruit",
+      "crisp snack",
+      "cider ingredient"
+    ],
+    "anchor": [
+      "ship weight",
+      "hold a vessel still",
+      "heavy seabed hook"
+    ],
+    "balloon": [
+      "floating party decoration",
+      "helium toy",
+      "inflatable sphere"
+    ],
+    "basket": [
+      "woven container",
+      "picnic carrier",
+      "wicker storage"
+    ],
+    "bell": [
+      "ringing metal",
+      "church chime",
+      "school signal"
+    ],
+    "blanket": [
+      "warm bed covering",
+      "cozy layer",
+      "picnic spread"
+    ],
+    "bridge": [
+      "river crossing",
+      "road over water",
+      "connect two banks"
+    ],
+    "broom": [
+      "sweeping tool",
+      "bristled floor cleaner",
+      "witch transport"
+    ],
+    "bucket": [
+      "water carrier",
+      "pail",
+      "open topped container"
+    ],
+    "candle": [
+      "wax light",
+      "birthday flame",
+      "wick and glow"
+    ],
+    "carrot": [
+      "orange root",
+      "rabbit snack",
+      "crunchy garden vegetable"
+    ],
+    "castle": [
+      "fortified home",
+      "royal fortress",
+      "towers and moat"
+    ],
+    "chair": [
+      "single seat",
+      "sit down",
+      "furniture with legs"
+    ],
+    "clock": [
+      "time display",
+      "ticking dial",
+      "hours and minutes"
+    ],
+    "cloud": [
+      "sky vapor",
+      "rain source",
+      "fluffy overhead shape"
+    ],
+    "compass": [
+      "direction finder",
+      "magnetic needle",
+      "north pointer"
+    ],
+    "crown": [
+      "royal headwear",
+      "monarch symbol",
+      "jeweled circle"
+    ],
+    "drum": [
+      "percussion instrument",
+      "beat maker",
+      "taut musical skin"
+    ],
+    "feather": [
+      "bird covering",
+      "light plume",
+      "quill material"
+    ],
+    "fork": [
+      "pronged utensil",
+      "dinner tool",
+      "spear a bite"
+    ],
+    "glacier": [
+      "slow river of ice",
+      "frozen mountain flow",
+      "crevasse landscape"
+    ],
+    "guitar": [
+      "strummed strings",
+      "six string instrument",
+      "acoustic music"
+    ],
+    "hammer": [
+      "nail driver",
+      "striking tool",
+      "carpenter mallet"
+    ],
+    "helmet": [
+      "protective headwear",
+      "cycling safety gear",
+      "hard shell cap"
+    ],
+    "island": [
+      "land surrounded by water",
+      "isolated shore",
+      "ocean landmass"
+    ],
+    "key": [
+      "lock opener",
+      "small toothed metal",
+      "door access tool"
+    ],
+    "ladder": [
+      "climbing rungs",
+      "reach the roof",
+      "portable steps"
+    ],
+    "lantern": [
+      "portable light",
+      "camping glow",
+      "enclosed flame"
+    ],
+    "lemon": [
+      "sour yellow fruit",
+      "citrus wedge",
+      "tart juice"
+    ],
+    "mirror": [
+      "reflective glass",
+      "see your face",
+      "silvered surface"
+    ],
+    "needle": [
+      "sewing point",
+      "thread guide",
+      "tiny sharp tool"
+    ],
+    "oven": [
+      "baking chamber",
+      "kitchen heat box",
+      "roast dinner appliance"
+    ],
+    "pencil": [
+      "erasable writing tool",
+      "graphite stick",
+      "school drawing tool"
+    ],
+    "pillow": [
+      "head cushion",
+      "soft bed support",
+      "stuffed sleeping comfort"
+    ],
+    "rope": [
+      "twisted cord",
+      "tie a knot",
+      "climbing line"
+    ],
+    "shell": [
+      "mollusk covering",
+      "spiral beach treasure",
+      "hard sea casing"
+    ],
+    "spoon": [
+      "soup utensil",
+      "rounded eating tool",
+      "scoop a bite"
+    ],
+    "tent": [
+      "camping shelter",
+      "fabric outdoor home",
+      "pegs and poles"
+    ],
+    "umbrella": [
+      "rain shield",
+      "folding canopy",
+      "portable weather cover"
+    ],
+    "wheel": [
+      "rolling circle",
+      "axle companion",
+      "round transport part"
+    ]
+  },
+  "provenance": {
+    "agent": "synthetic W2-D fixture; no model evaluation performed"
+  }
+}
