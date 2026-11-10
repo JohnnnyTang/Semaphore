@@ -225,3 +225,34 @@ def fingerprint_hash(identity: dict) -> str:
     """Experiment namespace; not the draft production verification fingerprint."""
     encoded = json.dumps(identity, sort_keys=True, separators=(",", ":"), allow_nan=False)
     return hashlib.sha256(b"semaphore-ollama-experiment-v1\0" + encoded.encode()).hexdigest()
+
+
+class PinnedEmbedder:
+    """Full frozen runtime identity guard around any synchronous provider."""
+
+    def __init__(self, provider):
+        from .verification import load
+
+        self.provider = provider
+        self.lock = load("model-lock.json")
+
+    def identity(self):
+        identity = self.provider.identity()
+        if (
+            identity != self.lock["fingerprint"]
+            or fingerprint_hash(identity) != self.lock["fingerprint_sha256"]
+        ):
+            raise EmbeddingResponseError("embedding runtime differs from frozen identity")
+        return identity
+
+    def _embed(self, texts, method):
+        self.identity()
+        rows = getattr(self.provider, method)(texts)
+        self.identity()
+        return rows
+
+    def embed_entries(self, texts):
+        return self._embed(texts, "embed_entries")
+
+    def embed_queries(self, texts):
+        return self._embed(texts, "embed_queries")
