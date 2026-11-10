@@ -38,6 +38,7 @@ class GameArtifact:
     capacity: int = 12
     zone_size: int = 3
     test_mode: bool = False
+    score_pacing: bool = False
     initial_score: int = 0
     initial_clears: int = 0
 
@@ -65,7 +66,9 @@ class GameArtifact:
             or type(self.deadline_ms) is not int
             or not 0 < self.deadline_ms <= 600000
             or type(self.capacity) is not int
-            or not 2 <= self.capacity <= 12
+            or not 2 <= self.capacity <= 20
+            or type(self.score_pacing) is not bool
+            or (self.score_pacing and self.mode != "casual")
             or type(self.zone_size) is not int
             or not 0 < self.zone_size < self.capacity
             or not 0 < len(self.initial_board) < self.capacity
@@ -90,7 +93,9 @@ class GameArtifact:
                 continue
             if not isinstance(value, str) or not 1 <= len(value) <= 128:
                 raise ValueError()
-        if self.identities["ruleset_id"] != "experiment-arcade-v1":
+        if self.identities["ruleset_id"] != (
+            "experiment-arcade-paced-v1" if self.score_pacing else "experiment-arcade-v1"
+        ):
             raise ValueError()
         if not self.test_mode:
             if self.initial_clears or self.initial_score:
@@ -187,8 +192,11 @@ class EngineState:
     score: int = 0
     clears: int = 0
     revision: int = 0
+    streak: int = 0
     elapsed_ms: int = 0
     next_spawn_index: int = 0
+    paced_spawn_ms: int | None = None
+    paced_deadline_ms: int | None = None
     pending: InferenceRequest | None = None
     end_reason: str | None = None
     terminal_ms: int | None = None
@@ -212,6 +220,9 @@ def initial_state(artifact: GameArtifact, *, game_id: str) -> EngineState:
         min(artifact.initial_board),
         score=artifact.initial_score,
         clears=artifact.initial_clears,
+        paced_spawn_ms=artifact.schedule[0]["at_ms"]
+        if artifact.score_pacing and artifact.schedule
+        else None,
     )
 
 
@@ -241,6 +252,21 @@ def _end(state, reason, at):
     return replace(state, pending=None)
 
 
+def pace_factor(clears: int) -> float:
+    """Five clears per level; casual arrivals bottom out at 40% of base time."""
+    return max(0.4, 1 - (clears // 5) * 0.1)
+
+
+def spawn_time(state):
+    if state.next_spawn_index >= len(state.artifact.schedule):
+        return None
+    return (
+        state.paced_spawn_ms
+        if state.artifact.score_pacing
+        else state.artifact.schedule[state.next_spawn_index]["at_ms"]
+    )
+
+
 def advance(state: EngineState, *, now_ms: int) -> Transition:
     if type(now_ms) is not int or now_ms < state.elapsed_ms:
         raise CoreValidationError("invalid_time")
@@ -250,16 +276,18 @@ def advance(state: EngineState, *, now_ms: int) -> Transition:
         spawn = (
             a.schedule[state.next_spawn_index] if state.next_spawn_index < len(a.schedule) else None
         )
+        deadline = state.paced_deadline_ms or a.deadline_ms
+        spawn_at = spawn_time(state)
         due = min(
-            a.deadline_ms,
-            spawn["at_ms"] if spawn else math.inf,
+            deadline,
+            spawn_at if spawn else math.inf,
             state.pending.timeout_ms if state.pending else math.inf,
         )
         if due > now_ms:
             break
-        if due == a.deadline_ms:
+        if due == deadline:
             state = _end(state, "event_complete" if a.mode == "event" else "pack_exhausted", due)
-        elif spawn and due == spawn["at_ms"]:
+        elif spawn and due == spawn_at:
             board = (*state.board, spawn["entry_id"])
             state = replace(
                 state,
@@ -267,13 +295,24 @@ def advance(state: EngineState, *, now_ms: int) -> Transition:
                 target=state.target or min(board),
                 next_spawn_index=state.next_spawn_index + 1,
             )
+            if a.score_pacing:
+                next_index = state.next_spawn_index
+                next_at = None
+                if next_index < len(a.schedule):
+                    gap = a.schedule[next_index]["at_ms"] - spawn["at_ms"]
+                    next_at = due + max(1, round(gap * pace_factor(state.clears)))
+                state = replace(
+                    state,
+                    paced_spawn_ms=next_at,
+                    paced_deadline_ms=due + 5000 if next_at is None else None,
+                )
             if len(board) >= a.capacity:
                 state = _end(state, "overflow", due)
             else:
                 state = replace(state, revision=state.revision + 1)
         else:
             request = state.pending
-            state = replace(state, pending=None, revision=state.revision + 1)
+            state = replace(state, pending=None, streak=0, revision=state.revision + 1)
             state = _store(
                 state,
                 _receipt(state, request.command_id, "inference_timeout", target=request.target),
@@ -338,6 +377,8 @@ def submit(
         state = replace(state, pending=request, revision=state.revision + 1)
         effects = (request,)
         outcome = "pending"
+    if outcome.startswith("clue_") and state.artifact.score_pacing:
+        state = replace(state, streak=0, revision=state.revision + 1)
     receipt = _receipt(state, ident, outcome, target=state.target)
     state = replace(state, payloads=freeze({**state.payloads, ident: command}))
     state = _store(state, receipt)
@@ -364,20 +405,50 @@ def complete(
         rank = ranked.index(target) + 1
     except (ValueError, TypeError, OverflowError):
         outcome = "inference_timeout" if error == "inference_timeout" else "inference_failed"
-        state = replace(state, pending=None, revision=state.revision + 1)
+        state = replace(state, pending=None, streak=0, revision=state.revision + 1)
         receipt = _receipt(state, command_id, outcome, target=target)
     else:
         cleared = rank <= state.artifact.zone_size
-        board = tuple(i for i in ranked if not (cleared and i == target))
+        old_factor = pace_factor(state.clears)
+        streak = state.streak + 1 if cleared else 0
+        strike = cleared and state.artifact.score_pacing and streak == 5
+        waves = []
+        board = list(ranked)
+        if cleared:
+            removed = board[: state.artifact.zone_size] if strike else [target]
+            waves.append(list(removed))
+            board = [i for i in board if i not in removed]
+            if strike:
+                streak = 0
+                # Refill the zone from the ranked stack, never future scheduled arrivals.
+                # Each wave removes an ID, bounding the loop by the original board size.
+                while board:
+                    next_target = min(board)
+                    if next_target not in board[: state.artifact.zone_size] or _legality(
+                        state.pending.text, state.artifact.entries[next_target]
+                    ):
+                        break
+                    waves.append([next_target])
+                    board.remove(next_target)
+        board = tuple(board)
+        count = sum(map(len, waves))
         state = replace(
             state,
             board=board,
             pending=None,
             revision=state.revision + 1,
             target=(min(board) if board else None) if cleared else target,
-            score=state.score + (100 if cleared else 0),
-            clears=state.clears + int(cleared),
+            score=state.score + 100 * count,
+            clears=state.clears + count,
+            streak=streak if state.artifact.score_pacing else 0,
         )
+        if cleared and state.artifact.score_pacing and state.paced_spawn_ms is not None:
+            remaining = state.paced_spawn_ms - now_ms
+            state = replace(
+                state,
+                paced_spawn_ms=now_ms
+                + max(1, round(remaining * pace_factor(state.clears) / old_factor)),
+            )
         if (
             not board
             and state.artifact.mode == "casual"
@@ -392,8 +463,14 @@ def complete(
             target=target,
             rank=rank,
             ranked=ranked,
-            delta=100 if cleared else 0,
+            delta=100 * count,
         )
+    if (
+        state.artifact.score_pacing
+        and scores is not None
+        and receipt["outcome"] in ("clear", "miss")
+    ):
+        receipt.update(clear_waves=waves, strike=strike)
     state = _store(state, receipt)
     return Transition(state, receipt, changed=state.revision != old_revision)
 
@@ -420,15 +497,12 @@ def snapshot(state: EngineState, *, now_ms: int) -> dict[str, object]:
         target=state.target,
         score=state.score,
         clears=state.clears,
+        **({"streak": state.streak} if a.score_pacing else {}),
         level=1 + state.clears // 5,
         revision=state.revision,
         next_spawn_index=state.next_spawn_index,
-        next_spawn_ms=(
-            a.schedule[state.next_spawn_index]["at_ms"]
-            if not state.end_reason and state.next_spawn_index < len(a.schedule)
-            else None
-        ),
-        deadline_ms=a.deadline_ms,
+        next_spawn_ms=(spawn_time(state) if not state.end_reason else None),
+        deadline_ms=state.paced_deadline_ms or a.deadline_ms,
         capacity=a.capacity,
         zone_size=a.zone_size,
         pending=(

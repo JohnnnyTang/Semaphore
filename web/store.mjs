@@ -17,6 +17,7 @@ export function resultText(receipt) {
     command_conflict: 'That command could not be reconciled. Reconnect before sending again.',
     game_over: 'The game has ended.',
   };
+  if (receipt.outcome === 'clear' && receipt.strike) return `Five in a row! Zone sweep${receipt.clear_waves.length > 1 ? ` + ${receipt.clear_waves.length - 1} cascade clears` : ''} — ${receipt.clear_waves.flat().length} words, +${receipt.score_delta}.`;
   if (receipt.outcome === 'clear') return `Target reached #${receipt.target_rank} — +${receipt.score_delta}.`;
   if (receipt.outcome === 'miss') return `Target reached #${receipt.target_rank}. Try another association.`;
   return messages[receipt.outcome] || 'Ranking your clue…';

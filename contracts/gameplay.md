@@ -114,3 +114,20 @@ fixtures are checked against their original expected states by independent schem
 and invariant tests. Identity strings explicitly identify synthetic fixtures; real
 artifact digests must be checked by the service, not trusted because schema accepts
 a string. Numeric ranking fixtures and game fixtures are complementary evidence.
+
+## Paced casual extension
+
+The paced casual configuration additionally binds `special_clear` into its config
+digest. Five consecutive successful submissions trigger a zone sweep. Remove the
+current ranked zone simultaneously, compact the surviving ranked board, select its
+ASCII-smallest ID, and remove that target while it is within the refilled zone and
+the original clue passes legality for it. Stop at an empty board, an out-of-zone
+target, or an illegal clue for the new target. Never consume future scheduled spawns.
+Each removed ID earns 100 points once; all waves are one atomic completion/revision.
+The finite ranked board bounds the loop. Successful clue submissions, not bonus
+words, charge the streak. Sweep resets it to zero. Misses, illegal clue admissions,
+and inference failure/timeout reset it. Illegal admissions in this extension advance
+revision; infrastructure admission rejections preserve the streak. Optional snapshot
+`streak` and receipt `strike`/`clear_waves` report this behavior. Event and unpaced
+rules above remain frozen. The optional browser tutorial precedes session creation,
+so its instructional waits do not pause or alter an authoritative game clock.

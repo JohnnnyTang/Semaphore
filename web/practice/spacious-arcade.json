@@ -1,0 +1,3698 @@
+{
+  "fixture_version": "experiment-v1",
+  "provenance": "Engine-generated scripted practice; clues do not determine outcomes",
+  "envelopes": [
+    {
+      "protocol": "experiment-v1",
+      "sequence": 0,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 0,
+        "status": "active",
+        "board": [
+          "word-00",
+          "word-01",
+          "word-02",
+          "word-03",
+          "word-04",
+          "word-05"
+        ],
+        "target": "word-00",
+        "score": 0,
+        "clears": 0,
+        "streak": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "next_spawn_ms": 5000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 1,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 3000,
+        "status": "active",
+        "board": [
+          "word-00",
+          "word-01",
+          "word-02",
+          "word-03",
+          "word-04",
+          "word-05"
+        ],
+        "target": "word-00",
+        "score": 0,
+        "clears": 0,
+        "streak": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "next_spawn_ms": 5000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 2,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 3000,
+        "status": "active",
+        "board": [
+          "word-00",
+          "word-01",
+          "word-02",
+          "word-03",
+          "word-04",
+          "word-05"
+        ],
+        "target": "word-00",
+        "score": 0,
+        "clears": 0,
+        "streak": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "next_spawn_ms": 5000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": {
+          "command_id": "practice-0",
+          "target": "word-00",
+          "admitted_ms": 3000
+        },
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-0",
+        "outcome": "pending",
+        "applied_revision": 1,
+        "target": "word-00",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 3,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 3000,
+        "status": "active",
+        "board": [
+          "word-01",
+          "word-02",
+          "word-03",
+          "word-04",
+          "word-05"
+        ],
+        "target": "word-01",
+        "score": 100,
+        "clears": 1,
+        "streak": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "next_spawn_ms": 5000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-0",
+        "outcome": "clear",
+        "applied_revision": 2,
+        "target": "word-00",
+        "target_rank": 3,
+        "ranked_board": [
+          "word-01",
+          "word-02",
+          "word-00",
+          "word-03",
+          "word-04",
+          "word-05"
+        ],
+        "score_delta": 100,
+        "clear_waves": [
+          [
+            "word-00"
+          ]
+        ],
+        "strike": false
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 4,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 6000,
+        "status": "active",
+        "board": [
+          "word-01",
+          "word-02",
+          "word-03",
+          "word-04",
+          "word-05",
+          "word-06"
+        ],
+        "target": "word-01",
+        "score": 100,
+        "clears": 1,
+        "streak": 1,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 1,
+        "next_spawn_ms": 10000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 5,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 6000,
+        "status": "active",
+        "board": [
+          "word-01",
+          "word-02",
+          "word-03",
+          "word-04",
+          "word-05",
+          "word-06"
+        ],
+        "target": "word-01",
+        "score": 100,
+        "clears": 1,
+        "streak": 1,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 1,
+        "next_spawn_ms": 10000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": {
+          "command_id": "practice-1",
+          "target": "word-01",
+          "admitted_ms": 6000
+        },
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-1",
+        "outcome": "pending",
+        "applied_revision": 4,
+        "target": "word-01",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 6,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 6000,
+        "status": "active",
+        "board": [
+          "word-02",
+          "word-03",
+          "word-04",
+          "word-05",
+          "word-06"
+        ],
+        "target": "word-02",
+        "score": 200,
+        "clears": 2,
+        "streak": 2,
+        "level": 1,
+        "revision": 5,
+        "next_spawn_index": 1,
+        "next_spawn_ms": 10000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-1",
+        "outcome": "clear",
+        "applied_revision": 5,
+        "target": "word-01",
+        "target_rank": 3,
+        "ranked_board": [
+          "word-02",
+          "word-03",
+          "word-01",
+          "word-04",
+          "word-05",
+          "word-06"
+        ],
+        "score_delta": 100,
+        "clear_waves": [
+          [
+            "word-01"
+          ]
+        ],
+        "strike": false
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 7,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 9000,
+        "status": "active",
+        "board": [
+          "word-02",
+          "word-03",
+          "word-04",
+          "word-05",
+          "word-06"
+        ],
+        "target": "word-02",
+        "score": 200,
+        "clears": 2,
+        "streak": 2,
+        "level": 1,
+        "revision": 5,
+        "next_spawn_index": 1,
+        "next_spawn_ms": 10000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 8,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 9000,
+        "status": "active",
+        "board": [
+          "word-02",
+          "word-03",
+          "word-04",
+          "word-05",
+          "word-06"
+        ],
+        "target": "word-02",
+        "score": 200,
+        "clears": 2,
+        "streak": 2,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 1,
+        "next_spawn_ms": 10000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": {
+          "command_id": "practice-2",
+          "target": "word-02",
+          "admitted_ms": 9000
+        },
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-2",
+        "outcome": "pending",
+        "applied_revision": 6,
+        "target": "word-02",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 9,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 9000,
+        "status": "active",
+        "board": [
+          "word-03",
+          "word-04",
+          "word-05",
+          "word-06"
+        ],
+        "target": "word-03",
+        "score": 300,
+        "clears": 3,
+        "streak": 3,
+        "level": 1,
+        "revision": 7,
+        "next_spawn_index": 1,
+        "next_spawn_ms": 10000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-2",
+        "outcome": "clear",
+        "applied_revision": 7,
+        "target": "word-02",
+        "target_rank": 3,
+        "ranked_board": [
+          "word-03",
+          "word-04",
+          "word-02",
+          "word-05",
+          "word-06"
+        ],
+        "score_delta": 100,
+        "clear_waves": [
+          [
+            "word-02"
+          ]
+        ],
+        "strike": false
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 10,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 12000,
+        "status": "active",
+        "board": [
+          "word-03",
+          "word-04",
+          "word-05",
+          "word-06",
+          "word-07"
+        ],
+        "target": "word-03",
+        "score": 300,
+        "clears": 3,
+        "streak": 3,
+        "level": 1,
+        "revision": 8,
+        "next_spawn_index": 2,
+        "next_spawn_ms": 15000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 11,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 12000,
+        "status": "active",
+        "board": [
+          "word-03",
+          "word-04",
+          "word-05",
+          "word-06",
+          "word-07"
+        ],
+        "target": "word-03",
+        "score": 300,
+        "clears": 3,
+        "streak": 3,
+        "level": 1,
+        "revision": 9,
+        "next_spawn_index": 2,
+        "next_spawn_ms": 15000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": {
+          "command_id": "practice-3",
+          "target": "word-03",
+          "admitted_ms": 12000
+        },
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-3",
+        "outcome": "pending",
+        "applied_revision": 9,
+        "target": "word-03",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 12,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 12000,
+        "status": "active",
+        "board": [
+          "word-04",
+          "word-05",
+          "word-06",
+          "word-07"
+        ],
+        "target": "word-04",
+        "score": 400,
+        "clears": 4,
+        "streak": 4,
+        "level": 1,
+        "revision": 10,
+        "next_spawn_index": 2,
+        "next_spawn_ms": 15000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-3",
+        "outcome": "clear",
+        "applied_revision": 10,
+        "target": "word-03",
+        "target_rank": 3,
+        "ranked_board": [
+          "word-04",
+          "word-05",
+          "word-03",
+          "word-06",
+          "word-07"
+        ],
+        "score_delta": 100,
+        "clear_waves": [
+          [
+            "word-03"
+          ]
+        ],
+        "strike": false
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 13,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 15000,
+        "status": "active",
+        "board": [
+          "word-04",
+          "word-05",
+          "word-06",
+          "word-07",
+          "word-08"
+        ],
+        "target": "word-04",
+        "score": 400,
+        "clears": 4,
+        "streak": 4,
+        "level": 1,
+        "revision": 11,
+        "next_spawn_index": 3,
+        "next_spawn_ms": 20000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 14,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 15000,
+        "status": "active",
+        "board": [
+          "word-04",
+          "word-05",
+          "word-06",
+          "word-07",
+          "word-08"
+        ],
+        "target": "word-04",
+        "score": 400,
+        "clears": 4,
+        "streak": 4,
+        "level": 1,
+        "revision": 12,
+        "next_spawn_index": 3,
+        "next_spawn_ms": 20000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": {
+          "command_id": "practice-4",
+          "target": "word-04",
+          "admitted_ms": 15000
+        },
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-4",
+        "outcome": "pending",
+        "applied_revision": 12,
+        "target": "word-04",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 15,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 15000,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 900,
+        "clears": 9,
+        "streak": 0,
+        "level": 2,
+        "revision": 13,
+        "next_spawn_index": 3,
+        "next_spawn_ms": 19500,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-4",
+        "outcome": "clear",
+        "applied_revision": 13,
+        "target": "word-04",
+        "target_rank": 3,
+        "ranked_board": [
+          "word-05",
+          "word-06",
+          "word-04",
+          "word-07",
+          "word-08"
+        ],
+        "score_delta": 500,
+        "clear_waves": [
+          [
+            "word-05",
+            "word-06",
+            "word-04"
+          ],
+          [
+            "word-07"
+          ],
+          [
+            "word-08"
+          ]
+        ],
+        "strike": true
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 16,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 18000,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 900,
+        "clears": 9,
+        "streak": 0,
+        "level": 2,
+        "revision": 13,
+        "next_spawn_index": 3,
+        "next_spawn_ms": 19500,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 17,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 18000,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 900,
+        "clears": 9,
+        "streak": 0,
+        "level": 2,
+        "revision": 13,
+        "next_spawn_index": 3,
+        "next_spawn_ms": 19500,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-5",
+        "outcome": "no_target",
+        "applied_revision": 13,
+        "target": null,
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 18,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 18000,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 900,
+        "clears": 9,
+        "streak": 0,
+        "level": 2,
+        "revision": 13,
+        "next_spawn_index": 3,
+        "next_spawn_ms": 19500,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 19,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 21000,
+        "status": "active",
+        "board": [
+          "word-09"
+        ],
+        "target": "word-09",
+        "score": 900,
+        "clears": 9,
+        "streak": 0,
+        "level": 2,
+        "revision": 14,
+        "next_spawn_index": 4,
+        "next_spawn_ms": 24000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 20,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 21000,
+        "status": "active",
+        "board": [
+          "word-09"
+        ],
+        "target": "word-09",
+        "score": 900,
+        "clears": 9,
+        "streak": 0,
+        "level": 2,
+        "revision": 15,
+        "next_spawn_index": 4,
+        "next_spawn_ms": 24000,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": {
+          "command_id": "practice-6",
+          "target": "word-09",
+          "admitted_ms": 21000
+        },
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-6",
+        "outcome": "pending",
+        "applied_revision": 15,
+        "target": "word-09",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 21,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 21000,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 1000,
+        "clears": 10,
+        "streak": 1,
+        "level": 3,
+        "revision": 16,
+        "next_spawn_index": 4,
+        "next_spawn_ms": 23667,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-6",
+        "outcome": "clear",
+        "applied_revision": 16,
+        "target": "word-09",
+        "target_rank": 1,
+        "ranked_board": [
+          "word-09"
+        ],
+        "score_delta": 100,
+        "clear_waves": [
+          [
+            "word-09"
+          ]
+        ],
+        "strike": false
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 22,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 24000,
+        "status": "active",
+        "board": [
+          "word-10"
+        ],
+        "target": "word-10",
+        "score": 1000,
+        "clears": 10,
+        "streak": 1,
+        "level": 3,
+        "revision": 17,
+        "next_spawn_index": 5,
+        "next_spawn_ms": 27667,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 23,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 24000,
+        "status": "active",
+        "board": [
+          "word-10"
+        ],
+        "target": "word-10",
+        "score": 1000,
+        "clears": 10,
+        "streak": 1,
+        "level": 3,
+        "revision": 18,
+        "next_spawn_index": 5,
+        "next_spawn_ms": 27667,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": {
+          "command_id": "practice-7",
+          "target": "word-10",
+          "admitted_ms": 24000
+        },
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-7",
+        "outcome": "pending",
+        "applied_revision": 18,
+        "target": "word-10",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 24,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 24000,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 1100,
+        "clears": 11,
+        "streak": 2,
+        "level": 3,
+        "revision": 19,
+        "next_spawn_index": 5,
+        "next_spawn_ms": 27667,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-7",
+        "outcome": "clear",
+        "applied_revision": 19,
+        "target": "word-10",
+        "target_rank": 1,
+        "ranked_board": [
+          "word-10"
+        ],
+        "score_delta": 100,
+        "clear_waves": [
+          [
+            "word-10"
+          ]
+        ],
+        "strike": false
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 25,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 27000,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 1100,
+        "clears": 11,
+        "streak": 2,
+        "level": 3,
+        "revision": 19,
+        "next_spawn_index": 5,
+        "next_spawn_ms": 27667,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 26,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 27000,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 1100,
+        "clears": 11,
+        "streak": 2,
+        "level": 3,
+        "revision": 19,
+        "next_spawn_index": 5,
+        "next_spawn_ms": 27667,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-8",
+        "outcome": "no_target",
+        "applied_revision": 19,
+        "target": null,
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 27,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 27000,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 1100,
+        "clears": 11,
+        "streak": 2,
+        "level": 3,
+        "revision": 19,
+        "next_spawn_index": 5,
+        "next_spawn_ms": 27667,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 28,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 30000,
+        "status": "active",
+        "board": [
+          "word-11"
+        ],
+        "target": "word-11",
+        "score": 1100,
+        "clears": 11,
+        "streak": 2,
+        "level": 3,
+        "revision": 20,
+        "next_spawn_index": 6,
+        "next_spawn_ms": 31667,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 29,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 30000,
+        "status": "active",
+        "board": [
+          "word-11"
+        ],
+        "target": "word-11",
+        "score": 1100,
+        "clears": 11,
+        "streak": 2,
+        "level": 3,
+        "revision": 21,
+        "next_spawn_index": 6,
+        "next_spawn_ms": 31667,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": {
+          "command_id": "practice-9",
+          "target": "word-11",
+          "admitted_ms": 30000
+        },
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-9",
+        "outcome": "pending",
+        "applied_revision": 21,
+        "target": "word-11",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 30,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 30000,
+        "status": "active",
+        "board": [],
+        "target": null,
+        "score": 1200,
+        "clears": 12,
+        "streak": 3,
+        "level": 3,
+        "revision": 22,
+        "next_spawn_index": 6,
+        "next_spawn_ms": 31667,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-9",
+        "outcome": "clear",
+        "applied_revision": 22,
+        "target": "word-11",
+        "target_rank": 1,
+        "ranked_board": [
+          "word-11"
+        ],
+        "score_delta": 100,
+        "clear_waves": [
+          [
+            "word-11"
+          ]
+        ],
+        "strike": false
+      }
+    }
+  ]
+}

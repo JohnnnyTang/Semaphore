@@ -66,7 +66,7 @@ jobs:
       - name: Run tests
         run: uv run --no-sync pytest
       - name: Test browser transport and state
-        run: node --test tests/web/client.test.mjs
+        run: node --test tests/web/*.test.mjs
       - name: Validate gameplay specification fixtures
         run: |
           uv run --no-sync python fixtures/game_traces/validate.py

@@ -57,3 +57,38 @@ human understanding/enjoyment, and actual browser/server/model play remain W5
 acceptance work. The browser tests do not establish the 100 ms latency target.
 CSS zoom is a reproducible layout check, not an OS/browser zoom accessibility audit.
 No independent accessibility audit or official competition result is claimed.
+
+## Frontend refinement verification
+
+Verified the signal arcade refinement with the six client tests, browser-smoke.js,
+browser-reconnect.js, and browser-refine.js. Checks passed for keyboard start and
+submit, IME composition, replay and ending focus, help dismissal, 320px long labels,
+200% zoom, lost-request recovery and reload, persistent light/dark choice, input
+placement below the stack, visible ceiling and clear range, and reduced motion.
+Reviewed desktop home, dark gameplay, and mobile gameplay screenshots visually.
+New review captures are in output/playwright/refine-*.png (local, ignored).
+Earlier qa-*.png captures above document the previous design.
+
+These checks use frozen fixtures and a mocked HTTP transport. They do not verify
+a live semantic model; actual clue-based matching requires the LAN game server.
+
+## Spacious arcade follow-up
+
+Verified a 20-position default preview with six starting phrases and 14 empty
+positions, a three-position clear zone, ceiling within the top 200px at
+1280x900, and a visible clue dock at 390x844. Re-ran keyboard/IME, long-label,
+200% zoom and mocked reconnect browser checks. New reducer tests cover rank
+1/2/3 clears, rank 4 misses, the 500-point speed transition, the minimum interval,
+overflow, event compatibility, and reproducible schema-valid practice evidence.
+
+## Input-paced tutorial and streak pass — 2026-11-10
+
+- Python suite: 184 passed; JavaScript suite: 7 passed.
+- Chromium: idle tutorial waits, contextual typing note, all three guided inputs,
+  no HTTP game creation during tutorial, explicit transition, skip checkbox,
+  fifth-clear sweep announcement, reduced motion and 390 px mobile width passed.
+- No browser page errors. Fixed leftover clear overlays between runs and a mobile
+  streak counter wrap discovered in screenshot review.
+- Screenshots: `output/playwright/tutorial-ready.png`, `strike-clear.png`, and
+  `refine2-mobile.png`. Browser uses scripted practice; real embedding inference
+  was not exercised. Service and authoritative reducer behavior have Python coverage.
