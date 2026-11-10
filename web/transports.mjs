@@ -26,7 +26,8 @@ export class FixtureTransport {
     this.name = name; this.fetcher = fetcher; this.receipts = new Map();
   }
   async create() {
-    const response = await this.fetcher(`/fixtures/protocol/${encodeURIComponent(this.name)}.json`);
+    const path = this.name === "spacious-arcade" ? "/web/practice/spacious-arcade.json" : `/fixtures/protocol/${encodeURIComponent(this.name)}.json`;
+    const response = await this.fetcher(path);
     if (!response.ok) throw new TransportError('unavailable');
     this.frames = (await response.json()).envelopes;
     this.index = 0; this.sequence = 0; this.mapping = new Map(); this.receipts.clear();

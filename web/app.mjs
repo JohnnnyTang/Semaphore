@@ -1,9 +1,21 @@
+import { TutorialTransport } from './tutorial.mjs';
 import { GameStore, clueLength, validateClue, resultText } from './store.mjs';
 import { HttpTransport, FixtureTransport } from './transports.mjs';
 const $ = id => document.getElementById(id);
 let store = new GameStore(), transport, polling = false, connected = true, composing = false;
-let epoch = 0, rows = new Map(), finished = false, renderToken = 0, settings;
+let epoch = 0, rows = new Map(), finished = false, settings, boardSignature = '';
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+function setTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  const next = theme === 'dark' ? 'light' : 'dark';
+  $('theme-toggle').textContent = next === 'dark' ? 'Dark theme' : 'Light theme';
+  $('theme-toggle').setAttribute('aria-label', 'Switch to ' + next + ' theme');
+  try { localStorage.setItem('semaphore-theme', theme); } catch { /* Optional preference. */ }
+}
+let preferredTheme;
+try { preferredTheme = localStorage.getItem('semaphore-theme'); } catch { /* Optional. */ }
+setTheme(['light', 'dark'].includes(preferredTheme) ? preferredTheme : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+$('theme-toggle').onclick = () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
 const params = new URLSearchParams(location.search);
 $('transport').value = params.get('transport') === 'http' ? 'http' : 'fixture';
 $('artifact').value = params.get('artifact') || 'default';
@@ -14,12 +26,15 @@ function options() {
 options(); $('transport').addEventListener('change', options);
 $('help-open').onclick = () => $('help').showModal();
 function persist() {
-  if (settings?.kind !== 'http') return;
+  if (settings?.kind !== 'http' || transport instanceof TutorialTransport) return;
   try { sessionStorage.setItem('semaphore-game', JSON.stringify({ settings, snapshot: store.snapshot,
     pending: store.pending, seen: [...store.seen], draft: $('clue').value })); } catch { /* Storage optional. */ }
 }
 function removeSaved() { try { sessionStorage.removeItem('semaphore-game'); } catch { /* Optional. */ } }
 function drawWords(board, target, snapshot) {
+  const signature = JSON.stringify([board, target, snapshot.zone_size, board.map(id => snapshot.entries[id]?.label)]);
+  if (signature === boardSignature) return;
+  boardSignature = signature;
   const positions = new Map([...rows].map(([id, row]) => [id, row.getBoundingClientRect().top]));
   const visible = new Set(board);
   for (const [id, row] of rows) if (!visible.has(id)) { row.remove(); rows.delete(id); }
@@ -29,10 +44,11 @@ function drawWords(board, target, snapshot) {
     if (!row) { row = document.createElement('li'); rows.set(id, row); }
     row.className = `word${index < snapshot.zone_size ? ' zone' : ''}${index === Math.min(snapshot.zone_size, board.length) - 1 ? ' zone-start' : ''}${id === target ? ' target' : ''}`;
     row.replaceChildren();
+    const rank = document.createElement('span'); rank.className = 'rank-number'; rank.textContent = String(index + 1).padStart(2, '0'); rank.setAttribute('aria-hidden', 'true'); row.append(rank);
     const label = document.createElement('span'); label.className = 'label';
     if (index === Math.min(snapshot.zone_size, board.length) - 1) {
       const caption = document.createElement('span'); caption.className = 'zone-caption';
-      caption.textContent = 'Clear zone'; label.append(caption);
+      caption.textContent = 'Clear zone'; caption.className = 'sr-only'; label.append(caption);
     }
     label.append(document.createTextNode(snapshot.entries[id]?.label || id)); row.append(label);
     if (id === target) { const flag = document.createElement('span'); flag.className = 'flag'; flag.textContent = 'Target'; row.append(flag); }
@@ -42,8 +58,28 @@ function drawWords(board, target, snapshot) {
   if (!reduced.matches) for (const [id, row] of rows) {
     row.getAnimations().forEach(animation => animation.cancel());
     const old = positions.get(id), now = row.getBoundingClientRect().top;
-    if (old !== undefined && old !== now) row.animate([{ transform: `translateY(${old - now}px)` }, { transform: 'translateY(0)' }], { duration: 260, easing: 'ease-out' });
+    if (old !== undefined && old !== now) row.animate([{ transform: `translateY(${old - now}px)` }, { transform: 'translateY(0)' }], { duration: 650, easing: 'cubic-bezier(.2,.7,.2,1)' });
+    else if (old === undefined) row.animate([{ transform: `translateY(-${Math.max(65, row.offsetTop)}px)`, opacity: 0 }, { transform: 'translateY(0)', opacity: 1 }], { duration: Math.max(450, 1500 - (snapshot.level - 1) * 150), easing: 'cubic-bezier(.2,.7,.2,1)' });
   }
+}
+function clearEffects(result, snapshot) {
+  if (result.outcome !== 'clear') return;
+  const waves = result.clear_waves || [[result.target]];
+  if (reduced.matches) return; // The persistent result describes every clear without motion.
+  const stack = document.querySelector('.stack'), bounds = stack.getBoundingClientRect();
+  waves.forEach((wave, index) => wave.forEach(id => {
+    const row = rows.get(id); if (!row) return;
+    const rect = row.getBoundingClientRect(), ghost = row.cloneNode(true);
+    ghost.className = 'word clear-echo'; ghost.setAttribute('aria-hidden', 'true');
+    Object.assign(ghost.style, { top: `${rect.top - bounds.top}px`, left: '0', width: '100%' });
+    stack.append(ghost);
+    const animation = ghost.animate([
+      { opacity: 0.95, transform: 'translateX(0)', filter: 'brightness(1)' },
+      { opacity: 1, offset: 0.25, transform: 'translateX(8px)', filter: 'brightness(1.25)' },
+      { opacity: 0, transform: 'translateX(65px)', filter: 'brightness(1)' }
+    ], { duration: 480, delay: Math.min(index * 140, 1800), fill: 'both', easing: 'ease-out' });
+    animation.finished.catch(() => {}).finally(() => ghost.remove());
+  }));
 }
 function updateControls() {
   const s = store.snapshot; if (!s) return;
@@ -56,15 +92,26 @@ function updateControls() {
 }
 function render(result) {
   const s = store.snapshot; if (!s) return;
-  const token = ++renderToken;
-  $('welcome').hidden = true; $('game').hidden = false;
-  $('source').textContent = settings.kind === 'fixture' ? 'Scripted practice / recorded outcomes' : `${s.mode === 'event' ? 'Event' : 'Casual'} / LAN game`;
+  $('welcome').hidden = true; $('game').hidden = false; document.body.classList.add('playing');
+  const tutorial = transport instanceof TutorialTransport;
+  $('source').textContent = tutorial ? 'Guided warm-up / clock paused' : settings.kind === 'fixture' ? 'Scripted practice / recorded outcomes' : `${s.mode === 'event' ? 'Event' : 'Casual'} / LAN game`;
+  document.querySelector('.stack').style.setProperty('--capacity', s.capacity);
+  document.querySelector('.stack').style.setProperty('--empty-slots', Math.max(0, s.capacity - s.board.length));
+  document.querySelector('.headroom span').hidden = s.capacity - s.board.length < 2;
+  $('capacity-warning').textContent = (s.capacity - s.board.length) + ' spaces left';
   $('occupancy').textContent = `${s.board.length} of ${s.capacity} words`;
-  $('next-spawn').textContent = s.status === 'over' ? 'Finished' : s.next_spawn_ms === null ? 'No more arrivals' : `Next word in ${Math.max(0, Math.ceil((s.next_spawn_ms - s.elapsed_ms) / 1000))} s`;
+  $('next-spawn').textContent = tutorial ? 'Paused for you' : s.status === 'over' ? 'Finished' : s.next_spawn_ms === null ? 'No more arrivals' : `Next word in ${Math.max(0, Math.ceil((s.next_spawn_ms - s.elapsed_ms) / 1000))} s`;
   $('score').textContent = s.score; $('level').textContent = s.level;
+  const paced = s.identities.ruleset_id === 'experiment-arcade-paced-v1';
+  $('pace-note').textContent = paced ? (s.score >= 3000 ? 'Maximum pace' : 'Next pace increase at ' + (Math.floor(s.score / 500) + 1) * 500 + ' points') : 'Fixed arrival schedule';
   const targetText = s.target ? s.entries[s.target]?.label || s.target : 'Next word arriving soon';
   if ($('target').textContent !== targetText) $('target').textContent = targetText;
-  $('zone-note').textContent = s.board.length <= s.zone_size ? 'All remaining words are in the clear zone.' : `Bottom ${s.zone_size}: clear zone`;
+  $('zone-note').textContent = `Clear zone · positions 1–${s.zone_size}`;
+  $('instruction').hidden = !tutorial;
+  $('instruction').textContent = tutorial ? transport.note(!!$('clue').value) : '';
+  $('streak').textContent = `${s.streak || 0} / 5`;
+  $('streak-stat').hidden = tutorial || !paced;
+  $('begin-game').hidden = !tutorial || !transport.done;
   const details = { 'Pack version digest': s.identities.pack_digest, 'Challenge': s.identities.challenge_digest || 'No event challenge',
     'Rules': s.identities.ruleset_id, 'Model': s.identities.model_fingerprint, 'Revision': s.revision };
   $('details').replaceChildren();
@@ -76,14 +123,20 @@ function render(result) {
     $('result').textContent = resultText(result) + (success && s.target ? ` Next target: ${s.entries[s.target]?.label || s.target}.` : '');
     $('result').className = success ? '' : 'error';
     if (success) $('clue').value = '';
+    if (tutorial) $('result').textContent = result.outcome === 'clear' ? 'Connection made.' : 'Use the example clue above to continue.';
     else if (document.activeElement === $('clue') || document.activeElement === $('send')) { $('clue').focus({ preventScroll: true }); $('clue').select(); }
-    const current = result.applied_revision === s.revision;
-    if (current && success && !reduced.matches && s.status !== 'over') {
-      drawWords(result.ranked_board, result.target, s);
-      setTimeout(() => { if (token === renderToken) drawWords(store.snapshot.board, store.snapshot.target, store.snapshot); }, 280);
-    } else drawWords(s.board, s.target, s);
+    clearEffects(result, s);
+    drawWords(s.board, s.target, s);
+    if (result.outcome === 'clear' && !reduced.matches) {
+      $('score').animate([{ transform: 'scale(1.25)' }, { transform: 'scale(1)' }], { duration: 400 });
+      $('result').animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
+    }
   } else drawWords(s.board, s.target, s);
-  const practiceDone = settings.kind === 'fixture' && transport.index === transport.frames.length - 1 && !store.pending;
+  if (tutorial) {
+    $('instruction').textContent = transport.note();
+    if (result && transport.done) $('begin-game').focus({ preventScroll: true });
+  }
+  const practiceDone = !tutorial && settings.kind === 'fixture' && transport.index === transport.frames.length - 1 && !store.pending;
   const over = s.status === 'over' || practiceDone;
   $('active-controls').hidden = over; $('ending').hidden = !over;
   if (over) {
@@ -132,11 +185,12 @@ async function poll() {
 setInterval(poll, 250);
 $('reconnect').onclick = poll;
 document.addEventListener('visibilitychange', () => { if (!document.hidden) poll(); });
-async function start() {
-  epoch++; const run = epoch; finished = false; connected = true; rows.clear(); $('words').replaceChildren();
+async function start(skipTutorial = false) {
+  document.querySelectorAll('.clear-echo').forEach(node => { node.getAnimations().forEach(a => a.cancel()); node.remove(); });
+  epoch++; const run = epoch; finished = false; connected = true; boardSignature = ''; rows.clear(); $('words').replaceChildren();
   store = new GameStore(); removeSaved(); $('result').textContent = ''; $('clue').value = '';
   settings = { kind: $('transport').value, scenario: $('scenario').value, artifact: $('artifact').value.trim(), mode: $('mode').value };
-  transport = settings.kind === 'http' ? new HttpTransport() : new FixtureTransport(settings.scenario);
+  transport = !skipTutorial && !$('skip-tutorial').checked ? new TutorialTransport() : settings.kind === 'http' ? new HttpTransport() : new FixtureTransport(settings.scenario);
   $('play').disabled = true; $('start-error').textContent = '';
   try {
     const envelope = await transport.create({ mode: settings.mode, artifact_id: settings.artifact });
@@ -144,16 +198,17 @@ async function start() {
   } catch { $('start-error').textContent = 'The game could not start. Check the server and artifact ID, then try again.'; }
   finally { $('play').disabled = false; }
 }
+$('begin-game').onclick = () => start(true);
 $('start-form').onsubmit = event => { event.preventDefault(); start(); };
 $('again').onclick = () => { $('game').hidden = true; $('welcome').hidden = false; start(); };
 $('leave').onclick = async () => {
-  if (settings.kind === 'http' && store.snapshot.status === 'active') {
+  if (!(transport instanceof TutorialTransport) && settings.kind === 'http' && store.snapshot.status === 'active') {
     try { apply(await transport.quit(store.snapshot.game_id)); } catch (error) { failure(error); }
   }
-  epoch++; finished = true; removeSaved(); store = new GameStore(); $('game').hidden = true; $('welcome').hidden = false; $('play').focus();
+  epoch++; finished = true; removeSaved(); store = new GameStore(); $('game').hidden = true; $('welcome').hidden = false; document.body.classList.remove('playing'); $('play').focus();
 };
 function updateCount() { $('clue-count').textContent = `${120 - clueLength($('clue').value)} characters available`; }
-$('clue').oninput = () => { updateCount(); persist(); };
+$('clue').oninput = () => { updateCount(); if (transport instanceof TutorialTransport) $('instruction').textContent = transport.note(!!$('clue').value); persist(); };
 $('clue').addEventListener('compositionstart', () => { composing = true; });
 $('clue').addEventListener('compositionend', () => { composing = false; });
 $('clue').addEventListener('keydown', event => { if (event.key === 'Enter' && (event.isComposing || composing || event.keyCode === 229)) event.preventDefault(); });
@@ -161,6 +216,7 @@ $('clue-form').onsubmit = async event => {
   event.preventDefault(); if (composing || !connected) return;
   const message = validateClue($('clue').value);
   if (message) { $('result').textContent = message; $('result').className = 'error'; return; }
+  if (transport instanceof TutorialTransport && transport.done) return;
   const command = store.command($('clue').value, Array.from(crypto.getRandomValues(new Uint32Array(4)), n => n.toString(16).padStart(8, '0')).join('')); if (!command) return;
   const run = epoch;
   $('result').textContent = 'Ranking your clue…'; $('result').className = ''; updateControls(); persist();

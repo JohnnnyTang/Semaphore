@@ -1,0 +1,33 @@
+async (page) => {
+  const check = (ok, message) => { if (!ok) throw new Error(message); };
+  await page.unrouteAll();
+  await page.goto('http://127.0.0.1:18737/web/');
+  await page.evaluate(() => { sessionStorage.clear(); localStorage.setItem('semaphore-theme', 'light'); });
+  await page.reload();
+  await page.setViewportSize({width:1280,height:900});
+  await page.getByRole('button', {name:'Switch to dark theme'}).click();
+  await page.reload();
+  check(await page.locator('html').getAttribute('data-theme') === 'dark', 'Theme survives reload');
+  await page.getByRole('button', {name:'Play',exact:true}).click();
+  await page.getByRole('textbox', {name:'Your clue'}).waitFor();
+  await page.waitForTimeout(1600);
+  const stack = await page.locator('.stack').boundingBox();
+  const clue = await page.locator('#clue').boundingBox();
+  check(clue.y >= stack.y + stack.height, 'Typing is underneath the stack');
+  check(await page.locator('.word.zone').count() === 3, 'Three-position clear range is visible');
+  check((await page.locator('#occupancy').textContent()).includes('of 20'), '20-position board');
+  check(await page.locator('.headroom').evaluate(el => el.clientHeight >= 300), 'Generous headroom');
+  check(stack.y < 200, 'Ceiling near the top of the screen');
+  check(await page.locator('.ceiling').isVisible(), 'Ceiling is visible');
+  await page.screenshot({path:'output/playwright/refine-game-dark.png',fullPage:true});
+  await page.getByRole('button',{name:'Switch to light theme'}).click();
+  await page.screenshot({path:'output/playwright/refine-game-light.png',fullPage:true});
+  await page.setViewportSize({width:390,height:844});
+  check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Mobile does not overflow');
+  await page.screenshot({path:'output/playwright/refine-game-mobile.png',fullPage:true});
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.getByRole('button',{name:'Leave game'}).click();
+  await page.getByRole('button',{name:'Play',exact:true}).click();
+  check(await page.locator('#words').evaluate(el => el.getAnimations({subtree:true}).length === 0), 'Reduced motion skips word animations');
+  return 'PASS: persistent themes, input below playfield, ceiling and range, mobile width, reduced motion';
+}

@@ -22,7 +22,14 @@ def prepare_artifact(raw, embedder, *, mode="casual", interval_ms=5000):
         dict(at_ms=(n + 1) * interval_ms, entry_id=e["id"]) for n, e in enumerate(entries[6:])
     )
     deadline = (schedule[-1]["at_ms"] if schedule else 0) + 5000
-    config = dict(capacity=12, zone_size=3, interval_ms=interval_ms, mode=mode)
+    config = dict(
+        capacity=20 if mode == "casual" else 12, zone_size=3, interval_ms=interval_ms, mode=mode
+    )
+    if mode == "casual":
+        config["special_clear"] = dict(
+            streak=5, refill="ranked_board", cascade="legal_target_in_zone"
+        )
+        config["pacing"] = dict(points_per_level=500, interval_step_percent=10, minimum_percent=40)
 
     def digest(data):
         return hashlib.sha256(canonical(data)).hexdigest()
@@ -30,7 +37,7 @@ def prepare_artifact(raw, embedder, *, mode="casual", interval_ms=5000):
     identities = dict(
         pack_digest=manifest_hashes(value).manifest_digest,
         model_fingerprint=fingerprint_hash(before),
-        ruleset_id="experiment-arcade-v1",
+        ruleset_id="experiment-arcade-paced-v1" if mode == "casual" else "experiment-arcade-v1",
         config_digest=digest(config),
         challenge_digest=None,
     )
@@ -57,5 +64,7 @@ def prepare_artifact(raw, embedder, *, mode="casual", interval_ms=5000):
         initial_board=initial,
         schedule=schedule,
         deadline_ms=deadline,
+        capacity=config["capacity"],
+        score_pacing=mode == "casual",
     )
     return artifact, vectors
