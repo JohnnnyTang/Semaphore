@@ -1,0 +1,30 @@
+{
+  "completed_at": "2026-11-09T10:14:49.455281+00:00",
+  "plan_sha256": "76509619554b1a2d4e77ff578a64f8de1055d742885b9b0b39de245841935a6c",
+  "reports": {
+    "calibration-authored.json": "35b91095a61bba23e3e23f12bbae8631ef0f057f28f90a0e756bf308058aae7c",
+    "calibration-weak.json": "22eaac1498a598dba6d0b6d8c8797d64c18488d4be7b8a4e57d0ee5469de6949",
+    "calibration-mixed.json": "5722288faa0d460acb4dab54d2190423986c40bfba311fa2e2cad75cfc1ff406",
+    "held_out-authored.json": "325c2827653253a5fb92e25d59c50fc6a99b7c7071244320ac29c4ceaea36f59",
+    "held_out-weak.json": "f3dee580f812da94c0b79d40167bcdf58e97a0d7aefa5880b6333191ba08b8c5",
+    "held_out-mixed.json": "e7bc93f030614eb195213ad08f4b9dd4ff5eef739b50013cd3d5534745213b62"
+  },
+  "supplemental_reports": {
+    "calibration-authored-parity.json": "7464b4c1d20e846b03ebb989707c3d2842494213aa8718400eea3740a031fcde",
+    "calibration-mixed-parity.json": "7464b4c1d20e846b03ebb989707c3d2842494213aa8718400eea3740a031fcde",
+    "calibration-weak-parity.json": "7464b4c1d20e846b03ebb989707c3d2842494213aa8718400eea3740a031fcde",
+    "freeze.json": "6ca8772faf566a8760abd1ab63ff80629932163e59226cd48651c0f69806097f",
+    "held_out-authored-parity.json": "7464b4c1d20e846b03ebb989707c3d2842494213aa8718400eea3740a031fcde",
+    "held_out-mixed-parity.json": "7464b4c1d20e846b03ebb989707c3d2842494213aa8718400eea3740a031fcde",
+    "held_out-weak-parity.json": "7464b4c1d20e846b03ebb989707c3d2842494213aa8718400eea3740a031fcde",
+    "latency.json": "d680527c458ab82a9313e3b058a6d7fc27a6beebc7cd1262beb45038bf59adc0"
+  },
+  "freeze_sha256": "6ca8772faf566a8760abd1ab63ff80629932163e59226cd48651c0f69806097f",
+  "sources": {
+    "verification.py": "afc984a6721c246f1fa0dbed5de3f80d45a816748fe0623c57f158b9df3a20a2",
+    "run.py": "70c00f9db78c99dc643e12d49a4eeb920a490a92aea3fe9ff8afd061305ced7a",
+    "parity.cjs": "713221177b98ab8d8751615c030090fb0648c58657f617751a17a4376d7be3bc"
+  },
+  "python": "3.12.12 (main, Dec  9 2025, 19:02:55) [MSC v.1944 64 bit (AMD64)]",
+  "node": "v24.12.0"
+}

@@ -1,0 +1,300 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://semaphore.invalid/draft-w2/verification.schema.json",
+  "type": "object",
+  "properties": {
+    "report_version": {
+      "const": "draft-w2"
+    },
+    "authority": {
+      "const": "hub-recomputed"
+    },
+    "manifest_digest": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "semantic_hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "vector_hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "fingerprint_hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "fingerprint": {
+      "$ref": "#/$defs/fingerprint"
+    },
+    "metrics_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "protocol_hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "ruleset_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "status": {
+      "enum": [
+        "passed",
+        "rejected"
+      ]
+    },
+    "metrics": {
+      "$ref": "#/$defs/metrics"
+    },
+    "sample_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "numeric_tolerance": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 0.01
+    },
+    "flagged_entries": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64,
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "flagged_pairs": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "diagnostics_truncated": {
+      "type": "boolean"
+    },
+    "elapsed_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "report_version",
+    "authority",
+    "manifest_digest",
+    "semantic_hash",
+    "vector_hash",
+    "fingerprint_hash",
+    "fingerprint",
+    "metrics_version",
+    "protocol_hash",
+    "ruleset_id",
+    "status",
+    "metrics",
+    "sample_count",
+    "numeric_tolerance",
+    "flagged_entries",
+    "flagged_pairs",
+    "diagnostics_truncated",
+    "elapsed_ms"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "fingerprint": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "assets": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 32,
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "runtime": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 32,
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          }
+        },
+        "query_instruction": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "document_instruction": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "pooling": {
+          "enum": [
+            "mean",
+            "cls",
+            "last-token"
+          ]
+        },
+        "dimensions": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8192
+        },
+        "normalize": {
+          "type": "boolean"
+        },
+        "dtype": {
+          "enum": [
+            "float32",
+            "float16",
+            "bfloat16"
+          ]
+        },
+        "max_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8192
+        },
+        "truncation": {
+          "enum": [
+            "reject",
+            "right"
+          ]
+        },
+        "custom_code_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "repository",
+        "revision",
+        "assets",
+        "runtime",
+        "query_instruction",
+        "document_instruction",
+        "pooling",
+        "dimensions",
+        "normalize",
+        "dtype",
+        "max_tokens",
+        "truncation",
+        "custom_code_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "entry_count": {
+          "type": "integer",
+          "minimum": 40,
+          "maximum": 5000
+        },
+        "legal_clue_count": {
+          "type": "integer",
+          "minimum": 120,
+          "maximum": 25000
+        },
+        "reachable_entries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000
+        },
+        "reachability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "playability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "mean_rank": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "duplicate_entry_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000
+        }
+      },
+      "required": [
+        "entry_count",
+        "legal_clue_count",
+        "reachable_entries",
+        "reachability",
+        "playability",
+        "mean_rank",
+        "duplicate_entry_count"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

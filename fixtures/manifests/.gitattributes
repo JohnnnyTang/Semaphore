@@ -1,0 +1,2 @@
+# Full-manifest digest fixtures use exact bytes on Linux and Windows.
+*.json text eol=lf

@@ -5,7 +5,7 @@ description = "Shared experiment interfaces for the Semaphore LAN word game"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 license = "MIT"
-dependencies = []
+dependencies = ["jsonschema>=4.26,<5"]
 
 [build-system]
 requires = ["uv_build==0.9.18"]
@@ -13,17 +13,33 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
+    "jsonschema>=4.26,<5",
     "pytest>=8.4,<10",
     "ruff>=0.14,<1",
     "uv_build==0.9.18",
+]
+model-eval = [
+    "psutil>=7,<8",
+    "sentence-transformers>=5.3,<6",
+    "torch>=2.15.0,<3",
+    "transformers>=5.5,<6",
 ]
 
 [tool.uv.build-backend]
 module-root = "packages"
 module-name = "semaphore_core"
 
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 addopts = "--strict-config --strict-markers -ra"
 
 [tool.ruff]

@@ -1,0 +1,403 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://semaphore.invalid/experiment-w3/verification.schema.json",
+  "type": "object",
+  "properties": {
+    "report_version": {
+      "const": "experiment-w3"
+    },
+    "authority": {
+      "const": "experiment-recomputed"
+    },
+    "manifest_digest": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "semantic_hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "vector_hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "fingerprint_hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "fingerprint": {
+      "$ref": "#/$defs/ollamaFingerprint"
+    },
+    "metrics_version": {
+      "const": "bottom3-median-v1"
+    },
+    "protocol_hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "ruleset_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "status": {
+      "enum": [
+        "measured",
+        "rejected"
+      ]
+    },
+    "metrics": {
+      "$ref": "#/$defs/metrics"
+    },
+    "sample_count": {
+      "const": 5
+    },
+    "numeric_tolerance": {
+      "const": 1e-05
+    },
+    "flagged_entries": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64,
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "flagged_pairs": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "diagnostics_truncated": {
+      "type": "boolean"
+    },
+    "elapsed_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "report_version",
+    "authority",
+    "manifest_digest",
+    "semantic_hash",
+    "vector_hash",
+    "fingerprint_hash",
+    "fingerprint",
+    "metrics_version",
+    "protocol_hash",
+    "ruleset_id",
+    "status",
+    "metrics",
+    "sample_count",
+    "numeric_tolerance",
+    "flagged_entries",
+    "flagged_pairs",
+    "diagnostics_truncated",
+    "elapsed_ms"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "entry_count": {
+          "type": "integer",
+          "minimum": 40,
+          "maximum": 5000
+        },
+        "legal_clue_count": {
+          "type": "integer",
+          "minimum": 120,
+          "maximum": 25000
+        },
+        "reachable_entries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000
+        },
+        "reachability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "playability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "mean_rank": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "duplicate_entry_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000
+        }
+      },
+      "required": [
+        "entry_count",
+        "legal_clue_count",
+        "reachable_entries",
+        "reachability",
+        "playability",
+        "mean_rank",
+        "duplicate_entry_count"
+      ],
+      "additionalProperties": false
+    },
+    "hfProductionFingerprint": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "assets": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 32,
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "runtime": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 32,
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          }
+        },
+        "query_instruction": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "document_instruction": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "pooling": {
+          "enum": [
+            "mean",
+            "cls",
+            "last-token"
+          ]
+        },
+        "dimensions": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8192
+        },
+        "normalize": {
+          "type": "boolean"
+        },
+        "dtype": {
+          "enum": [
+            "float32",
+            "float16",
+            "bfloat16"
+          ]
+        },
+        "max_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8192
+        },
+        "truncation": {
+          "enum": [
+            "reject",
+            "right"
+          ]
+        },
+        "custom_code_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "repository",
+        "revision",
+        "assets",
+        "runtime",
+        "query_instruction",
+        "document_instruction",
+        "pooling",
+        "dimensions",
+        "normalize",
+        "dtype",
+        "max_tokens",
+        "truncation",
+        "custom_code_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "ollamaFingerprint": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "const": "ollama"
+        },
+        "model": {
+          "const": "qwen3-embedding:4b"
+        },
+        "digest": {
+          "const": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907"
+        },
+        "ollama_version": {
+          "const": "0.40.15"
+        },
+        "dimensions": {
+          "const": 2560
+        },
+        "encoding_policy": {
+          "const": "semaphore-qwen4b-association-v1"
+        },
+        "query_prefix": {
+          "const": "Instruct: Given a word-association game clue, retrieve the words or phrases most closely associated with the clue.\nQuery: "
+        },
+        "entry_prefix": {
+          "const": ""
+        },
+        "num_ctx": {
+          "const": 512
+        },
+        "truncate": {
+          "const": false
+        },
+        "normalization": {
+          "const": "ollama-l2-validated"
+        },
+        "model_details": {
+          "type": "object",
+          "properties": {
+            "parent_model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "format": {
+              "const": "gguf"
+            },
+            "family": {
+              "const": "qwen3"
+            },
+            "parameter_size": {
+              "const": "4.0B"
+            },
+            "quantization_level": {
+              "const": "Q4_K_M"
+            },
+            "runner": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "families": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "minItems": 1,
+              "maxItems": 16
+            },
+            "context_length": {
+              "type": "integer",
+              "minimum": 512,
+              "maximum": 1000000
+            },
+            "embedding_length": {
+              "const": 2560
+            }
+          },
+          "required": [
+            "parent_model",
+            "format",
+            "family",
+            "parameter_size",
+            "quantization_level",
+            "runner",
+            "families",
+            "context_length",
+            "embedding_length"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "provider",
+        "model",
+        "digest",
+        "ollama_version",
+        "dimensions",
+        "encoding_policy",
+        "query_prefix",
+        "entry_prefix",
+        "num_ctx",
+        "truncate",
+        "normalization",
+        "model_details"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

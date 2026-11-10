@@ -1,0 +1,75 @@
+{
+  "policy_version": "bottom3-median-v1",
+  "canonicalization": "restricted-json-utf8-v1",
+  "normalization": {
+    "unicode": "15.0",
+    "form": "NFKC",
+    "whitespace": "split-join-ascii-space",
+    "case": "preserve-embedding-casefold-legality",
+    "reject_categories": "C",
+    "tokens": "maximal-L-or-N"
+  },
+  "legality": {
+    "id": "en-reviewed-subset-v1",
+    "equivalence_classes": [
+      [
+        "car",
+        "cars"
+      ],
+      [
+        "run",
+        "runs",
+        "running",
+        "ran"
+      ]
+    ],
+    "match": "contiguous-target-label-alias-forbidden-token-phrase",
+    "other_morphology": "unsupported"
+  },
+  "numeric": {
+    "dimensions": 2560,
+    "norm_tolerance": "0.001",
+    "bucket_width": "0.00001",
+    "bucket": "floor(score / width + 0.5)",
+    "sort": [
+      "bucket-desc",
+      "ascii-id-asc"
+    ],
+    "dot": "binary64-left-to-right-no-fma",
+    "parity_tolerance": "0.00001"
+  },
+  "sampler": {
+    "hard_count": 5,
+    "random_count": 14,
+    "samples": 5,
+    "hard_order": "entry-dot-total-order",
+    "seed_fields": [
+      "decoy-v1",
+      "semantic_hash",
+      "target_id",
+      "sample_index",
+      "candidate_id"
+    ],
+    "hash": "sha256-restricted-canonical-json",
+    "order": [
+      "hash-asc",
+      "ascii-id-asc"
+    ]
+  },
+  "metrics": {
+    "clue_rank": "median-five-samples",
+    "entry_rank": "median-clue-ranks",
+    "even_median": "average-middle-two",
+    "bottom_zone": 3,
+    "mean_rank": "mean-entry-medians",
+    "playability": "100*reachable/entry_count"
+  },
+  "thresholds": {
+    "reachability": "0.85",
+    "status": "provisional-unvalidated"
+  },
+  "diagnostics": {
+    "pair_threshold": "0.95",
+    "cap": 1000
+  }
+}

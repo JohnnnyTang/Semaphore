@@ -1,0 +1,6 @@
+{
+  "cases": 10,
+  "ordered_ids_equal": true,
+  "max_score_error": 0.0,
+  "scope": "Python and Node binary64; not independent creator packaging parity"
+}

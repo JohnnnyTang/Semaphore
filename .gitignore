@@ -47,3 +47,7 @@ coverage/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Local browser QA session files
+/.playwright-cli/
+/output/playwright/

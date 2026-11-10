@@ -1,6 +1,6 @@
 """Semaphore's provisional Stage 1 experiment interfaces.
 
-No game rules or embedding model are implemented by this baseline.
+The LAN embedding adapter is provisional; game rules are not implemented yet.
 """
 
 from semaphore_core.ranking import FakeRanker, RankedEntry, Ranker

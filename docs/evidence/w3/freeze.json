@@ -1,0 +1,10 @@
+{
+  "created_at": "2026-11-09T10:14:07.989952+00:00",
+  "plan_sha256": "76509619554b1a2d4e77ff578a64f8de1055d742885b9b0b39de245841935a6c",
+  "calibration_reports": {
+    "calibration-authored.json": "35b91095a61bba23e3e23f12bbae8631ef0f057f28f90a0e756bf308058aae7c",
+    "calibration-weak.json": "22eaac1498a598dba6d0b6d8c8797d64c18488d4be7b8a4e57d0ee5469de6949",
+    "calibration-mixed.json": "5722288faa0d460acb4dab54d2190423986c40bfba311fa2e2cad75cfc1ff406"
+  },
+  "policy": "unchanged; no threshold selection"
+}

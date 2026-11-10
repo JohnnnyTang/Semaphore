@@ -1,0 +1,610 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Semaphore W2 draft API",
+    "version": "0.0.0-draft-w2",
+    "description": "Proposal only; WebSocket messages are events.schema.json. CSRF and role requirements in platform.md are mandatory."
+  },
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "summary": "Register local account (proposed open signup)",
+        "operationId": "post__api_auth_register",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/authResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "http.schema.json#/$defs/account"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "Establish opaque server session",
+        "operationId": "post__api_auth_login",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/authResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "http.schema.json#/$defs/login"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "summary": "Revoke current session",
+        "operationId": "post__api_auth_logout",
+        "responses": {
+          "204": {
+            "description": "Success; empty body"
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/me": {
+      "get": {
+        "summary": "Read current account",
+        "operationId": "get__api_me",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/user"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/packs": {
+      "get": {
+        "summary": "Browse visible published versions",
+        "operationId": "get__api_packs",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/packList"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ]
+      }
+    },
+    "/api/packs/{id}/versions/{version}": {
+      "get": {
+        "summary": "Read visible immutable version metadata",
+        "operationId": "get__api_packs_id_versions_version",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/packSummary"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9-]*$"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/uploads": {
+      "post": {
+        "summary": "Stage bounded manifest and enqueue owner-scoped verification",
+        "operationId": "post__api_uploads",
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/uploadJob"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "manifest.schema.json"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            }
+          }
+        ]
+      }
+    },
+    "/api/uploads/{id}": {
+      "get": {
+        "summary": "Read own upload status and diagnostics",
+        "operationId": "get__api_uploads_id",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/uploadJob"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9-]*$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/games": {
+      "post": {
+        "summary": "Start authoritative game with pinned identity",
+        "operationId": "post__api_games",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "events.schema.json#/$defs/state"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "http.schema.json#/$defs/createGame"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/games/{id}": {
+      "get": {
+        "summary": "Read own authoritative game snapshot",
+        "operationId": "get__api_games_id",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "events.schema.json#/$defs/state"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9-]*$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/packs/{id}/versions/{version}/leaderboard": {
+      "get": {
+        "summary": "Read finalized server scores",
+        "operationId": "get__api_packs_id_versions_version_leaderboard",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/leaderboard"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9-]*$"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+            }
+          },
+          {
+            "name": "challenge_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9-]*$"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ]
+      }
+    },
+    "/api/admin/packs/{id}": {
+      "patch": {
+        "summary": "Admin only: hide or unhide pack",
+        "operationId": "patch__api_admin_packs_id",
+        "responses": {
+          "204": {
+            "description": "Success; empty body"
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "http.schema.json#/$defs/moderate"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9-]*$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/admin/challenges": {
+      "post": {
+        "summary": "Admin only: create immutable seeded event",
+        "operationId": "post__api_admin_challenges",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/challenge"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded structured error; see platform.md for status mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "http.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "http.schema.json#/$defs/challengeCreate"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "session": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "semaphore_session"
+      }
+    }
+  }
+}

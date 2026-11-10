@@ -1,0 +1,485 @@
+{
+  "fixture_version": "s1-w2-game-trace-1",
+  "scenario": "inference-spawn-retry-and-reconnect",
+  "seed": 1729,
+  "provenance": "synthetic-author-authored; MIT",
+  "mode": "casual",
+  "config": {
+    "capacity": 6,
+    "zone_size": 1
+  },
+  "entries": {
+    "a": {
+      "label": "glacier",
+      "inflections": [
+        "glaciers"
+      ],
+      "forbidden": [
+        "glacial"
+      ]
+    },
+    "b": {
+      "label": "oxbow lake",
+      "aliases": [
+        "cutoff lake"
+      ]
+    },
+    "c": {
+      "label": "sand dune"
+    },
+    "d": {
+      "label": "plateau"
+    },
+    "e": {
+      "label": "valley"
+    },
+    "f": {
+      "label": "delta"
+    }
+  },
+  "schedule": [
+    {
+      "at_ms": 100,
+      "entry_id": "c"
+    },
+    {
+      "at_ms": 300,
+      "entry_id": "d"
+    }
+  ],
+  "deadline_ms": 600,
+  "initial_state": {
+    "status": "active",
+    "board": [
+      "a",
+      "b"
+    ],
+    "target": "a",
+    "score": 0,
+    "clears": 0,
+    "level": 1,
+    "revision": 0,
+    "next_spawn_index": 0,
+    "pending": null,
+    "end_reason": null
+  },
+  "events": [
+    {
+      "at_ms": 50,
+      "kind": "admit",
+      "command_id": "r1",
+      "clue": "ice",
+      "expected_revision": 0,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "r1",
+          "target": "a",
+          "admitted_ms": 50
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 60,
+      "kind": "admit",
+      "command_id": "r1",
+      "clue": "ice",
+      "expected_revision": 0,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "r1",
+          "target": "a",
+          "admitted_ms": 50
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 65,
+      "kind": "admit",
+      "command_id": "r1",
+      "clue": "snow",
+      "expected_revision": 0,
+      "expected_result": "command_conflict",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "r1",
+          "target": "a",
+          "admitted_ms": 50
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 70,
+      "kind": "admit",
+      "command_id": "r2",
+      "clue": "water",
+      "expected_revision": 1,
+      "expected_result": "busy",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "r1",
+          "target": "a",
+          "admitted_ms": 50
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 100,
+      "kind": "spawn",
+      "entry_id": "c",
+      "expected_result": "spawn",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 1,
+        "pending": {
+          "command_id": "r1",
+          "target": "a",
+          "admitted_ms": 50
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 150,
+      "kind": "complete",
+      "command_id": "r1",
+      "scores": {
+        "a": 0.7,
+        "b": 0.2,
+        "c": 0.9
+      },
+      "expected_result": "miss",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 160,
+      "kind": "admit",
+      "command_id": "r1",
+      "clue": "ice",
+      "expected_revision": 0,
+      "expected_result": "miss",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 170,
+      "kind": "admit",
+      "command_id": "r3",
+      "clue": "water",
+      "expected_revision": 0,
+      "expected_result": "stale_revision",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 180,
+      "kind": "disconnect",
+      "expected_result": "snapshot",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 200,
+      "kind": "admit",
+      "command_id": "r4",
+      "clue": "frozen",
+      "expected_revision": 3,
+      "expected_result": "pending",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 1,
+        "pending": {
+          "command_id": "r4",
+          "target": "a",
+          "admitted_ms": 200
+        },
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 220,
+      "kind": "fail",
+      "command_id": "r4",
+      "expected_result": "inference_failed",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 5,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 230,
+      "kind": "admit",
+      "command_id": "r4",
+      "clue": "frozen",
+      "expected_revision": 3,
+      "expected_result": "inference_failed",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 5,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 250,
+      "kind": "reconnect",
+      "expected_result": "snapshot",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 5,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 300,
+      "kind": "spawn",
+      "entry_id": "d",
+      "expected_result": "spawn",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 2,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 310,
+      "kind": "read",
+      "expected_result": "snapshot",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "c",
+          "a",
+          "b",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 2,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 600,
+      "kind": "deadline",
+      "expected_result": "pack_exhausted",
+      "expected_state": {
+        "status": "over",
+        "board": [
+          "c",
+          "a",
+          "b",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 7,
+        "next_spawn_index": 2,
+        "pending": null,
+        "end_reason": "pack_exhausted"
+      }
+    },
+    {
+      "at_ms": 610,
+      "kind": "admit",
+      "command_id": "r5",
+      "clue": "snow",
+      "expected_revision": 7,
+      "expected_result": "game_over",
+      "expected_state": {
+        "status": "over",
+        "board": [
+          "c",
+          "a",
+          "b",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 7,
+        "next_spawn_index": 2,
+        "pending": null,
+        "end_reason": "pack_exhausted"
+      }
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "fixture_version": "s1-w2-game-trace-1",
+  "scenario": "event-player-waits",
+  "seed": 1729,
+  "provenance": "synthetic-author-authored; MIT",
+  "mode": "event",
+  "config": {
+    "capacity": 6,
+    "zone_size": 1
+  },
+  "entries": {
+    "a": {
+      "label": "glacier",
+      "inflections": [
+        "glaciers"
+      ],
+      "forbidden": [
+        "glacial"
+      ]
+    },
+    "b": {
+      "label": "oxbow lake",
+      "aliases": [
+        "cutoff lake"
+      ]
+    },
+    "c": {
+      "label": "sand dune"
+    },
+    "d": {
+      "label": "plateau"
+    },
+    "e": {
+      "label": "valley"
+    },
+    "f": {
+      "label": "delta"
+    }
+  },
+  "schedule": [
+    {
+      "at_ms": 100,
+      "entry_id": "c"
+    },
+    {
+      "at_ms": 200,
+      "entry_id": "d"
+    }
+  ],
+  "deadline_ms": 300,
+  "initial_state": {
+    "status": "active",
+    "board": [
+      "a",
+      "b"
+    ],
+    "target": "a",
+    "score": 0,
+    "clears": 0,
+    "level": 1,
+    "revision": 0,
+    "next_spawn_index": 0,
+    "pending": null,
+    "end_reason": null
+  },
+  "events": [
+    {
+      "at_ms": 50,
+      "kind": "disconnect",
+      "expected_result": "snapshot",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 100,
+      "kind": "spawn",
+      "entry_id": "c",
+      "expected_result": "spawn",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 1,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 200,
+      "kind": "spawn",
+      "entry_id": "d",
+      "expected_result": "spawn",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 2,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 250,
+      "kind": "reconnect",
+      "expected_result": "snapshot",
+      "expected_state": {
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 2,
+        "pending": null,
+        "end_reason": null
+      }
+    },
+    {
+      "at_ms": 300,
+      "kind": "deadline",
+      "expected_result": "event_complete",
+      "expected_state": {
+        "status": "over",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 2,
+        "pending": null,
+        "end_reason": "event_complete"
+      }
+    }
+  ],
+  "challenge_id": "shared-signal-1"
+}

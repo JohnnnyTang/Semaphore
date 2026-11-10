@@ -1,0 +1,755 @@
+{
+  "fixture_version": "experiment-v1",
+  "source_trace": "fifth-clear-advances-level.json",
+  "envelopes": [
+    {
+      "protocol": "experiment-v1",
+      "sequence": 0,
+      "kind": "snapshot",
+      "snapshot": {
+        "game_id": "fifth-clear-advances-level",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 0,
+        "capacity": 8,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 0,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": null
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 1,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "fifth-clear-advances-level",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 10,
+        "capacity": 8,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "a",
+        "score": 0,
+        "clears": 0,
+        "level": 1,
+        "revision": 1,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "v0",
+          "target": "a",
+          "admitted_ms": 10
+        },
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "v0",
+        "outcome": "pending",
+        "applied_revision": 1,
+        "target": "a",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 2,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "fifth-clear-advances-level",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 20,
+        "capacity": 8,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "b",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 2,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "v0",
+        "outcome": "clear",
+        "applied_revision": 2,
+        "target": "a",
+        "target_rank": 1,
+        "ranked_board": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "score_delta": 100
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 3,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "fifth-clear-advances-level",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 30,
+        "capacity": 8,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "b",
+        "score": 100,
+        "clears": 1,
+        "level": 1,
+        "revision": 3,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "v1",
+          "target": "b",
+          "admitted_ms": 30
+        },
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "v1",
+        "outcome": "pending",
+        "applied_revision": 3,
+        "target": "b",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 4,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "fifth-clear-advances-level",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 40,
+        "capacity": 8,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "c",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 4,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "v1",
+        "outcome": "clear",
+        "applied_revision": 4,
+        "target": "b",
+        "target_rank": 1,
+        "ranked_board": [
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "score_delta": 100
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 5,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "fifth-clear-advances-level",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 50,
+        "capacity": 8,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "c",
+        "score": 200,
+        "clears": 2,
+        "level": 1,
+        "revision": 5,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "v2",
+          "target": "c",
+          "admitted_ms": 50
+        },
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "v2",
+        "outcome": "pending",
+        "applied_revision": 5,
+        "target": "c",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 6,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "fifth-clear-advances-level",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 60,
+        "capacity": 8,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "d",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 6,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "v2",
+        "outcome": "clear",
+        "applied_revision": 6,
+        "target": "c",
+        "target_rank": 1,
+        "ranked_board": [
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "score_delta": 100
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 7,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "fifth-clear-advances-level",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 70,
+        "capacity": 8,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "d",
+          "e",
+          "f"
+        ],
+        "target": "d",
+        "score": 300,
+        "clears": 3,
+        "level": 1,
+        "revision": 7,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "v3",
+          "target": "d",
+          "admitted_ms": 70
+        },
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "v3",
+        "outcome": "pending",
+        "applied_revision": 7,
+        "target": "d",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 8,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "fifth-clear-advances-level",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 80,
+        "capacity": 8,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "e",
+          "f"
+        ],
+        "target": "e",
+        "score": 400,
+        "clears": 4,
+        "level": 1,
+        "revision": 8,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "v3",
+        "outcome": "clear",
+        "applied_revision": 8,
+        "target": "d",
+        "target_rank": 1,
+        "ranked_board": [
+          "d",
+          "e",
+          "f"
+        ],
+        "score_delta": 100
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 9,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "fifth-clear-advances-level",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 90,
+        "capacity": 8,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "e",
+          "f"
+        ],
+        "target": "e",
+        "score": 400,
+        "clears": 4,
+        "level": 1,
+        "revision": 9,
+        "next_spawn_index": 0,
+        "pending": {
+          "command_id": "v4",
+          "target": "e",
+          "admitted_ms": 90
+        },
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "v4",
+        "outcome": "pending",
+        "applied_revision": 9,
+        "target": "e",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 10,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "fifth-clear-advances-level",
+        "identities": {
+          "pack_digest": "synthetic-pack-v1",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-v1",
+          "config_digest": "synthetic-config",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 100,
+        "capacity": 8,
+        "zone_size": 1,
+        "deadline_ms": 1000,
+        "next_spawn_ms": null,
+        "status": "active",
+        "board": [
+          "f"
+        ],
+        "target": "f",
+        "score": 500,
+        "clears": 5,
+        "level": 2,
+        "revision": 10,
+        "next_spawn_index": 0,
+        "pending": null,
+        "end_reason": null,
+        "entries": {
+          "a": {
+            "label": "glacier"
+          },
+          "b": {
+            "label": "oxbow lake"
+          },
+          "c": {
+            "label": "sand dune"
+          },
+          "d": {
+            "label": "plateau"
+          },
+          "e": {
+            "label": "valley"
+          },
+          "f": {
+            "label": "delta"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "v4",
+        "outcome": "clear",
+        "applied_revision": 10,
+        "target": "e",
+        "target_rank": 1,
+        "ranked_board": [
+          "e",
+          "f"
+        ],
+        "score_delta": 100
+      }
+    }
+  ]
+}

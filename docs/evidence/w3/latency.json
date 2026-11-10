@@ -1,0 +1,90 @@
+{
+  "fingerprint_hash": "657120305f464d0fb6a6006b9dbc8152af04ba30317dadcef1b41af0aa2941a4",
+  "concurrency": {
+    "1": {
+      "requests": 100,
+      "p50_ms": 117.38454998703673,
+      "p95_ms": 160.48940003383905,
+      "components": {
+        "/api/version": {
+          "count": 100,
+          "wall_p50_ms": 30.904000013833866,
+          "wall_p95_ms": 45.80259998328984
+        },
+        "/api/tags": {
+          "count": 100,
+          "wall_p50_ms": 32.27135000634007,
+          "wall_p95_ms": 52.843699988443404
+        },
+        "/api/embed": {
+          "count": 100,
+          "wall_p50_ms": 52.014850021805614,
+          "wall_p95_ms": 83.41840002685785,
+          "service_duration_count": 100,
+          "inference_duration_count": 0,
+          "service_p95_ms": 35.7912,
+          "inference_p95_ms": null,
+          "residual_p95_ms": 59.089799967765806
+        }
+      }
+    },
+    "4": {
+      "requests": 100,
+      "p50_ms": 199.74879999062978,
+      "p95_ms": 286.75950004253536,
+      "components": {
+        "/api/version": {
+          "count": 100,
+          "wall_p50_ms": 47.03544999938458,
+          "wall_p95_ms": 84.55000002868474
+        },
+        "/api/tags": {
+          "count": 100,
+          "wall_p50_ms": 50.5950000078883,
+          "wall_p95_ms": 113.1298000109382
+        },
+        "/api/embed": {
+          "count": 100,
+          "wall_p50_ms": 79.92395001929253,
+          "wall_p95_ms": 156.9395000115037,
+          "service_duration_count": 100,
+          "inference_duration_count": 0,
+          "service_p95_ms": 21.2528,
+          "inference_p95_ms": null,
+          "residual_p95_ms": 145.2179000115037
+        }
+      }
+    },
+    "8": {
+      "requests": 100,
+      "p50_ms": 324.2408499936573,
+      "p95_ms": 474.6591000002809,
+      "components": {
+        "/api/version": {
+          "count": 100,
+          "wall_p50_ms": 85.87814998463728,
+          "wall_p95_ms": 164.32459995849058
+        },
+        "/api/tags": {
+          "count": 100,
+          "wall_p50_ms": 86.22890000697225,
+          "wall_p95_ms": 169.37900002812967
+        },
+        "/api/embed": {
+          "count": 100,
+          "wall_p50_ms": 129.77994998800568,
+          "wall_p95_ms": 224.26950000226498,
+          "service_duration_count": 100,
+          "inference_duration_count": 0,
+          "service_p95_ms": 36.7085,
+          "inference_p95_ms": null,
+          "residual_p95_ms": 213.322900002265
+        }
+      }
+    }
+  },
+  "target_ms": 100,
+  "target_passed": false,
+  "scope": "Pinned adapter requests, not game/player load; no game queue exists yet",
+  "timing_note": "service-reported durations; residual includes HTTP, JSON and client work"
+}

@@ -1,0 +1,12 @@
+{
+  "status": "frozen-before-held-out",
+  "frozen_at": "2026-11-09T09:51:20.6840204Z",
+  "calibration_report_sha256": "faf9fbb6199b30e32914c8266a94add9d9a538844f4b7e83a8769622eb804fb3",
+  "fingerprint_sha256": "657120305f464d0fb6a6006b9dbc8152af04ba30317dadcef1b41af0aa2941a4",
+  "fixture_sha256": "6ef2b3b9d68d3ad7a219a95cb064a909c01844f0bed360749486830f76f13d13",
+  "encoding_policy": "semaphore-qwen4b-association-v1",
+  "primary_entry_mode": "embed_text",
+  "comparison_entry_mode": "label",
+  "rationale": "Calibration 20-entry top-three: context 269/270 versus labels 260/270; ambiguity context 54/54 versus labels 45/54. Preserve preregistered query prefix, native dimensions, context length and both modes. No threshold, near-tie or prompt search.",
+  "scope": "Existing synthetic evaluator; no claim to calibrate the W3 publication verifier sampler."
+}

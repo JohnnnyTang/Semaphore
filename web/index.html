@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="./favicon.svg"><title>Semaphore · Word arcade</title><link rel="stylesheet" href="./styles.css"></head>
+<body>
+<header class="masthead"><a href="./" class="brand" aria-label="Semaphore home"><span class="brand-flag" aria-hidden="true"></span>Semaphore</a><span class="edition">Word arcade / experiment</span><button id="help-open" class="quiet">How to play</button></header>
+<main>
+<section id="welcome" class="welcome">
+  <div><h1>Send a clue.<br>Move a word.</h1><p class="intro">Follow the flag. Find an association that brings your target into the clear zone before the stack fills up.</p></div>
+  <form id="start-form" class="setup"><h2>Take your place</h2><label for="transport">Play with</label><select id="transport"><option value="fixture">Scripted practice</option><option value="http">LAN game server</option></select>
+  <div id="fixture-options"><label for="scenario">Practice sequence</label><select id="scenario"><option value="legality-and-target-only-clear">Clue correction & target clear</option><option value="inference-spawn-retry-and-reconnect">Spawns, delays & retry</option><option value="equal-time-overflow-beats-inference">A full stack</option><option value="bottom-three-target-only">The bottom-three rule</option><option value="event-player-clears">Event play</option></select><p class="hint">Practice replays recorded outcomes in order. Your clue does not determine its result.</p></div>
+  <div id="http-options" hidden><label for="artifact">Artifact ID</label><input id="artifact" value="default" autocomplete="off"><label for="mode">Game mode</label><select id="mode"><option value="casual">Casual</option><option value="event">Event</option></select><p class="hint">Connect to an operator-preloaded game on this server.</p></div><button class="primary" id="play">Play</button><p id="start-error" role="alert"></p></form>
+</section>
+<section id="game" hidden>
+  <div class="game-top"><div><p id="source" class="hint"></p><h1 id="pack-name">Follow the flag</h1></div><button id="leave" class="quiet">Leave game</button></div>
+  <div class="arena">
+    <section class="stack-panel" aria-label="Word stack"><div class="stack-meta"><span id="occupancy"></span><span id="next-spawn"></span></div><div class="stack"><div class="headroom" aria-hidden="true"><span>Room to rise</span></div><ol id="words" aria-label="Words, top to bottom"></ol></div><p id="zone-note" class="hint"></p></section>
+    <section class="console"><div class="stats"><span>Score <strong id="score">0</strong></span><span>Level <strong id="level">1</strong></span></div><div id="active-controls"><p class="target-label">Your target</p><h2 id="target" aria-live="polite"></h2><p id="instruction">Guide it into the clear zone. Only the target clears.</p><p id="connection" role="status"></p><button id="reconnect" class="quiet" hidden>Reconnect</button><form id="clue-form"><label for="clue">Your clue</label><input id="clue" autocomplete="off" spellcheck="false" aria-describedby="clue-count result" placeholder="Find an association…"><div id="clue-count" class="hint">120 characters available</div><button class="primary" id="send">Send clue <span aria-hidden="true">↵</span></button></form><p id="result" role="status" aria-live="polite"></p><p class="hint">Enter to send. Keep the target word out of your clue.</p></div>
+    <div id="ending" role="alert" hidden><h2 id="end-title" tabindex="-1"></h2><p id="end-detail"></p><button id="again" class="primary">Play again</button></div>
+    <details class="identities"><summary>Game details</summary><dl id="details"></dl></details></section>
+  </div>
+</section>
+</main>
+<footer>Associations under pressure. <span>Local assets. Shared words.</span></footer>
+<dialog id="help"><h2>Follow the flag</h2><p>Send a clue associated with the target. The server ranks all words by their association with your clue, placing the closest at the bottom.</p><p>If the target lands in the clear zone, it clears and earns 100 points. Other words stay. New words keep arriving; a full stack ends the game.</p><p>The clock keeps running while your clue is ranked and while you reconnect.</p><form method="dialog"><button class="primary">Back to play</button></form></dialog>
+<script type="module" src="./app.mjs"></script>
+</body></html>
