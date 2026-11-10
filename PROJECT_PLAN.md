@@ -13,13 +13,9 @@ checks are retained; adaptive casual selection and general morphology are exclud
 from the frozen experiment. See [decision 0004](docs/decisions/0004-w3-gate-closure.md).
 W4 is ready but has not been dispatched. Historical status below is superseded.
 
-Status: Stage 1 Wave 1 merged in PR #1 on November 8, 2026 (America/New_York).
-The owner authorized Wave 2 with parallel sub-agents; B/C/D draft outputs are
-integrated on `codex/s1-w2-integration` from merged baseline
-`80ebde2bec2289002f9bd58c6e131ad8627dc9d8`. Model measurement remains open after
-a failed weight download; W2 is not declared complete.
-See [the W2 record](docs/stages/s1-w2-evidence-and-contracts.md). Later waves
-retain their evidence and review gates.
+Status: Stage 1 Wave 4 is integrated locally on `codex/s1-w4-integration`.
+See [the W4 record](docs/stages/s1-w4-playable-experiment.md) for commits, validation
+and remaining W5 acceptance gates. Later-stage gates remain in force.
 
 Prepared: November 8, 2026.
 

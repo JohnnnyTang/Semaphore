@@ -11,7 +11,7 @@ The checks are:
 
 - `Python quality`: locked development install, Ruff lint and formatting.
 - `Tests and package (ubuntu-24.04)` and `Tests and package (windows-2025)`:
-  locked development install, tests, source/wheel build, and a wheel import in an
+  locked development install, Python tests, Node browser transport/state tests, source/wheel build, and a wheel import in an
   isolated environment. Python follows the repository's `.python-version`.
 - `Workflow lint`: actionlint validates workflow syntax, expressions and shell
   commands. Its release archive is verified against a pinned SHA-256 digest

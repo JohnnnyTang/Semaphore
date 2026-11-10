@@ -9,7 +9,7 @@ the hub independently verifies each pack before publication.
 
 ## Project status
 
-Stage 1, Wave 4 is in progress from the closed Wave 3 baseline. Three isolated workers are implementing the core/server, browser, and independent probes; see the [Wave 4 record](docs/stages/s1-w4-playable-experiment.md).
+Stage 1, Wave 4 is integrated locally: callable core, authoritative experimental server, thin browser and independent probes. See the [Wave 4 record](docs/stages/s1-w4-playable-experiment.md) for validation and W5 gates.
 The owner accepted the finite-schedule scope while retaining the unmet 100 ms
 Stage 1 target. Actual-protocol synthetic verifier measurements and independent
 Python/Node numeric checks are retained in the
@@ -19,7 +19,7 @@ query/entry embeddings are verified for Qwen3-Embedding 4B (Q4_K_M). Contextual
 entries achieved 180/180 held-out top-three results on synthetic clues; embedding
 HTTP p95 was about 202 ms, exceeding the proposed 100 ms game target. See the
 [Wave 3 record](docs/stages/s1-w3-contract-reconciliation.md) for evidence and gates.
-The game, hub, and creator kit are not implemented yet.
+The bounded game experiment is implemented; the production hub and creator kit remain later work.
 The repository provides synthetic fixtures, experiment contracts, validation tools,
 an embedding adapter, a scripted ranker and automated checks.
 
@@ -52,6 +52,7 @@ uv sync --locked --group dev
 uv run --no-sync ruff check .
 uv run --no-sync ruff format --check .
 uv run --no-sync pytest
+node --test tests/web/client.test.mjs
 uv build --no-build-isolation
 ```
 

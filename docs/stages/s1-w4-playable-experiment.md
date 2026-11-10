@@ -1,40 +1,77 @@
 # Stage 1 / Wave 4: bounded playable experiment
 
-Started November 10, 2026 (Asia/Shanghai), by owner request with three parallel
-GPT-6.1-sol workers at high reasoning effort. Status: **running**.
+Integrated November 10, 2026 (Asia/Shanghai), after owner-requested parallel work
+by three GPT-6.1-sol agents at high reasoning effort. Status: **integrated locally**.
+Hosted CI and W5 acceptance have not been run.
 
 ## Baseline and ownership
 
-All workers start from `bdfa190` (W3 closure). The integration branch is
-`codex/s1-w4-integration`. Isolated worktrees are under ignored `.worktrees/`.
+All workers started from `bdfa190` (W3 closure), in isolated ignored worktrees.
+Integration branch: `codex/s1-w4-integration`.
 
-| Session | Branch | Owned paths |
+| Session | Worker commits | Owned paths |
 | --- | --- | --- |
-| F — core and server | `codex/s1-w4-f-core` | `packages/semaphore_core/`, `experiments/game_server/`, `tests/core/`, `tests/game/` |
-| G — browser | `codex/s1-w4-g-browser` | `web/`, `tests/web/` |
-| H — independent probes | `codex/s1-w4-h-probes` | `experiments/acceptance/`, `tests/contracts/`, `docs/evidence/probe-method.md` |
+| F — core and server | `24a842a`, `f8a4b48`, `ebf1e24`, `8ae743a` | `packages/semaphore_core/`, `experiments/game_server/`, `tests/core/`, `tests/game/` |
+| G — browser | `f6de37a` | `web/`, `tests/web/` |
+| H — independent probes | `cda485f` | `experiments/acceptance/`, `tests/contracts/`, `docs/evidence/probe-method.md` |
 
-The coordinator owns root dependencies, shared contracts, integration and this
-record. Workers load relevant skills/plugins as needed; G must load the frontend
-design skill before implementation. No worker consumes another worker's unmerged
-files. Shared-interface changes require coordinator review.
+Coordinator owned dependencies, integration, CI and this record. Workers were
+instructed to load relevant skills/plugins; frontend-design and Playwright were
+applied to G and coordinator review. No worker consumed another's unmerged files.
 
-## Scope and acceptance
+## Delivered behavior
 
-Follow decision 0004 and the frozen contracts. Both game modes use immutable
-finite schedules; legality uses the reviewed English subset. Verification's 0.85
-threshold remains diagnostic. This wave adds the callable core, authoritative
-reducer, bounded experimental HTTP service, thin browser and independent probe
-harnesses. Production accounts, persistence, publishing, adaptive schedules and
-full lexical coverage remain outside this wave.
+The installable core provides frozen manifest validation, hashing, lexical checks,
+numeric ranking, deterministic sampling and verification, plus a filesystem-free
+immutable game reducer. Packaged schemas match the frozen contract sources.
+The experimental server uses one bounded FIFO inference worker, deadlines,
+idempotent command receipts and process-local sessions. Its pinned Ollama adapter
+retains the selected fingerprint. The browser supports scripted practice and
+same-origin HTTP play, keyboard controls, authoritative revisions, recovery,
+long labels, narrow layouts and reduced motion.
 
-Review each worker commit, run the existing Python quality/fixture checks plus
-new component checks, build the package, and exercise cross-component boundaries.
-Record actual results below before declaring this wave integrated. Fake-provider
-checks prove plumbing, not semantic quality or supported performance. W5 retains
-human play and real 1/4/8-player acceptance under verification pressure. The
-100 ms Stage 1 target remains unmet.
+Independent probes cover fresh-process verification parity, sealed expected trace
+states, invalid inputs, HTTP trust boundaries, and concurrent gameplay/verifier
+orchestration. Review fixed static-mount traversal, artifact validation, malformed
+worker values, /web/ landing routing and Windows module MIME handling.
 
-## Integration evidence
+## Validation
 
-Pending worker delivery and coordinator review.
+- Final integrated pytest: **168 passed** (34.30 seconds).
+- Browser Node tests: **6 passed**. Agent's two Chromium QA scripts passed.
+- Ruff lint/format pass; **79 Python files** formatted. Git diff check passes.
+- Source distribution and wheel build pass. Isolated installed wheel loads the
+  callable verifier/game modules and bundled schemas, and parses an authored pack.
+- All ten frozen traces replay through the actual reducer with expectations withheld.
+- Six manifest rejection probes fail before embedding; independent reference/core
+  fresh-process parity passes **900 sample/clue cases** with synthetic embeddings.
+- Actual HTTP server passes seven independent robustness checks (revision, retry,
+  conflict, client score, clue length, missing receipt, repeated quit).
+- Actual server with synthetic embeddings completes 1/4/8-player HTTP smoke groups,
+  one clue per player, with overlapping core-verification subprocess work. This
+  proves orchestration only. Timing/target fields from this synthetic run are not
+  real-model performance evidence and are deliberately not promoted here.
+- Coordinator Chromium smoke against actual HTTP binding: create game, focused
+  input, Enter submission, authoritative miss result, scheduled spawns and game
+  end; no console errors. Agent visual QA is retained in `web/QA.md`.
+- Existing gameplay/semantic/manifest fixture validators passed on the baseline;
+  their source fixtures remain unchanged.
+
+CI now includes the dependency-free Node state/transport tests. Hosted workflow
+execution and actionlint were not available in this local validation.
+
+## Run and next boundary
+
+See [server launch](../../experiments/game_server/README.md),
+[browser launch and QA](../../web/README.md), and
+[independent probe method](../evidence/probe-method.md).
+
+W4 implements decision 0004's bounded scope: both modes use finite schedules,
+legality uses the reviewed English subset, and the 0.85 threshold is diagnostic.
+No production accounts, persistence, publication, adaptive schedules or full
+lexical coverage is claimed. The server calls a separately configured cached LAN
+Ollama model; this task did not remeasure that service or validate release hardware.
+
+W5 remains open for real-model 1/4/8-player round trips under verification pressure,
+human play, and Stage 1 decisions. The 100 ms Stage 1 target remains unmet.
+The commit containing this integration record is the next local baseline.
