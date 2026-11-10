@@ -7,6 +7,9 @@ from types import MappingProxyType
 
 from .verification import CoreValidationError, check_clue, normalize, order
 
+# Frozen ruleset identity, checked against packaged lock by regression tests.
+PINNED_FINGERPRINT_HASH = "657120305f464d0fb6a6006b9dbc8152af04ba30317dadcef1b41af0aa2941a4"
+
 
 def freeze(value):
     if isinstance(value, Mapping):
@@ -47,9 +50,7 @@ class GameArtifact:
     def _validate(self):
         import re
 
-        from jsonschema import Draft202012Validator
-
-        from .verification import ID, load, tokens
+        from .verification import ID, tokens
 
         if (
             not isinstance(self.identities, Mapping)
@@ -76,9 +77,19 @@ class GameArtifact:
             raise ValueError()
         for key in ("identities", "entries", "initial_board", "schedule"):
             object.__setattr__(self, key, freeze(getattr(self, key)))
-        schema = load("events.schema.json")["$defs"]["identities"]
-        if list(Draft202012Validator(schema).iter_errors(thaw(self.identities))):
+        if set(self.identities) != {
+            "pack_digest",
+            "model_fingerprint",
+            "ruleset_id",
+            "config_digest",
+            "challenge_digest",
+        }:
             raise ValueError()
+        for key, value in self.identities.items():
+            if key == "challenge_digest" and value is None:
+                continue
+            if not isinstance(value, str) or not 1 <= len(value) <= 128:
+                raise ValueError()
         if self.identities["ruleset_id"] != "experiment-arcade-v1":
             raise ValueError()
         if not self.test_mode:
@@ -87,10 +98,7 @@ class GameArtifact:
             for key in ("pack_digest", "model_fingerprint", "config_digest"):
                 if not re.fullmatch(r"[0-9a-f]{64}", self.identities[key]):
                     raise ValueError()
-            if (
-                self.identities["model_fingerprint"]
-                != load("model-lock.json")["fingerprint_sha256"]
-            ):
+            if self.identities["model_fingerprint"] != PINNED_FINGERPRINT_HASH:
                 raise ValueError()
             challenge = self.identities["challenge_digest"]
             if (self.mode == "casual" and challenge is not None) or (

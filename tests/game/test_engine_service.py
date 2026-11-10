@@ -197,3 +197,25 @@ def test_command_limit_keeps_known_retries():
     with pytest.raises(CoreValidationError) as caught:
         submit(s, ClueCommand("new", 0, "association"), now_ms=1, inference_slot_available=True)
     assert caught.value.code == "command_limit"
+
+
+def test_game_artifact_and_reducers_perform_no_filesystem_io(monkeypatch):
+    import builtins
+    import io
+    from dataclasses import replace
+
+    from semaphore_core.game import PINNED_FINGERPRINT_HASH
+
+    assert PINNED_FINGERPRINT_HASH == load("model-lock.json")["fingerprint_sha256"]
+    artifact, _ = binding()
+
+    def blocked(*args, **kwargs):
+        raise AssertionError("pure game boundary attempted filesystem IO")
+
+    monkeypatch.setattr(builtins, "open", blocked)
+    monkeypatch.setattr(io, "open", blocked)
+    artifact = replace(artifact)
+    s = initial_state(artifact, game_id="pure")
+    t = submit(s, ClueCommand("c", 0, "association"), now_ms=1, inference_slot_available=True)
+    t = complete(t.state, command_id="c", now_ms=2, scores={i: 1.0 for i in s.board})
+    assert snapshot(t.state, now_ms=2)["score"] == 100
