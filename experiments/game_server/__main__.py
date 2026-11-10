@@ -67,7 +67,7 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
                 self._dispatch()
                 return
             path = unquote(urlsplit(self.path).path)
-            if path == "/":
+            if path in ("/", "/web/"):
                 path = "/web/index.html"
             if root is None or not (
                 path.startswith("/web/") or path.startswith("/fixtures/protocol/")
@@ -81,7 +81,12 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
                 return
             data = target.read_bytes()
             self.send_response(200)
-            self.send_header("Content-Type", self.guess_type(str(target)))
+            content_type = (
+                "text/javascript"
+                if target.suffix.lower() == ".mjs"
+                else self.guess_type(str(target))
+            )
+            self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(data)))
             self.end_headers()
             self.wfile.write(data)

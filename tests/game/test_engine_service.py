@@ -105,6 +105,7 @@ def test_real_http_frozen_envelopes_and_static_mount(tmp_path):
     (tmp_path / "pyproject.toml").write_text("private operator file")
     (tmp_path / "web").mkdir()
     (tmp_path / "web/index.html").write_text("<h1>local</h1>")
+    (tmp_path / "web/app.mjs").write_text("export const ready = true;")
     server = make_server(svc, port=0, web_root=tmp_path)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -122,8 +123,14 @@ def test_real_http_frozen_envelopes_and_static_mount(tmp_path):
         ident = env["snapshot"]["game_id"]
         with urlopen(origin + f"/experiment/v1/games/{ident}") as response:
             assert json.load(response)["sequence"] == 1
-        with urlopen(origin + "/web/index.html") as response:
-            assert response.read() == b"<h1>local</h1>"
+        for route in ("/", "/web/", "/web/?transport=http", "/web/index.html"):
+            with urlopen(origin + route) as response:
+                assert response.status == 200
+                assert response.headers.get_content_type() == "text/html"
+                assert response.read() == b"<h1>local</h1>"
+        with urlopen(origin + "/web/app.mjs") as response:
+            assert response.headers.get_content_type() == "text/javascript"
+            assert response.read() == b"export const ready = true;"
         with pytest.raises(HTTPError) as caught:
             urlopen(origin + "/web/%2e%2e/pyproject.toml")
         assert caught.value.code == 404
