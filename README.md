@@ -9,7 +9,7 @@ the hub independently verifies each pack before publication.
 
 ## Project status
 
-Stage 1, Wave 3 is closed for the bounded W4 prototype; W4 is ready to start.
+Stage 1, Wave 4 is in progress from the closed Wave 3 baseline. Three isolated workers are implementing the core/server, browser, and independent probes; see the [Wave 4 record](docs/stages/s1-w4-playable-experiment.md).
 The owner accepted the finite-schedule scope while retaining the unmet 100 ms
 Stage 1 target. Actual-protocol synthetic verifier measurements and independent
 Python/Node numeric checks are retained in the
@@ -83,3 +83,4 @@ Semaphore's original code and documentation are available under the
 Third-party dependencies, embedding models, datasets, and separately licensed
 word packs retain their own licenses. The repository's MIT license does not
 relicense those materials.
+
