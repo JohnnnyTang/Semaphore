@@ -112,3 +112,16 @@ def test_pin_rejects_full_runtime_change():
 
     with pytest.raises(EmbeddingResponseError):
         PinnedEmbedder(Changed()).embed_queries(["private clue"])
+
+
+def test_duplicate_pair_diagnostics_are_json_arrays():
+    class Same(FakeEmbedder):
+        def embed_entries(self, texts):
+            return [UNIT[:] for _ in texts]
+
+    from jsonschema import Draft202012Validator
+
+    raw = (ROOT / "fixtures/w3/calibration-authored.json").read_bytes()
+    report = verify_pack(parse_manifest(raw), Same(), "experiment-arcade-v1")
+    assert report["flagged_pairs"] and isinstance(report["flagged_pairs"][0], list)
+    Draft202012Validator(load("verification.schema.json")).validate(report)

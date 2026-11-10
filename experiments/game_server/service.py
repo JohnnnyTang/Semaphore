@@ -14,6 +14,7 @@ from semaphore_core.game import (
     ClueCommand,
     advance,
     complete,
+    freeze,
     initial_state,
     quit_game,
     snapshot,
@@ -41,14 +42,13 @@ class Session:
 class GameService:
     def __init__(self, artifacts, embedder, *, clock=time.monotonic, max_games=128):
         # artifacts map operator IDs to (validated artifact, trusted precomputed vectors).
-        self.artifacts = dict(artifacts)
-        for artifact, rows in self.artifacts.values():
+        self.artifacts = {}
+        for name, (artifact, rows) in artifacts.items():
             if artifact.test_mode:
                 raise ValueError("test artifacts require a fixture transport")
             if set(rows) != set(artifact.entries):
                 raise ValueError("artifact vector table mismatch")
-            for row in rows.values():
-                vector(row)
+            self.artifacts[name] = (artifact, freeze({i: vector(row) for i, row in rows.items()}))
         self.embedder, self.clock, self.max_games = embedder, clock, max_games
         self.sessions, self.tombstones = {}, set()
         self.lock = threading.RLock()

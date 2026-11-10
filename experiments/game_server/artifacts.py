@@ -23,8 +23,10 @@ def prepare_artifact(raw, embedder, *, mode="casual", interval_ms=5000):
     )
     deadline = (schedule[-1]["at_ms"] if schedule else 0) + 5000
     config = dict(capacity=12, zone_size=3, interval_ms=interval_ms, mode=mode)
+
     def digest(data):
         return hashlib.sha256(canonical(data)).hexdigest()
+
     identities = dict(
         pack_digest=manifest_hashes(value).manifest_digest,
         model_fingerprint=fingerprint_hash(before),

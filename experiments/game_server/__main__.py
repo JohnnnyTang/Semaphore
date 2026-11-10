@@ -74,8 +74,9 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
             ):
                 self._json(404, dict(code="not_found", message="not found"))
                 return
+            mount = root / ("web" if path.startswith("/web/") else "fixtures/protocol")
             target = (root / path.lstrip("/")).resolve()
-            if not target.is_relative_to(root) or not target.is_file():
+            if not target.is_relative_to(mount) or not target.is_file():
                 self._json(404, dict(code="not_found", message="not found"))
                 return
             data = target.read_bytes()

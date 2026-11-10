@@ -102,6 +102,7 @@ def test_bounded_physical_queue_and_retention():
 
 def test_real_http_frozen_envelopes_and_static_mount(tmp_path):
     svc = GameService({"default": binding()}, FakeEmbedder())
+    (tmp_path / "pyproject.toml").write_text("private operator file")
     (tmp_path / "web").mkdir()
     (tmp_path / "web/index.html").write_text("<h1>local</h1>")
     server = make_server(svc, port=0, web_root=tmp_path)
@@ -124,7 +125,7 @@ def test_real_http_frozen_envelopes_and_static_mount(tmp_path):
         with urlopen(origin + "/web/index.html") as response:
             assert response.read() == b"<h1>local</h1>"
         with pytest.raises(HTTPError) as caught:
-            urlopen(origin + "/web/../pyproject.toml")
+            urlopen(origin + "/web/%2e%2e/pyproject.toml")
         assert caught.value.code == 404
         with pytest.raises(HTTPError) as caught:
             urlopen(
@@ -138,3 +139,61 @@ def test_real_http_frozen_envelopes_and_static_mount(tmp_path):
         server.server_close()
         svc.close()
         thread.join(1)
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"entries": {"UPPER": {"label": "Valid"}}},
+        {"entries": {"a": {"label": "!!!"}}},
+        {"entries": {"a": {"label": "Valid", "inflections": []}}},
+        {"deadline_ms": None},
+        {"capacity": True},
+        {"schedule": ({"at_ms": 0, "entry_id": "other"},)},
+        {"initial_clears": 2, "initial_score": 200},
+    ],
+)
+def test_invalid_artifacts_rejected(change):
+    from dataclasses import replace
+
+    artifact, _ = binding()
+    with pytest.raises(CoreValidationError) as caught:
+        replace(artifact, **change)
+    assert caught.value.code == "invalid_artifact"
+
+
+def test_artifact_identity_and_malformed_scores():
+    from dataclasses import replace
+
+    artifact, _ = binding()
+    for changes in (
+        {"ruleset_id": "other"},
+        {"challenge_digest": None},
+        {"model_fingerprint": "0" * 64},
+        {"config_digest": "unverified"},
+    ):
+        with pytest.raises(CoreValidationError):
+            replace(artifact, identities={**artifact.identities, **changes})
+    s = initial_state(artifact, game_id="score")
+    t = submit(s, ClueCommand("c", 0, "association"), now_ms=0, inference_slot_available=True)
+    result = complete(t.state, command_id="c", now_ms=1, scores={i: True for i in s.board})
+    assert result.receipt["outcome"] == "inference_failed"
+
+
+def test_command_limit_keeps_known_retries():
+    from dataclasses import replace
+
+    from semaphore_core.game import freeze
+
+    artifact, _ = binding()
+    s = initial_state(artifact, game_id="limit")
+    cmd = ClueCommand("known", 9, "association")
+    first = submit(s, cmd, now_ms=0, inference_slot_available=True)
+    payloads = dict(first.state.payloads)
+    payloads.update({f"padding-{n}": ClueCommand(f"padding-{n}", 0, "") for n in range(4095)})
+    s = replace(first.state, payloads=freeze(payloads))
+    retry = submit(s, cmd, now_ms=1, inference_slot_available=True)
+    assert retry.receipt == first.receipt
+    with pytest.raises(CoreValidationError) as caught:
+        submit(s, ClueCommand("new", 0, "association"), now_ms=1, inference_slot_available=True)
+    assert caught.value.code == "command_limit"

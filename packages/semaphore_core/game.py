@@ -39,24 +39,28 @@ class GameArtifact:
     initial_clears: int = 0
 
     def __post_init__(self):
-        for key in ("identities", "entries", "initial_board", "schedule"):
-            object.__setattr__(self, key, freeze(getattr(self, key)))
+        try:
+            self._validate()
+        except (ValueError, TypeError, AttributeError, KeyError, OverflowError):
+            raise CoreValidationError("invalid_artifact") from None
+
+    def _validate(self):
+        import re
+
         from jsonschema import Draft202012Validator
 
-        from .verification import load
+        from .verification import ID, load, tokens
 
-        schema = load("events.schema.json")["$defs"]["identities"]
-        invalid = bool(list(Draft202012Validator(schema).iter_errors(thaw(self.identities))))
-        used = list(self.initial_board)
-        last = -1
-        for spawn in self.schedule:
-            at = spawn.get("at_ms")
-            if type(at) is not int or at <= 0 or at < last or at >= self.deadline_ms:
-                invalid = True
-            last = at if type(at) is int else last
-            used.append(spawn.get("entry_id"))
+        if (
+            not isinstance(self.identities, Mapping)
+            or not isinstance(self.entries, Mapping)
+            or not isinstance(self.initial_board, (tuple, list))
+            or not isinstance(self.schedule, (tuple, list))
+        ):
+            raise ValueError()
         if (
             self.mode not in ("casual", "event")
+            or type(self.test_mode) is not bool
             or type(self.deadline_ms) is not int
             or not 0 < self.deadline_ms <= 600000
             or type(self.capacity) is not int
@@ -64,36 +68,79 @@ class GameArtifact:
             or type(self.zone_size) is not int
             or not 0 < self.zone_size < self.capacity
             or not 0 < len(self.initial_board) < self.capacity
-            or len(set(used)) != len(used)
-            or not set(used) <= set(self.entries)
+            or type(self.initial_score) is not int
+            or type(self.initial_clears) is not int
+            or self.initial_clears < 0
+            or self.initial_score != self.initial_clears * 100
         ):
-            invalid = True
-        if (
-            not self.test_mode
-            and self.mode == "casual"
-            and self.deadline_ms != (last if last >= 0 else 0) + 5000
-        ):
-            invalid = True
-        if (self.initial_score or self.initial_clears) and not self.test_mode:
-            invalid = True
-        if self.initial_score != self.initial_clears * 100 or self.initial_clears < 0:
-            invalid = True
+            raise ValueError()
+        for key in ("identities", "entries", "initial_board", "schedule"):
+            object.__setattr__(self, key, freeze(getattr(self, key)))
+        schema = load("events.schema.json")["$defs"]["identities"]
+        if list(Draft202012Validator(schema).iter_errors(thaw(self.identities))):
+            raise ValueError()
+        if self.identities["ruleset_id"] != "experiment-arcade-v1":
+            raise ValueError()
+        if not self.test_mode:
+            if self.initial_clears or self.initial_score:
+                raise ValueError()
+            for key in ("pack_digest", "model_fingerprint", "config_digest"):
+                if not re.fullmatch(r"[0-9a-f]{64}", self.identities[key]):
+                    raise ValueError()
+            if (
+                self.identities["model_fingerprint"]
+                != load("model-lock.json")["fingerprint_sha256"]
+            ):
+                raise ValueError()
+            challenge = self.identities["challenge_digest"]
+            if (self.mode == "casual" and challenge is not None) or (
+                self.mode == "event"
+                and (not isinstance(challenge, str) or not re.fullmatch(r"[0-9a-f]{64}", challenge))
+            ):
+                raise ValueError()
+        used = list(self.initial_board)
+        last = 0
+        for spawn in self.schedule:
+            if set(spawn) != {"at_ms", "entry_id"}:
+                raise ValueError()
+            at = spawn["at_ms"]
+            if type(at) is not int or at <= 0 or at < last or at >= self.deadline_ms:
+                raise ValueError()
+            last = at
+            used.append(spawn["entry_id"])
+        if len(set(used)) != len(used) or not set(used) <= set(self.entries):
+            raise ValueError()
+        if not self.test_mode and self.mode == "casual" and self.deadline_ms != last + 5000:
+            raise ValueError()
+        if not self.entries or len(self.entries) > 5000:
+            raise ValueError()
+        labels = set()
         for ident, entry in self.entries.items():
-            if not isinstance(ident, str) or not ident or not isinstance(entry.get("label"), str):
-                invalid = True
-                continue
-            try:
-                if normalize(entry["label"]) != entry["label"] or len(entry["label"]) > 64:
-                    invalid = True
-                if entry.get("inflections") and not self.test_mode:
-                    invalid = True
-                for key in ("aliases", "forbidden", "inflections"):
-                    for text in entry.get(key, ()):
-                        normalize(text)
-            except ValueError:
-                invalid = True
-        if invalid:
-            raise CoreValidationError("invalid_artifact")
+            if (
+                not isinstance(ident, str)
+                or not ID.fullmatch(ident)
+                or not isinstance(entry, Mapping)
+            ):
+                raise ValueError()
+            if set(entry) - {"label", "aliases", "forbidden", "inflections"}:
+                raise ValueError()
+            label = entry["label"]
+            if normalize(label) != label or len(label) > 64 or not tokens(label):
+                raise ValueError()
+            if label.casefold() in labels:
+                raise ValueError()
+            labels.add(label.casefold())
+            if "inflections" in entry and not self.test_mode:
+                raise ValueError()
+            for key, limit in (("aliases", 8), ("forbidden", 16), ("inflections", 16)):
+                forms = entry.get(key, ())
+                if not isinstance(forms, tuple) or len(forms) > limit:
+                    raise ValueError()
+                if len({text.casefold() for text in forms}) != len(forms):
+                    raise ValueError()
+                for text in forms:
+                    if normalize(text) != text or len(text) > 64 or not tokens(text):
+                        raise ValueError()
 
 
 @dataclass(frozen=True)
@@ -101,6 +148,17 @@ class ClueCommand:
     command_id: str
     expected_revision: int
     clue: str
+
+    def __post_init__(self):
+        if (
+            not isinstance(self.command_id, str)
+            or not 1 <= len(self.command_id) <= 128
+            or type(self.expected_revision) is not int
+            or self.expected_revision < 0
+            or not isinstance(self.clue, str)
+            or len(self.clue) > 4096
+        ):
+            raise CoreValidationError("invalid_command")
 
 
 @dataclass(frozen=True)

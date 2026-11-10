@@ -1,7 +1,7 @@
-"""Executable W3 protocol reference; not a publication service or W4 core.
+"""Frozen W4 verifier, preserving the reviewed W3 experiment algorithm.
 
-Uses the existing strict fixture parser and projections to preserve hash identity.
-No uploaded vectors or self-reported metrics are used.
+Schema/policy resources ship with the package. No uploaded vectors or reports
+are trusted, and measured diagnostics never authorize publication.
 """
 
 import hashlib
@@ -83,7 +83,7 @@ def _manifest(raw):
             raise ValueError("hygiene_invalid")
         if len({c.casefold() for c in clues}) != len(clues):
             raise ValueError("duplicate_clue")
-        if not all(legal(c, entry) for c in clues):
+        if not all(check_clue(c, entry).legal for c in clues):
             raise ValueError("illegal_clue")
         value["test_set"][entry["id"]] = clues
     return value
@@ -110,7 +110,13 @@ def dot(left, right):
 
 
 def order(scores):
-    if any(not ID.fullmatch(i) or not math.isfinite(s) for i, s in scores.items()):
+    if any(
+        not isinstance(i, str)
+        or not ID.fullmatch(i)
+        or type(s) not in (float, int)
+        or not math.isfinite(s)
+        for i, s in scores.items()
+    ):
         raise ValueError("invalid_scores")
     return sorted(scores, key=lambda i: (-math.floor(scores[i] / 0.00001 + 0.5), i))
 
@@ -252,8 +258,21 @@ class Embedder(Protocol):
 def parse_manifest(raw: bytes) -> ManifestInput:
     try:
         return ManifestInput(raw, _manifest(raw))
+    except CoreValidationError:
+        raise
     except (ValueError, UnicodeError) as exc:
-        raise CoreValidationError(str(exc)) from None
+        codes = {
+            "invalid_json",
+            "body_too_large",
+            "schema_invalid",
+            "hygiene_invalid",
+            "duplicate_entry",
+            "test_coverage",
+            "duplicate_clue",
+            "illegal_clue",
+        }
+        code = str(exc) if str(exc) in codes else "invalid_json"
+        raise CoreValidationError(code) from None
 
 
 def manifest_hashes(value: ManifestInput) -> ManifestHashes:
