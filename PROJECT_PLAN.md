@@ -1,5 +1,12 @@
 # Semaphore project plan
 
+November 11, 2026 update: W4 and the subsequent arcade refinements are merged in
+`main` at `64e3a90`. Stage 1 W5 is now running in three isolated parallel sessions
+using GPT-6.1 Sol at high reasoning effort, as requested by the owner. See the
+[W5 record](docs/stages/s1-w5-acceptance.md) for scope and ownership. Stage 2 has
+not been dispatched; human feel, real-model latency and release-hardware gates
+remain evidence-based. Earlier status paragraphs below are historical.
+
 November 9, 2026 update: direct LAN Ollama access and real query/entry embeddings
 are verified. The owner authorized the next wave with parallel GPT-6.1 Sol agents
 at medium effort. W3 model evidence and contract reconciliation started from
