@@ -52,8 +52,9 @@ artifact["test_report"] = {
     "flagged": report["flagged_entries"],
     "metrics_version": report["metrics_version"],
 }
-raw = (json.dumps(artifact, ensure_ascii=False, allow_nan=False, sort_keys=True,
-                  indent=2) + "\n").encode("utf-8")
+raw = (
+    json.dumps(artifact, ensure_ascii=False, allow_nan=False, sort_keys=True, indent=2) + "\n"
+).encode("utf-8")
 print(manifest_hashes(parse_manifest(raw)))
 result = parity(raw)
 assert result["passed"], result
