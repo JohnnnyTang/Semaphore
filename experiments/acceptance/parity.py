@@ -35,13 +35,13 @@ def compare(left, right):
     return failures
 
 
-def parity(raw, *, backend="core", ollama_url=None):
-    left = worker("reference", raw, ollama_url=ollama_url)
-    right = worker(backend, raw, ollama_url=ollama_url)
+def parity(raw, *, backend="core", ollama_url=None, ollama_env=False):
+    left = worker("reference", raw, ollama_url=ollama_url, ollama_env=ollama_env)
+    right = worker(backend, raw, ollama_url=ollama_url, ollama_env=ollama_env)
     failures = compare(left, right)
     return result(
         "parity",
-        synthetic=not ollama_url,
+        synthetic=not (ollama_url or ollama_env),
         passed=not failures,
         details={
             "paths": ["fresh-process:w3-reference", f"fresh-process:{backend}"],

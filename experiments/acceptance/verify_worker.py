@@ -6,6 +6,7 @@ import hashlib
 import json
 import math
 import sys
+import time
 
 from experiments.acceptance.common import ROOT, load
 
@@ -40,17 +41,26 @@ class RecordingEmbedder:
         self.delegate = delegate
         self.entries = {}
         self.queries = {}
+        self.embedding_windows = []
+        self.calls = 0
 
     def identity(self):
+        self.calls += 1
         return self.delegate.identity()
 
     def embed_entries(self, texts):
+        self.calls += 1
+        start = time.perf_counter()
         rows = self.delegate.embed_entries(texts)
+        self.embedding_windows.append([start, time.perf_counter()])
         self.entries.update(zip(texts, rows, strict=True))
         return rows
 
     def embed_queries(self, texts):
+        self.calls += 1
+        start = time.perf_counter()
         rows = self.delegate.embed_queries(texts)
+        self.embedding_windows.append([start, time.perf_counter()])
         self.queries.update(zip(texts, rows, strict=True))
         return rows
 
@@ -100,11 +110,12 @@ def audit(value, recorder, backend):
     return output
 
 
-def execute(raw, backend, *, ollama_url=None, parse_only=False):
-    if ollama_url:
+def execute(raw, backend, *, ollama_url=None, ollama_env=False, parse_only=False, pressure=False):
+    if ollama_url or ollama_env:
         from semaphore_core.embeddings import OllamaConfig, OllamaEmbedder
 
-        embedder = OllamaEmbedder(OllamaConfig(base_url=ollama_url))
+        config = OllamaConfig.from_env() if ollama_env else OllamaConfig(base_url=ollama_url)
+        embedder = OllamaEmbedder(config)
     else:
         embedder = SyntheticEmbedder()
     recorder = RecordingEmbedder(embedder)
@@ -133,19 +144,31 @@ def execute(raw, backend, *, ollama_url=None, parse_only=False):
         }
         if code not in allowed:
             raise RuntimeError("unexpected verifier failure") from None
-        return {"status": "rejected", "code": code, "embedding_calls": embedder.calls}
+        return {"status": "rejected", "code": code, "embedding_calls": recorder.calls}
+    if pressure and report is not None:
+        return {
+            "status": "measured",
+            "pressure": {
+                "source": "ollama" if ollama_url or ollama_env else "synthetic",
+                "fingerprint_hash": report["fingerprint_hash"],
+                "embedding_windows": recorder.embedding_windows,
+            },
+        }
     return {
         "status": "parsed" if parse_only else "measured",
         "report": report,
         "audit": [] if parse_only else audit(value, recorder, backend),
-        "embedding_calls": getattr(embedder, "calls", None),
+        "embedding_calls": recorder.calls,
     }
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--backend", choices=["reference", "core"], required=True)
-    parser.add_argument("--ollama-url")
+    model = parser.add_mutually_exclusive_group()
+    model.add_argument("--ollama-url")
+    model.add_argument("--ollama-env", action="store_true")
+    parser.add_argument("--pressure", action="store_true")
     parser.add_argument("--parse-only", action="store_true")
     parser.add_argument("--manifest-path")
     args = parser.parse_args()

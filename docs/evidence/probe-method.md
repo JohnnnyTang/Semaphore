@@ -17,7 +17,7 @@ python -m experiments.acceptance.run invalid --backend core
 python -m experiments.acceptance.run replay --adapter semaphore_core.trace:TraceReplay
 python -m experiments.acceptance.run parity --backend core --output parity-synthetic.json
 # Contact the configured trusted LAN model only when collecting real W5 evidence:
-python -m experiments.acceptance.run parity --backend core --ollama-url http://MODEL:11434 --output parity-real.json
+python -m experiments.acceptance.run parity --backend core --ollama-env --output parity-real.json
 python -m experiments.acceptance.run robustness --base-url http://SERVER:8000 --artifact-id default
 ```
 
@@ -85,22 +85,26 @@ tests the probe observer, not G's browser; browser acceptance remains separate.
 
 ## Load procedure and timing limits
 
-Load requires an explicit JSON argv for a verification subprocess; no shell command
-string is executed. For example, from an active virtual environment:
+Load requires an explicit JSON argv for a verification subprocess. Configure
+`SEMAPHORE_OLLAMA_BASE_URL` in the environment used by the server and load probe.
+From an active virtual environment in PowerShell 7.3 or newer:
 
 ```powershell
-$pressure = @('python', '-m', 'experiments.acceptance.verify_worker', '--backend', 'core', '--manifest-path', 'fixtures/w3/held_out-authored.json', '--ollama-url', 'http://MODEL:11434') | ConvertTo-Json -Compress
-python -m experiments.acceptance.run load --base-url http://SERVER:8000 --artifact-id default --verification-command-json $pressure --rounds 100 --output load-real.json
+$pressure = @('python', '-m', 'experiments.acceptance.verify_worker', '--backend', 'core', '--manifest-path', 'fixtures/w3/held_out-authored.json', '--ollama-env', '--pressure') | ConvertTo-Json -Compress
+python -m experiments.acceptance.run load --base-url http://SERVER:8000 --artifact-id default --verification-command-json "$pressure" --rounds 10 --output load-real.json
 ```
 
 The operator must configure the **same pinned model service** for server gameplay
 and verifier pressure; record that configuration and machine/service identities.
 The background command starts behind a barrier with 1, 4, then 8 independent HTTP
-players and repeats until gameplay finishes. Its successful JSON must have
-`status: measured`, and wall-clock intervals must overlap gameplay. This is evidence
-of overlapping process work, not proof that every inference overlaps or shares the
-server's queue. The protocol has no verification route; in-process game/verification
-queue fairness requires an additional integrated scheduler test or instrumentation.
+players and repeats until gameplay finishes. With `--pressure`, the verifier worker
+reports its pinned fingerprint and monotonic embedding adapter intervals in private
+IPC. The probe counts successful clue round trips that intersect those intervals.
+An older worker emitting only `status: measured` fails the real-pressure check.
+Use `load --synthetic` with injected fake embeddings to measure orchestration;
+the report suppresses latency values and uses the verifier process interval for
+overlap. The protocol has no verification route. Model-service queue fairness
+requires separate instrumentation.
 
 Each player creates its own game, sends one clue at a time, polls receipts to a
 terminal result and retries the exact payload to detect double application. An
