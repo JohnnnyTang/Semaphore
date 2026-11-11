@@ -1,13 +1,14 @@
 async (page) => {
   const check = (ok, message) => { if (!ok) throw new Error(message); };
   await page.unrouteAll();
-  await page.goto('http://127.0.0.1:18737/web/');
+  await page.goto(new URL('/web/', page.url()).href);
   await page.evaluate(() => { sessionStorage.clear(); localStorage.setItem('semaphore-theme', 'light'); });
   await page.reload();
   await page.setViewportSize({width:1280,height:900});
   await page.getByRole('button', {name:'Switch to dark theme'}).click();
   await page.reload();
   check(await page.locator('html').getAttribute('data-theme') === 'dark', 'Theme survives reload');
+  await page.getByLabel('Skip guided warm-up').check();
   await page.getByRole('button', {name:'Play',exact:true}).click();
   await page.getByRole('textbox', {name:'Your clue'}).waitFor();
   await page.waitForTimeout(1600);

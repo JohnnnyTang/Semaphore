@@ -72,8 +72,8 @@ ol{list-style:none;margin:0;padding:0}
 #send{flex-shrink:0;display:flex;align-items:center;gap:1rem}
 #clue-count{text-align:right;margin:.6rem 0 0;font-size:.7rem}
 #result{min-height:1.5rem;line-height:1.5;font-size:.9rem;font-weight:600;margin:.6rem 0;color:var(--zone-ink)}
-#result.error,#connection,#start-error{color:var(--alert)}
-#connection:empty,#start-error:empty{display:none}
+#result.error,#connection,#start-error,#begin-error{color:var(--alert)}
+#connection:empty,#start-error:empty,#begin-error:empty{display:none}
 .identities{margin-top:1.5rem;font-size:.75rem;color:var(--muted)}
 .identities dl{overflow-wrap:anywhere}
 .identities dt{font-weight:650;margin-top:.7rem}

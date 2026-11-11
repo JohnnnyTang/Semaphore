@@ -3,9 +3,10 @@ async (page) => {
   await page.unrouteAll();
   await page.emulateMedia({reducedMotion:'no-preference'});
   await page.setViewportSize({width:1280,height:900});
-  await page.goto('http://127.0.0.1:18737/web/?transport=http');
-  await page.evaluate(() => { sessionStorage.clear(); });
-  const response = await page.request.get('http://127.0.0.1:18737/fixtures/protocol/bottom-three-target-only.json');
+  await page.goto(new URL('/web/?transport=http', page.url()).href);
+  await page.evaluate(() => sessionStorage.removeItem('semaphore-game'));
+  await page.reload();
+  const response = await page.request.get(new URL('/fixtures/protocol/bottom-three-target-only.json', page.url()).href);
   const {envelopes} = await response.json();
   const initial = envelopes[0], pending = envelopes[1], clear = envelopes[2];
   let command, posts = [], completed = false, receiptPolls = 0;
@@ -31,18 +32,19 @@ async (page) => {
     if (request.method() === 'POST') return json(initial);
     return json(command && posts.length > 1 ? frame(completed ? clear : pending) : initial);
   });
+  await page.getByLabel('Skip guided warm-up').check();
   await page.getByRole('button',{name:'Play',exact:true}).click();
   const input = page.getByRole('textbox',{name:'Your clue'});
   await input.fill('Ice'); await input.press('Enter');
   await page.waitForFunction(() => document.querySelector('#score').textContent === '100');
   assert(posts.length === 2 && posts[0] === posts[1], 'Uncertain POST must retry exact original payload');
   assert(await input.inputValue() === '', 'Resolved clear clears draft');
-  assert(!(await input.getAttribute('readonly')), 'Resolved input unlocks');
+  assert(!(await input.evaluate(el => el.readOnly)), 'Resolved input unlocks');
   await input.fill('kept across reload'); await page.reload();
   await input.waitFor();
   assert(await input.inputValue() === 'kept across reload', 'Reload preserves tab draft');
   assert(await page.locator('#score').textContent() === '100', 'Reload reconciles authoritative score');
-  await page.screenshot({path:'web/qa-reconnected.png',fullPage:true});
+  await page.screenshot({path:'output/playwright/qa-reconnected.png',fullPage:true});
   console.log('PASS: lost POST, receipt lookup 404, exact-payload retry, pending polling, receipt resolution, reload same game/draft/score');
-  await page.evaluate(() => sessionStorage.clear());
+  await page.getByRole('button', { name: 'Leave game' }).click();
 }

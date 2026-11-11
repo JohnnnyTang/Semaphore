@@ -1,6 +1,9 @@
 async (page) => {
   const check = (ok, message) => { if (!ok) throw new Error(message); };
-  await page.goto('http://127.0.0.1:18737/web/');
+  await page.unrouteAll();
+  await page.goto(new URL('/web/', page.url()).href);
+  await page.evaluate(() => sessionStorage.removeItem('semaphore-game'));
+  await page.reload();
   const errors=[]; page.on('pageerror', error => errors.push(error.message));
   let creates=0; page.on('request', req => {if(req.url().endsWith('/experiment/v1/games')) creates++;});
   await page.getByLabel('Play with').selectOption('http');
@@ -11,7 +14,8 @@ async (page) => {
   check(await page.locator('#words').textContent() === initial,'Tutorial does not spawn during idle wait');
   check(creates===0,'No server game starts during tutorial');
   await page.locator('#clue').fill('orbit');
-  check((await page.locator('#instruction').textContent()).includes('Press Enter'),'Typing changes contextual note');
+  await page.waitForTimeout(600);
+  check((await page.locator('#instruction').textContent()).includes('Press Enter'),'Typing note stays visible across tutorial polls');
   await page.locator('#clue').press('Enter');
   await page.getByRole('heading',{name:'wave',exact:true}).waitFor();
   for (const clue of ['ocean','forest']) {await page.locator('#clue').fill(clue); await page.locator('#clue').press('Enter');}
