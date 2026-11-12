@@ -38,10 +38,12 @@ def run_process(argv, *, stdin=None, timeout=300):
     return json.loads(completed.stdout)
 
 
-def worker(backend, raw, *, ollama_url=None, parse_only=False):
+def worker(backend, raw, *, ollama_url=None, ollama_env=False, parse_only=False):
     argv = [sys.executable, "-m", "experiments.acceptance.verify_worker", "--backend", backend]
     if ollama_url:
         argv += ["--ollama-url", ollama_url]
+    if ollama_env:
+        argv += ["--ollama-env"]
     if parse_only:
         argv += ["--parse-only"]
     return run_process(argv, stdin=raw)

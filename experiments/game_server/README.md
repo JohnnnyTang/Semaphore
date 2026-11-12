@@ -8,8 +8,12 @@ uv run python -m experiments.game_server --manifest fixtures/w3/calibration-auth
 ```
 
 Open `/web/index.html?transport=http`. The preloaded artifact ID is `default`;
-select the same mode passed to `--mode` (casual by default). Both modes use an
-immutable manifest-order finite schedule, six initial words and 5-second spawns.
+select the same mode passed to `--mode` (casual by default). Both modes use a
+finite, non-repeating manifest-order word sequence and six initial words. Event
+mode retains fixed 5-second spawns and capacity 12. Default casual mode uses
+capacity 20, a 5-second base interval, score-dependent acceleration and five-clear
+streak sweeps/cascades; see `contracts/gameplay.md`. Its arrival times depend on
+clears, so it does not provide the event mode's identical schedule across players.
 The server refuses a changed full model fingerprint and never downloads weights.
 A manifest exceeding the ten-minute schedule envelope fails startup; prepare a
 smaller experimental manifest instead. This is an operator-created artifact,

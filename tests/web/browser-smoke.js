@@ -1,7 +1,8 @@
 async (page) => {
   const assert = (value, message) => { if (!value) throw new Error(message); };
-  await page.goto('http://127.0.0.1:18737/web/');
+  await page.goto(new URL('/web/', page.url()).href);
   await page.getByRole('combobox', {name: 'Practice sequence'}).selectOption('bottom-three-target-only');
+  await page.getByLabel('Skip guided warm-up').check();
   await page.getByRole('button', {name: 'Play', exact: true}).focus();
   await page.keyboard.press('Enter');
   const input = page.getByRole('textbox', {name: 'Your clue'});
@@ -35,10 +36,10 @@ async (page) => {
   await page.getByRole('button', {name: 'Play', exact: true}).click();
   await input.waitFor();
   assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), '320px no horizontal overflow');
-  await page.screenshot({path:'web/qa-long-labels.png', fullPage:true});
+  await page.screenshot({path:'output/playwright/qa-long-labels.png', fullPage:true});
   await page.setViewportSize({width: 1280, height: 900});
   await page.evaluate(() => { document.documentElement.style.zoom = '2'; });
   assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), '200% zoom no horizontal overflow');
-  await page.screenshot({path:'web/qa-zoom.png', fullPage:true});
+  await page.screenshot({path:'output/playwright/qa-zoom.png', fullPage:true});
   console.log('PASS: keyboard start/submit/retry/help, IME, authoritative score, final focus, reduced-motion, 320px 64-codepoint labels, 200% zoom');
 }

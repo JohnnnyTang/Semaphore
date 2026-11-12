@@ -108,7 +108,6 @@ function render(result) {
   if ($('target').textContent !== targetText) $('target').textContent = targetText;
   $('zone-note').textContent = `Clear zone · positions 1–${s.zone_size}`;
   $('instruction').hidden = !tutorial;
-  $('instruction').textContent = tutorial ? transport.note(!!$('clue').value) : '';
   $('streak').textContent = `${s.streak || 0} / 5`;
   $('streak-stat').hidden = tutorial || !paced;
   $('begin-game').hidden = !tutorial || !transport.done;
@@ -133,7 +132,7 @@ function render(result) {
     }
   } else drawWords(s.board, s.target, s);
   if (tutorial) {
-    $('instruction').textContent = transport.note();
+    $('instruction').textContent = transport.note(!!$('clue').value);
     if (result && transport.done) $('begin-game').focus({ preventScroll: true });
   }
   const practiceDone = !tutorial && settings.kind === 'fixture' && transport.index === transport.frames.length - 1 && !store.pending;
@@ -142,7 +141,7 @@ function render(result) {
   if (over) {
     const reasons = { overflow: 'The stack filled up', pack_cleared: 'Pack complete', pack_exhausted: 'Pack complete', event_complete: 'Challenge complete', interrupted: 'Game interrupted' };
     $('end-title').textContent = practiceDone && s.status !== 'over' ? 'Practice sequence complete' : reasons[s.end_reason];
-    $('end-detail').textContent = `${s.score} points. ${s.clears} target${s.clears === 1 ? '' : 's'} cleared.${s.end_reason === 'interrupted' ? ' This is not an official ranked result.' : ''}`;
+    $('end-detail').textContent = `${s.score} points. ${s.clears} word${s.clears === 1 ? '' : 's'} cleared.${s.end_reason === 'interrupted' ? ' This is not an official ranked result.' : ''}`;
     if (!finished) {
       $('end-title').focus({ preventScroll: true }); finished = true;
     }
@@ -186,17 +185,29 @@ setInterval(poll, 250);
 $('reconnect').onclick = poll;
 document.addEventListener('visibilitychange', () => { if (!document.hidden) poll(); });
 async function start(skipTutorial = false) {
-  document.querySelectorAll('.clear-echo').forEach(node => { node.getAnimations().forEach(a => a.cancel()); node.remove(); });
-  epoch++; const run = epoch; finished = false; connected = true; boardSignature = ''; rows.clear(); $('words').replaceChildren();
-  store = new GameStore(); removeSaved(); $('result').textContent = ''; $('clue').value = '';
-  settings = { kind: $('transport').value, scenario: $('scenario').value, artifact: $('artifact').value.trim(), mode: $('mode').value };
-  transport = !skipTutorial && !$('skip-tutorial').checked ? new TutorialTransport() : settings.kind === 'http' ? new HttpTransport() : new FixtureTransport(settings.scenario);
-  $('play').disabled = true; $('start-error').textContent = '';
+  if ($('play').disabled) return;
+  const run = ++epoch;
+  const nextSettings = { kind: $('transport').value, scenario: $('scenario').value, artifact: $('artifact').value.trim(), mode: $('mode').value };
+  const nextTransport = !skipTutorial && !$('skip-tutorial').checked ? new TutorialTransport() : nextSettings.kind === 'http' ? new HttpTransport() : new FixtureTransport(nextSettings.scenario);
+  const errorMessage = $(skipTutorial ? 'begin-error' : 'start-error');
+  $('play').disabled = $('begin-game').disabled = true;
+  $('start-error').textContent = $('begin-error').textContent = '';
   try {
-    const envelope = await transport.create({ mode: settings.mode, artifact_id: settings.artifact });
-    if (run !== epoch) return; apply(envelope); $('clue').focus({ preventScroll: true });
-  } catch { $('start-error').textContent = 'The game could not start. Check the server and artifact ID, then try again.'; }
-  finally { $('play').disabled = false; }
+    const envelope = await nextTransport.create({ mode: nextSettings.mode, artifact_id: nextSettings.artifact });
+    if (run !== epoch) return;
+    document.querySelectorAll('.clear-echo').forEach(node => { node.getAnimations().forEach(a => a.cancel()); node.remove(); });
+    finished = false; connected = true; boardSignature = ''; rows.clear(); $('words').replaceChildren();
+    store = new GameStore(); removeSaved(); $('result').textContent = ''; $('clue').value = '';
+    settings = nextSettings; transport = nextTransport;
+    apply(envelope); $('clue').focus({ preventScroll: true });
+  } catch {
+    if (run === epoch) {
+      errorMessage.textContent = 'The game could not start. Check the server and artifact ID, then try again.';
+    }
+  } finally {
+    $('play').disabled = $('begin-game').disabled = false;
+    if (run === epoch && errorMessage.textContent) $(skipTutorial ? 'begin-game' : 'play').focus();
+  }
 }
 $('begin-game').onclick = () => start(true);
 $('start-form').onsubmit = event => { event.preventDefault(); start(); };

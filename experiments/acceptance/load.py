@@ -56,6 +56,25 @@ def timing(headers, name):
     return number
 
 
+def pressure_windows(value, expected_fingerprint, start, end):
+    metadata = value.get("pressure")
+    if not isinstance(metadata, dict) or (
+        metadata.get("source") != "ollama"
+        or metadata.get("fingerprint_hash") != expected_fingerprint
+    ):
+        return []
+    windows = metadata.get("embedding_windows")
+    if not isinstance(windows, list) or not all(
+        isinstance(window, list)
+        and len(window) == 2
+        and all(type(t) in {float, int} for t in window)
+        and start <= window[0] < window[1] <= end
+        for window in windows
+    ):
+        return []
+    return windows
+
+
 def player(transport, artifact_id, mode, rounds, gate, *, poll_seconds=0.01):
     status, frame, _ = transport.request(
         "POST",
@@ -92,9 +111,12 @@ def player(transport, artifact_id, mode, rounds, gate, *, poll_seconds=0.01):
             if status != 200 or not frame["receipt"]:
                 raise RuntimeError("receipt resolution failed")
         outcome = frame["receipt"]["outcome"]
+        end = time.perf_counter()
         records.append(
             {
-                "round_trip_ms": (time.perf_counter() - start) * 1000,
+                "start": start,
+                "end": end,
+                "round_trip_ms": (end - start) * 1000,
                 "outcome": outcome,
                 "queue_ms": timing(headers, "X-Semaphore-Queue-Ms"),
                 "embedding_ms": timing(headers, "X-Semaphore-Embedding-Ms"),
@@ -128,6 +150,7 @@ def load_probe(
     ):
         raise ValueError("positive rounds and an explicit verification argv are required")
     groups = []
+    expected_fingerprint = load(ROOT / "contracts/model-lock.json")["fingerprint_sha256"]
     for players in [1, 4, 8]:
         gate = threading.Barrier(players + 1)
         stop = threading.Event()
@@ -138,6 +161,7 @@ def load_probe(
             gate.wait(timeout=30)
             while not stop.is_set():
                 start = time.perf_counter()
+                windows = []
                 try:
                     completed = subprocess.run(
                         verification_command,
@@ -150,10 +174,21 @@ def load_probe(
                     # Require a structured measured result; an arbitrary successful command
                     # is not evidence that any verification work occurred.
                     value = json.loads(completed.stdout)
-                    ok = completed.returncode == 0 and value.get("status") == "measured"
+                    ok = (
+                        completed.returncode == 0
+                        and isinstance(value, dict)
+                        and value.get("status") == "measured"
+                    )
+                    if ok and not synthetic:
+                        windows = pressure_windows(
+                            value, expected_fingerprint, start, time.perf_counter()
+                        )
+                        ok = bool(windows)
                 except (subprocess.TimeoutExpired, ValueError):
                     ok = False
-                runs.append({"start": start, "end": time.perf_counter(), "passed": ok})
+                runs.append(
+                    {"start": start, "end": time.perf_counter(), "passed": ok, "windows": windows}
+                )
                 if not ok:
                     break
 
@@ -171,21 +206,29 @@ def load_probe(
                 )
                 for _ in range(players)
             ]
-            measured_start = time.perf_counter()
             records = []
             for task in tasks:
                 try:
                     records.extend(task.result(timeout=360))
                 except Exception as exc:
                     failures.append(type(exc).__name__)
-            measured_end = time.perf_counter()
             stop.set()
             try:
                 background.result(timeout=310)
             except Exception as exc:
                 failures.append(type(exc).__name__)
-        overlap = any(r["start"] < measured_end and r["end"] > measured_start for r in runs)
         successful = [r for r in records if r["outcome"] in {"clear", "miss"}]
+        windows = [
+            window
+            for run in runs
+            if run["passed"]
+            for window in ([[run["start"], run["end"]]] if synthetic else run["windows"])
+        ]
+        overlapping_samples = sum(
+            any(start < record["end"] and end > record["start"] for start, end in windows)
+            for record in successful
+        )
+        overlap = overlapping_samples > 0
         failures += [f"outcome:{r['outcome']}" for r in records if r not in successful]
         if not runs or not all(r["passed"] for r in runs) or not overlap:
             failures.append("verification_pressure_failed_or_no_overlap")
@@ -193,6 +236,12 @@ def load_probe(
             field: summary([r[field] for r in successful if r[field] is not None])
             for field in ["round_trip_ms", "queue_ms", "embedding_ms"]
         }
+        target_passed = None
+        if not synthetic and not failures:
+            if components["round_trip_ms"]["p95_ms"] > 100:
+                target_passed = False
+            elif all(part["count"] == len(successful) for part in components.values()):
+                target_passed = True
         groups.append(
             {
                 "players": players,
@@ -200,11 +249,10 @@ def load_probe(
                 "successful_samples": len(successful),
                 "verification_runs": len(runs),
                 "verification_overlap": overlap,
+                "verification_overlapping_samples": overlapping_samples,
                 "failures": failures,
                 "components": None if synthetic else components,
-                "target_100ms_passed": None
-                if synthetic or failures
-                else (components["round_trip_ms"]["p95_ms"] <= 100),
+                "target_100ms_passed": target_passed,
             }
         )
     return result(
@@ -214,7 +262,9 @@ def load_probe(
         details={
             "groups": groups,
             "poll_seconds": poll_seconds,
-            "pressure_scope": "separate-process; shared model contention must be confirmed",
+            "pressure_scope": "synthetic verifier process interval"
+            if synthetic
+            else "pinned Ollama verifier adapter calls; configure the same origin for gameplay",
             "timing_source": "optional server headers; missing components remain unknown",
         },
     )

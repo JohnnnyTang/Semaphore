@@ -22,19 +22,27 @@ def main():
         "--manifest", type=Path, default=ROOT / "fixtures/w3/held_out-authored.json"
     )
     parser.add_argument("--backend", choices=["core", "reference"], default="core")
-    parser.add_argument("--ollama-url")
+    model = parser.add_mutually_exclusive_group()
+    model.add_argument("--ollama-url")
+    model.add_argument("--ollama-env", action="store_true")
     parser.add_argument("--adapter")
     parser.add_argument("--base-url")
     parser.add_argument("--artifact-id", default="default")
     parser.add_argument("--verification-command-json", type=json.loads)
     parser.add_argument("--rounds", type=int, default=10)
     parser.add_argument("--poll-seconds", type=float, default=0.01)
+    parser.add_argument(
+        "--synthetic", action="store_true", help="suppress load timings for a fake model"
+    )
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     try:
         if args.probe == "parity":
             report = parity(
-                args.manifest.read_bytes(), backend=args.backend, ollama_url=args.ollama_url
+                args.manifest.read_bytes(),
+                backend=args.backend,
+                ollama_url=args.ollama_url,
+                ollama_env=args.ollama_env,
             )
         elif args.probe == "invalid":
             report = invalid(args.manifest.read_bytes(), backend=args.backend)
@@ -55,6 +63,7 @@ def main():
                     args.artifact_id,
                     args.verification_command_json,
                     rounds=args.rounds,
+                    synthetic=args.synthetic,
                     poll_seconds=args.poll_seconds,
                 )
             else:

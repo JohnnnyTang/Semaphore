@@ -117,7 +117,19 @@ a string. Numeric ranking fixtures and game fixtures are complementary evidence.
 
 ## Paced casual extension
 
-The paced casual configuration additionally binds `special_clear` into its config
+The `experiment-arcade-paced-v1` extension uses capacity 20 and zone 3 in the
+default operator artifact. It preserves the finite manifest-order spawn IDs, but
+its arrival times depend on cleared words (including sweep/cascade bonuses).
+Event and unpaced artifacts keep their fixed schedule. The pacing multiplier is
+`max(0.4, 1 - (clears // 5) * 0.1)`. A completed clear rescales the remaining
+wait for the next spawn by new multiplier / old multiplier. Each subsequent
+base schedule gap is multiplied by the current multiplier. These durations use
+Python `round` (ties to even), with a minimum of 1 ms. After the last actual spawn,
+the paced deadline is that spawn time plus 5000 ms; the published base deadline
+bounds the game until then. This is score-dependent timing, not adaptive semantic
+selection of new words.
+
+The paced casual configuration binds `pacing` and `special_clear` into its config
 digest. Five consecutive successful submissions trigger a zone sweep. Remove the
 current ranked zone simultaneously, compact the surviving ranked board, select its
 ASCII-smallest ID, and remove that target while it is within the refilled zone and

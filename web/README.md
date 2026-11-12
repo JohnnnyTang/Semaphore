@@ -64,12 +64,13 @@ Browser checks use the Playwright CLI (an optional development tool, never a run
 dependency). With the static server above running:
 
 ```powershell
+New-Item -ItemType Directory -Force output/playwright | Out-Null
 npx --yes --package @playwright/cli playwright-cli -s=semaphore-g open http://127.0.0.1:18737/web/ --headed
 npx --yes --package @playwright/cli playwright-cli -s=semaphore-g run-code --filename=tests/web/browser-smoke.js
 npx --yes --package @playwright/cli playwright-cli -s=semaphore-g run-code --filename=tests/web/browser-reconnect.js
 ```
 
-See [QA.md](QA.md) for measured coverage and limits.
+See [QA.md](QA.md) for W4 browser coverage and [W5 browser acceptance](../docs/evidence/w5-playtest.md) for the HTTP smoke check and human playtest protocol.
 
 ## Frontend refinement
 
