@@ -130,9 +130,10 @@ footer{flex-direction:column}
 
 
 /* A tall, twenty-position chute; short screens retain readable phrase sizes. */
-.stack{min-height:0;--slot:clamp(22px, calc((100svh - 460px) / var(--capacity,20)), 30px)}
-.headroom{flex:none;min-height:0;height:calc(var(--empty-slots,14) * var(--slot));padding:0 1rem;background:repeating-linear-gradient(to top,transparent 0 calc(var(--slot) - 1px),var(--paper) calc(var(--slot) - 1px) var(--slot))}
-.word{min-height:var(--slot);padding:0 1rem;font-size:1rem;line-height:21px}
+.stack{--slot:clamp(22px, calc((100svh - 380px) / var(--capacity,20)), 52px);min-height:calc(var(--capacity,20) * var(--slot))}
+.headroom{flex:1;min-height:0;padding:0 1rem;background:repeating-linear-gradient(to top,transparent 0 calc(var(--slot) - 1px),var(--paper) calc(var(--slot) - 1px) var(--slot))}
+.word{min-height:var(--slot);padding:0 1rem;font-size:1rem;line-height:1.25}
+#words{flex:none}
 .word.zone-start{border-top:2px solid var(--zone-ink)}
 .flag{padding:2px 6px;font-size:.6rem}
 .playing .masthead{padding-top:.6rem;padding-bottom:.6rem}
@@ -174,3 +175,14 @@ input::placeholder{color:var(--muted);opacity:1}
 .clear-letter,.clear-points{position:absolute;z-index:5;pointer-events:none;color:var(--zone-ink);font-family:Bahnschrift,sans-serif;font-weight:750;text-shadow:0 2px 8px var(--surface)}
 .clear-letter{font-size:1.35rem}.clear-points{font-size:2rem}
 @media(prefers-reduced-motion:reduce){.clear-letter,.clear-points{display:none}}
+
+/* Use the available desktop space for legible phrases and a broader playfield. */
+@media(min-width:1100px){
+  .playing .arena,.playing .game-top{max-width:clamp(860px,70vw,1180px)}
+  .word{font-size:clamp(1.1rem,1.25vw,1.65rem);padding:.15rem 1.25rem}
+  .rank-number{font-size:.8rem;min-width:1.6rem}
+  .flag{font-size:.75rem;padding:3px 8px}
+  .stack-meta,.ceiling{font-size:.85rem}
+  .console h2{font-size:1.8rem}
+  #clue{font-size:1.2rem}
+}

@@ -37,8 +37,9 @@ times, while an older receipt can still resolve its matching pending command.
 Every accepted envelope replaces the full snapshot; the next 250 ms poll obtains
 a fresh snapshot even after a revision gap. Seen command IDs prevent duplicate
 result presentation. The playfield animates authoritative board changes: new words descend over
-1.1 seconds and reordered words settle over 650 ms. Identical polling snapshots
-do not restart motion. Authoritative state is never blocked by animation.
+0.85–1.5 seconds from above the ceiling, remaining fully visible as they fall.
+Reordered words settle over 650 ms. The chute stays bottom-anchored; unchanged rows
+retain their DOM nodes and in-flight animations across arrivals and polling snapshots. Authoritative state is never blocked by animation.
 
 One pending command retains its text read-only, with Send disabled. Uncertain POSTs
 reconcile through GET snapshot and GET receipt; only `receipt_not_found` retries
@@ -131,3 +132,10 @@ reduced motion retains the textual result and suppresses the trails.
 Run `node --test tests/web/*.test.mjs` and
 `python -m pytest tests/game tests/contracts/test_game_contracts.py -q`.
 The browser regression is `tests/web/browser-tutorial.js` (Playwright CLI run-code).
+
+## Arrival motion regression
+
+Run `tests/web/browser-motion.js` with Playwright CLI against the static preview.
+It mocks HTTP snapshots to check visible descent, stationary settled rows, overlapping
+arrivals without animation restarts, desktop sizing through 2560px, mobile overflow,
+and reduced motion. Desktop text scales to 26.4px and slots to 52px on tall displays.

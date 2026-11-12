@@ -35,31 +35,64 @@ function drawWords(board, target, snapshot) {
   const signature = JSON.stringify([board, target, snapshot.zone_size, board.map(id => snapshot.entries[id]?.label)]);
   if (signature === boardSignature) return;
   boardSignature = signature;
-  const positions = new Map([...rows].map(([id, row]) => [id, row.getBoundingClientRect().top]));
+  // Read both the visible position and the resting layout before changing any rows.
+  // An in-flight arrival keeps its animation unless its destination actually moves.
+  const positions = new Map([...rows].map(([id, row]) => [id, {
+    top: row.getBoundingClientRect().top, layout: row.offsetTop
+  }]));
+  const list = $('words');
   const visible = new Set(board);
-  for (const [id, row] of rows) if (!visible.has(id)) { row.remove(); rows.delete(id); }
+  for (const [id, row] of rows) if (!visible.has(id)) {
+    row.getAnimations().forEach(animation => animation.cancel());
+    row.remove(); rows.delete(id);
+  }
+  let cursor = list.firstElementChild;
   for (let index = board.length - 1; index >= 0; index--) {
     const id = board[index];
     let row = rows.get(id);
     if (!row) { row = document.createElement('li'); rows.set(id, row); }
     row.className = `word${index < snapshot.zone_size ? ' zone' : ''}${index === Math.min(snapshot.zone_size, board.length) - 1 ? ' zone-start' : ''}${id === target ? ' target' : ''}`;
-    row.replaceChildren();
-    const rank = document.createElement('span'); rank.className = 'rank-number'; rank.textContent = String(index + 1).padStart(2, '0'); rank.setAttribute('aria-hidden', 'true'); row.append(rank);
-    const label = document.createElement('span'); label.className = 'label';
-    if (index === Math.min(snapshot.zone_size, board.length) - 1) {
-      const caption = document.createElement('span'); caption.className = 'zone-caption';
-      caption.textContent = 'Clear zone'; caption.className = 'sr-only'; label.append(caption);
+    const contentSignature = JSON.stringify([index, snapshot.zone_size, target === id, snapshot.entries[id]?.label]);
+    if (row.dataset.contentSignature !== contentSignature) {
+      row.dataset.contentSignature = contentSignature;
+      row.replaceChildren();
+      const rank = document.createElement('span'); rank.className = 'rank-number'; rank.textContent = String(index + 1).padStart(2, '0'); rank.setAttribute('aria-hidden', 'true'); row.append(rank);
+      const label = document.createElement('span'); label.className = 'label';
+      if (index === Math.min(snapshot.zone_size, board.length) - 1) {
+        const caption = document.createElement('span'); caption.className = 'zone-caption';
+        caption.textContent = 'Clear zone'; caption.className = 'sr-only'; label.append(caption);
+      }
+      label.append(document.createTextNode(snapshot.entries[id]?.label || id)); row.append(label);
+      if (id === target) { const flag = document.createElement('span'); flag.className = 'flag'; flag.textContent = 'Target'; row.append(flag); }
+      if (index < snapshot.zone_size) { const hint = document.createElement('span'); hint.className = 'sr-only'; hint.textContent = ', in clear zone'; row.append(hint); }
     }
-    label.append(document.createTextNode(snapshot.entries[id]?.label || id)); row.append(label);
-    if (id === target) { const flag = document.createElement('span'); flag.className = 'flag'; flag.textContent = 'Target'; row.append(flag); }
-    if (index < snapshot.zone_size) { const hint = document.createElement('span'); hint.className = 'sr-only'; hint.textContent = ', in clear zone'; row.append(hint); }
-    $('words').append(row);
+    // Inserting at the cursor leaves every already-correct node attached and steady.
+    if (row !== cursor) list.insertBefore(row, cursor);
+    cursor = row.nextElementSibling;
   }
-  if (!reduced.matches) for (const [id, row] of rows) {
+  if (reduced.matches) {
+    for (const row of rows.values()) row.getAnimations().forEach(animation => animation.cancel());
+    return;
+  }
+  const ceiling = document.querySelector('.stack').getBoundingClientRect().top;
+  const destinations = [...rows].map(([id, row]) => ({ id, row,
+    layout: row.offsetTop, height: row.offsetHeight }));
+  for (const { id, row, layout, height } of destinations) {
+    const old = positions.get(id);
+    if (old && Math.abs(old.layout - layout) < 0.5) continue;
     row.getAnimations().forEach(animation => animation.cancel());
-    const old = positions.get(id), now = row.getBoundingClientRect().top;
-    if (old !== undefined && old !== now) row.animate([{ transform: `translateY(${old - now}px)` }, { transform: 'translateY(0)' }], { duration: 650, easing: 'cubic-bezier(.2,.7,.2,1)' });
-    else if (old === undefined) row.animate([{ transform: `translateY(-${Math.max(65, now - document.querySelector('.stack').getBoundingClientRect().top)}px)`, opacity: 0 }, { transform: 'translateY(0)', opacity: 1 }], { duration: Math.max(450, 1500 - (snapshot.level - 1) * 150), easing: 'cubic-bezier(.35,0,.65,1)' });
+    const now = row.getBoundingClientRect().top;
+    const delta = old ? old.top - now : ceiling - now - height;
+    if (Math.abs(delta) < 0.5) continue;
+    row.animate([
+      { transform: `translateY(${delta}px)`, zIndex: 2 },
+      { transform: 'translateY(0)', zIndex: 2 }
+    ], {
+      duration: old ? 650 : Math.max(850, 1500 - ((snapshot.level || 1) - 1) * 100),
+      // Arrivals remain opaque and accelerate from the ceiling, easing into their slot.
+      easing: old ? 'cubic-bezier(.2,.7,.2,1)' : 'cubic-bezier(.4,0,.65,1)',
+      fill: 'backwards'
+    });
   }
 }
 function clearEffects(result, snapshot) {
@@ -121,7 +154,6 @@ function render(result) {
   const tutorial = transport instanceof TutorialTransport;
   $('source').textContent = tutorial ? 'Guided warm-up / clock paused' : settings.kind === 'fixture' ? 'Scripted practice / recorded outcomes' : `${s.mode === 'event' ? 'Event' : 'Casual'} / LAN game`;
   document.querySelector('.stack').style.setProperty('--capacity', s.capacity);
-  document.querySelector('.stack').style.setProperty('--empty-slots', Math.max(0, s.capacity - s.board.length));
   document.querySelector('.headroom span').hidden = s.capacity - s.board.length < 2;
   $('capacity-warning').textContent = (s.capacity - s.board.length) + ' spaces left';
   $('occupancy').textContent = `${s.board.length} of ${s.capacity} words`;
