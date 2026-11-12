@@ -91,4 +91,4 @@ def test_practice_recording_is_current_and_schema_valid():
     for envelope in data["envelopes"]:
         validator.validate(envelope)
     assert data["envelopes"][0]["snapshot"]["capacity"] == 20
-    assert data["envelopes"][-1]["snapshot"]["score"] == 1200
+    assert data["envelopes"][-1]["snapshot"]["score"] == 1700

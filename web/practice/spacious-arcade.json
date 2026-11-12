@@ -1858,14 +1858,20 @@
         "mode": "casual",
         "elapsed_ms": 15000,
         "status": "active",
-        "board": [],
-        "target": null,
+        "board": [
+          "word-09",
+          "word-10",
+          "word-11",
+          "word-12",
+          "word-13"
+        ],
+        "target": "word-09",
         "score": 900,
         "clears": 9,
         "streak": 0,
         "level": 2,
         "revision": 13,
-        "next_spawn_index": 3,
+        "next_spawn_index": 8,
         "next_spawn_ms": 19500,
         "deadline_ms": 95000,
         "capacity": 20,
@@ -1993,14 +1999,20 @@
         "mode": "casual",
         "elapsed_ms": 18000,
         "status": "active",
-        "board": [],
-        "target": null,
+        "board": [
+          "word-09",
+          "word-10",
+          "word-11",
+          "word-12",
+          "word-13"
+        ],
+        "target": "word-09",
         "score": 900,
         "clears": 9,
         "streak": 0,
         "level": 2,
         "revision": 13,
-        "next_spawn_index": 3,
+        "next_spawn_index": 8,
         "next_spawn_ms": 19500,
         "deadline_ms": 95000,
         "capacity": 20,
@@ -2100,15 +2112,145 @@
         "mode": "casual",
         "elapsed_ms": 18000,
         "status": "active",
-        "board": [],
-        "target": null,
+        "board": [
+          "word-09",
+          "word-10",
+          "word-11",
+          "word-12",
+          "word-13"
+        ],
+        "target": "word-09",
         "score": 900,
         "clears": 9,
         "streak": 0,
         "level": 2,
-        "revision": 13,
-        "next_spawn_index": 3,
+        "revision": 14,
+        "next_spawn_index": 8,
         "next_spawn_ms": 19500,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": {
+          "command_id": "practice-5",
+          "target": "word-09",
+          "admitted_ms": 18000
+        },
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-5",
+        "outcome": "pending",
+        "applied_revision": 14,
+        "target": "word-09",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 18,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 18000,
+        "status": "active",
+        "board": [
+          "word-10",
+          "word-11",
+          "word-12",
+          "word-13"
+        ],
+        "target": "word-10",
+        "score": 1000,
+        "clears": 10,
+        "streak": 1,
+        "level": 3,
+        "revision": 15,
+        "next_spawn_index": 8,
+        "next_spawn_ms": 19333,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
@@ -2191,120 +2333,25 @@
       },
       "receipt": {
         "command_id": "practice-5",
-        "outcome": "no_target",
-        "applied_revision": 13,
-        "target": null,
-        "target_rank": null,
-        "ranked_board": [],
-        "score_delta": 0
+        "outcome": "clear",
+        "applied_revision": 15,
+        "target": "word-09",
+        "target_rank": 3,
+        "ranked_board": [
+          "word-10",
+          "word-11",
+          "word-09",
+          "word-12",
+          "word-13"
+        ],
+        "score_delta": 100,
+        "clear_waves": [
+          [
+            "word-09"
+          ]
+        ],
+        "strike": false
       }
-    },
-    {
-      "protocol": "experiment-v1",
-      "sequence": 18,
-      "kind": "snapshot",
-      "snapshot": {
-        "game_id": "spacious-arcade",
-        "identities": {
-          "pack_digest": "recorded-practice",
-          "model_fingerprint": "scripted-not-real-model",
-          "ruleset_id": "experiment-arcade-paced-v1",
-          "config_digest": "spacious-arcade-20-3",
-          "challenge_digest": null
-        },
-        "mode": "casual",
-        "elapsed_ms": 18000,
-        "status": "active",
-        "board": [],
-        "target": null,
-        "score": 900,
-        "clears": 9,
-        "streak": 0,
-        "level": 2,
-        "revision": 13,
-        "next_spawn_index": 3,
-        "next_spawn_ms": 19500,
-        "deadline_ms": 95000,
-        "capacity": 20,
-        "zone_size": 3,
-        "pending": null,
-        "end_reason": null,
-        "entries": {
-          "word-00": {
-            "label": "moon"
-          },
-          "word-01": {
-            "label": "telescope"
-          },
-          "word-02": {
-            "label": "midnight"
-          },
-          "word-03": {
-            "label": "ocean"
-          },
-          "word-04": {
-            "label": "compass"
-          },
-          "word-05": {
-            "label": "lighthouse"
-          },
-          "word-06": {
-            "label": "orbit"
-          },
-          "word-07": {
-            "label": "forest"
-          },
-          "word-08": {
-            "label": "cloud"
-          },
-          "word-09": {
-            "label": "piano"
-          },
-          "word-10": {
-            "label": "river"
-          },
-          "word-11": {
-            "label": "mountain"
-          },
-          "word-12": {
-            "label": "garden"
-          },
-          "word-13": {
-            "label": "rain"
-          },
-          "word-14": {
-            "label": "window"
-          },
-          "word-15": {
-            "label": "lantern"
-          },
-          "word-16": {
-            "label": "island"
-          },
-          "word-17": {
-            "label": "sunrise"
-          },
-          "word-18": {
-            "label": "train"
-          },
-          "word-19": {
-            "label": "snow"
-          },
-          "word-20": {
-            "label": "bridge"
-          },
-          "word-21": {
-            "label": "paper"
-          },
-          "word-22": {
-            "label": "wind"
-          },
-          "word-23": {
-            "label": "kite"
-          }
-        }
-      },
-      "receipt": null
     },
     {
       "protocol": "experiment-v1",
@@ -2323,16 +2370,20 @@
         "elapsed_ms": 21000,
         "status": "active",
         "board": [
-          "word-09"
+          "word-10",
+          "word-11",
+          "word-12",
+          "word-13",
+          "word-14"
         ],
-        "target": "word-09",
-        "score": 900,
-        "clears": 9,
-        "streak": 0,
-        "level": 2,
-        "revision": 14,
-        "next_spawn_index": 4,
-        "next_spawn_ms": 24000,
+        "target": "word-10",
+        "score": 1000,
+        "clears": 10,
+        "streak": 1,
+        "level": 3,
+        "revision": 16,
+        "next_spawn_index": 9,
+        "next_spawn_ms": 23333,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
@@ -2432,22 +2483,26 @@
         "elapsed_ms": 21000,
         "status": "active",
         "board": [
-          "word-09"
+          "word-10",
+          "word-11",
+          "word-12",
+          "word-13",
+          "word-14"
         ],
-        "target": "word-09",
-        "score": 900,
-        "clears": 9,
-        "streak": 0,
-        "level": 2,
-        "revision": 15,
-        "next_spawn_index": 4,
-        "next_spawn_ms": 24000,
+        "target": "word-10",
+        "score": 1000,
+        "clears": 10,
+        "streak": 1,
+        "level": 3,
+        "revision": 17,
+        "next_spawn_index": 9,
+        "next_spawn_ms": 23333,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
         "pending": {
           "command_id": "practice-6",
-          "target": "word-09",
+          "target": "word-10",
           "admitted_ms": 21000
         },
         "end_reason": null,
@@ -2529,8 +2584,8 @@
       "receipt": {
         "command_id": "practice-6",
         "outcome": "pending",
-        "applied_revision": 15,
-        "target": "word-09",
+        "applied_revision": 17,
+        "target": "word-10",
         "target_rank": null,
         "ranked_board": [],
         "score_delta": 0
@@ -2552,15 +2607,20 @@
         "mode": "casual",
         "elapsed_ms": 21000,
         "status": "active",
-        "board": [],
-        "target": null,
-        "score": 1000,
-        "clears": 10,
-        "streak": 1,
+        "board": [
+          "word-11",
+          "word-12",
+          "word-13",
+          "word-14"
+        ],
+        "target": "word-11",
+        "score": 1100,
+        "clears": 11,
+        "streak": 2,
         "level": 3,
-        "revision": 16,
-        "next_spawn_index": 4,
-        "next_spawn_ms": 23667,
+        "revision": 18,
+        "next_spawn_index": 9,
+        "next_spawn_ms": 23333,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
@@ -2644,16 +2704,20 @@
       "receipt": {
         "command_id": "practice-6",
         "outcome": "clear",
-        "applied_revision": 16,
-        "target": "word-09",
-        "target_rank": 1,
+        "applied_revision": 18,
+        "target": "word-10",
+        "target_rank": 3,
         "ranked_board": [
-          "word-09"
+          "word-11",
+          "word-12",
+          "word-10",
+          "word-13",
+          "word-14"
         ],
         "score_delta": 100,
         "clear_waves": [
           [
-            "word-09"
+            "word-10"
           ]
         ],
         "strike": false
@@ -2676,16 +2740,20 @@
         "elapsed_ms": 24000,
         "status": "active",
         "board": [
-          "word-10"
+          "word-11",
+          "word-12",
+          "word-13",
+          "word-14",
+          "word-15"
         ],
-        "target": "word-10",
-        "score": 1000,
-        "clears": 10,
-        "streak": 1,
+        "target": "word-11",
+        "score": 1100,
+        "clears": 11,
+        "streak": 2,
         "level": 3,
-        "revision": 17,
-        "next_spawn_index": 5,
-        "next_spawn_ms": 27667,
+        "revision": 19,
+        "next_spawn_index": 10,
+        "next_spawn_ms": 27333,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
@@ -2785,22 +2853,26 @@
         "elapsed_ms": 24000,
         "status": "active",
         "board": [
-          "word-10"
+          "word-11",
+          "word-12",
+          "word-13",
+          "word-14",
+          "word-15"
         ],
-        "target": "word-10",
-        "score": 1000,
-        "clears": 10,
-        "streak": 1,
+        "target": "word-11",
+        "score": 1100,
+        "clears": 11,
+        "streak": 2,
         "level": 3,
-        "revision": 18,
-        "next_spawn_index": 5,
-        "next_spawn_ms": 27667,
+        "revision": 20,
+        "next_spawn_index": 10,
+        "next_spawn_ms": 27333,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
         "pending": {
           "command_id": "practice-7",
-          "target": "word-10",
+          "target": "word-11",
           "admitted_ms": 24000
         },
         "end_reason": null,
@@ -2882,8 +2954,8 @@
       "receipt": {
         "command_id": "practice-7",
         "outcome": "pending",
-        "applied_revision": 18,
-        "target": "word-10",
+        "applied_revision": 20,
+        "target": "word-11",
         "target_rank": null,
         "ranked_board": [],
         "score_delta": 0
@@ -2905,15 +2977,20 @@
         "mode": "casual",
         "elapsed_ms": 24000,
         "status": "active",
-        "board": [],
-        "target": null,
-        "score": 1100,
-        "clears": 11,
-        "streak": 2,
+        "board": [
+          "word-12",
+          "word-13",
+          "word-14",
+          "word-15"
+        ],
+        "target": "word-12",
+        "score": 1200,
+        "clears": 12,
+        "streak": 3,
         "level": 3,
-        "revision": 19,
-        "next_spawn_index": 5,
-        "next_spawn_ms": 27667,
+        "revision": 21,
+        "next_spawn_index": 10,
+        "next_spawn_ms": 27333,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
@@ -2997,16 +3074,20 @@
       "receipt": {
         "command_id": "practice-7",
         "outcome": "clear",
-        "applied_revision": 19,
-        "target": "word-10",
-        "target_rank": 1,
+        "applied_revision": 21,
+        "target": "word-11",
+        "target_rank": 3,
         "ranked_board": [
-          "word-10"
+          "word-12",
+          "word-13",
+          "word-11",
+          "word-14",
+          "word-15"
         ],
         "score_delta": 100,
         "clear_waves": [
           [
-            "word-10"
+            "word-11"
           ]
         ],
         "strike": false
@@ -3028,15 +3109,20 @@
         "mode": "casual",
         "elapsed_ms": 27000,
         "status": "active",
-        "board": [],
-        "target": null,
-        "score": 1100,
-        "clears": 11,
-        "streak": 2,
+        "board": [
+          "word-12",
+          "word-13",
+          "word-14",
+          "word-15"
+        ],
+        "target": "word-12",
+        "score": 1200,
+        "clears": 12,
+        "streak": 3,
         "level": 3,
-        "revision": 19,
-        "next_spawn_index": 5,
-        "next_spawn_ms": 27667,
+        "revision": 21,
+        "next_spawn_index": 10,
+        "next_spawn_ms": 27333,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
@@ -3135,15 +3221,143 @@
         "mode": "casual",
         "elapsed_ms": 27000,
         "status": "active",
-        "board": [],
-        "target": null,
-        "score": 1100,
-        "clears": 11,
-        "streak": 2,
+        "board": [
+          "word-12",
+          "word-13",
+          "word-14",
+          "word-15"
+        ],
+        "target": "word-12",
+        "score": 1200,
+        "clears": 12,
+        "streak": 3,
         "level": 3,
-        "revision": 19,
-        "next_spawn_index": 5,
-        "next_spawn_ms": 27667,
+        "revision": 22,
+        "next_spawn_index": 10,
+        "next_spawn_ms": 27333,
+        "deadline_ms": 95000,
+        "capacity": 20,
+        "zone_size": 3,
+        "pending": {
+          "command_id": "practice-8",
+          "target": "word-12",
+          "admitted_ms": 27000
+        },
+        "end_reason": null,
+        "entries": {
+          "word-00": {
+            "label": "moon"
+          },
+          "word-01": {
+            "label": "telescope"
+          },
+          "word-02": {
+            "label": "midnight"
+          },
+          "word-03": {
+            "label": "ocean"
+          },
+          "word-04": {
+            "label": "compass"
+          },
+          "word-05": {
+            "label": "lighthouse"
+          },
+          "word-06": {
+            "label": "orbit"
+          },
+          "word-07": {
+            "label": "forest"
+          },
+          "word-08": {
+            "label": "cloud"
+          },
+          "word-09": {
+            "label": "piano"
+          },
+          "word-10": {
+            "label": "river"
+          },
+          "word-11": {
+            "label": "mountain"
+          },
+          "word-12": {
+            "label": "garden"
+          },
+          "word-13": {
+            "label": "rain"
+          },
+          "word-14": {
+            "label": "window"
+          },
+          "word-15": {
+            "label": "lantern"
+          },
+          "word-16": {
+            "label": "island"
+          },
+          "word-17": {
+            "label": "sunrise"
+          },
+          "word-18": {
+            "label": "train"
+          },
+          "word-19": {
+            "label": "snow"
+          },
+          "word-20": {
+            "label": "bridge"
+          },
+          "word-21": {
+            "label": "paper"
+          },
+          "word-22": {
+            "label": "wind"
+          },
+          "word-23": {
+            "label": "kite"
+          }
+        }
+      },
+      "receipt": {
+        "command_id": "practice-8",
+        "outcome": "pending",
+        "applied_revision": 22,
+        "target": "word-12",
+        "target_rank": null,
+        "ranked_board": [],
+        "score_delta": 0
+      }
+    },
+    {
+      "protocol": "experiment-v1",
+      "sequence": 27,
+      "kind": "receipt",
+      "snapshot": {
+        "game_id": "spacious-arcade",
+        "identities": {
+          "pack_digest": "recorded-practice",
+          "model_fingerprint": "scripted-not-real-model",
+          "ruleset_id": "experiment-arcade-paced-v1",
+          "config_digest": "spacious-arcade-20-3",
+          "challenge_digest": null
+        },
+        "mode": "casual",
+        "elapsed_ms": 27000,
+        "status": "active",
+        "board": [
+          "word-13",
+          "word-14",
+          "word-15"
+        ],
+        "target": "word-13",
+        "score": 1300,
+        "clears": 13,
+        "streak": 4,
+        "level": 3,
+        "revision": 23,
+        "next_spawn_index": 10,
+        "next_spawn_ms": 27333,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
@@ -3226,120 +3440,24 @@
       },
       "receipt": {
         "command_id": "practice-8",
-        "outcome": "no_target",
-        "applied_revision": 19,
-        "target": null,
-        "target_rank": null,
-        "ranked_board": [],
-        "score_delta": 0
+        "outcome": "clear",
+        "applied_revision": 23,
+        "target": "word-12",
+        "target_rank": 3,
+        "ranked_board": [
+          "word-13",
+          "word-14",
+          "word-12",
+          "word-15"
+        ],
+        "score_delta": 100,
+        "clear_waves": [
+          [
+            "word-12"
+          ]
+        ],
+        "strike": false
       }
-    },
-    {
-      "protocol": "experiment-v1",
-      "sequence": 27,
-      "kind": "snapshot",
-      "snapshot": {
-        "game_id": "spacious-arcade",
-        "identities": {
-          "pack_digest": "recorded-practice",
-          "model_fingerprint": "scripted-not-real-model",
-          "ruleset_id": "experiment-arcade-paced-v1",
-          "config_digest": "spacious-arcade-20-3",
-          "challenge_digest": null
-        },
-        "mode": "casual",
-        "elapsed_ms": 27000,
-        "status": "active",
-        "board": [],
-        "target": null,
-        "score": 1100,
-        "clears": 11,
-        "streak": 2,
-        "level": 3,
-        "revision": 19,
-        "next_spawn_index": 5,
-        "next_spawn_ms": 27667,
-        "deadline_ms": 95000,
-        "capacity": 20,
-        "zone_size": 3,
-        "pending": null,
-        "end_reason": null,
-        "entries": {
-          "word-00": {
-            "label": "moon"
-          },
-          "word-01": {
-            "label": "telescope"
-          },
-          "word-02": {
-            "label": "midnight"
-          },
-          "word-03": {
-            "label": "ocean"
-          },
-          "word-04": {
-            "label": "compass"
-          },
-          "word-05": {
-            "label": "lighthouse"
-          },
-          "word-06": {
-            "label": "orbit"
-          },
-          "word-07": {
-            "label": "forest"
-          },
-          "word-08": {
-            "label": "cloud"
-          },
-          "word-09": {
-            "label": "piano"
-          },
-          "word-10": {
-            "label": "river"
-          },
-          "word-11": {
-            "label": "mountain"
-          },
-          "word-12": {
-            "label": "garden"
-          },
-          "word-13": {
-            "label": "rain"
-          },
-          "word-14": {
-            "label": "window"
-          },
-          "word-15": {
-            "label": "lantern"
-          },
-          "word-16": {
-            "label": "island"
-          },
-          "word-17": {
-            "label": "sunrise"
-          },
-          "word-18": {
-            "label": "train"
-          },
-          "word-19": {
-            "label": "snow"
-          },
-          "word-20": {
-            "label": "bridge"
-          },
-          "word-21": {
-            "label": "paper"
-          },
-          "word-22": {
-            "label": "wind"
-          },
-          "word-23": {
-            "label": "kite"
-          }
-        }
-      },
-      "receipt": null
     },
     {
       "protocol": "experiment-v1",
@@ -3358,16 +3476,19 @@
         "elapsed_ms": 30000,
         "status": "active",
         "board": [
-          "word-11"
+          "word-13",
+          "word-14",
+          "word-15",
+          "word-16"
         ],
-        "target": "word-11",
-        "score": 1100,
-        "clears": 11,
-        "streak": 2,
+        "target": "word-13",
+        "score": 1300,
+        "clears": 13,
+        "streak": 4,
         "level": 3,
-        "revision": 20,
-        "next_spawn_index": 6,
-        "next_spawn_ms": 31667,
+        "revision": 24,
+        "next_spawn_index": 11,
+        "next_spawn_ms": 31333,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
@@ -3467,22 +3588,25 @@
         "elapsed_ms": 30000,
         "status": "active",
         "board": [
-          "word-11"
+          "word-13",
+          "word-14",
+          "word-15",
+          "word-16"
         ],
-        "target": "word-11",
-        "score": 1100,
-        "clears": 11,
-        "streak": 2,
+        "target": "word-13",
+        "score": 1300,
+        "clears": 13,
+        "streak": 4,
         "level": 3,
-        "revision": 21,
-        "next_spawn_index": 6,
-        "next_spawn_ms": 31667,
+        "revision": 25,
+        "next_spawn_index": 11,
+        "next_spawn_ms": 31333,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
         "pending": {
           "command_id": "practice-9",
-          "target": "word-11",
+          "target": "word-13",
           "admitted_ms": 30000
         },
         "end_reason": null,
@@ -3564,8 +3688,8 @@
       "receipt": {
         "command_id": "practice-9",
         "outcome": "pending",
-        "applied_revision": 21,
-        "target": "word-11",
+        "applied_revision": 25,
+        "target": "word-13",
         "target_rank": null,
         "ranked_board": [],
         "score_delta": 0
@@ -3587,15 +3711,21 @@
         "mode": "casual",
         "elapsed_ms": 30000,
         "status": "active",
-        "board": [],
-        "target": null,
-        "score": 1200,
-        "clears": 12,
-        "streak": 3,
-        "level": 3,
-        "revision": 22,
-        "next_spawn_index": 6,
-        "next_spawn_ms": 31667,
+        "board": [
+          "word-17",
+          "word-18",
+          "word-19",
+          "word-20",
+          "word-21"
+        ],
+        "target": "word-17",
+        "score": 1700,
+        "clears": 17,
+        "streak": 0,
+        "level": 4,
+        "revision": 26,
+        "next_spawn_index": 16,
+        "next_spawn_ms": 33500,
         "deadline_ms": 95000,
         "capacity": 20,
         "zone_size": 3,
@@ -3679,19 +3809,27 @@
       "receipt": {
         "command_id": "practice-9",
         "outcome": "clear",
-        "applied_revision": 22,
-        "target": "word-11",
-        "target_rank": 1,
+        "applied_revision": 26,
+        "target": "word-13",
+        "target_rank": 3,
         "ranked_board": [
-          "word-11"
+          "word-14",
+          "word-15",
+          "word-13",
+          "word-16"
         ],
-        "score_delta": 100,
+        "score_delta": 400,
         "clear_waves": [
           [
-            "word-11"
+            "word-14",
+            "word-15",
+            "word-13"
+          ],
+          [
+            "word-16"
           ]
         ],
-        "strike": false
+        "strike": true
       }
     }
   ]

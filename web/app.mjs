@@ -17,7 +17,7 @@ try { preferredTheme = localStorage.getItem('semaphore-theme'); } catch { /* Opt
 setTheme(['light', 'dark'].includes(preferredTheme) ? preferredTheme : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 $('theme-toggle').onclick = () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
 const params = new URLSearchParams(location.search);
-$('transport').value = params.get('transport') === 'http' ? 'http' : 'fixture';
+$('transport').value = params.get('transport') === 'fixture' ? 'fixture' : 'http';
 $('artifact').value = params.get('artifact') || 'default';
 function options() {
   $('fixture-options').hidden = $('transport').value !== 'fixture';
@@ -59,7 +59,7 @@ function drawWords(board, target, snapshot) {
     row.getAnimations().forEach(animation => animation.cancel());
     const old = positions.get(id), now = row.getBoundingClientRect().top;
     if (old !== undefined && old !== now) row.animate([{ transform: `translateY(${old - now}px)` }, { transform: 'translateY(0)' }], { duration: 650, easing: 'cubic-bezier(.2,.7,.2,1)' });
-    else if (old === undefined) row.animate([{ transform: `translateY(-${Math.max(65, row.offsetTop)}px)`, opacity: 0 }, { transform: 'translateY(0)', opacity: 1 }], { duration: Math.max(450, 1500 - (snapshot.level - 1) * 150), easing: 'cubic-bezier(.2,.7,.2,1)' });
+    else if (old === undefined) row.animate([{ transform: `translateY(-${Math.max(65, now - document.querySelector('.stack').getBoundingClientRect().top)}px)`, opacity: 0 }, { transform: 'translateY(0)', opacity: 1 }], { duration: Math.max(450, 1500 - (snapshot.level - 1) * 150), easing: 'cubic-bezier(.35,0,.65,1)' });
   }
 }
 function clearEffects(result, snapshot) {
@@ -68,8 +68,26 @@ function clearEffects(result, snapshot) {
   if (reduced.matches) return; // The persistent result describes every clear without motion.
   const stack = document.querySelector('.stack'), bounds = stack.getBoundingClientRect();
   waves.forEach((wave, index) => wave.forEach(id => {
-    const row = rows.get(id); if (!row) return;
-    const rect = row.getBoundingClientRect(), ghost = row.cloneNode(true);
+    const row = rows.get(id);
+    const rect = row?.getBoundingClientRect() || { top: bounds.bottom - 40, left: bounds.left + 60 };
+    const ghost = row ? row.cloneNode(true) : document.createElement('li');
+    if (!row) ghost.textContent = snapshot.entries[id]?.label || id;
+    const label = row?.querySelector('.label');
+    const origin = label?.getBoundingClientRect() || rect;
+    const text = snapshot.entries[id]?.label || id;
+    [...text].slice(0, 32).forEach((letter, n) => {
+      const particle = document.createElement('span'); particle.className = 'clear-letter';
+      particle.textContent = letter; particle.setAttribute('aria-hidden', 'true');
+      Object.assign(particle.style, { left: `${origin.left - bounds.left + n * 10}px`, top: `${origin.top - bounds.top}px` });
+      stack.append(particle);
+      const direction = (n % 2 ? 1 : -1);
+      particle.animate([{ opacity: 1, transform: 'translate(0,0) rotate(0)' },
+        { opacity: 0, transform: `translate(${direction * (35 + n * 7)}px,${-70 - (n % 4) * 20}px) rotate(${direction * 110}deg)` }],
+        { duration: 850, delay: Math.min(index * 140, 1800), fill: 'both', easing: 'ease-out' }).finished.catch(() => {}).finally(() => particle.remove());
+    });
+    const points = document.createElement('span'); points.className = 'clear-points'; points.textContent = '+100'; points.setAttribute('aria-hidden', 'true');
+    Object.assign(points.style, { right: '24px', top: `${rect.top - bounds.top}px` }); stack.append(points);
+    points.animate([{ opacity: 1, transform: 'translateY(0) scale(.8)' }, { opacity: 1, offset: .3, transform: 'translateY(-20px) scale(1.15)' }, { opacity: 0, transform: 'translateY(-65px) scale(1)' }], { duration: 1000, delay: Math.min(index * 140, 1800), fill: 'both' }).finished.catch(() => {}).finally(() => points.remove());
     ghost.className = 'word clear-echo'; ghost.setAttribute('aria-hidden', 'true');
     Object.assign(ghost.style, { top: `${rect.top - bounds.top}px`, left: '0', width: '100%' });
     stack.append(ghost);
@@ -90,6 +108,13 @@ function updateControls() {
   $('reconnect').hidden = connected;
   $('connection').textContent = connected ? '' : 'Reconnecting. The game clock is still running. Your clue is kept in this tab.';
 }
+let clockSample = performance.now();
+function drawClock() {
+  const s = store.snapshot; if (!s) return;
+  const elapsed = s.elapsed_ms + Math.max(0, performance.now() - clockSample);
+  $('next-spawn').textContent = transport instanceof TutorialTransport ? 'Paused for you' : s.status === 'over' ? 'Finished' : settings.kind === 'fixture' ? 'Replay clock · advances with clues' : s.next_spawn_ms === null ? 'No more arrivals' : `Next word in ${Math.max(0, Math.ceil((s.next_spawn_ms - elapsed) / 1000))} s`;
+}
+setInterval(drawClock, 100);
 function render(result) {
   const s = store.snapshot; if (!s) return;
   $('welcome').hidden = true; $('game').hidden = false; document.body.classList.add('playing');
@@ -100,7 +125,7 @@ function render(result) {
   document.querySelector('.headroom span').hidden = s.capacity - s.board.length < 2;
   $('capacity-warning').textContent = (s.capacity - s.board.length) + ' spaces left';
   $('occupancy').textContent = `${s.board.length} of ${s.capacity} words`;
-  $('next-spawn').textContent = tutorial ? 'Paused for you' : s.status === 'over' ? 'Finished' : s.next_spawn_ms === null ? 'No more arrivals' : `Next word in ${Math.max(0, Math.ceil((s.next_spawn_ms - s.elapsed_ms) / 1000))} s`;
+  drawClock();
   $('score').textContent = s.score; $('level').textContent = s.level;
   const paced = s.identities.ruleset_id === 'experiment-arcade-paced-v1';
   $('pace-note').textContent = paced ? (s.score >= 3000 ? 'Maximum pace' : 'Next pace increase at ' + (Math.floor(s.score / 500) + 1) * 500 + ' points') : 'Fixed arrival schedule';
@@ -150,6 +175,7 @@ function render(result) {
 }
 function apply(envelope) {
   const change = store.apply(envelope);
+  if (change.accepted) clockSample = performance.now();
   if (change.accepted || change.result) render(change.result);
   // Each HTTP envelope is a complete snapshot; no intermediate state is guessed at gaps.
 }
@@ -195,7 +221,7 @@ async function start(skipTutorial = false) {
   try {
     const envelope = await nextTransport.create({ mode: nextSettings.mode, artifact_id: nextSettings.artifact });
     if (run !== epoch) return;
-    document.querySelectorAll('.clear-echo').forEach(node => { node.getAnimations().forEach(a => a.cancel()); node.remove(); });
+    document.querySelectorAll('.clear-echo,.clear-letter,.clear-points').forEach(node => { node.getAnimations().forEach(a => a.cancel()); node.remove(); });
     finished = false; connected = true; boardSignature = ''; rows.clear(); $('words').replaceChildren();
     store = new GameStore(); removeSaved(); $('result').textContent = ''; $('clue').value = '';
     settings = nextSettings; transport = nextTransport;

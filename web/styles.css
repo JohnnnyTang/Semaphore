@@ -170,3 +170,7 @@ input::placeholder{color:var(--muted);opacity:1}
 @media(prefers-reduced-motion:reduce){.clear-echo{display:none}}
 #streak{white-space:nowrap}
 @media(max-width:600px){#streak{font-size:1.3rem}.stats{flex-wrap:wrap}}
+
+.clear-letter,.clear-points{position:absolute;z-index:5;pointer-events:none;color:var(--zone-ink);font-family:Bahnschrift,sans-serif;font-weight:750;text-shadow:0 2px 8px var(--surface)}
+.clear-letter{font-size:1.35rem}.clear-points{font-size:2rem}
+@media(prefers-reduced-motion:reduce){.clear-letter,.clear-points{display:none}}

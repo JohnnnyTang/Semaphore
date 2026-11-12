@@ -449,6 +449,30 @@ def complete(
                 paced_spawn_ms=now_ms
                 + max(1, round(remaining * pace_factor(state.clears) / old_factor)),
             )
+        # Replenish only after scoring is finished: the old clue must never
+        # clear fresh arrivals. Consume each scheduled ID exactly once.
+        if cleared and state.artifact.score_pacing and (strike or not board):
+            a = state.artifact
+            next_index = state.next_spawn_index
+            refilled = list(state.board)
+            minimum = min(5, a.capacity - 1)
+            while len(refilled) < minimum and next_index < len(a.schedule):
+                refilled.append(a.schedule[next_index]["entry_id"])
+                next_index += 1
+            if next_index != state.next_spawn_index:
+                next_at = None
+                if next_index < len(a.schedule):
+                    gap = a.schedule[next_index]["at_ms"] - a.schedule[next_index - 1]["at_ms"]
+                    next_at = now_ms + max(1, round(gap * pace_factor(state.clears)))
+                board = tuple(refilled)
+                state = replace(
+                    state,
+                    board=board,
+                    target=min(board),
+                    next_spawn_index=next_index,
+                    paced_spawn_ms=next_at,
+                    paced_deadline_ms=now_ms + 5000 if next_at is None else None,
+                )
         if (
             not board
             and state.artifact.mode == "casual"

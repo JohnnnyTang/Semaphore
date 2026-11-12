@@ -27,7 +27,7 @@ def prepare_artifact(raw, embedder, *, mode="casual", interval_ms=5000):
     )
     if mode == "casual":
         config["special_clear"] = dict(
-            streak=5, refill="ranked_board", cascade="legal_target_in_zone"
+            streak=5, refill="scheduled_to_five_after_scoring", cascade="legal_target_in_zone"
         )
         config["pacing"] = dict(points_per_level=500, interval_step_percent=10, minimum_percent=40)
 

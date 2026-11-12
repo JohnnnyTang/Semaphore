@@ -79,7 +79,7 @@ player choose their own clues. Offer help only when asked and record the prompt.
   device, warm-up choice, score, observed confusion and willingness to replay.
   Record raw clues only with participant consent.
 
-## Open gates
+## November 11 gate status (historical)
 
 **Real-model browser game** remains open. The configured LAN Ollama endpoint
 refused TCP connections (Windows error 10061) during the Wave 5 preflight.
@@ -89,3 +89,70 @@ No real model startup or real clue result was observed in this browser run.
 players understand target selection, rejection, reordering and loss, and whether
 the selected model's results and pace feel fair enough to keep playing, remain
 unanswered.
+
+
+## November 12, 2026 playtest correction session
+
+The owner relayed real-player feedback: the arrival countdown appeared frozen
+until a clue was submitted; an intuitive leaf/tree association failed; sweep
+bonuses left an empty or trivial board; clearing and falling lacked satisfying
+motion. The supplied game screenshot explicitly displayed scripted practice.
+That adapter replays fixed outcomes and does not evaluate entered clues; its
+clock advances through recorded frames. Participant count, individual scores,
+devices and completed games were not supplied, so this feedback does not close
+the three-person acceptance gate.
+
+### Implemented changes
+
+- Live HTTP play is now the default, including when the home link drops the
+  query string. Explicit `?transport=fixture` still selects recorded practice.
+- The live countdown updates every 100 ms using monotonic browser time anchored
+  to accepted server snapshots. It does not drive game state. Replay explicitly
+  labels its clock as advancing with clues; guided warm-up remains paused.
+- After a casual streak sweep or an empty-board clear, consume upcoming scheduled
+  entries until at least five words are present, or the remaining pack is exhausted.
+  Refilling happens after all scoring/cascades, so the old clue cannot clear new
+  arrivals. Each scheduled entry is consumed once, and the next arrival/deadline
+  is recalculated. Capacity bounds and event behavior remain unchanged.
+- The casual configuration digest now includes the new refill policy. The
+  experiment ruleset ID remains unchanged; broader identity reconciliation is
+  still an open Stage 1 item.
+- Clear feedback adds scattering letters and floating +100 points per word.
+  Receipt feedback still renders when polling has already removed the row.
+  New words travel from the chute top to their landing position; existing rows
+  animate their movement. Reduced-motion users retain textual feedback.
+- Regenerated the scripted arcade recording under the new refill behavior and
+  updated its expected ending score from 1200 to 1700.
+
+### Validation and model findings
+
+The existing pinned LAN Ollama model was reachable. A real embedding query
+returned 2560 dimensions, and the local HTTP game accepted the startup smoke
+clue and awarded 100 points. The server was restarted after the rule changes
+at `http://127.0.0.1:18740/web/?transport=http`.
+
+A diagnostic real-model query ranked tree first for leaf among tree, boat,
+pencil, train, toothbrush, engine, umbrella, kitten, pillow and ship (tree cosine
+0.4562; next umbrella 0.4134). This was a ten-label diagnostic, not a reproduction
+of the player's unknown board or proof of general semantic quality. The ranking
+and clear-zone matching rule were deliberately left unchanged.
+
+- Python: **189 passed**, including fresh-word exclusion from the old clue,
+  exactly-once refill/spawn consumption and partial refill near pack exhaustion.
+- JavaScript: **7 passed**; application syntax check passed.
+- Ruff lint and formatting, plus Git whitespace checks, passed.
+- Chromium live HTTP/model smoke: countdown changed without typing; a real clue
+  produced visible letter/score effects. Local capture:
+  `output/playwright/playtest-clear.png` (generated artifact, not committed).
+- Chromium at 390 x 844: no horizontal overflow; seventh-word arrival had a
+  downward animation; reduced-motion mode had no active animations after settling.
+  Local capture: `output/playwright/playtest-mobile.png` (not committed).
+- Browser diagnostics reported no errors or warnings at the inspected checkpoint.
+
+### Remaining work
+
+Collect another round of feedback on fresh live games after refreshing the page.
+The old server sessions do not survive restart. Full real-model game-to-ending
+acceptance, three individually recorded participant sessions, broad association
+quality, real-model parity/load measurements, contract reconciliation and release
+hardware gates remain open. Hosted CI was not checked in this session.

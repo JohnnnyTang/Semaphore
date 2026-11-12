@@ -25,8 +25,9 @@ def test_fifth_clear_sweeps_and_cascades_until_empty_without_duplicate_score():
     assert result.receipt["clear_waves"][0] == sorted(state.board)[:3]
     assert len(result.receipt["clear_waves"]) == 4
     assert result.state.score == 600
-    assert result.state.board == () and result.state.streak == 0
-    assert result.state.next_spawn_index == 0  # Scheduled arrivals are not pulled forward.
+    assert len(result.state.board) == 5 and result.state.streak == 0
+    assert result.state.next_spawn_index == 5
+    assert not set(result.state.board) & set(state.board)
     duplicate = complete(result.state, command_id="c", now_ms=2, scores={})
     assert duplicate.state.score == 600
     retry = submit(
@@ -83,3 +84,29 @@ def test_fourth_clear_is_target_only():
     result = play(state, sorted(state.board))
     assert result.state.streak == 4 and result.state.score == 100
     assert not result.receipt["strike"]
+
+
+def test_empty_board_refills_without_scoring_new_words():
+    artifact, _ = binding("casual")
+    state = initial_state(artifact, game_id="refill")
+    state = replace(state, board=(state.target,))
+    result = play(state, [state.target])
+    assert result.state.score == 100
+    assert len(result.state.board) == 5
+    assert result.state.next_spawn_index == 5
+    assert result.receipt["clear_waves"] == [[state.target]]
+    assert len(set(result.state.board)) == 5
+    later = advance(result.state, now_ms=result.state.paced_spawn_ms).state
+    assert len(later.board) == 6 and len(set(later.board)) == 6
+
+
+def test_refill_near_pack_end_consumes_remaining_words_once():
+    artifact, _ = binding("casual")
+    state = initial_state(artifact, game_id="last")
+    state = replace(state, board=(state.target,), next_spawn_index=len(artifact.schedule) - 2)
+    result = play(state, [state.target])
+    assert len(result.state.board) == 2
+    assert result.state.next_spawn_index == len(artifact.schedule)
+    assert result.state.paced_spawn_ms is None
+    assert result.state.end_reason is None
+    assert result.state.score == 100

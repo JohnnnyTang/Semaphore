@@ -1,5 +1,15 @@
 # Semaphore project plan
 
+November 12, 2026 update: W5 was merged and pushed to `main` at `37c5090`.
+Real-player feedback prompted a bounded correction: live play by default,
+continuous countdown display, post-sweep/empty-board refill to five words,
+and clearer clearing/falling motion. The pinned model is reachable; a live
+browser smoke passed. Validation: 189 Python tests, seven JavaScript tests,
+lint/format, mobile and reduced-motion checks. See the
+[playtest session record](docs/evidence/w5-playtest.md#november-12-2026-playtest-correction-session).
+Full human acceptance, real-model parity/load and contract/hardware gates remain
+open. Earlier status paragraphs are historical.
+
 November 11, 2026 update: W4 and the subsequent arcade refinements are merged in
 `main` at `64e3a90`. The bounded Stage 1 W5 work is integrated locally after three isolated parallel
 sessions using GPT-6.1 Sol at high reasoning effort, as requested by the owner. See the

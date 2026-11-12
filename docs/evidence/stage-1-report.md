@@ -2,6 +2,18 @@
 
 November 11, 2026 (Asia/Shanghai). Baseline: `64e3a90`.
 
+## November 12 follow-up
+
+The pinned model is reachable and live browser smoke now passes. Owner-reported
+player feedback led to live-mode defaults, countdown interpolation, refill after
+sweeps/empty boards and clearing/falling effects. See the
+[session evidence](w5-playtest.md#november-12-2026-playtest-correction-session).
+Validation now passes 189 Python and seven JavaScript tests, lint/format, and
+live browser/mobile/reduced-motion checks. These observations supersede the
+model-unavailable status below but do not close full real-model acceptance,
+three-person human testing, parity/load, contract or release-hardware gates.
+The November 11 assessment below remains the historical baseline.
+
 ## Decision
 
 **Revise within Stage 1.** Continue the bounded prototype and acceptance work;
