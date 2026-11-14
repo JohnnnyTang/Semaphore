@@ -1,5 +1,9 @@
 # Platform, account and private-data proposal
 
+> November 14 update: pack ownership, durable game/score transport and privacy
+> decisions are adopted in [decision 0005](../decisions/0005-durable-game-contract.md).
+> Conflicting proposals below are historical; other platform decisions remain drafts.
+
 Status: W2 draft. Schemas bound payloads; this document specifies authorization,
 cross-field constraints and lifecycle rules that JSON Schema cannot prove.
 

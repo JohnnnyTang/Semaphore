@@ -1,5 +1,6 @@
 import json
 import threading
+import time
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
@@ -84,11 +85,22 @@ def test_bounded_physical_queue_and_retention():
                 json.dumps(dict(command_id="c", expected_revision=0, clue="association")).encode(),
             )
             assert env["receipt"]["outcome"] == ("pending" if n < 8 else "overloaded")
+            if n == 0:
+                # Force the first call to start before later jobs are queued.
+                assert entered.wait(1)
         assert entered.wait(1)
         clock[0] = 5.0
         _, env = svc.request("GET", f"/experiment/v1/games/{ids[0]}/receipts/c")
         assert env["receipt"]["outcome"] == "inference_timeout"
+        assert svc.timing_headers(env) == {}
         assert not svc.slots.acquire(blocking=False)
+        _, queued = svc.request("GET", f"/experiment/v1/games/{ids[1]}/receipts/c")
+        assert queued["receipt"]["outcome"] == "inference_timeout"
+        release.set()
+        svc.jobs.join()
+        # The skipped queue entry never invoked the adapter; absence is not zero.
+        assert svc.timing_headers(queued) == {}
+        assert float(svc.timing_headers(env)["X-Semaphore-Embedding-Ms"]) >= 0
         clock[0] = 1000
         with pytest.raises(ProtocolError) as caught:
             svc.request("GET", f"/experiment/v1/games/{ids[0]}")
@@ -226,3 +238,144 @@ def test_game_artifact_and_reducers_perform_no_filesystem_io(monkeypatch):
     t = submit(s, ClueCommand("c", 0, "association"), now_ms=1, inference_slot_available=True)
     t = complete(t.state, command_id="c", now_ms=2, scores={i: 1.0 for i in s.board})
     assert snapshot(t.state, now_ms=2)["score"] == 100
+
+
+def test_http_timing_headers_queue_retry_and_rejection():
+    from experiments.acceptance.load import HTTPTransport, timing
+
+    entered, release = threading.Event(), threading.Event()
+
+    class Blocked(FakeEmbedder):
+        calls = 0
+
+        def embed_queries(self, texts):
+            self.calls += 1
+            if self.calls == 1:
+                entered.set()
+                assert release.wait(3)
+            return super().embed_queries(texts)
+
+    embedder = Blocked()
+    svc = GameService({"default": binding()}, embedder)
+    server = make_server(svc, port=0)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    client = HTTPTransport(f"http://127.0.0.1:{server.server_port}")
+    command = dict(command_id="timed", expected_revision=0, clue="association")
+    try:
+        routes = []
+        for _ in range(2):
+            _, frame, _ = client.request(
+                "POST", "/games", dict(artifact_id="default", mode="event")
+            )
+            route = f"/games/{frame['snapshot']['game_id']}"
+            routes.append(route)
+            _, frame, headers = client.request("POST", route + "/commands", command)
+            assert frame["receipt"]["outcome"] == "pending"
+            assert timing(headers, "X-Semaphore-Queue-Ms") is None
+            assert timing(headers, "X-Semaphore-Embedding-Ms") is None
+        assert entered.wait(1)
+        time.sleep(0.03)
+        release.set()
+        svc.jobs.join()
+        for index, route in enumerate(routes):
+            _, frame, headers = client.request("GET", route + "/receipts/timed")
+            assert frame["receipt"]["outcome"] in {"clear", "miss"}
+            queue_ms = timing(headers, "X-Semaphore-Queue-Ms")
+            embedding_ms = timing(headers, "X-Semaphore-Embedding-Ms")
+            assert queue_ms >= 0 and embedding_ms >= 0
+            assert (embedding_ms if index == 0 else queue_ms) >= 25
+            _, retry, repeated = client.request("POST", route + "/commands", command)
+            assert retry["receipt"] == frame["receipt"]
+            for name in ("X-Semaphore-Queue-Ms", "X-Semaphore-Embedding-Ms"):
+                assert headers[name] == repeated[name]
+            _, conflict, headers = client.request(
+                "POST", route + "/commands", {**command, "clue": "different association"}
+            )
+            assert conflict["receipt"]["outcome"] == "command_conflict"
+            assert timing(headers, "X-Semaphore-Embedding-Ms") is None
+            _, rejected, headers = client.request(
+                "POST",
+                route + "/commands",
+                {**command, "command_id": "bad", "expected_revision": 999},
+            )
+            assert rejected["receipt"]["outcome"] == "stale_revision"
+            assert timing(headers, "X-Semaphore-Embedding-Ms") is None
+        assert embedder.calls == 2
+    finally:
+        release.set()
+        server.shutdown()
+        server.server_close()
+        svc.close()
+        thread.join(1)
+
+
+@pytest.mark.parametrize("bad_batch", [False, True])
+def test_queued_batch_preserves_rows_and_rejects_partial_response(bad_batch):
+    entered, release = threading.Event(), threading.Event()
+    calls = []
+    artifact, vectors = binding()
+    target = min(artifact.initial_board)
+    positive = list(vectors[target])
+    negative = [-v for v in positive]
+
+    class Batched(FakeEmbedder):
+        def embed_queries(self, texts):
+            calls.append(list(texts))
+            if len(calls) == 1:
+                entered.set()
+                assert release.wait(3)
+                return [positive]
+            return [positive] if bad_batch else [positive, negative]
+
+    svc = GameService({"default": (artifact, vectors)}, Batched())
+    try:
+        routes = []
+        for n, clue in enumerate(("first association", "second association", "third association")):
+            _, env = svc.request(
+                "POST", "/experiment/v1/games", b'{"artifact_id":"default","mode":"event"}'
+            )
+            route = f"/experiment/v1/games/{env['snapshot']['game_id']}"
+            routes.append(route)
+            svc.request(
+                "POST",
+                route + "/commands",
+                json.dumps(dict(command_id="batch", expected_revision=0, clue=clue)).encode(),
+            )
+            if n == 0:
+                assert entered.wait(1)
+        release.set()
+        svc.jobs.join()
+        assert calls == [["first association"], ["second association", "third association"]]
+        outcomes = []
+        for route in routes[1:]:
+            _, env = svc.request("GET", route + "/receipts/batch")
+            outcomes.append(env["receipt"]["outcome"])
+        assert outcomes == (["inference_failed"] * 2 if bad_batch else ["clear", "miss"])
+        # Every batch member releases its physical slot, including a failed batch.
+        assert all(svc.slots.acquire(blocking=False) for _ in range(8))
+        assert not svc.slots.acquire(blocking=False)
+    finally:
+        release.set()
+        svc.close()
+
+
+def test_poll_does_not_advance_unrelated_sessions():
+    clock = [0.0]
+    svc = GameService({"default": binding()}, FakeEmbedder(), clock=lambda: clock[0])
+    try:
+        ids = []
+        for _ in range(2):
+            _, env = svc.request(
+                "POST", "/experiment/v1/games", b'{"artifact_id":"default","mode":"event"}'
+            )
+            ids.append(env["snapshot"]["game_id"])
+        clock[0] = 5.0
+        _, env = svc.request("GET", f"/experiment/v1/games/{ids[0]}")
+        assert env["snapshot"]["elapsed_ms"] == 5000
+        assert svc.sessions[ids[1]].state.elapsed_ms == 0
+        _, other = svc.request("GET", f"/experiment/v1/games/{ids[1]}")
+        assert other["snapshot"]["elapsed_ms"] == 5000
+        assert other["snapshot"]["board"] == env["snapshot"]["board"]
+    finally:
+        svc.close()

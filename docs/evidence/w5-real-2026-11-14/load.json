@@ -1,0 +1,122 @@
+{
+  "result_version": "s1-w4-probes-v1",
+  "probe": "http-load",
+  "evidence": "implementation-probe",
+  "acceptance_established": false,
+  "passed": false,
+  "runtime": {
+    "python": "3.12.10",
+    "platform": "Windows-10-10.0.19045-SP0"
+  },
+  "details": {
+    "groups": [
+      {
+        "players": 1,
+        "requested_samples": 20,
+        "successful_samples": 20,
+        "verification_runs": 3,
+        "verification_overlap": true,
+        "verification_overlapping_samples": 17,
+        "failures": [],
+        "components": {
+          "round_trip_ms": {
+            "count": 20,
+            "p50_ms": 536.8608999997377,
+            "p95_ms": 707.2895998135209,
+            "max_ms": 707.5363998301327
+          },
+          "queue_ms": {
+            "count": 20,
+            "p50_ms": 0.215,
+            "p95_ms": 0.244,
+            "max_ms": 0.302
+          },
+          "embedding_ms": {
+            "count": 20,
+            "p50_ms": 451.17,
+            "p95_ms": 651.856,
+            "max_ms": 661.612
+          }
+        },
+        "target_100ms_passed": false
+      },
+      {
+        "players": 4,
+        "requested_samples": 80,
+        "successful_samples": 77,
+        "verification_runs": 13,
+        "verification_overlap": true,
+        "verification_overlapping_samples": 77,
+        "failures": [
+          "outcome:stale_revision",
+          "outcome:stale_revision",
+          "outcome:stale_revision"
+        ],
+        "components": {
+          "round_trip_ms": {
+            "count": 77,
+            "p50_ms": 3206.467700190842,
+            "p95_ms": 4209.204599726945,
+            "max_ms": 5040.721400175244
+          },
+          "queue_ms": {
+            "count": 77,
+            "p50_ms": 1891.559,
+            "p95_ms": 2493.259,
+            "max_ms": 3645.473
+          },
+          "embedding_ms": {
+            "count": 77,
+            "p50_ms": 908.61,
+            "p95_ms": 1056.008,
+            "max_ms": 1993.767
+          }
+        },
+        "target_100ms_passed": null
+      },
+      {
+        "players": 8,
+        "requested_samples": 160,
+        "successful_samples": 0,
+        "verification_runs": 14,
+        "verification_overlap": false,
+        "verification_overlapping_samples": 0,
+        "failures": [
+          "RuntimeError",
+          "RuntimeError",
+          "RuntimeError",
+          "RuntimeError",
+          "RuntimeError",
+          "RuntimeError",
+          "RuntimeError",
+          "RuntimeError",
+          "verification_pressure_failed_or_no_overlap"
+        ],
+        "components": {
+          "round_trip_ms": {
+            "count": 0,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          },
+          "queue_ms": {
+            "count": 0,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          },
+          "embedding_ms": {
+            "count": 0,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          }
+        },
+        "target_100ms_passed": null
+      }
+    ],
+    "poll_seconds": 0.01,
+    "pressure_scope": "pinned Ollama verifier adapter calls; configure the same origin for gameplay",
+    "timing_source": "optional server headers; missing components remain unknown"
+  }
+}

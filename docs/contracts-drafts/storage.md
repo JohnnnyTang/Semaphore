@@ -1,5 +1,9 @@
 # SQLite storage proposal (no migration)
 
+> November 14 update: pack ownership, durable game/score transport and privacy
+> decisions are adopted in [decision 0005](../decisions/0005-durable-game-contract.md).
+> Conflicting proposals below are historical; other platform decisions remain drafts.
+
 Enable foreign keys on **every connection**, with bounded busy timeout and short
 transactions. Use parameterized statements. The single application process owns
 the model and write coordination; verification runs outside database transactions.

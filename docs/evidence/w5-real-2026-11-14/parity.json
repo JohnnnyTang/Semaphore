@@ -1,0 +1,24 @@
+{
+  "result_version": "s1-w4-probes-v1",
+  "probe": "parity",
+  "evidence": "implementation-probe",
+  "acceptance_established": false,
+  "passed": true,
+  "runtime": {
+    "python": "3.12.10",
+    "platform": "Windows-10-10.0.19045-SP0"
+  },
+  "details": {
+    "paths": [
+      "fresh-process:w3-reference",
+      "fresh-process:core"
+    ],
+    "independent_implementation": true,
+    "manifest_sha256": "8ebf7369b1a1406e3ae3f2e2b553f77b97e451414fef7fa3e095c14552e9b76f",
+    "sample_clue_cases": 900,
+    "failures": [],
+    "status": "measured",
+    "tolerance": 1e-05,
+    "diagnostic_threshold_only": true
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "measured_utc": "2026-11-14T08:22:12.516886+00:00",
+  "selection": "purposive authored sample with deliberate rejection controls; not random",
+  "candidates": 50,
+  "accepted_for_automated_check": 40,
+  "filter_ledger": [
+    {
+      "filter": "normalized_duplicate",
+      "rejected": 1,
+      "remaining": 49
+    },
+    {
+      "filter": "duplicate_sense",
+      "rejected": 1,
+      "remaining": 48
+    },
+    {
+      "filter": "proper_name",
+      "rejected": 2,
+      "remaining": 46
+    },
+    {
+      "filter": "abstract",
+      "rejected": 2,
+      "remaining": 44
+    },
+    {
+      "filter": "unresolved_sense",
+      "rejected": 2,
+      "remaining": 42
+    },
+    {
+      "filter": "specialist",
+      "rejected": 2,
+      "remaining": 40
+    }
+  ],
+  "categories": {
+    "kitchen": 8,
+    "home": 8,
+    "outdoors": 8,
+    "travel": 8,
+    "craft": 8
+  },
+  "legal_clues": 120,
+  "exact_label_controls_rejected": 40,
+  "manifest_sha256": "10022778492ec9d7e979aa2391471d8557ee2c16dd5381d43fd239cfffb5946d",
+  "source_sha256": {
+    "authored.psv": "4e20e01eeb8b837858359f3711a8e3b266af1943a1697f52f4729317a4c63962",
+    "rejections.json": "b4cf3dde6958f287c77d213da66804852d46ff049454a89e3259a4b6391aa17f"
+  },
+  "build_validation_seconds": 0.00709239998832345,
+  "human_review_seconds": null,
+  "human_reviewers": 0,
+  "semantic_quality": "not measured by this command",
+  "production_yield_established": false
+}

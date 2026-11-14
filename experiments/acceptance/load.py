@@ -6,6 +6,7 @@ import math
 import subprocess
 import threading
 import time
+from collections import Counter
 from urllib.error import HTTPError
 from urllib.request import HTTPRedirectHandler, ProxyHandler, Request, build_opener
 
@@ -75,7 +76,11 @@ def pressure_windows(value, expected_fingerprint, start, end):
     return windows
 
 
-def player(transport, artifact_id, mode, rounds, gate, *, poll_seconds=0.01):
+class PlayerFailure(RuntimeError):
+    """Fixed probe-authored reason, safe to include without upstream bodies or clues."""
+
+
+def player(transport, artifact_id, mode, rounds, gate, *, poll_seconds=0.01, records=None):
     status, frame, _ = transport.request(
         "POST",
         "/games",
@@ -85,14 +90,14 @@ def player(transport, artifact_id, mode, rounds, gate, *, poll_seconds=0.01):
         },
     )
     if status != 201:
-        raise RuntimeError("game creation failed")
+        raise PlayerFailure("game creation failed")
     game_id = frame["snapshot"]["game_id"]
     route = f"/games/{game_id}"
-    records = []
+    records = [] if records is None else records
     gate.wait(timeout=30)
     for n in range(rounds):
         if frame["snapshot"]["status"] != "active":
-            raise RuntimeError("artifact ended before requested sample count")
+            raise PlayerFailure("artifact ended before requested sample count")
         command = {
             "command_id": f"load-{n}",
             "expected_revision": frame["snapshot"]["revision"],
@@ -101,15 +106,15 @@ def player(transport, artifact_id, mode, rounds, gate, *, poll_seconds=0.01):
         start = time.perf_counter()
         status, frame, headers = transport.request("POST", route + "/commands", command)
         if status not in {200, 202} or not frame["receipt"]:
-            raise RuntimeError("missing command receipt")
+            raise PlayerFailure("missing command receipt")
         expires = time.monotonic() + 30
         while frame["receipt"]["outcome"] == "pending":
             if time.monotonic() > expires:
-                raise RuntimeError("receipt polling deadline")
+                raise PlayerFailure("receipt polling deadline")
             time.sleep(poll_seconds)
             status, frame, headers = transport.request("GET", route + f"/receipts/load-{n}")
             if status != 200 or not frame["receipt"]:
-                raise RuntimeError("receipt resolution failed")
+                raise PlayerFailure("receipt resolution failed")
         outcome = frame["receipt"]["outcome"]
         end = time.perf_counter()
         records.append(
@@ -125,9 +130,9 @@ def player(transport, artifact_id, mode, rounds, gate, *, poll_seconds=0.01):
         # Retry exact payload after terminal resolution: it must not reapply or rerank.
         _, retry, _ = transport.request("POST", route + "/commands", command)
         if retry["receipt"] != frame["receipt"]:
-            raise RuntimeError("terminal retry changed receipt")
+            raise PlayerFailure("terminal retry changed receipt")
         if retry["snapshot"]["score"] != frame["snapshot"]["score"]:
-            raise RuntimeError("terminal retry changed score")
+            raise PlayerFailure("terminal retry changed score")
         _, frame, _ = transport.request("GET", route)
     transport.request("POST", route + "/quit")
     return records
@@ -194,24 +199,33 @@ def load_probe(
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=players + 1) as pool:
             background = pool.submit(pressure)
+            samples_by_player = [[] for _ in range(players)]
             tasks = [
-                pool.submit(
-                    player,
-                    HTTPTransport(origin),
-                    artifact_id,
-                    mode,
-                    rounds,
-                    gate,
-                    poll_seconds=poll_seconds,
+                (
+                    pool.submit(
+                        player,
+                        HTTPTransport(origin),
+                        artifact_id,
+                        mode,
+                        rounds,
+                        gate,
+                        poll_seconds=poll_seconds,
+                        records=samples,
+                    ),
+                    samples,
                 )
-                for _ in range(players)
+                for samples in samples_by_player
             ]
             records = []
-            for task in tasks:
+            for task, samples in tasks:
                 try:
-                    records.extend(task.result(timeout=360))
+                    task.result(timeout=360)
                 except Exception as exc:
-                    failures.append(type(exc).__name__)
+                    failures.append(
+                        str(exc) if isinstance(exc, PlayerFailure) else type(exc).__name__
+                    )
+                finally:
+                    records.extend(samples)
             stop.set()
             try:
                 background.result(timeout=310)
@@ -246,6 +260,8 @@ def load_probe(
             {
                 "players": players,
                 "requested_samples": players * rounds,
+                "recorded_samples": len(records),
+                "outcome_counts": dict(Counter(r["outcome"] for r in records)),
                 "successful_samples": len(successful),
                 "verification_runs": len(runs),
                 "verification_overlap": overlap,

@@ -1,5 +1,14 @@
 # Stage 1 Wave 5 performance and parity evidence
 
+## November 14 update
+
+The pinned model is reachable. Two independent real-model parity runs passed all
+900 sample/clue cases. Instrumented load confirmed real verifier overlap and failed
+the latency/reliability gate; eight-player repeat results include 67 inference
+timeouts. See the [new measurement report](w5-real-model-2026-11-14.md) and its
+retained initial/repeat artifacts for methods, timing breakdowns and limitations.
+The following November 11 findings are historical.
+
 November 11, 2026. Application baseline `64e3a90`, Windows 10 build 19045,
 Python 3.12.10, Intel Core i5-13490F and 34,164,101,120 bytes of client RAM
 reported by Windows. The client hosted the disposable game server on loopback.

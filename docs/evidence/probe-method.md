@@ -85,6 +85,23 @@ tests the probe observer, not G's browser; browser acceptance remains separate.
 
 ## Load procedure and timing limits
 
+For a complete real-model run with an isolated instrumented loopback server:
+
+```powershell
+$env:PYTHONPATH = 'packages;.'
+# Set SEMAPHORE_OLLAMA_BASE_URL to the operator-provided model origin first.
+.venv/Scripts/python.exe -m experiments.acceptance.measure --output-dir output/acceptance-run --rounds 20
+```
+
+This runner prepares the default casual artifact, performs three excluded warm-up
+queries, runs independent real-model parity, then runs 1/4/8-player load against
+the same model origin as the pressure subprocess. It closes its own server on exit.
+Metadata records the pinned identity, residency, fixture/artifact identities,
+baseline commit and Python source hashes (including uncommitted instrumentation).
+Parity and load reports are saved separately. A successful process means the probes
+executed successfully, not that the 100 ms target or Stage 1 acceptance passed.
+Hardware identity/utilization and internet-isolated startup still need separate evidence.
+
 Load requires an explicit JSON argv for a verification subprocess. Configure
 `SEMAPHORE_OLLAMA_BASE_URL` in the environment used by the server and load probe.
 From an active virtual environment in PowerShell 7.3 or newer:
@@ -112,6 +129,9 @@ artifact must last long enough for the requested sample count; early game-over,
 rejection, timeout, malformed envelopes or pressure failure is reported as failure,
 not silently removed from the denominator. Clear and miss count as completed model
 work; busy/overload/illegal/failure outcomes do not count as successful load samples.
+Completed receipts are retained even if that player later encounters game-over or
+a transport/probe failure. Reports distinguish requested attempts, recorded receipts,
+successful model samples and per-outcome counts; an early stop still fails the run.
 The generic clue may be inappropriate for some packs: use an operator-preloaded
 artifact for which it is legal. Default ID is `default`.
 
@@ -126,6 +146,13 @@ missing components have count 0 and null statistics, never fabricated zero time.
 Do not subtract queue or embedding from round-trip and call the residual network
 latency. A 100 ms timing result cannot close the gate if components/hardware are
 unrecorded, pressure is unproven or the model is synthetic.
+
+The instrumented experimental server now emits these headers after a completed
+adapter call. Queue time spans enqueue to adapter start. Embedding time includes
+pinned identity checks and adapter HTTP/validation, including any remote service
+queueing; it cannot identify pure GPU execution time. Pending/rejected/skipped work
+has no timing, and terminal retries retain the original values. Measurements use
+`perf_counter` independently of the game clock.
 
 Record CPU/OS/RAM, GPU/offload status, Python and model versions, model fingerprint,
 core commit, server invocation/artifact identity, cold versus warmed state, input

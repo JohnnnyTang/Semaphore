@@ -1,0 +1,27 @@
+{
+  "recorded_at": "2026-11-14T16:24:57.3422328+08:00",
+  "scope": "Local client and game process; remote GPU host not inspected",
+  "cpu": {
+    "Name": "13th Gen Intel(R) Core(TM) i5-13490F",
+    "NumberOfCores": 10,
+    "NumberOfLogicalProcessors": 16
+  },
+  "ram": {
+    "TotalPhysicalMemory": 34164101120
+  },
+  "os": {
+    "Caption": "Microsoft Windows 10 企业版",
+    "Version": "10.0.19045",
+    "BuildNumber": "19045"
+  },
+  "gpu": [
+    {
+      "Name": "Todesk Virtual Display Adapter",
+      "DriverVersion": "16.44.2.509"
+    },
+    {
+      "Name": "NVIDIA GeForce RTX 4070",
+      "DriverVersion": "32.0.15.8088"
+    }
+  ]
+}

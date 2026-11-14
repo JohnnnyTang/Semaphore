@@ -54,8 +54,12 @@ These are bounded experiment defaults, NOT measured latency or fairness claims:
 8 globally outstanding inference requests (running plus waiting), one per game,
 5000 ms from admission through queue and inference. Reject excess with `overloaded`
 before admission. Timeout is inclusive and processed before same-time completion.
-Gameplay clock never pauses. One FIFO inference worker initially; no verification
-job may enter the gameplay queue. W4 load probes must report contention and timeout
+Gameplay clock never pauses. One FIFO inference worker collects up to eight
+already-waiting clues per model call, without a batching delay or deduplication.
+The admission bound counts every running/waiting clue, including batch members.
+Each result applies to its own game and current board; malformed batch responses
+fail all active members, and late results cannot replace terminal receipts. No
+verification job may enter the gameplay queue. W4 load probes must report contention and timeout
 rates before these values can be accepted for a supported release.
 
 Retain full game state, payload/receipt map and artifact binding until 900000 ms
@@ -143,3 +147,11 @@ revision; infrastructure admission rejections preserve the streak. Optional snap
 `streak` and receipt `strike`/`clear_waves` report this behavior. Event and unpaced
 rules above remain frozen. The optional browser tutorial precedes session creation,
 so its instructional waits do not pause or alter an authoritative game clock.
+
+## Durable successor boundary
+
+The process-local lifetimes above describe `/experiment/v1` only.
+[durable-game-v1](durable-game.md) and [storage](storage.md) adopt restart,
+score, ownership and retention behavior for the persistence implementation.
+The [versioned verification binding](verification.md#versioned-gameplay-binding)
+keeps paced and base gameplay identities distinct while sharing static metrics.

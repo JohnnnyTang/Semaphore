@@ -169,3 +169,39 @@ def test_missing_instrumentation_is_unknown_and_invalid_duration_fails():
     assert summary([2, 1, 3])["p95_ms"] == 3
     with pytest.raises(RuntimeError):
         timing({"X-Semaphore-Queue-Ms": "nan"}, "X-Semaphore-Queue-Ms")
+
+
+def test_load_retains_samples_before_player_failure(origin, monkeypatch):
+    import time
+
+    from experiments.acceptance import load as module
+
+    def partial(*args, records, **kwargs):
+        args[4].wait(timeout=5)
+        start = time.perf_counter()
+        time.sleep(0.05)
+        records.append(
+            dict(
+                start=start,
+                end=time.perf_counter(),
+                outcome="miss",
+                round_trip_ms=50,
+                queue_ms=None,
+                embedding_ms=None,
+            )
+        )
+        raise module.PlayerFailure("artifact ended before requested sample count")
+
+    monkeypatch.setattr(module, "player", partial)
+    report = load_probe(
+        origin,
+        "default",
+        [sys.executable, "-c", 'print(\'{"status":"measured"}\')'],
+        rounds=2,
+        synthetic=True,
+    )
+    assert not report["passed"]
+    for group in report["details"]["groups"]:
+        assert group["recorded_samples"] == group["successful_samples"] == group["players"]
+        assert group["outcome_counts"] == {"miss": group["players"]}
+        assert "artifact ended before requested sample count" in group["failures"]

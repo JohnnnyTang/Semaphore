@@ -1,5 +1,14 @@
 # Semaphore project plan
 
+November 14, 2026 update: real-model acceptance instrumentation and measurements
+are recorded in the [measurement report](docs/evidence/w5-real-model-2026-11-14.md).
+Independent reference/core parity passes (900 cases, twice). Real-model load with
+verifier overlap fails: latency exceeds 100 ms and eight-player play produces
+timeouts and early endings. Queue/adapter headers and partial-sample retention are
+implemented; 191 Python tests, six client tests, lint/format and build pass.
+Next: bounded performance profiling/tuning, followed by another acceptance run.
+Stage 1 remains open; no Stage 2 dispatch or changed target is implied.
+
 November 12, 2026 update: W5 was merged and pushed to `main` at `37c5090`.
 Real-player feedback prompted a bounded correction: live play by default,
 continuous countdown display, post-sweep/empty-board refill to five words,

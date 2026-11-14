@@ -1,0 +1,228 @@
+{
+  "result_version": "s1-w4-probes-v1",
+  "probe": "http-load",
+  "evidence": "implementation-probe",
+  "acceptance_established": false,
+  "passed": false,
+  "runtime": {
+    "python": "3.12.10",
+    "platform": "Windows-10-10.0.19045-SP0"
+  },
+  "details": {
+    "groups": [
+      {
+        "players": 1,
+        "requested_samples": 20,
+        "recorded_samples": 20,
+        "outcome_counts": {
+          "clear": 1,
+          "miss": 19
+        },
+        "successful_samples": 20,
+        "verification_runs": 3,
+        "verification_overlap": true,
+        "verification_overlapping_samples": 18,
+        "failures": [],
+        "components": {
+          "round_trip_ms": {
+            "count": 20,
+            "p50_ms": 571.895900182426,
+            "p95_ms": 671.382499858737,
+            "max_ms": 701.9545999355614
+          },
+          "queue_ms": {
+            "count": 20,
+            "p50_ms": 0.217,
+            "p95_ms": 0.232,
+            "max_ms": 0.239
+          },
+          "embedding_ms": {
+            "count": 20,
+            "p50_ms": 492.986,
+            "p95_ms": 578.352,
+            "max_ms": 607.766
+          }
+        },
+        "target_100ms_passed": false
+      },
+      {
+        "players": 4,
+        "requested_samples": 80,
+        "recorded_samples": 80,
+        "outcome_counts": {
+          "clear": 4,
+          "miss": 73,
+          "stale_revision": 3
+        },
+        "successful_samples": 77,
+        "verification_runs": 12,
+        "verification_overlap": true,
+        "verification_overlapping_samples": 77,
+        "failures": [
+          "outcome:stale_revision",
+          "outcome:stale_revision",
+          "outcome:stale_revision"
+        ],
+        "components": {
+          "round_trip_ms": {
+            "count": 77,
+            "p50_ms": 3206.1926000751555,
+            "p95_ms": 3754.4090999290347,
+            "max_ms": 4393.184800166637
+          },
+          "queue_ms": {
+            "count": 77,
+            "p50_ms": 1917.179,
+            "p95_ms": 2436.467,
+            "max_ms": 3138.891
+          },
+          "embedding_ms": {
+            "count": 77,
+            "p50_ms": 887.671,
+            "p95_ms": 1173.552,
+            "max_ms": 1221.666
+          }
+        },
+        "target_100ms_passed": null
+      },
+      {
+        "players": 8,
+        "requested_samples": 160,
+        "recorded_samples": 109,
+        "outcome_counts": {
+          "clear": 4,
+          "stale_revision": 12,
+          "miss": 18,
+          "inference_timeout": 67,
+          "game_over": 7,
+          "overloaded": 1
+        },
+        "successful_samples": 22,
+        "verification_runs": 14,
+        "verification_overlap": true,
+        "verification_overlapping_samples": 22,
+        "failures": [
+          "artifact ended before requested sample count",
+          "artifact ended before requested sample count",
+          "artifact ended before requested sample count",
+          "artifact ended before requested sample count",
+          "artifact ended before requested sample count",
+          "artifact ended before requested sample count",
+          "artifact ended before requested sample count",
+          "artifact ended before requested sample count",
+          "outcome:stale_revision",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:stale_revision",
+          "outcome:game_over",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:stale_revision",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:stale_revision",
+          "outcome:game_over",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:stale_revision",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:game_over",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:overloaded",
+          "outcome:inference_timeout",
+          "outcome:game_over",
+          "outcome:stale_revision",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:stale_revision",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:game_over",
+          "outcome:inference_timeout",
+          "outcome:stale_revision",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:stale_revision",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:stale_revision",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:stale_revision",
+          "outcome:inference_timeout",
+          "outcome:game_over",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:stale_revision",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:inference_timeout",
+          "outcome:game_over"
+        ],
+        "components": {
+          "round_trip_ms": {
+            "count": 22,
+            "p50_ms": 4676.261299755424,
+            "p95_ms": 5693.306799978018,
+            "max_ms": 5791.204999666661
+          },
+          "queue_ms": {
+            "count": 22,
+            "p50_ms": 2900.297,
+            "p95_ms": 3854.26,
+            "max_ms": 3991.034
+          },
+          "embedding_ms": {
+            "count": 22,
+            "p50_ms": 1032.677,
+            "p95_ms": 1250.334,
+            "max_ms": 1332.131
+          }
+        },
+        "target_100ms_passed": null
+      }
+    ],
+    "poll_seconds": 0.01,
+    "pressure_scope": "pinned Ollama verifier adapter calls; configure the same origin for gameplay",
+    "timing_source": "optional server headers; missing components remain unknown"
+  }
+}

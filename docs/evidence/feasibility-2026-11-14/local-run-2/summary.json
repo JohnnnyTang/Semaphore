@@ -1,0 +1,38 @@
+{
+  "scope": "Local single Python process; gameplay and verifier sequential; no browser or remote CPU/RAM",
+  "peak_working_set_mib": 111.4140625,
+  "sampled_peak_private_mib": 98.27734375,
+  "cpu_seconds": 25.421875,
+  "average_cpu_one_core_percent": 85.94427541456616,
+  "average_cpu_machine_percent": 5.371517213410385,
+  "gameplay": [
+    {
+      "players": 1,
+      "requested": 3,
+      "resolved_receipts": 3,
+      "outcomes": {
+        "miss": 3
+      },
+      "p95_all_receipts_ms": 352.95489989221096
+    },
+    {
+      "players": 4,
+      "requested": 12,
+      "resolved_receipts": 12,
+      "outcomes": {
+        "miss": 12
+      },
+      "p95_all_receipts_ms": 2174.2609995417297
+    },
+    {
+      "players": 8,
+      "requested": 24,
+      "resolved_receipts": 24,
+      "outcomes": {
+        "miss": 17,
+        "inference_timeout": 7
+      },
+      "p95_all_receipts_ms": 5418.256199918687
+    }
+  ]
+}

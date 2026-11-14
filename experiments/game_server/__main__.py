@@ -24,12 +24,14 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
             # Neither URL command IDs nor raw clues go to access logs.
             pass
 
-        def _json(self, status, payload):
+        def _json(self, status, payload, headers=None):
             data = json.dumps(payload, allow_nan=False).encode()
             self.send_response(status)
             self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(data)))
             self.send_header("Cache-Control", "no-store")
+            for name, value in (headers or {}).items():
+                self.send_header(name, value)
             self.end_headers()
             self.wfile.write(data)
 
@@ -53,7 +55,7 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
                     if len(raw) != length:
                         raise ProtocolError(400, "invalid_request")
                 status, payload = service.request(self.command, self.path, raw)
-                self._json(status, payload)
+                self._json(status, payload, service.timing_headers(payload))
             except ProtocolError as exc:
                 self._json(exc.status, dict(code=exc.code, message=exc.code.replace("_", " ")))
             except (OSError, TimeoutError):

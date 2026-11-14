@@ -39,3 +39,5 @@ corpus production as explicit work. Keep full corpus, source data and private
 play logs out of this W2 change. Record model-specific rejected pairs separately
 so a later model migration can revisit exclusions without rewriting provenance.
 
+
+November 14 follow-up: the [bounded authored pilot](feasibility-2026-11-14.md) now has 40 targets, 120 legal clues and real-model verification. It does not replace the 500-candidate source-yield study or timed independent human review.

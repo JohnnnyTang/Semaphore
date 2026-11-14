@@ -1,0 +1,10 @@
+{
+  "scope": "Final formatted reproduction sources; captured after measurement",
+  "sha256": {
+    "experiments/acceptance/content_pilot.py": "5fd2bc62a0f21e390e3dd83c04a12820fb8ff4da790ddaca97a953c406b68bd8",
+    "experiments/acceptance/feasibility.py": "ad2189b781974873bb0a9f90d2068a46c1164c7f0fc20ae0d68f17f4f0e02bb6",
+    "tests/contracts/test_feasibility_guard.py": "b8c779a359150765a60e98826b0b7f3c1e4b55d253ad0835251d825a6ba9df53",
+    "fixtures/content-pilot/authored.psv": "4e20e01eeb8b837858359f3711a8e3b266af1943a1697f52f4729317a4c63962",
+    "fixtures/content-pilot/rejections.json": "b4cf3dde6958f287c77d213da66804852d46ff049454a89e3259a4b6391aa17f"
+  }
+}

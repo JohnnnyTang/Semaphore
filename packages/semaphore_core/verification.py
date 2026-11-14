@@ -141,7 +141,7 @@ def samples(semantic_hash, target, entry_vectors):
     ]
 
 
-def _measure(raw, embedder):
+def _measure(raw, embedder, ruleset_id="experiment-arcade-v1"):
     start = time.perf_counter()
     value = _manifest(raw)  # fail before any inference
     lock = load("model-lock.json")
@@ -193,7 +193,7 @@ def _measure(raw, embedder):
         "fingerprint": before,
         "metrics_version": "bottom3-median-v1",
         "protocol_hash": hashlib.sha256(canonical(load("verification-policy.json"))).hexdigest(),
-        "ruleset_id": "experiment-arcade-v1",
+        "ruleset_id": ruleset_id,
         "status": "measured",
         "metrics": {
             "entry_count": len(entries),
@@ -330,13 +330,13 @@ def sample_decoys(semantic_hash, target_id, sample, entries) -> tuple[str, ...]:
 
 
 def verify_pack(value: ManifestInput, embedder: Embedder, ruleset_id: str) -> dict[str, Any]:
-    if ruleset_id != "experiment-arcade-v1":
+    if ruleset_id not in load("ruleset-verification.json")["rulesets"]:
         raise CoreValidationError("invalid_ruleset")
     # Reparse raw input to prevent mutable mapping edits bypassing validation.
     parsed = parse_manifest(value.raw)
     if parsed.manifest != value.manifest:
         raise CoreValidationError("schema_invalid")
     try:
-        return _measure(value.raw, embedder)[0]
+        return _measure(value.raw, embedder, ruleset_id)[0]
     except (ValueError, TypeError):
         raise CoreValidationError("invalid_vector") from None

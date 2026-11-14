@@ -2,6 +2,40 @@
 
 November 11, 2026 (Asia/Shanghai). Baseline: `64e3a90`.
 
+## November 14 timeout refinement
+
+FIFO batching of queued clues and isolated session polling reduced eight-player
+timeouts to zero in the bounded follow-ups; full identity checks, eight admission
+slots and the five-second deadline remain unchanged. See the
+[refinement evidence](feasibility-refinement-2026-11-14.md) for exact sample counts,
+residual stale-revision observations and pressure repeats. The 100 ms target and
+remote-host/human-review gates remain open. Validation: 199 Python and six client
+tests, repository lint and formatting passed.
+
+## November 14 hardware/content follow-up
+
+The owner selected the current LAN GPU setup and local-machine measurements.
+Restricted Python-process startup passed in 2.772 s; local peak working set was
+111.414 MiB. A new 40-target / 120-clue authored pilot passed core hygiene and
+real-model reachability (40/40). Eight-player probing still had 7/24 inference
+timeouts. Full remote-host offline startup/resources, source-population yield
+and independent timed human review remain open. See the
+[feasibility report](feasibility-2026-11-14.md) for evidence and limits. These are
+bounded closures, not Stage 1 acceptance; historical gate rows below predate them.
+
+## November 14 real-model follow-up
+
+Pinned real-model reference/core parity passed 900 sampled clue cases in each of
+two runs. Instrumented 1/4/8-player load with real verifier overlap failed acceptance:
+initial one/four-player p95 was 707 / 4,209 ms; the corrected repeat recorded 67
+eight-player inference timeouts and only 22/160 requested successful samples.
+The repeat preserves partial samples after early game endings. See the
+[measurement report](w5-real-model-2026-11-14.md) for component timings, host and
+contention caveats, evidence files and validation (191 Python / six client tests).
+The 100 ms target remains unmet. Keep Stage 1 open; parity no longer depends on
+restoring model connectivity, while performance tuning, human acceptance,
+offline/hardware and contract gates remain. Older dispositions below are historical.
+
 ## November 12 follow-up
 
 The pinned model is reachable and live browser smoke now passes. Owner-reported

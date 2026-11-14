@@ -1,0 +1,13 @@
+{
+  "relationship_version": "arcade-verification-binding-v1",
+  "rulesets": {
+    "experiment-arcade-v1": {
+      "metrics_version": "bottom3-median-v1",
+      "extends": null
+    },
+    "experiment-arcade-paced-v1": {
+      "metrics_version": "bottom3-median-v1",
+      "extends": "experiment-arcade-v1"
+    }
+  }
+}

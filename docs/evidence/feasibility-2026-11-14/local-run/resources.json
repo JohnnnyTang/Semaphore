@@ -1,0 +1,9 @@
+[
+  {
+    "elapsed_seconds": 0.20655470015481114,
+    "cpu_seconds": 0.21875,
+    "working_set_bytes": 32972800,
+    "peak_working_set_bytes": 32976896,
+    "private_bytes": 21426176
+  }
+]

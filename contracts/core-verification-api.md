@@ -66,6 +66,9 @@ def verify_pack(value: ManifestInput, embedder: Embedder, ruleset_id: str) -> di
 for projections. `check_clue` applies N and throws hygiene_invalid for invalid
 text/length, then returns a decision for well-formed text. `parse_manifest`
 checks every supplied clue with that same function and rejects an illegal clue.
+`verify_pack` accepts the two exact playable IDs in `ruleset-verification.json`;
+unknown IDs raise `invalid_ruleset` before model access. It returns the requested
+ID, never the base ID as an alias for paced play.
 Reports must satisfy verification.schema.json plus cross-field invariants in
 verification.md. Structural examples need not be legal packs or measured reports.
 

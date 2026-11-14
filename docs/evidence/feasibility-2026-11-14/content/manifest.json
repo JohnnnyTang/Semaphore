@@ -1,0 +1,423 @@
+{
+  "spec_version": "1-experiment-w3",
+  "pack": {
+    "id": "everyday-authoring-pilot",
+    "name": "Everyday authoring pilot",
+    "version": "0.1.0",
+    "author": "Semaphore agent-authored pilot",
+    "description": "Unreviewed feasibility sample",
+    "tags": [
+      "pilot",
+      "everyday"
+    ],
+    "language": "en",
+    "license": "MIT"
+  },
+  "entries": [
+    {
+      "id": "pilot-01",
+      "text": "colander",
+      "embed_text": "colander kitchen strainer"
+    },
+    {
+      "id": "pilot-02",
+      "text": "whisk",
+      "embed_text": "whisk kitchen utensil"
+    },
+    {
+      "id": "pilot-03",
+      "text": "rolling pin",
+      "embed_text": "rolling pin baking tool"
+    },
+    {
+      "id": "pilot-04",
+      "text": "oven mitt",
+      "embed_text": "oven mitt insulated glove"
+    },
+    {
+      "id": "pilot-05",
+      "text": "grater",
+      "embed_text": "grater kitchen utensil"
+    },
+    {
+      "id": "pilot-06",
+      "text": "corkscrew",
+      "embed_text": "corkscrew bottle opener"
+    },
+    {
+      "id": "pilot-07",
+      "text": "sieve",
+      "embed_text": "sieve fine mesh utensil"
+    },
+    {
+      "id": "pilot-08",
+      "text": "teapot",
+      "embed_text": "teapot brewing vessel"
+    },
+    {
+      "id": "pilot-09",
+      "text": "doormat",
+      "embed_text": "doormat entrance furnishing"
+    },
+    {
+      "id": "pilot-10",
+      "text": "curtain",
+      "embed_text": "curtain window fabric"
+    },
+    {
+      "id": "pilot-11",
+      "text": "pillow",
+      "embed_text": "pillow bedding cushion"
+    },
+    {
+      "id": "pilot-12",
+      "text": "hanger",
+      "embed_text": "hanger clothing support"
+    },
+    {
+      "id": "pilot-13",
+      "text": "doorbell",
+      "embed_text": "doorbell entrance signal"
+    },
+    {
+      "id": "pilot-14",
+      "text": "broom",
+      "embed_text": "broom sweeping tool"
+    },
+    {
+      "id": "pilot-15",
+      "text": "dustpan",
+      "embed_text": "dustpan cleaning scoop"
+    },
+    {
+      "id": "pilot-16",
+      "text": "sponge",
+      "embed_text": "sponge absorbent cleaning pad"
+    },
+    {
+      "id": "pilot-17",
+      "text": "wheelbarrow",
+      "embed_text": "wheelbarrow garden carrier"
+    },
+    {
+      "id": "pilot-18",
+      "text": "rake",
+      "embed_text": "rake garden tool"
+    },
+    {
+      "id": "pilot-19",
+      "text": "trowel",
+      "embed_text": "trowel small garden tool"
+    },
+    {
+      "id": "pilot-20",
+      "text": "watering can",
+      "embed_text": "watering can garden vessel"
+    },
+    {
+      "id": "pilot-21",
+      "text": "hammock",
+      "embed_text": "hammock hanging bed"
+    },
+    {
+      "id": "pilot-22",
+      "text": "tent",
+      "embed_text": "tent camping shelter"
+    },
+    {
+      "id": "pilot-23",
+      "text": "compass",
+      "embed_text": "compass navigation instrument"
+    },
+    {
+      "id": "pilot-24",
+      "text": "binoculars",
+      "embed_text": "binoculars viewing instrument"
+    },
+    {
+      "id": "pilot-25",
+      "text": "suitcase",
+      "embed_text": "suitcase luggage container"
+    },
+    {
+      "id": "pilot-26",
+      "text": "passport",
+      "embed_text": "passport travel document"
+    },
+    {
+      "id": "pilot-27",
+      "text": "helmet",
+      "embed_text": "helmet protective headgear"
+    },
+    {
+      "id": "pilot-28",
+      "text": "paddle",
+      "embed_text": "paddle watercraft tool"
+    },
+    {
+      "id": "pilot-29",
+      "text": "anchor",
+      "embed_text": "anchor boat equipment"
+    },
+    {
+      "id": "pilot-30",
+      "text": "seat belt",
+      "embed_text": "seat belt safety restraint"
+    },
+    {
+      "id": "pilot-31",
+      "text": "traffic cone",
+      "embed_text": "traffic cone road marker"
+    },
+    {
+      "id": "pilot-32",
+      "text": "lighthouse",
+      "embed_text": "lighthouse coastal tower"
+    },
+    {
+      "id": "pilot-33",
+      "text": "scissors",
+      "embed_text": "scissors cutting tool"
+    },
+    {
+      "id": "pilot-34",
+      "text": "thimble",
+      "embed_text": "thimble sewing tool"
+    },
+    {
+      "id": "pilot-35",
+      "text": "yarn",
+      "embed_text": "yarn knitting material"
+    },
+    {
+      "id": "pilot-36",
+      "text": "easel",
+      "embed_text": "easel artist support"
+    },
+    {
+      "id": "pilot-37",
+      "text": "crayon",
+      "embed_text": "crayon drawing stick"
+    },
+    {
+      "id": "pilot-38",
+      "text": "stapler",
+      "embed_text": "stapler paper fastening tool"
+    },
+    {
+      "id": "pilot-39",
+      "text": "eraser",
+      "embed_text": "eraser drawing correction tool"
+    },
+    {
+      "id": "pilot-40",
+      "text": "ruler",
+      "embed_text": "ruler measuring tool"
+    }
+  ],
+  "test_set": {
+    "pilot-01": [
+      "drain cooked pasta",
+      "holes over the sink",
+      "rinse vegetables in a bowl"
+    ],
+    "pilot-02": [
+      "beat eggs by hand",
+      "wire loops in batter",
+      "aerate cream"
+    ],
+    "pilot-03": [
+      "flatten pastry dough",
+      "wooden cylinder in baking",
+      "prepare a pie crust"
+    ],
+    "pilot-04": [
+      "grip a hot tray",
+      "protect fingers while baking",
+      "padded kitchen handwear"
+    ],
+    "pilot-05": [
+      "shred a block of cheese",
+      "metal teeth for zest",
+      "reduce carrots to strips"
+    ],
+    "pilot-06": [
+      "twist into a wine stopper",
+      "uncork the bottle",
+      "spiral tool at dinner"
+    ],
+    "pilot-07": [
+      "sift flour for baking",
+      "catch lumps in powder",
+      "fine mesh over a bowl"
+    ],
+    "pilot-08": [
+      "steep loose leaves",
+      "pour from a ceramic spout",
+      "afternoon brew for two"
+    ],
+    "pilot-09": [
+      "wipe muddy shoes",
+      "welcome at the threshold",
+      "bristles outside the door"
+    ],
+    "pilot-10": [
+      "draw these for privacy",
+      "fabric across a window",
+      "pull aside for daylight"
+    ],
+    "pilot-11": [
+      "rest your head",
+      "soft support at bedtime",
+      "feathers inside a case"
+    ],
+    "pilot-12": [
+      "suspend a jacket",
+      "hook inside a wardrobe",
+      "shoulders without a person"
+    ],
+    "pilot-13": [
+      "visitor presses a button",
+      "chime from the porch",
+      "announce a delivery"
+    ],
+    "pilot-14": [
+      "sweep kitchen crumbs",
+      "bristles on a long handle",
+      "witch transport in stories"
+    ],
+    "pilot-15": [
+      "collect the swept crumbs",
+      "flat lip against the floor",
+      "partner of a sweeping brush"
+    ],
+    "pilot-16": [
+      "soak up a spill",
+      "squeeze out soapy water",
+      "porous washing pad"
+    ],
+    "pilot-17": [
+      "push soil on one wheel",
+      "two handles for hauling",
+      "garden rubble transport"
+    ],
+    "pilot-18": [
+      "gather fallen leaves",
+      "teeth across the lawn",
+      "level a patch of soil"
+    ],
+    "pilot-19": [
+      "dig a seedling hole",
+      "small blade for planting",
+      "handheld scoop in a flowerbed"
+    ],
+    "pilot-20": [
+      "sprinkle thirsty seedlings",
+      "carry water by a handle",
+      "spout with a shower rose"
+    ],
+    "pilot-21": [
+      "nap between two trees",
+      "sway in a woven sling",
+      "suspended garden relaxation"
+    ],
+    "pilot-22": [
+      "sleep beneath canvas",
+      "pegs and guy ropes",
+      "portable campsite shelter"
+    ],
+    "pilot-23": [
+      "needle points north",
+      "find direction on a hike",
+      "magnetic navigation dial"
+    ],
+    "pilot-24": [
+      "watch distant birds",
+      "two lenses at the eyes",
+      "magnify the faraway stage"
+    ],
+    "pilot-25": [
+      "pack for a holiday",
+      "wheels through the airport",
+      "clothes in checked luggage"
+    ],
+    "pilot-26": [
+      "stamp at the border",
+      "identity booklet for travel",
+      "show nationality abroad"
+    ],
+    "pilot-27": [
+      "protect a cyclist head",
+      "hard shell above the face",
+      "safety gear for skating"
+    ],
+    "pilot-28": [
+      "propel a canoe",
+      "dip a blade in the river",
+      "steer a kayak by hand"
+    ],
+    "pilot-29": [
+      "hold a vessel in place",
+      "heavy metal on a chain",
+      "lower this to the seabed"
+    ],
+    "pilot-30": [
+      "buckle up before driving",
+      "strap across a passenger",
+      "restraint during a sudden stop"
+    ],
+    "pilot-31": [
+      "orange marker by roadworks",
+      "temporary lane warning",
+      "stackable roadside taper"
+    ],
+    "pilot-32": [
+      "beam above the coast",
+      "warn ships of rocks",
+      "rotating light by the sea"
+    ],
+    "pilot-33": [
+      "two blades and finger loops",
+      "snip a paper shape",
+      "trim ribbon for wrapping"
+    ],
+    "pilot-34": [
+      "metal cap on a fingertip",
+      "push a sewing needle safely",
+      "tiny protective sewing cup"
+    ],
+    "pilot-35": [
+      "ball beside knitting needles",
+      "wool wound for a scarf",
+      "long strand for crochet"
+    ],
+    "pilot-36": [
+      "support a painting canvas",
+      "three legs in a studio",
+      "stand for an artist board"
+    ],
+    "pilot-37": [
+      "wax colors for children",
+      "draw with a paper wrapped stick",
+      "bright marks in a coloring book"
+    ],
+    "pilot-38": [
+      "fasten a sheaf of paper",
+      "press metal clips through pages",
+      "desk tool with a hinged top"
+    ],
+    "pilot-39": [
+      "remove pencil marks",
+      "rub out a sketch mistake",
+      "small rubber for corrections"
+    ],
+    "pilot-40": [
+      "draw a straight margin",
+      "centimeter marks along an edge",
+      "measure a line on paper"
+    ]
+  },
+  "provenance": {
+    "agent": "Codex; original authoring; no imported dataset rows"
+  }
+}

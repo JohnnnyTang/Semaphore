@@ -1,0 +1,5 @@
+{
+  "experiments/game_server/service.py": "f6a573643922e45571147412a848007a8bbae69a9f2fb26eeb5697fc8996b53e",
+  "tests/game/test_engine_service.py": "7c96e7c950a5f018a38fad2b50260a7d864e80642f8fbd4862499d5a1269449d",
+  "contracts/gameplay.md": "f64e531de37d0dd10fa3db24694b876b4b6342a50fbcc37d3e8e05b72bb13a95"
+}

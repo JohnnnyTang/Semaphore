@@ -38,6 +38,15 @@ enter the gameplay queue. Background verification pressure should be generated
 from a separate bounded executor by the W5 harness. It may contend at the model
 service; this prototype promises no inference preemption or latency acceptance.
 
+Final receipt responses include `X-Semaphore-Queue-Ms` and
+`X-Semaphore-Embedding-Ms` once the adapter call has returned. Queue time runs
+from admission to adapter start; embedding time includes the pinned adapter's
+identity checks, model-service queueing, HTTP and vector validation. It is not
+GPU-only execution time. Ranking and receipt polling are outside these components.
+Retries reuse the original measurements. Pending, rejected and skipped jobs have
+no fabricated timing values; timed-out in-flight work has no timing until it returns.
+Timing metadata stays outside the frozen JSON envelope and expires with its game.
+
 Limits: at most 128 retained games, 4096 command IDs per game, 16 KiB request
 bodies, fifteen-minute terminal retention, process-lifetime expired-ID tombstones.
 Reads/submits trigger time advancement and retention collection. No timer thread
@@ -45,3 +54,15 @@ is required for authority: the next observation drains every due event before
 responding, and worker completion drains time before scoring the current board.
 Human feel, real 1/4/8-player round trips, background pressure and the unmet 100 ms
 latency target remain W5 evidence gates.
+
+## November 14 queue refinement
+
+The single FIFO worker batches only clues already queued (at most eight), without
+waiting to fill a batch. It does not cache or deduplicate identical clues. Full
+model identity checks surround each batch; all vectors are validated before any
+member is applied. Eight physical slots and the five-second admission deadline
+remain unchanged. Per-command embedding timing is the full shared batch duration,
+not that duration divided by batch size. Receipt polling advances only the
+requested game; game creation still sweeps retained sessions for expiry.
+
+See the [refinement evidence](../../docs/evidence/feasibility-refinement-2026-11-14.md).

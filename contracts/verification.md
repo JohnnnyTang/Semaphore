@@ -98,8 +98,28 @@ Protocol hash is SHA-256 of restricted canonical encoding of parsed
 `verification-policy.json`, independent of checkout line endings and prose edits.
 Decimals in that policy are exact string parameters, not canonical JSON floats.
 The policy is normative alongside this prose; contradictions require a versioned
-correction before implementation. Report ruleset_id must equal the calling game's
-pinned ruleset. Report hash fields must be recomputed, not trusted from upload.
+correction before implementation.
+
+### Versioned gameplay binding
+
+`ruleset-verification.json` defines `arcade-verification-binding-v1`. Both
+`experiment-arcade-v1` and its playable extension `experiment-arcade-paced-v1`
+use the unchanged `bottom3-median-v1` policy and protocol hash. The paced rules
+change spawn timing and multi-clear scoring, not clue legality, vector ranking
+or the bottom-three diagnostic. Verification measures static target reachability;
+it does not certify pacing, sweep balance, latency, or score equivalence.
+
+`verify_pack` accepts either exact playable ID and recomputes a report bearing
+that ID. Unknown IDs fail with `invalid_ruleset` before embedding. Report
+ruleset_id must equal the calling game's pinned ruleset: a base report cannot
+be relabeled or substituted for a paced report. Cache reports by manifest digest,
+semantic hash, full model fingerprint hash, protocol hash and playable ruleset ID;
+entry vectors may still be shared by vector hash and fingerprint hash. The
+relationship version is registry provenance, not a new metric or report format.
+Existing base reports, policy hashes and the frozen W3 reference remain unchanged.
+Changes to this relationship require a new relationship version; changes to
+measurement require a new policy ID/hash; scoring changes require a new playable
+ruleset/configuration and a separate score cohort. Report hash fields must be recomputed, not trusted from upload.
 Reject malformed input before embedding; infrastructure failures produce a
 typed operation error, never a fabricated rejection metric report.
 

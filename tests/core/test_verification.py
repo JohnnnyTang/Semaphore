@@ -27,6 +27,7 @@ def test_packaged_policy_matches_frozen_contracts():
         "verification.schema.json",
         "model-lock.json",
         "verification-policy.json",
+        "ruleset-verification.json",
         "http.schema.json",
         "events.schema.json",
     ):
@@ -125,3 +126,33 @@ def test_duplicate_pair_diagnostics_are_json_arrays():
     report = verify_pack(parse_manifest(raw), Same(), "experiment-arcade-v1")
     assert report["flagged_pairs"] and isinstance(report["flagged_pairs"][0], list)
     Draft202012Validator(load("verification.schema.json")).validate(report)
+
+
+def test_paced_verification_preserves_policy_and_playable_identity():
+    from jsonschema import Draft202012Validator
+
+    parsed = parse_manifest((ROOT / "fixtures/w3/calibration-authored.json").read_bytes())
+    base = verify_pack(parsed, FakeEmbedder(), "experiment-arcade-v1")
+    paced = verify_pack(parsed, FakeEmbedder(), "experiment-arcade-paced-v1")
+    Draft202012Validator(load("verification.schema.json")).validate(paced)
+    assert paced.pop("ruleset_id") == "experiment-arcade-paced-v1"
+    assert base.pop("ruleset_id") == "experiment-arcade-v1"
+    base.pop("elapsed_ms")
+    paced.pop("elapsed_ms")
+    assert paced == base
+    relation = load("ruleset-verification.json")
+    assert relation["relationship_version"] == "arcade-verification-binding-v1"
+    for binding in relation["rulesets"].values():
+        assert binding["metrics_version"] == base["metrics_version"]
+
+
+@pytest.mark.parametrize("ruleset", ["unknown", "experiment-arcade-paced-v2", ""])
+def test_unknown_ruleset_rejected_before_embedding(ruleset):
+    class NeverEmbed:
+        def identity(self):
+            pytest.fail("unknown ruleset must fail before model access")
+
+    parsed = parse_manifest((ROOT / "fixtures/w3/calibration-authored.json").read_bytes())
+    with pytest.raises(CoreValidationError) as caught:
+        verify_pack(parsed, NeverEmbed(), ruleset)
+    assert caught.value.code == "invalid_ruleset"

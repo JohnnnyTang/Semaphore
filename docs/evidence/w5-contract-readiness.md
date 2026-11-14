@@ -1,5 +1,10 @@
 # W5 contract readiness review
 
+November 14 follow-up: [decision 0005](../decisions/0005-durable-game-contract.md)
+resolves the ruleset mismatch and adopts pack ownership, durable game/score, and
+clue-retention contracts. The audit below records the November 11 findings;
+persistence acceptance and the other Stage 1 gates remain outstanding.
+
 Reviewed November 11, 2026 against `64e3a90`. The [project plan](../../PROJECT_PLAN.md)
 sets the exit criteria. Owner decisions on lightweight local accounts, private
 clue capture, 6–8 players and development Ollama supersede conflicting

@@ -1,0 +1,134 @@
+{
+  "result_version": "s1-w4-probes-v1",
+  "probe": "http-load",
+  "evidence": "implementation-probe",
+  "acceptance_established": false,
+  "passed": false,
+  "runtime": {
+    "python": "3.12.10",
+    "platform": "Windows-10-10.0.19045-SP0"
+  },
+  "details": {
+    "groups": [
+      {
+        "players": 1,
+        "requested_samples": 10,
+        "recorded_samples": 10,
+        "outcome_counts": {
+          "clear": 1,
+          "miss": 9
+        },
+        "successful_samples": 10,
+        "verification_runs": 2,
+        "verification_overlap": true,
+        "verification_overlapping_samples": 9,
+        "failures": [],
+        "components": {
+          "round_trip_ms": {
+            "count": 10,
+            "p50_ms": 586.4806002937257,
+            "p95_ms": 1632.8488998115063,
+            "max_ms": 1632.8488998115063
+          },
+          "queue_ms": {
+            "count": 10,
+            "p50_ms": 0.224,
+            "p95_ms": 0.268,
+            "max_ms": 0.268
+          },
+          "embedding_ms": {
+            "count": 10,
+            "p50_ms": 491.42,
+            "p95_ms": 1538.283,
+            "max_ms": 1538.283
+          }
+        },
+        "target_100ms_passed": false
+      },
+      {
+        "players": 4,
+        "requested_samples": 40,
+        "recorded_samples": 40,
+        "outcome_counts": {
+          "clear": 4,
+          "miss": 34,
+          "stale_revision": 2
+        },
+        "successful_samples": 38,
+        "verification_runs": 4,
+        "verification_overlap": true,
+        "verification_overlapping_samples": 37,
+        "failures": [
+          "outcome:stale_revision",
+          "outcome:stale_revision"
+        ],
+        "components": {
+          "round_trip_ms": {
+            "count": 38,
+            "p50_ms": 1563.6984999291599,
+            "p95_ms": 2419.848999939859,
+            "max_ms": 2517.59220007807
+          },
+          "queue_ms": {
+            "count": 38,
+            "p50_ms": 184.282,
+            "p95_ms": 953.289,
+            "max_ms": 1023.257
+          },
+          "embedding_ms": {
+            "count": 38,
+            "p50_ms": 929.111,
+            "p95_ms": 1358.171,
+            "max_ms": 1358.171
+          }
+        },
+        "target_100ms_passed": null
+      },
+      {
+        "players": 8,
+        "requested_samples": 80,
+        "recorded_samples": 80,
+        "outcome_counts": {
+          "clear": 8,
+          "miss": 67,
+          "stale_revision": 5
+        },
+        "successful_samples": 75,
+        "verification_runs": 6,
+        "verification_overlap": true,
+        "verification_overlapping_samples": 75,
+        "failures": [
+          "outcome:stale_revision",
+          "outcome:stale_revision",
+          "outcome:stale_revision",
+          "outcome:stale_revision",
+          "outcome:stale_revision"
+        ],
+        "components": {
+          "round_trip_ms": {
+            "count": 75,
+            "p50_ms": 2464.714900124818,
+            "p95_ms": 3148.013100028038,
+            "max_ms": 3318.0797998793423
+          },
+          "queue_ms": {
+            "count": 75,
+            "p50_ms": 602.563,
+            "p95_ms": 1082.466,
+            "max_ms": 1140.123
+          },
+          "embedding_ms": {
+            "count": 75,
+            "p50_ms": 1099.941,
+            "p95_ms": 1353.062,
+            "max_ms": 1353.062
+          }
+        },
+        "target_100ms_passed": null
+      }
+    ],
+    "poll_seconds": 0.01,
+    "pressure_scope": "pinned Ollama verifier adapter calls; configure the same origin for gameplay",
+    "timing_source": "optional server headers; missing components remain unknown"
+  }
+}

@@ -1,0 +1,12 @@
+[
+ {"label":"  PILLOW ","reason":"normalized_duplicate"},
+ {"label":"whisks","reason":"duplicate_sense"},
+ {"label":"Paris","reason":"proper_name"},
+ {"label":"Einstein","reason":"proper_name"},
+ {"label":"justice","reason":"abstract"},
+ {"label":"happiness","reason":"abstract"},
+ {"label":"bank","reason":"unresolved_sense"},
+ {"label":"seal","reason":"unresolved_sense"},
+ {"label":"microtome","reason":"specialist"},
+ {"label":"sphygmomanometer","reason":"specialist"}
+]

@@ -1,4 +1,4 @@
-"""Disposable in-memory service and bounded FIFO inference worker."""
+"""Disposable in-memory service and bounded FIFO batched inference worker."""
 
 import queue
 import secrets
@@ -36,6 +36,7 @@ class Session:
     started: float
     vectors: dict
     sequence: int = -1
+    timings: dict = field(default_factory=dict)
     lock: object = field(default_factory=threading.RLock)
 
 
@@ -52,6 +53,10 @@ class GameService:
         self.embedder, self.clock, self.max_games = embedder, clock, max_games
         self.sessions, self.tombstones = {}, set()
         self.lock = threading.RLock()
+        schemas = load("http.schema.json")["$defs"]
+        self.validators = {
+            name: Draft202012Validator(schemas[name]) for name in ("create", "command")
+        }
         self.slots = threading.BoundedSemaphore(8)
         self.jobs = queue.Queue(maxsize=8)
         self.closed = threading.Event()
@@ -91,7 +96,18 @@ class GameService:
 
     def _session(self, ident):
         with self.lock:
-            self._sweep()
+            # Receipt polling must not advance or lock unrelated games. Creation
+            # still sweeps all sessions; direct access expires this session exactly.
+            session = self.sessions.get(ident)
+            if session is not None:
+                with session.lock:
+                    self._advance(session)
+                    if (
+                        session.state.terminal_ms is not None
+                        and self._now(session) >= session.state.terminal_ms + 900000
+                    ):
+                        del self.sessions[ident]
+                        self.tombstones.add(ident)
             if ident in self.tombstones:
                 raise ProtocolError(410, "game_expired")
             if ident not in self.sessions:
@@ -101,40 +117,72 @@ class GameService:
     def _work(self):
         while not self.closed.is_set():
             try:
-                session, request = self.jobs.get(timeout=0.1)
+                batch = [self.jobs.get(timeout=0.1)]
             except queue.Empty:
                 continue
+            # No batching delay: collect only work already queued, in FIFO order.
+            while len(batch) < 8:
+                try:
+                    batch.append(self.jobs.get_nowait())
+                except queue.Empty:
+                    break
             try:
-                with session.lock:
-                    self._advance(session)
-                    active = session.state.pending == request
+                active = []
+                for session, request, queued_at in batch:
+                    with session.lock:
+                        self._advance(session)
+                        if session.state.pending == request:
+                            active.append((session, request, queued_at))
                 if not active:
                     continue
+                started = time.perf_counter()
                 try:
-                    rows = self.embedder.embed_queries([request.text])
-                    if len(rows) != 1:
+                    rows = self.embedder.embed_queries([request.text for _, request, _ in active])
+                    finished = time.perf_counter()
+                    if len(rows) != len(active):
                         raise ValueError()
-                    query = vector(rows[0])
+                    # Validate the complete response before applying any member.
+                    queries = [vector(row) for row in rows]
                     error = None
                 except Exception:
-                    query, error = None, "inference_failed"
-                with session.lock:
-                    self._advance(session)
-                    scores = (
-                        {i: dot(query, session.vectors[i]) for i in session.state.board}
-                        if query is not None
-                        else None
-                    )
-                    session.state = complete(
-                        session.state,
-                        command_id=request.command_id,
-                        now_ms=session.state.elapsed_ms,
-                        scores=scores,
-                        error=error,
-                    ).state
+                    finished = time.perf_counter()
+                    queries, error = [None] * len(active), "inference_failed"
+                for (session, request, queued_at), query in zip(active, queries, strict=True):
+                    with session.lock:
+                        session.timings[request.command_id] = {
+                            "X-Semaphore-Queue-Ms": f"{(started - queued_at) * 1000:.3f}",
+                            "X-Semaphore-Embedding-Ms": f"{(finished - started) * 1000:.3f}",
+                        }
+                        self._advance(session)
+                        # Timed-out/quit requests cannot score, even if their batch succeeds.
+                        scores = (
+                            {i: dot(query, session.vectors[i]) for i in session.state.board}
+                            if query is not None and session.state.pending == request
+                            else None
+                        )
+                        session.state = complete(
+                            session.state,
+                            command_id=request.command_id,
+                            now_ms=session.state.elapsed_ms,
+                            scores=scores,
+                            error=error,
+                        ).state
             finally:
-                self.slots.release()
-                self.jobs.task_done()
+                for _ in batch:
+                    self.slots.release()
+                    self.jobs.task_done()
+
+    def timing_headers(self, envelope):
+        """Completed adapter timings only; never synthesize zeros for unmeasured work."""
+        receipt = envelope.get("receipt")
+        if not receipt or receipt["outcome"] in {"pending", "command_conflict"}:
+            return {}
+        with self.lock:
+            session = self.sessions.get(envelope["snapshot"]["game_id"])
+        if session is None:
+            return {}
+        with session.lock:
+            return dict(session.timings.get(receipt["command_id"], {}))
 
     def request(self, method, path, raw=b""):
         parts = [unquote(p) for p in urlsplit(path).path.strip("/").split("/")]
@@ -148,10 +196,8 @@ class GameService:
             if len(parts) == 3 or (len(parts) == 5 and parts[4] == "commands"):
                 try:
                     payload = parse(raw)
-                    schema = load("http.schema.json")["$defs"][
-                        "create" if len(parts) == 3 else "command"
-                    ]
-                    if list(Draft202012Validator(schema).iter_errors(payload)):
+                    validator = self.validators["create" if len(parts) == 3 else "command"]
+                    if next(validator.iter_errors(payload), None) is not None:
                         raise ValueError()
                 except ValueError:
                     raise ProtocolError(400, "invalid_request") from None
@@ -200,7 +246,7 @@ class GameService:
                     raise ProtocolError(503, "unavailable") from None
                 session.state = t.state
                 if t.effects:
-                    self.jobs.put_nowait((session, t.effects[0]))
+                    self.jobs.put_nowait((session, t.effects[0], time.perf_counter()))
                 elif slot:
                     self.slots.release()
                 return (202 if t.receipt["outcome"] == "pending" else 200), self._envelope(
