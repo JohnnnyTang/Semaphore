@@ -9,6 +9,11 @@ the hub independently verifies each pack before publication.
 
 ## Project status
 
+Stage 2 W1 has started with an installable hub storage/startup foundation.
+See the [W1 record](docs/stages/s2-w1-foundation.md) for scope, checks and remaining
+contract work. This does not yet provide account or durable game HTTP services.
+Stage 1 acceptance remains open; the experiment continues to run unchanged.
+
 Stage 1, Wave 4 is integrated locally: callable core, authoritative experimental server, thin browser and independent probes. See the [Wave 4 record](docs/stages/s1-w4-playable-experiment.md) for validation and W5 gates.
 The owner accepted the finite-schedule scope while retaining the unmet 100 ms
 Stage 1 target. Actual-protocol synthetic verifier measurements and independent
@@ -25,7 +30,7 @@ an embedding adapter, a scripted ranker and automated checks.
 
 - [Product handoff](Semaphore%20%E2%80%94%20Handoff.md)
 - [Project plan](PROJECT_PLAN.md): stages, waves, and parallel worktree sessions,
-  with only Stage 1 planned in detail.
+  with Stage 1 detail and a conditional [Stage 2 plan](docs/stages/s2-durable-foundation.md).
 - [Wave 1 evidence](docs/stages/s1-w1-baseline.md),
   [Wave 2 session briefs](docs/stages/s1-w2-session-briefs.md) and
   [Wave 2 progress](docs/stages/s1-w2-evidence-and-contracts.md).

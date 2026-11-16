@@ -1,5 +1,20 @@
 # Semaphore project plan
 
+November 16, 2026 implementation update: the owner requested Stage 2's first wave.
+S2-W1-A has started on `codex/s2-w1-a-contracts`; the initial installable hub,
+SQLite migration and startup composition slice is recorded in the
+[W1 record](docs/stages/s2-w1-foundation.md). W1 remains running until the remaining
+shared contracts and briefs are frozen. W2 is blocked and Stage 1 gaps are retained.
+The planning authorization paragraph below records the preceding state.
+
+November 16, 2026 update: the owner authorized Stage 2 planning using the existing
+wave-parallel session convention. The [Stage 2 plan](docs/stages/s2-durable-foundation.md)
+defines four waves: shared contracts/skeleton; parallel accounts, installed packs
+and browser; parallel durable games, operations and independent probes; integrated
+acceptance. Open LAN signup (operator-disableable) and LAN-only HTTP are confirmed.
+Stage 1 remains open; planning does not dispatch Stage 2 implementation or waive
+its outstanding gates. Earlier status paragraphs below are historical.
+
 November 14, 2026 update: real-model acceptance instrumentation and measurements
 are recorded in the [measurement report](docs/evidence/w5-real-model-2026-11-14.md).
 Independent reference/core parity passes (900 cases, twice). Real-model load with
@@ -72,7 +87,7 @@ The critical promise is that associations feel understandable while pressure bui
 - **Owner confirmed:** lightweight accounts, replacing the handoff's device-token suggestion and earlier exclusion of an accounts system. Interpret as local username/password accounts, without email, OAuth, or external identity services.
 - **Owner confirmed:** target 6–8 concurrent players; CPU-only, 8 GB RAM is the initial benchmark envelope. Exact CPU and OS still need recording before measurements can establish a supported minimum.
 - **Owner confirmed:** persist private clue logs for future pack feedback. Creator visibility is not authorized by that decision.
-- Later-stage detail is deliberately deferred. This document schedules Stage 1 only. The owner's subsequent instruction authorized repository automation and first-wave implementation in parallel worktrees.
+- Later-stage detail is deliberately deferred. Stage 1 is detailed below; the linked Stage 2 plan now defines conditional waves. The owner's subsequent instruction authorized repository automation and first-wave implementation in parallel worktrees.
 
 ### Proposed decisions still open to adjustment
 
@@ -121,7 +136,7 @@ Session states: `ready → running → review → integrated`, with `blocked` re
 | **5 — Learn from play (v2)** | Per-word stats, privacy-reviewed feedback export, `packtool feedback`, batch re-verification | Creator revises a weak pack using feedback; model/metrics migration preserves audit history |
 | **6 — Grow the community (v3)** | Likes, play counts, remix attribution and featured packs | Prioritize from observed use; no additional scope committed now |
 
-Stages 2–6 intentionally have no waves, session assignments or calendar estimates yet. Stage 1 may reveal that corpus preparation or creator tooling should move earlier. Feature version and delivery stage are different: v1 spans Stages 1–4.
+Stage 2 now has a conditional [wave/session plan](docs/stages/s2-durable-foundation.md). Stages 3–6 remain without detailed waves, session assignments or calendar estimates. Stage 1 may reveal that corpus preparation or creator tooling should move earlier. Feature version and delivery stage are different: v1 spans Stages 1–4.
 
 ## Stage 1: prove the game and its contracts
 

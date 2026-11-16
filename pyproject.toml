@@ -27,7 +27,7 @@ model-eval = [
 
 [tool.uv.build-backend]
 module-root = "packages"
-module-name = "semaphore_core"
+module-name = ["semaphore_core", "semaphore_hub"]
 
 [tool.uv.sources]
 torch = { index = "pytorch-cpu" }
