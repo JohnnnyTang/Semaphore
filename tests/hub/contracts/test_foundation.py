@@ -12,7 +12,7 @@ from semaphore_hub.storage import MigrationError, connect, migrate, transaction
 @pytest.fixture
 def db():
     with closing(connect(":memory:")) as connection:
-        assert migrate(connection) == 1
+        assert migrate(connection) == 2
         yield connection
 
 
@@ -31,7 +31,7 @@ def test_migration_reopen_and_constraints(tmp_path):
         migrate(db)
         seed(db)
     with closing(connect(path)) as db:
-        assert migrate(db) == 1
+        assert migrate(db) == 2
         assert db.execute("PRAGMA foreign_keys").fetchone()[0] == 1
         assert db.execute("SELECT count(*) FROM games").fetchone()[0] == 1
         with pytest.raises(sqlite3.IntegrityError):
@@ -46,7 +46,7 @@ def test_migration_reopen_and_constraints(tmp_path):
     "change",
     [
         "UPDATE schema_migrations SET sha256 = 'edited'",
-        "INSERT INTO schema_migrations VALUES (2, 'future.sql', 'future')",
+        "INSERT INTO schema_migrations VALUES (999, 'future.sql', 'future')",
     ],
 )
 def test_modified_or_newer_history_rejected(db, change):
@@ -156,6 +156,9 @@ class FakeRecovery:
         assert now_ms == 42
         self.record("expiry")
 
+    def validate_key_material(self):
+        self.record("keys")
+
     def interrupt_active_games(self, now_ms):
         assert now_ms == 42
         self.record("interrupt")
@@ -164,7 +167,7 @@ class FakeRecovery:
         self.record("orphans")
 
 
-@pytest.mark.parametrize("failure", [None, "deletions", "expiry", "interrupt", "orphans"])
+@pytest.mark.parametrize("failure", [None, "deletions", "expiry", "keys", "interrupt", "orphans"])
 def test_startup_is_ordered_and_fails_closed(db, failure):
     recovery = FakeRecovery(failure)
     app = Application(db, FakeClock(), recovery)
@@ -175,8 +178,8 @@ def test_startup_is_ordered_and_fails_closed(db, failure):
     else:
         app.start()
         assert app.ready
-    expected = ["deletions", "expiry", "interrupt", "orphans"]
-    count = expected.index(failure) + 1 if failure else 4
+    expected = ["deletions", "expiry", "keys", "interrupt", "orphans"]
+    count = expected.index(failure) + 1 if failure else 5
     assert recovery.calls == expected[:count]
 
 
@@ -196,10 +199,39 @@ def test_known_history_upgrades_without_rewriting_data(db, tmp_path, monkeypatch
     from semaphore_hub.storage import database
 
     seed(db)
+    for entry in files("semaphore_hub.migrations").iterdir():
+        if entry.name.endswith(".sql"):
+            (tmp_path / entry.name).write_bytes(entry.read_bytes())
+    (tmp_path / "0003_probe.sql").write_text("CREATE TABLE upgrade_probe (id TEXT);\n")
+    monkeypatch.setattr(database, "files", lambda _: tmp_path)
+    assert migrate(db) == 3
+    assert migrate(db) == 3
+    assert db.execute("SELECT login_name FROM accounts").fetchone()[0] == "alice"
+
+
+def test_ready_application_cannot_run_recovery_again(db):
+    recovery = FakeRecovery()
+    app = Application(db, FakeClock(), recovery)
+    app.start()
+    calls = list(recovery.calls)
+    with pytest.raises(RuntimeError, match="serving traffic"):
+        app.start()
+    assert app.ready
+    assert recovery.calls == calls
+
+
+def test_v1_database_upgrades_to_v2_without_publishing_existing_content(tmp_path, monkeypatch):
+    from importlib.resources import files
+
+    from semaphore_hub.storage import database
+
     original = files("semaphore_hub.migrations").joinpath("0001_foundation.sql").read_bytes()
     (tmp_path / "0001_foundation.sql").write_bytes(original)
-    (tmp_path / "0002_probe.sql").write_text("CREATE TABLE upgrade_probe (id TEXT);\n")
-    monkeypatch.setattr(database, "files", lambda _: tmp_path)
-    assert migrate(db) == 2
-    assert migrate(db) == 2
-    assert db.execute("SELECT login_name FROM accounts").fetchone()[0] == "alice"
+    with closing(connect(":memory:")) as db:
+        with monkeypatch.context() as context:
+            context.setattr(database, "files", lambda _: tmp_path)
+            assert migrate(db) == 1
+            seed(db)
+        assert migrate(db) == 2
+        assert db.execute("SELECT count(*) FROM games").fetchone()[0] == 1
+        assert db.execute("SELECT count(*) FROM published_versions").fetchone()[0] == 0

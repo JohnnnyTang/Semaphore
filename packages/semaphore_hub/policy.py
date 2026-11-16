@@ -90,6 +90,16 @@ class TransportPolicy:
             port == 0
             or parsed.scheme not in {"http", "https"}
             or not parsed.hostname
+            or not self.origin.isascii()
+            or "\\" in self.origin
+            or parsed.netloc.endswith(":")
+            or (
+                parsed.port is not None
+                and (
+                    str(parsed.port) != parsed.netloc.rsplit(":", 1)[1]
+                    or (parsed.scheme, parsed.port) in {("http", 80), ("https", 443)}
+                )
+            )
             or parsed.username is not None
             or parsed.password is not None
             or parsed.path

@@ -48,7 +48,7 @@ At equality the session is expired. Rejected authentication does not renew it.
 POST /api/v1/auth/signup and /auth/login require the exact configured Host and
 Origin even before a session exists; absent/null/foreign Origin is rejected.
 Successful login revokes the presented prior session, issues a fresh session
-cookie and a session-bound 32-random-byte CSRF token; other device sessions remain
+cookie and a session-bound 32-byte derived CSRF token; other device sessions remain
 valid. Successful signup uses the same issuance flow. Privilege changes revoke
 all old sessions; a subsequent login creates a new session. Login responses are
 generic for unknown account and wrong password, including bounded dummy hash
@@ -71,7 +71,7 @@ Login/signup return the same session envelope. Session/token responses use
 Cache-Control: no-store and are never logged or placed in URLs.
 
 All cookie-authenticated mutations, including logout, require exact configured
-Host, exact Origin and X-CSRF-Token equal to the session token under constant-time
+Host, exact Origin and X-CSRF-Token matching that session's derived CSRF token under constant-time
 comparison. Every request validates Host; reads reject a supplied foreign/null
 Origin, while same-origin reads may omit it. Do not trust forwarded Host or Origin
 headers; reverse-proxy deployment requires a later explicit trusted-proxy policy.
@@ -94,3 +94,10 @@ Enforce the 16 KiB body cap before JSON parsing, reject unknown fields, malforme
 JSON and duplicate keys. Authentication/Origin/CSRF/schema failures have no game,
 clue or score side effects. Operator-only host commands are separate from public
 HTTP. W2 must test these boundaries before real-service integration.
+
+
+Configure Origin in browser-serialized ASCII form: lower-case host, no trailing
+slash, default port omitted, nondefault port in unpadded decimal. Unicode hostnames
+must be supplied in their ASCII form. Explicit default ports and noncanonical port
+spellings fail configuration validation rather than silently rejecting all browser
+requests. Exact Host matching uses the authority from that canonical origin.

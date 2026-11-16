@@ -212,8 +212,8 @@ class FakeGames:
             ):
                 raise Conflict("command conflict")
             return old
-        if game.finished_at is not None:
-            raise Conflict("game over")
+        if game.finished_at is not None and not command.final:
+            raise Conflict("terminal admission must be a final rejection")
         if (attempt.game_id, attempt.command_id) != key:
             raise Conflict("attempt identity")
         self.commands[key], self.attempts[key] = command, attempt
@@ -237,6 +237,8 @@ class FakeGames:
             old.finished_at is not None
             or old.artifact != game.artifact
             or old.started_at != game.started_at
+            or old.model_identity_json != game.model_identity_json
+            or old.player_id != game.player_id
         ):
             raise Conflict("immutable game")
         if game.revision < old.revision:

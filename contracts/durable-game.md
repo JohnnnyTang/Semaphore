@@ -4,7 +4,7 @@ Adopted November 14, 2026. This is the target for durable implementation;
 `openapi.json` and `/experiment/v1` remain the executable, disposable experiment.
 The W2 WebSocket proposal is superseded for durable game transport by authenticated
 HTTP commands, full snapshots and receipt polling. Account signup/session issuance
-and LAN transport policy remain a separate account decision; this contract does
+and LAN transport policy are adopted in [decision 0006](../docs/decisions/0006-local-accounts.md); this contract does
 not claim the unauthenticated experiment is suitable for durable accounts.
 
 ## Transport and retry
@@ -13,7 +13,7 @@ The durable namespace is `/api/v1`. Game ownership comes only from the authentic
 session. Every game, receipt, quit and private result operation checks that owner;
 unauthenticated requests return 401, other users' and unknown games return 404.
 Cookie-authenticated mutations require a valid CSRF token and allowed Origin.
-The account contract must bind token issuance before this service ships.
+Token issuance is bound by decision 0006 and `durable-openapi.json`.
 
 | Method and path | Behavior |
 | --- | --- |

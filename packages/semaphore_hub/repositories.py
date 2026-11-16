@@ -1,6 +1,7 @@
 """Frozen W1 transaction-scoped ports; production implementations belong to W2/W3.
 
-All JSON strings are already schema-validated canonical documents. Services own
+JSON strings are schema-validated serialized documents; identity projections use
+the adopted restricted canonical encoding. Services own
 locks and commits. No repository may perform inference, commit, or return secrets
 through public projections. Missing and foreign private objects both raise NotFound.
 """

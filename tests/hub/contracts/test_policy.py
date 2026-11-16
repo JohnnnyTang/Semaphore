@@ -79,3 +79,19 @@ def test_frozen_resource_and_retention_contract():
     assert policy.MAX_COMMANDS_PER_GAME == 4096
     assert policy.MAX_GAME_DURATION_MS == 600000
     assert policy.INSTALL_MAX_CLUES == 5 * policy.INSTALL_MAX_ENTRIES
+
+
+@pytest.mark.parametrize(
+    "origin",
+    [
+        "http://hub.local:80",
+        "https://hub.local:443",
+        "http://hub.local:080",
+        "http://hub.local:03000",
+        "http://hub.local:",
+        "http://例子.local",
+    ],
+)
+def test_noncanonical_browser_origin_configuration_rejected(origin):
+    with pytest.raises(ValueError, match="invalid_origin"):
+        policy.TransportPolicy(origin)

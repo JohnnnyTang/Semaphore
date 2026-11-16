@@ -44,6 +44,9 @@ Append a new report for reverification; never overwrite historical artifact pins
 
 `Game` carries immutable artifact/model/start pins plus the last acknowledged full
 snapshot. `admit` stores one command and private attempt before acknowledgement.
+After terminal time, an unseen ID may persist only a final `game_over` rejection
+with the original terminal retry deadline; it never admits inference or mutates
+the terminal snapshot. Expired games reject before storing a new ID.
 Known IDs compare keyed original-payload equality before stale/terminal handling;
 changed payloads conflict. `resolve` updates final receipt, attempt outcome and game
 revision together. `save_transition` persists due-work state changes without a clue.
@@ -90,3 +93,10 @@ New game service admission must resolve a published artifact and verify every pi
 there is deliberately no fabricated artifact backfill for old rows.
 Migration count is now 2. A known-prefix database upgrades without rewriting 0001;
 unknown/modified histories remain rejected by the migration runner.
+
+
+Production repository adapters live with each domain (`auth`, `packs`, `games`/
+`results`, `operations`) and receive the coordinator's transaction connection;
+coordinator composes the concrete UnitOfWork. Workers do not edit the shared
+storage runner or migrations. Account/pack services need only their own ports
+until W3 integration; fake adapters must never be a deployed fallback.

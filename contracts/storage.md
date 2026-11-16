@@ -2,7 +2,9 @@
 
 Adopted November 14, 2026 for the persistence implementation. This supersedes the
 W4 storage draft and conflicting W2 storage proposals, not the running
-process-local `/experiment/v1` service. No migration or durable service is claimed.
+process-local `/experiment/v1` service. W1 now supplies schema migrations and
+repository protocols; production durable services remain W2/W3 implementation.
+See [repository interfaces](repositories.md) and [runtime limits](hub-runtime.md).
 See [durable game behavior](durable-game.md) and
 [decision 0005](../docs/decisions/0005-durable-game-contract.md).
 
