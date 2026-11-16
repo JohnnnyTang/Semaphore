@@ -1,0 +1,490 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://semaphore.invalid/contracts/durable-http.schema.json",
+  "title": "Durable HTTP payloads v1",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "login_name": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_]{3,32}$"
+    },
+    "signup": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "login_name": {
+          "$ref": "#/$defs/login_name"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "password": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "login_name",
+        "display_name",
+        "password"
+      ]
+    },
+    "login": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "login_name": {
+          "$ref": "#/$defs/login_name"
+        },
+        "password": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "login_name",
+        "password"
+      ]
+    },
+    "account": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "account_id": {
+          "$ref": "#/$defs/id"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "account_id",
+        "display_name"
+      ]
+    },
+    "session": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "account": {
+          "$ref": "#/$defs/account"
+        },
+        "csrf_token": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$"
+        },
+        "absolute_expires_at": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "idle_expires_at": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "account",
+        "csrf_token",
+        "absolute_expires_at",
+        "idle_expires_at"
+      ]
+    },
+    "config": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "signup_enabled": {
+          "type": "boolean"
+        },
+        "clue_retention_days": {
+          "const": 30
+        },
+        "backup_retention_days": {
+          "const": 30
+        }
+      },
+      "required": [
+        "signup_enabled",
+        "clue_retention_days",
+        "backup_retention_days"
+      ]
+    },
+    "cohort": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "casual",
+            "event"
+          ]
+        },
+        "pack_id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "$ref": "#/$defs/id"
+        },
+        "manifest_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "fingerprint_hash": {
+          "$ref": "#/$defs/digest"
+        },
+        "ruleset_id": {
+          "$ref": "#/$defs/id"
+        },
+        "config_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "challenge_digest": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "mode",
+        "pack_id",
+        "version",
+        "manifest_digest",
+        "fingerprint_hash",
+        "ruleset_id",
+        "config_digest",
+        "challenge_digest"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "casual"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "challenge_digest": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "challenge_digest": {
+                "$ref": "#/$defs/digest"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "$ref": "#/$defs/id"
+        },
+        "cohort": {
+          "$ref": "#/$defs/cohort"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "cohort"
+      ]
+    },
+    "pack": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pack_id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "manifest_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifact"
+          },
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "pack_id",
+        "version",
+        "title",
+        "manifest_digest",
+        "artifacts"
+      ]
+    },
+    "cursor": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "packs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/$defs/pack"
+          }
+        },
+        "next_cursor": {
+          "$ref": "#/$defs/cursor"
+        }
+      },
+      "required": [
+        "items",
+        "next_cursor"
+      ]
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "game_id": {
+          "$ref": "#/$defs/id"
+        },
+        "cohort": {
+          "$ref": "#/$defs/cohort"
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completed_at": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_reason": {
+          "enum": [
+            "overflow",
+            "pack_cleared",
+            "pack_exhausted",
+            "event_complete",
+            "interrupted"
+          ]
+        },
+        "competitive": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "game_id",
+        "cohort",
+        "score",
+        "completed_at",
+        "end_reason",
+        "competitive"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "end_reason": {
+                "const": "interrupted"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "competitive": {
+                "const": false
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "competitive": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "cohort": {
+                "properties": {
+                  "mode": {
+                    "const": "casual"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "end_reason": {
+                "enum": [
+                  "overflow",
+                  "pack_cleared",
+                  "pack_exhausted",
+                  "interrupted"
+                ]
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "end_reason": {
+                "enum": [
+                  "overflow",
+                  "event_complete",
+                  "interrupted"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "history": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/$defs/result"
+          }
+        },
+        "next_cursor": {
+          "$ref": "#/$defs/cursor"
+        }
+      },
+      "required": [
+        "items",
+        "next_cursor"
+      ]
+    },
+    "board_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "game_id": {
+          "$ref": "#/$defs/id"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completed_at": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "game_id",
+        "display_name",
+        "score",
+        "completed_at"
+      ]
+    },
+    "board": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cohort": {
+          "$ref": "#/$defs/cohort"
+        },
+        "items": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/$defs/board_entry"
+          }
+        },
+        "next_cursor": {
+          "$ref": "#/$defs/cursor"
+        }
+      },
+      "required": [
+        "cohort",
+        "items",
+        "next_cursor"
+      ]
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "receipt_not_found",
+            "game_expired",
+            "unavailable",
+            "signup_disabled",
+            "login_conflict",
+            "invalid_credentials",
+            "rate_limited",
+            "invalid_cursor",
+            "origin_denied",
+            "csrf_invalid",
+            "body_too_large"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 256
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ]
+    }
+  }
+}

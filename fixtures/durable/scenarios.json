@@ -1,0 +1,116 @@
+{
+  "synthetic_only": true,
+  "scenarios": [
+    {
+      "name": "signup",
+      "method": "post",
+      "path": "/api/v1/auth/signup",
+      "request_case": "signup",
+      "status": 201,
+      "response_case": "session"
+    },
+    {
+      "name": "login",
+      "method": "post",
+      "path": "/api/v1/auth/login",
+      "request_case": "login",
+      "status": 200,
+      "response_case": "session"
+    },
+    {
+      "name": "session-expired",
+      "method": "get",
+      "path": "/api/v1/auth/session",
+      "status": 401,
+      "response_case": "unauthenticated"
+    },
+    {
+      "name": "signup-disabled",
+      "method": "post",
+      "path": "/api/v1/auth/signup",
+      "request_case": "signup",
+      "status": 403,
+      "response_case": "signup_disabled"
+    },
+    {
+      "name": "csrf-rejected",
+      "method": "post",
+      "path": "/api/v1/games",
+      "request_case": "create",
+      "status": 403,
+      "response_case": "csrf_invalid"
+    },
+    {
+      "name": "foreign-game",
+      "method": "get",
+      "path": "/api/v1/games/{game_id}",
+      "status": 404,
+      "response_case": "not_found"
+    },
+    {
+      "name": "pending-command",
+      "method": "post",
+      "path": "/api/v1/games/{game_id}/commands",
+      "request_case": "command",
+      "status": 202,
+      "response_case": "envelope-pending"
+    },
+    {
+      "name": "resolved-command",
+      "method": "get",
+      "path": "/api/v1/games/{game_id}/receipts/{command_id}",
+      "status": 200,
+      "response_case": "envelope-clear"
+    },
+    {
+      "name": "changed-retry",
+      "method": "post",
+      "path": "/api/v1/games/{game_id}/commands",
+      "request_case": "command",
+      "status": 200,
+      "response_case": "envelope-command_conflict"
+    },
+    {
+      "name": "receipt-expired",
+      "method": "get",
+      "path": "/api/v1/games/{game_id}/receipts/{command_id}",
+      "status": 410,
+      "response_case": "game_expired"
+    },
+    {
+      "name": "packs",
+      "method": "get",
+      "path": "/api/v1/packs",
+      "status": 200,
+      "response_case": "packs"
+    },
+    {
+      "name": "empty-history",
+      "method": "get",
+      "path": "/api/v1/history",
+      "status": 200,
+      "response_case": "history-empty"
+    },
+    {
+      "name": "empty-board",
+      "method": "get",
+      "path": "/api/v1/boards/{artifact_id}",
+      "status": 200,
+      "response_case": "board-empty"
+    },
+    {
+      "name": "logout",
+      "method": "post",
+      "path": "/api/v1/auth/logout",
+      "status": 204
+    }
+  ],
+  "uncertain_create": {
+    "method": "post",
+    "path": "/api/v1/games",
+    "request_case": "create",
+    "transport_outcome": "response_lost",
+    "automatic_retry": false,
+    "next_action": "Explain uncertainty and require an explicit player choice before creating again; do not invent a game ID."
+  }
+}
