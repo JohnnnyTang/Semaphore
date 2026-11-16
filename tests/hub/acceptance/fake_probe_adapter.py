@@ -43,7 +43,7 @@ class Fake:
             elif operation == "completion":
                 s.update(pending_count=0, receipt_outcome="completed")
             else:
-                s.update(status="over", end_reason="pack_cleared", score_count=1)
+                s.update(status="over", end_reason="pack_exhausted", score_count=1)
             self.save()
             self.checkpoint(f"{operation}.after_commit")
         elif operation == "recover":

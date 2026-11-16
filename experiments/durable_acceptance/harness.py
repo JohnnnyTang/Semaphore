@@ -101,7 +101,7 @@ def crash_probe(adapter, phase, edge):
     natural = phase == "terminal" and edge == "after"
     require(state["score_count"] == int(natural), "score_atomicity")
     require(
-        state["end_reason"] == ("pack_cleared" if natural else "interrupted"), "terminal_outcome"
+        state["end_reason"] == ("pack_exhausted" if natural else "interrupted"), "terminal_outcome"
     )
     if state["command_count"]:
         expected = (

@@ -43,8 +43,8 @@ Use `ProcessAdapter.close()` when embedding the harness in a longer-lived runner
 | --- | --- |
 | `fixture_setup` | `phase` is admission/completion/terminal/behavior. Create an owner and foreign account, a published synthetic-only acceptance fixture, one active zero-score game and appropriate prerequisites. For completion, admit one pending command. For terminal, complete one command while still active. Behavior starts before admission. No production publication. |
 | `admission` | Submit one fixed valid clue command through the service, preserving exact original payload and command ID in adapter memory for retries. |
-| `completion` | Deliver the queued completion using real reducer/service code, resolve the command without ending the fixture game. |
-| `terminal` | Advance due work to natural `pack_cleared` termination; the primary game must receive one score row, including when score is zero. |
+| `completion` | Deliver the queued completion using real reducer/service code, resolve the command with a non-clearing result without ending the fixture game. |
+| `terminal` | Advance due work to natural `pack_exhausted` termination; the primary game must receive one score row, including when score is zero. |
 | `recover` | Run actual pre-traffic recovery; return `{"ready":true}` only on success. |
 | `observe` | Read primary-game projection described below from actual persisted state; no service state changes. |
 | `retry` | `variant`: exact/clue_case/clue_whitespace/expected_revision. Reuse same ID; alter only named field. Return `status` and original clue-free receipt for success; omit current snapshot so equality compares immutable receipt. Changed payload returns HTTP 200 with `receipt.outcome=command_conflict`, as frozen durable OpenAPI specifies (not HTTP 409). |

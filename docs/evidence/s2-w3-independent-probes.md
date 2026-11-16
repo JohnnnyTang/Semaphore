@@ -47,3 +47,8 @@ but real-model/human acceptance and all named Stage 1 carryovers remain open.
 Follow-up contract audit corrected the changed-retry oracle to require HTTP 200
 and a `command_conflict` receipt, per durable OpenAPI, rather than an invented
 HTTP 409 requirement. Defective fake retry acceptance remains detected.
+
+Terminal fault fixtures use real casual deadline `pack_exhausted`, following one
+non-clearing completed clue, to permit an isolated terminal transaction and a
+natural zero score. `pack_cleared` belongs to completion itself and cannot be
+fabricated as a later due-work transition.
