@@ -9,9 +9,11 @@ the hub independently verifies each pack before publication.
 
 ## Project status
 
-Stage 2 W1 has started with an installable hub storage/startup foundation.
-See the [W1 record](docs/stages/s2-w1-foundation.md) for scope, checks and remaining
-contract work. This does not yet provide account or durable game HTTP services.
+Stage 2 W1 is integrated locally: durable schemas/fixtures, account/runtime
+policies, migrations, repository interfaces and a runnable fake composition.
+See the [W1 record](docs/stages/s2-w1-foundation.md) and
+[worker briefs](docs/stages/s2-w1-session-briefs.md). This does not yet provide
+production account or durable game HTTP services; W2 remains gated.
 Stage 1 acceptance remains open; the experiment continues to run unchanged.
 
 Stage 1, Wave 4 is integrated locally: callable core, authoritative experimental server, thin browser and independent probes. See the [Wave 4 record](docs/stages/s1-w4-playable-experiment.md) for validation and W5 gates.
@@ -59,6 +61,7 @@ uv run --no-sync ruff format --check .
 uv run --no-sync pytest
 node --test tests/web/client.test.mjs
 uv build --no-build-isolation
+uv run --no-sync python -m semaphore_hub --smoke
 ```
 
 For offline validation and the eventual LAN connectivity check, see the

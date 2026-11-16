@@ -1,6 +1,71 @@
-# Stage 2 W1 — Initial storage and startup slice
+# Stage 2 W1 — Integrated implementation boundaries
 
-November 16, 2026 (Asia/Shanghai). State: running, not integrated or frozen.
+November 16, 2026 (Asia/Shanghai). State: integrated locally; W1 complete.
+Reviewed implementation baseline: `92aaffb0594ea329489b3df1eeea6336312edda3`.
+W2 is **not dispatched**: the Stage 1 entry disposition below remains blocked.
+
+## Completion and evidence
+
+The owner asked to continue W1 with parallel subagents if needed. Three isolated
+coordinator helpers started from `180fd0d620063f64e1fb5b303bbeb95d1425dcb1`:
+HTTP (`2d8620e`, discovery follow-up `f917337`), storage (`6008dfd`) and policy
+(`e434e66`). They were W1 drafting subtasks, not W2 implementation sessions.
+The coordinator integrated their owned commits, reconciled list ordering, added
+owner-scoped uncertain-create discovery and packaged contract access, and reviewed
+runtime composition. Independent review identified clock-domain ambiguity and
+noncanonical browser Origin configurations; both were corrected and tested.
+
+Delivered:
+
+- [Account ADR](../decisions/0006-local-accounts.md): normalization, Argon2 profile
+  and measurement protocol, exact token/CSRF encoding, expiry/reset, Host/Origin,
+  LAN HTTP and bounded password work. Actual hashing measurements remain W2 work.
+- [Durable OpenAPI](../../contracts/durable-openapi.json),
+  [payload schemas](../../contracts/durable-http.schema.json) and
+  [fixtures](../../fixtures/durable/README.md): account, pack/artifact, game/current
+  game, receipt, history, exact board, error and uncertain-create cases. Existing
+  experiment routes and game envelope schemas are preserved.
+- Additive migration 0002 and [repository ports](../../contracts/repositories.md):
+  reservations, publication/rights acceptance, entries, reports, vectors, artifacts,
+  cohort indexes, one active game/account and explicit transaction ownership.
+- [Runtime contract](../../contracts/hub-runtime.md), typed clock/lock/inference/
+  HMAC/lifecycle interfaces, fail-closed startup and runnable fake composition.
+- [W2/W3 briefs](s2-w1-session-briefs.md) with exact file ownership, inputs, exclusions,
+  acceptance and coordinator integration responsibilities.
+
+Validation at the reviewed implementation baseline:
+
+| Check | Result |
+| --- | --- |
+| Full Python regression | 355 passed |
+| Hub contract suite | 150 passed |
+| Node browser suite | 7 passed |
+| Repository Ruff lint / formatting | Passed; 126 Python files formatted |
+| Diff whitespace | Passed |
+| Locked fresh-checkout install | Passed in detached `.worktrees/s2-w1-validation` |
+| Fresh-checkout hub suite / fake CLI | 150 passed / passed |
+| Source distribution and wheel | Built from the fresh checkout |
+| Isolated installed-wheel runtime/repository/schema smoke | Passed; local resources resolved |
+
+Commands: `uv sync --locked --group dev`; `uv run --no-sync pytest -q`;
+`node --test tests/web/*.test.mjs`; `uv run --no-sync ruff check .`;
+`uv run --no-sync ruff format --check .`; `uv build --no-build-isolation`;
+`uv run --no-sync python -m semaphore_hub --smoke`.
+The isolated wheel check uses `--refresh-package semaphore-core --isolated
+--no-project` with the built wheel and `python -I`; it exercises both fake adapter
+groups and locally resolved packaged schemas. No model download or inference runs.
+
+The executable baseline freezes W1 boundaries. SQL adapters and real HTTP/auth/game/
+operations implementations remain W2/W3 work; fake adapters must never serve as a
+production fallback. No real-model, human, backup restore or process-crash acceptance
+is claimed. Only empty or known migration-prefix databases are supported. Migration
+0002 does not publish old version rows or fabricate missing artifact pins; an old
+database violating new uniqueness constraints fails atomically for operator review.
+
+The local integration is committed; nothing has been pushed. No W2 baseline is
+issued until its entry gate is resolved. Earlier slice notes below are historical.
+
+## Initial slice (historical)
 Owner instruction: “get started with stage 2 first wave”. Coordinator branch:
 `codex/s2-w1-a-contracts`. Starting HEAD:
 `67334c2c7fbc1b2840ff06f7141087f9a450490d`. Existing local changes to the project
@@ -61,7 +126,7 @@ for controlled real-model measurements and human acceptance; no synthetic storag
 test in this slice closes them. Ruleset/storage reconciliation in decision 0005
 is adopted and should not be reported as the old unresolved contract mismatch.
 
-## Remaining W1 work before a worker baseline
+## Initial remaining-work list (now completed above)
 
 1. Account ADR: freeze signup/HTTP choices, normalization, hashing measurements,
    session/CSRF lifecycle, exact Host/Origin validation, reset and bounded throttling.

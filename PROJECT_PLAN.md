@@ -1,5 +1,14 @@
 # Semaphore project plan
 
+November 16, 2026 W1 completion: Stage 2 shared contracts and the executable
+integration skeleton are frozen at `92aaffb0594ea329489b3df1eeea6336312edda3`.
+Three isolated W1 helpers were reviewed and integrated locally. Validation passed:
+355 Python tests, 7 browser tests, lint/format, fresh locked install and packaged
+runtime/repository/schema smoke. See [W1 evidence](docs/stages/s2-w1-foundation.md)
+and [implementation briefs](docs/stages/s2-w1-session-briefs.md). W2 is not dispatched;
+Stage 1's 100 ms, human, offline/resource and content gates remain open. Earlier
+status paragraphs below are historical.
+
 November 16, 2026 implementation update: the owner requested Stage 2's first wave.
 S2-W1-A has started on `codex/s2-w1-a-contracts`; the initial installable hub,
 SQLite migration and startup composition slice is recorded in the

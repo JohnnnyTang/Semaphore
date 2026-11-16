@@ -1,8 +1,8 @@
 # Stage 2 — Durable playable foundation
 
 Planned November 16, 2026 (Asia/Shanghai).
-Status: W1-A running; first storage/startup slice implemented on November 16.
-W2 remains blocked; W1 contracts are not yet frozen.
+Status: W1-A integrated locally on November 16; executable boundaries frozen at
+`92aaffb0594ea329489b3df1eeea6336312edda3`. W2 remains blocked on Stage 1 disposition.
 Planning snapshot: `67334c2c7fbc1b2840ff06f7141087f9a450490d`.
 This is an inspection baseline, not a dispatch commit. Each wave records its own
 reviewed, committed baseline before workers start.
@@ -98,8 +98,10 @@ Coordinator exclusively owns `PROJECT_PLAN.md`, this record, `contracts/`,
 `docs/decisions/`, root dependency/lock/build/CI files, shared package exports,
 `packages/semaphore_hub/migrations/`, `packages/semaphore_hub/storage/`,
 `packages/semaphore_hub/interfaces.py` and application composition/entry points.
-The `semaphore_hub` package and new paths below are planned, not existing code.
-W1 must make package discovery/install work before workers consume them.
+The `semaphore_hub` shared package is installed and verified by W1. Domain
+implementation directories below remain W2/W3 work. W1 helpers drafted disjoint
+coordinator-owned files in isolated worktrees; the coordinator reviewed/integrated
+them before freezing this boundary. No W2 worker ownership was delegated early.
 Core engine/model changes and schema copies are coordinator-owned integration work.
 Workers request shared changes rather than editing those files concurrently.
 
@@ -273,7 +275,7 @@ A planning-only edit requires link/consistency and diff checks, not runtime test
 
 | Wave | Baseline SHA | State | Handoff |
 | --- | --- | --- | --- |
-| W1 | `67334c2c7fbc1b2840ff06f7141087f9a450490d` plus existing uncommitted planning edits | Running | [Initial storage/startup slice](s2-w1-foundation.md); no worker baseline issued |
-| W2 | After W1 integration | Blocked | W1 interfaces and Stage 1 proceed disposition |
+| W1 | `92aaffb0594ea329489b3df1eeea6336312edda3` | Integrated locally | [Evidence and contract baseline](s2-w1-foundation.md); [worker briefs](s2-w1-session-briefs.md) |
+| W2 | To issue after entry decision | Blocked | W1 complete; Stage 1 closure or explicit named carryover disposition still required |
 | W3 | After W2 integration | Blocked | Integrated accounts, packs and browser fixtures |
 | W4 | After W3 integration | Blocked | Integrated durable service/operations and independent probes |
