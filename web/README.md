@@ -157,3 +157,11 @@ Run tests/web/browser-hardening.js with the Playwright CLI against the local QA
 server to check delayed poll/quit isolation, immediate leave, welcome widths, and
 help focus restoration. Existing browser-refine.js, browser-tutorial.js, and
 browser-motion.js cover themes, warm-up, clears, desktop scaling, and reduced motion.
+
+## Durable account browser (W2)
+
+Open `/web/durable.html` on the same origin as the durable `/api/v1` service.
+This separate entry preserves the existing experiment. W2 checks use frozen HTTP
+fixtures; real account/game composition is later integration work. See
+[W2 browser evidence](../docs/evidence/s2-w2-browser.md) for behavior, reproduction
+and remaining acceptance. The page has no automatic fixture fallback.
