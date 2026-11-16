@@ -25,7 +25,7 @@ export class DurableTransport {
 export class DurableClient {
   constructor(transport) {
     this.transport = transport; this.store = new GameStore(); this.session = null;
-    this.generation = 0; this.creationUncertain = false; this.busy = false; this.boardQuery = null;
+    this.generation = 0; this.creationUncertain = false; this.uncertainAccountId = null; this.busy = false; this.boardQuery = null;
   }
   async request(path, body, method = body === undefined ? 'GET' : 'POST') {
     const generation = this.generation;
@@ -36,21 +36,27 @@ export class DurableClient {
     }
     catch (error) {
       if (generation !== this.generation) throw new ApiError('session_changed');
-      if (error.status === 401 && generation === this.generation) this.clearPrivate();
+      if (error.status === 401 && generation === this.generation) this.clearPrivate({ preserveCreation: true });
       throw error;
     }
   }
-  clearPrivate() {
+  clearPrivate({ preserveCreation = false } = {}) {
+    if (!preserveCreation) { this.creationUncertain = false; this.uncertainAccountId = null; }
     this.generation++; this.session = null; this.transport.csrf = null; this.store = new GameStore();
     this.boardQuery = null;
   }
   async authenticate(kind, body) {
     const value = await this.request(`/auth/${kind}`, body);
-    this.clearPrivate(); this.session = value; this.transport.csrf = value.csrf_token;
+    const preserveCreation = this.creationUncertain && this.uncertainAccountId === value.account.account_id;
+    this.clearPrivate({ preserveCreation }); this.session = value; this.transport.csrf = value.csrf_token;
     return value;
   }
   async restore() {
     const value = await this.request('/auth/session');
+    if (this.session?.account.account_id !== value.account.account_id) {
+      const preserveCreation = this.creationUncertain && this.uncertainAccountId === value.account.account_id;
+      this.clearPrivate({ preserveCreation });
+    }
     this.session = value; this.transport.csrf = value.csrf_token; return value;
   }
   async logout() { await this.request('/auth/logout', undefined, 'POST'); this.clearPrivate(); }
@@ -60,18 +66,20 @@ export class DurableClient {
     try {
       const envelope = await this.request('/games', { mode: 'casual', artifact_id: artifact });
       if (this.store.snapshot?.game_id !== envelope.snapshot.game_id) this.store = new GameStore();
-      this.store.apply(envelope); this.creationUncertain = false;
+      this.store.apply(envelope); this.creationUncertain = false; this.uncertainAccountId = null;
       return envelope;
     } catch (error) {
       // A lost or server-error response cannot prove that the create did not commit.
-      if (error.code !== 'session_changed' && (!error.status || error.status >= 500)) this.creationUncertain = true;
+      if (error.code !== 'session_changed' && (!error.status || error.status >= 500)) {
+        this.creationUncertain = true; this.uncertainAccountId = this.session?.account.account_id ?? null;
+      }
       throw error;
     } finally { this.busy = false; }
   }
   async discover() {
     const envelope = await this.request('/games/current');
     if (this.store.snapshot?.game_id !== envelope.snapshot.game_id) this.store = new GameStore();
-      this.store.apply(envelope); this.creationUncertain = false;
+      this.store.apply(envelope); this.creationUncertain = false; this.uncertainAccountId = null;
     return envelope;
   }
   async send(clue, id = globalThis.crypto.randomUUID()) {

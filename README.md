@@ -14,7 +14,7 @@ policies, migrations, repository interfaces and a runnable fake composition.
 See the [W1 record](docs/stages/s2-w1-foundation.md) and
 [worker briefs](docs/stages/s2-w1-session-briefs.md). This does not yet provide
 a complete durable game HTTP service. W2 accounts, installed packs and browser
-foundation slice is integrated locally; W2 acceptance remains open. See the [W2 record](docs/stages/s2-w2-foundations.md).
+foundation is complete, including operator CLI and real trusted installation. See the [W2 record](docs/stages/s2-w2-foundations.md).
 Stage 1 acceptance remains open; the experiment continues to run unchanged.
 
 Stage 1, Wave 4 is integrated locally: callable core, authoritative experimental server, thin browser and independent probes. See the [Wave 4 record](docs/stages/s1-w4-playable-experiment.md) for validation and W5 gates.

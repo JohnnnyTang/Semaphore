@@ -1,5 +1,10 @@
 # Semaphore project plan
 
+November 16, 2026 W2 completion: account/pack/browser foundation, host CLI and
+real trusted installation are complete. W3 is authorized next with parallel games,
+operations and independent-probe workers. See [W2 closure](docs/stages/s2-w2-foundations.md).
+All named Stage 1/W4 gates remain open. Earlier status entries are historical.
+
 November 16, 2026 W1 completion: Stage 2 shared contracts and the executable
 integration skeleton are frozen at `92aaffb0594ea329489b3df1eeea6336312edda3`.
 Three isolated W1 helpers were reviewed and integrated locally. Validation passed:

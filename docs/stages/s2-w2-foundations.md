@@ -1,6 +1,6 @@
 # Stage 2 W2 — Parallel implementation
 
-November 16, 2026 (Asia/Shanghai). State: first implementation slice integrated locally; W2 acceptance remains open.
+November 16, 2026 (Asia/Shanghai). State: W2 implementation and bounded acceptance complete; Stage 1/W4 gates retained.
 Common baseline: `8ac07292ed469be28f755edd28dd4e711ed79c75`.
 
 The owner requested “get started with W2 using parallel sub agents”. This explicitly
@@ -67,3 +67,26 @@ All named Stage 1 carryovers above remain open. Nothing has been pushed.
 
 These results cover the integrated code, including coordinator composition checks.
 They do not imply real-model, human, complete-service or Stage 1 acceptance.
+
+
+## W2 completion — November 16, 2026
+
+The owner requested finishing W2 before parallel W3. The remaining operator
+bootstrap/reset/install/artifact CLI and bounded loopback account/pack listener
+are implemented; see [host runbook](../operations/w2-host.md). Cross-process DB
+and asset locks prevent install/cleanup races. The foundation listener rejects
+DBs requiring W3 game/deletion recovery. This is intentionally not the W4 LAN
+browser/game deployment.
+
+[Fresh real installation](../evidence/s2-w2-installation.md) published the exact
+235-entry authored MIT pack after pinned-model verification: 233 reachable entries
+(99.1489%), 705 clues, 51,074 ms. Accepted artifact, exact retry and reopen checks
+passed. Private runtime data stays ignored. Review also fixed browser uncertainty
+and stale private state across account changes, retaining same-account recovery.
+
+This supersedes the remaining-W2 items above. All named Stage 1 carryovers and
+W4 signed-in real-game/human acceptance remain open. No production readiness,
+independent human content approval or latency-target closure is claimed.
+
+Closure validation: 395 Python tests, 23 Node tests, Ruff lint/format, package build and diff checks passed.
+

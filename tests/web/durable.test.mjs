@@ -75,3 +75,66 @@ test('logout is a bodyless POST with session CSRF', async () => {
   const client = new DurableClient(transport); transport.csrf='token'; await client.logout();
   assert.equal(call.method,'POST'); assert.equal(call.body,undefined); assert.equal(call.headers['X-CSRF-Token'],'token');
 });
+
+
+test('uncertain creation stays with its account through expiry but clears on account change', async () => {
+  const first = value('session');
+  const second = structuredClone(first); second.account.account_id = 'different-account';
+  let response = first;
+  const client = new DurableClient({ request: async path => {
+    if (path === '/games') throw Object.assign(new Error('unavailable'), { code: 'unavailable' });
+    if (path === '/auth/session') throw Object.assign(new Error('unauthenticated'), { status: 401 });
+    return response;
+  } });
+  await client.authenticate('login', {});
+  await assert.rejects(client.create('artifact'));
+  await assert.rejects(client.restore());
+  await client.authenticate('login', {});
+  assert.equal(client.creationUncertain, true);
+  await assert.rejects(client.create('artifact'), /creation_uncertain/);
+  response = second;
+  await client.authenticate('login', {});
+  assert.equal(client.creationUncertain, false);
+  assert.equal(client.uncertainAccountId, null);
+});
+
+test('explicit logout clears uncertain creation for the next signed-in account', async () => {
+  const client = new DurableClient({request: async () => null});
+  client.creationUncertain = true; client.uncertainAccountId = 'first-account';
+  await client.logout();
+  assert.equal(client.creationUncertain, false);
+  assert.equal(client.uncertainAccountId, null);
+});
+
+
+test('session restoration preserves same-account commands and clears cross-tab account state', async () => {
+  let response = value('session');
+  let finishOldRequest;
+  const client = new DurableClient({request: async path => {
+    if (path === '/games/current') return new Promise(resolve => { finishOldRequest = resolve; });
+    return structuredClone(response);
+  }});
+  await client.restore();
+  client.store.apply(value('envelope-snapshot'));
+  client.store.command('snow', 'uncertain-command');
+  client.store.seen.add('already-animated');
+  client.creationUncertain = true; client.uncertainAccountId = response.account.account_id;
+  client.boardQuery = 'private-round';
+  const priorStore = client.store;
+  await client.restore();
+  assert.equal(client.store, priorStore);
+  assert.equal(client.store.pending.command_id, 'uncertain-command');
+  assert.equal(client.creationUncertain, true);
+  const oldRequest = client.discover();
+  response = structuredClone(response); response.account.account_id = 'other-tab-account';
+  await client.restore();
+  finishOldRequest(value('envelope-snapshot'));
+  await assert.rejects(oldRequest, /session_changed/);
+  assert.equal(client.session.account.account_id, 'other-tab-account');
+  assert.equal(client.store.snapshot, null);
+  assert.equal(client.store.pending, null);
+  assert.equal(client.store.seen.size, 0);
+  assert.equal(client.creationUncertain, false);
+  assert.equal(client.uncertainAccountId, null);
+  assert.equal(client.boardQuery, null);
+});
