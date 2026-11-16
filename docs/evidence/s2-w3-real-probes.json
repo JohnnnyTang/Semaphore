@@ -1,0 +1,34 @@
+{
+  "adapter": "experiments.durable_acceptance.real_adapter",
+  "probes": [
+    {
+      "probe": "admission.before_commit",
+      "passed": true
+    },
+    {
+      "probe": "admission.after_commit",
+      "passed": true
+    },
+    {
+      "probe": "completion.before_commit",
+      "passed": true
+    },
+    {
+      "probe": "completion.after_commit",
+      "passed": true
+    },
+    {
+      "probe": "terminal.before_commit",
+      "passed": true
+    },
+    {
+      "probe": "terminal.after_commit",
+      "passed": true
+    },
+    {
+      "probe": "ownership-retry-deletion-cohort-restore",
+      "passed": true
+    }
+  ],
+  "real_model_acceptance": false
+}

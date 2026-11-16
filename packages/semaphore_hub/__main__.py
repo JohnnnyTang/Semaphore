@@ -1,4 +1,4 @@
-"""Host-only W2 account and trusted-pack operations; durable games arrive in W3."""
+"""Host-only account, trusted-pack and durable game operations."""
 
 import argparse
 import getpass
@@ -27,6 +27,8 @@ def main(argv=None) -> None:
     parser.add_argument("--csrf-key", help="Host-restricted file containing 32 random bytes")
     parser.add_argument("--origin", default="http://localhost:8080")
     parser.add_argument("--disable-signup", action="store_true")
+    for option in ("command-keys", "ledger", "ledger-key", "backups", "backup-key"):
+        parser.add_argument("--" + option, help="External durable host path")
     commands = parser.add_subparsers(dest="command")
     commands.add_parser("migrate")
     bootstrap = commands.add_parser("bootstrap")
@@ -47,6 +49,15 @@ def main(argv=None) -> None:
     artifact.add_argument("--operator", required=True)
     listener = commands.add_parser("serve-foundation")
     listener.add_argument("--port", type=int, default=8080)
+    durable = commands.add_parser("serve-durable")
+    durable.add_argument("--port", type=int, default=8080)
+    for name in ("cleanup", "backup"):
+        commands.add_parser(name)
+    for name in ("delete-clues", "delete-account"):
+        commands.add_parser(name).add_argument("account_id")
+    restore = commands.add_parser("restore")
+    restore.add_argument("backup")
+    restore.add_argument("destination")
     argv = list(sys.argv[1:] if argv is None else argv)
     # Preserve the original one-argument migration command despite subparser ambiguity.
     if len(argv) == 1 and not argv[0].startswith("-"):
@@ -88,6 +99,15 @@ def main(argv=None) -> None:
 def run_operator(args, parser):
     from .host import prepare, serve
 
+    if args.command in {
+        "serve-durable",
+        "cleanup",
+        "backup",
+        "delete-clues",
+        "delete-account",
+        "restore",
+    }:
+        return run_durable(args, parser)
     embedder = None
     if args.command == "install-pack":
         from semaphore_core.embeddings import OllamaConfig, OllamaEmbedder, PinnedEmbedder
@@ -135,6 +155,55 @@ def run_operator(args, parser):
         if not 1 <= args.port <= 65535:
             parser.error("port must be between 1 and 65535")
         serve(auth, packs, args.port)
+
+
+def run_durable(args, parser):
+    from .durable_host import DurableHost
+    from .host import exclusive_host
+
+    for name in ("command_keys", "ledger", "ledger_key", "backups", "backup_key"):
+        if not getattr(args, name):
+            parser.error("durable commands require --" + name.replace("_", "-"))
+    embedder = None
+    if args.command == "serve-durable":
+        if not 1 <= args.port <= 65535:
+            parser.error("port must be between 1 and 65535")
+        from semaphore_core.embeddings import OllamaConfig, OllamaEmbedder, PinnedEmbedder
+
+        embedder = PinnedEmbedder(OllamaEmbedder(OllamaConfig.from_env()))
+    host = DurableHost(
+        args.database,
+        args.assets,
+        TransportPolicy(args.origin, not args.disable_signup),
+        args.csrf_key,
+        args.command_keys,
+        args.ledger,
+        args.ledger_key,
+        args.backups,
+        args.backup_key,
+        embedder=embedder,
+    )
+    try:
+        if args.command == "serve-durable":
+            host.serve(args.port)
+        elif args.command == "restore":
+            with exclusive_host(args.destination):
+                print(host.restore(args.backup, args.destination))
+        else:
+            host.start()
+            if args.command == "backup":
+                print(host.backup())
+            elif args.command == "cleanup":
+                host.operations.daily_cleanup()
+                print("Private data expired and backups rotated.")
+            elif args.command == "delete-clues":
+                host.operations.delete_clues(args.account_id)
+                print("Clues deleted; deletion ledger retained.")
+            elif args.command == "delete-account":
+                host.operations.delete_account(args.account_id)
+                print("Account erased; deletion ledger retained.")
+    finally:
+        host.close()
 
 
 if __name__ == "__main__":

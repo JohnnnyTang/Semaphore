@@ -105,7 +105,7 @@ def crash_probe(adapter, phase, edge):
     )
     if state["command_count"]:
         expected = (
-            "completed"
+            "miss"
             if phase == "terminal" or (phase == "completion" and edge == "after")
             else "game_over"
         )

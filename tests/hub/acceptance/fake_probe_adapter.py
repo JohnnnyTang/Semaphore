@@ -25,7 +25,7 @@ class Fake:
                 command_count=int(phase in {"completion", "terminal"}),
                 score_count=0,
                 end_reason=None,
-                receipt_outcome="completed" if phase == "terminal" else "pending",
+                receipt_outcome="miss" if phase == "terminal" else "pending",
                 raw_count=1,
                 inference_calls=1,
                 session_count=1,
@@ -41,7 +41,7 @@ class Fake:
             if operation == "admission":
                 s.update(command_count=1, pending_count=1, receipt_outcome="pending")
             elif operation == "completion":
-                s.update(pending_count=0, receipt_outcome="completed")
+                s.update(pending_count=0, receipt_outcome="miss")
             else:
                 s.update(status="over", end_reason="pack_exhausted", score_count=1)
             self.save()
@@ -63,7 +63,7 @@ class Fake:
                 self.save()
             if payload["variant"] != "exact" and self.fault != "changed_retry":
                 return {"status": 200, "receipt": {"outcome": "command_conflict"}}
-            return {"status": 200, "receipt": {"id": "synthetic", "outcome": "completed"}}
+            return {"status": 200, "receipt": {"id": "synthetic", "outcome": "miss"}}
         elif operation == "foreign_receipt":
             return {"status": 200 if self.fault == "foreign_access" else 404}
         elif operation == "delete_clues":

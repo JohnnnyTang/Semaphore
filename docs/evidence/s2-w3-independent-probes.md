@@ -32,7 +32,7 @@ raw clues, repeated inference, cross-cohort cursor acceptance, broken full tie-k
 pagination and ignored external deletion ledger. Tests also reject missing fault
 checkpoints and verify that load timing never records exception contents.
 
-## Remaining acceptance
+## Original handoff (superseded by integration below)
 
 This is harness validation, not an integrated SQLite/service crash pass. Coordinator
 must provide the actual E/F adapter, map real commit hooks and run all scenarios.
@@ -52,3 +52,41 @@ Terminal fault fixtures use real casual deadline `pack_exhausted`, following one
 non-clearing completed clue, to permit an isolated terminal transaction and a
 natural zero score. `pack_cleared` belongs to completion itself and cannot be
 fabricated as a later due-work transition.
+
+
+## Real-service integration — November 16, 2026
+
+The real adapter now composes GameService, ResultsService, AuthService,
+Operations, ExternalLedger and EncryptedBackups over SQLite. Each fault hook
+brackets the actual service transaction commit, selected by the corresponding
+command-admission, receipt-finalization or terminal-game SQL change. The harness
+forcibly kills the worker at each hook and starts a fresh worker for Application
+recovery. No reducer, receipt, recovery, score, deletion or backup decisions are
+reimplemented by the adapter.
+
+All six commit-window probes and the ownership/retry/cohort/deletion/encrypted
+restore probe passed. The [sanitized report](s2-w3-real-probes.json) records the
+seven outcomes. Regression command `python -m pytest tests/hub/acceptance -q`
+passed **25 tests**, including the existing deliberate-defect oracle checks.
+Ruff lint and formatting passed for both probe directories.
+
+Reproduce with a new disposable directory:
+
+```powershell
+.venv/Scripts/python.exe -m experiments.durable_acceptance --adapter experiments.durable_acceptance.real_adapter --workspace data/FRESH-W3-PROBES
+```
+
+The fixture installer alone substitutes synthetic verification measurements and
+vectors. The injected inference queue returns a deterministic non-clearing result,
+so the persisted receipt is `miss` and natural terminal score is zero. The oracle
+now checks this actual frozen receipt outcome instead of requiring adapter
+normalization to the invented `completed` value. Inference invocations are counted
+at the injected queue's submit method, including unexpected retry submissions.
+The tie records use real reducer deadline completion with equal timestamps and
+scores. The CLI closes each subprocess in `finally`, including failed probes.
+
+These are real local SQLite/service-process crash and privacy results, using
+synthetic clocks, model outputs and public fixture keys. They do not establish
+network transport/browser integration, real model performance, human acceptance,
+remote-host deployment or independent content quality. Those W4 and Stage 1 gates
+remain open; concrete host readiness/key/asset validation is separately tested.

@@ -100,12 +100,14 @@ class QueuedInference:
             if item is not None and item[0].command_id == command_id:
                 item[2] = True
 
-    def close(self):
+    def close(self, *, wait=False):
         with self._condition:
             self._closed = True
             for item in self._outstanding.values():
                 item[2] = True
             self._condition.notify_all()
+        if wait:
+            self._thread.join()
 
     def _run(self):
         while True:

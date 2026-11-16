@@ -8,7 +8,7 @@ material and must never be reported as integrated persistence acceptance.
 Run after coordinator integration:
 
 ```powershell
-uv run --no-sync python -m experiments.durable_acceptance --adapter YOUR_MODULE --workspace data/probes/FRESH_DIRECTORY
+uv run --no-sync python -m experiments.durable_acceptance --adapter experiments.durable_acceptance.real_adapter --workspace data/probes/FRESH_DIRECTORY
 ```
 
 The workspace must be empty and contain only disposable synthetic data. Never
@@ -61,8 +61,8 @@ idempotency comparison): `status`, `end_reason`, `command_count`, `pending_count
 `display_name`, `published_count`, `namespace_reserved`.
 Counts concern the primary account/game, except publication refers to its shared
 fixture pack. `raw_count` includes all raw/derived private clue copies.
-`receipt_outcome` normalizes a successfully completed receipt to `completed`,
-and interrupted pending receipt to `game_over`; it must reflect the saved receipt.
+`receipt_outcome` is the persisted receipt outcome: the non-clearing synthetic
+fixture yields `miss`, and interrupted pending receipts yield `game_over`.
 `inference_calls` is the cumulative real injected-inference invocation counter,
 not retry request count. Pack namespace stays reserved after account deletion.
 

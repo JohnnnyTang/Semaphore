@@ -137,3 +137,33 @@ class EncryptedBackups:
             for suffix in ("-wal", "-shm", "-journal", ""):
                 Path(str(temporary) + suffix).unlink(missing_ok=True)
         return destination
+
+    def validate_restorable(self, now_ms, keys, validate_assets):
+        """Check external dependencies of every unexpired authenticated snapshot.
+
+        Decrypt one snapshot at a time into memory, never a plaintext disk file.
+        Return asset names to retain alongside the live database's assets.
+        """
+        from .repository import SQLiteMaintenance
+
+        if type(now_ms) is not int or now_ms < 0:
+            raise ValueError("invalid backup time")
+        self._safe(self.root)
+        required = {keys.active_version()}
+        retained = set()
+        for path in sorted(self.root.glob("*.backup")):
+            header, raw = self._open(path)
+            if header["created_at"] > now_ms:
+                raise ValueError("future dated backup")
+            if header["expires_at"] <= now_ms:
+                continue
+            with closing(sqlite3.connect(":memory:")) as snapshot:
+                snapshot.deserialize(raw)
+                if snapshot.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
+                    raise ValueError("backup integrity check")
+                if snapshot.execute("PRAGMA foreign_key_check").fetchone() is not None:
+                    raise ValueError("backup foreign key check")
+                required.update(SQLiteMaintenance(snapshot).required_hmac_keys(now_ms))
+                retained.update(validate_assets(snapshot))
+        keys.validate_versions(frozenset(required))
+        return frozenset(retained)

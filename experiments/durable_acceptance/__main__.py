@@ -19,8 +19,15 @@ def main():
     for phase in ("admission", "completion", "terminal"):
         for edge in ("before", "after"):
             adapter = ProcessAdapter(args.adapter, args.workspace / f"{phase}-{edge}")
-            results.append(crash_probe(adapter, phase, edge))
-    results.append(behavior_probe(ProcessAdapter(args.adapter, args.workspace / "behavior")))
+            try:
+                results.append(crash_probe(adapter, phase, edge))
+            finally:
+                adapter.close()
+    adapter = ProcessAdapter(args.adapter, args.workspace / "behavior")
+    try:
+        results.append(behavior_probe(adapter))
+    finally:
+        adapter.close()
     print(
         json.dumps(
             {"adapter": args.adapter, "probes": results, "real_model_acceptance": False}, indent=2

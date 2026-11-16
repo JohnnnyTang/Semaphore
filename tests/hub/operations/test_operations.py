@@ -321,3 +321,63 @@ def test_restore_failure_removes_plaintext_sidecars(env, tmp_path):
     with pytest.raises(RuntimeError):
         backups.prepare_restore(backup, tmp_path / "failed.db", 1, failed)
     assert not list(tmp_path.glob("*.restoring*"))
+
+
+def test_backup_dependencies_include_keys_absent_from_live_database(env, tmp_path):
+    import base64
+
+    from semaphore_hub.runtime import FileCommandKeys
+
+    backups = EncryptedBackups(tmp_path / "backups", b"b" * 32)
+    backups.create(env.path, 0)
+    with env.db.transaction() as db:
+        db.execute("DELETE FROM commands")
+    key_path = tmp_path / "keys.json"
+    key_path.write_text(
+        json.dumps({"active": "k2", "keys": {"k2": base64.b64encode(b"2" * 32).decode()}})
+    )
+    keys = FileCommandKeys(key_path)
+    visited = []
+
+    def assets(db):
+        visited.append(db.execute("SELECT count(*) FROM commands").fetchone()[0])
+        return {"retained.manifest"}
+
+    with pytest.raises(ValueError, match="missing command key"):
+        backups.validate_restorable(1, keys, assets)
+    assert visited == [1]
+    key_path.write_text(
+        json.dumps(
+            {
+                "active": "k2",
+                "keys": {
+                    "k1": base64.b64encode(b"1" * 32).decode(),
+                    "k2": base64.b64encode(b"2" * 32).decode(),
+                },
+            }
+        )
+    )
+    assert backups.validate_restorable(1, FileCommandKeys(key_path), assets) == {
+        "retained.manifest"
+    }
+    assert backups.validate_restorable(BACKUP_RETENTION_MS, keys, assets) == frozenset()
+    assert not list(tmp_path.glob("*.restoring*"))
+
+
+def test_backup_dependencies_check_every_snapshot_and_reject_future(env, tmp_path):
+    backups = EncryptedBackups(tmp_path / "backups", b"b" * 32)
+    backups.create(env.path, 0)
+    backups.create(env.path, 1)
+    visits = []
+
+    def assets(db):
+        visits.append(True)
+        if len(visits) == 2:
+            raise ValueError("missing immutable asset")
+        return set()
+
+    with pytest.raises(ValueError, match="missing immutable asset"):
+        backups.validate_restorable(2, env.keys, assets)
+    assert len(visits) == 2
+    with pytest.raises(ValueError, match="future dated"):
+        backups.validate_restorable(0, env.keys, lambda db: set())
