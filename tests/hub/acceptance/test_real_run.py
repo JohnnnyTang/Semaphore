@@ -121,3 +121,46 @@ def test_failure_always_writes_safe_report(tmp_path, monkeypatch):
     assert result["failure"] == "RuntimeError"
     assert "secret detail" not in args.output.read_text()
     assert not result["stage_acceptance"]
+
+
+def test_resource_tree_includes_child_and_retains_exited_cpu():
+    class ProcessError(Exception):
+        pass
+
+    class Process:
+        def __init__(self, pid, rss, cpu):
+            self.pid, self.rss, self.cpu = pid, rss, cpu
+            self.alive = True
+            self.descendants = []
+
+        def children(self, recursive):
+            assert recursive
+            return self.descendants
+
+        def create_time(self):
+            return self.pid * 10
+
+        def is_running(self):
+            return self.alive
+
+        def cpu_times(self):
+            return SimpleNamespace(user=self.cpu, system=0.25)
+
+        def memory_info(self):
+            return SimpleNamespace(rss=self.rss)
+
+        def name(self):
+            return "python.exe"
+
+    launcher, interpreter = Process(10, 3_000_000, 0), Process(11, 90_000_000, 2)
+    launcher.descendants = [interpreter]
+    collector = real_run.ProcessTreeResources(launcher, ProcessError)
+    first = collector.sample()
+    assert first["rss_bytes"] == 93_000_000
+    assert first["cpu_seconds"] == 2.5
+    assert [p["pid"] for p in first["members"]] == [10, 11]
+    interpreter.alive = False
+    launcher.descendants = []
+    after = collector.sample()
+    assert after["rss_bytes"] == 3_000_000
+    assert after["cpu_seconds"] == first["cpu_seconds"]

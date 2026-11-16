@@ -279,6 +279,58 @@ def restart_check(client, artifact, root, port, process, origin, account):
         stop(replacement)
 
 
+class ProcessTreeResources:
+    """Include Windows venv launcher descendants; never read command lines."""
+
+    def __init__(self, root, process_error):
+        self.root = root
+        self.process_error = process_error
+        self.known = {}
+        self.cpu = {}
+
+    def sample(self):
+        errors = 0
+        try:
+            processes = [self.root, *self.root.children(recursive=True)]
+        except self.process_error:
+            processes = [self.root]
+            errors += 1
+        for process in processes:
+            try:
+                key = (process.pid, process.create_time())
+                self.known[key] = process
+            except self.process_error:
+                errors += 1
+        members = []
+        for key, process in list(self.known.items()):
+            try:
+                if not process.is_running() or process.create_time() != key[1]:
+                    del self.known[key]
+                    continue
+                cpu = process.cpu_times()
+                current = cpu.user + cpu.system
+                rss = process.memory_info().rss
+                self.cpu[key] = max(self.cpu.get(key, 0), current)
+                members.append(
+                    {
+                        "pid": process.pid,
+                        "created_at": key[1],
+                        "name": process.name(),
+                        "rss_bytes": rss,
+                        "cpu_seconds": current,
+                    }
+                )
+            except self.process_error:
+                errors += 1
+        return {
+            "at_ns": time.time_ns(),
+            "rss_bytes": sum(p["rss_bytes"] for p in members),
+            "cpu_seconds": sum(self.cpu.values()),
+            "members": members,
+            "process_errors": errors,
+        }
+
+
 def orchestrate(args):
     report = {
         "human_acceptance": False,
@@ -318,25 +370,22 @@ def orchestrate(args):
         try:
             import psutil
 
-            monitored = psutil.Process(process.pid)
+            collector = ProcessTreeResources(psutil.Process(process.pid), psutil.Error)
 
             def sample():
                 while not sampler_stop.wait(0.1):
-                    try:
-                        cpu = monitored.cpu_times()
-                        resources.append(
-                            {
-                                "at_ns": time.time_ns(),
-                                "rss_bytes": monitored.memory_info().rss,
-                                "cpu_seconds": cpu.user + cpu.system,
-                            }
-                        )
-                    except psutil.Error:
-                        return
+                    resources.append(collector.sample())
 
             sampler = threading.Thread(target=sample)
             sampler.start()
             report["local_resources"] = resources
+            report["local_resource_scope"] = "hub launcher and all observed descendants"
+            report["local_rss_definition"] = (
+                "sum of live process RSS; shared pages may be counted twice"
+            )
+            report["local_cpu_definition"] = (
+                "sum of last observed cumulative user+system CPU by PID and creation time"
+            )
         except ImportError:
             report["local_resources"] = "psutil unavailable; not measured"
         verifier = launch("verifier", args.workspace, args.port)

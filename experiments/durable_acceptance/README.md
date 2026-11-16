@@ -180,3 +180,12 @@ label and timestamps; warmup failures remain visible and prevent a complete run.
 Per-cohort verifier overlap must intersect a **measured** command interval, not
 just warmup, authentication or game creation. Use a Python environment containing
 psutil for local resource measurements; the runner installs nothing automatically.
+
+Resource collector correction: Windows virtual-environment Python can launch a
+separate interpreter child. The collector now includes the launcher and recursively
+observed descendants, records each PID/creation-time/name and sums current RSS.
+Shared pages can be counted more than once. CPU is the sum of each process's last
+observed cumulative user+system CPU, retaining its last sample after exit. This is
+a sampled lower bound for short-lived processes, not remote model resources.
+Launcher-only measurements from earlier runs are invalid for hub resource claims
+and must remain marked invalid; idle collector validation cannot replace load data.
