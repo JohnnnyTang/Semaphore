@@ -42,3 +42,19 @@ The setup used a five-second empty-schedule accepted test artifact. Runtime data
 and browser sessions remain ignored. Server restart is a separate check; page
 reload does not establish restart persistence. The temporary host/browser were
 stopped after validation. Human/model/offline gates remain open.
+
+## Pending receipt responsiveness follow-up
+
+The durable page's 1,500 ms polling interval could add noticeable delay after
+server inference finished. It now uses the experiment's 250 ms interval. The
+existing single-request guard still suppresses overlapping requests, and hidden
+tabs, signed-out sessions and terminal games do not poll. This changes visible
+receipt freshness, not embedding latency or the inherited 100 ms backend target.
+
+`node --test tests/web/*.test.mjs`: 26 passed. The focused scheduling check runs
+the actual application event wiring with a minimal DOM and controlled delayed
+service. It verifies timer expirations coalesce while a request is pending,
+network failure releases the guard, and visibility/session/terminal conditions
+stop polling. This mocked scheduling check is not a real-browser/model timing
+measurement. Reload the page after any active participant round to adopt the new
+interval; do not interrupt the participant to change it mid-round.

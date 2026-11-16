@@ -90,13 +90,13 @@ $('quit').onclick = () => run(async () => { await client.quit(); await history()
 $('clue-form').onsubmit = event => { event.preventDefault(); if (composing) return; run(async () => {
   const change = await client.send($('clue').value); $('clue').value = ''; say(change?.result ? resultText(change.result) : 'Ranking your clue…');
 }); };
-// One request at a time; hidden tabs pause polling. Revisions and receipt IDs deduplicate results.
+// Match the experiment's 250 ms cadence; one request at a time and hidden tabs pause polling. Revisions and receipt IDs deduplicate results.
 setInterval(() => {
   if (!document.hidden && !pageBusy && client.session && client.store.snapshot?.status === 'active') run(async () => {
     const change = await client.refresh(); if (change?.result) say(resultText(change.result));
     if (client.store.snapshot?.status === 'over') await history();
   });
-}, 1500);
+}, 250);
 await run(async () => {
   config = await client.request('/config'); $('signup').hidden = !config.signup_enabled;
   $('privacy').textContent = `Your clues are saved privately for up to ${config.clue_retention_days} days. Encrypted backups may retain deleted clues for up to ${config.backup_retention_days} additional days. They do not appear on the public board.`;
