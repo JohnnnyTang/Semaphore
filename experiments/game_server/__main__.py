@@ -9,7 +9,7 @@ from urllib.parse import unquote, urlsplit
 
 from semaphore_core.embeddings import OllamaConfig, OllamaEmbedder, PinnedEmbedder
 
-from .artifacts import prepare_artifact
+from .artifacts import DEFAULT_MANIFEST, prepare_artifact
 from .service import GameService, ProtocolError
 
 
@@ -153,7 +153,7 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--manifest", type=Path, required=True)
+    parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--mode", choices=["casual", "event"], default="casual")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8000)

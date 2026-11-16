@@ -1,0 +1,2370 @@
+{
+  "spec_version": "1-experiment-w3",
+  "pack": {
+    "id": "everyday",
+    "name": "Everyday discoveries",
+    "version": "1.0.0",
+    "author": "Semaphore",
+    "description": "Familiar English words across food, animals, nature, home, travel, music and occupations. Authored clues; semantic playtesting pending.",
+    "tags": [
+      "everyday",
+      "english"
+    ],
+    "language": "en",
+    "license": "MIT"
+  },
+  "entries": [
+    {
+      "id": "apple",
+      "text": "apple",
+      "embed_text": "apple, orchard fruit"
+    },
+    {
+      "id": "anchor",
+      "text": "anchor",
+      "embed_text": "anchor, ship weight"
+    },
+    {
+      "id": "balloon",
+      "text": "balloon",
+      "embed_text": "balloon, floating party decoration"
+    },
+    {
+      "id": "basket",
+      "text": "basket",
+      "embed_text": "basket, woven container"
+    },
+    {
+      "id": "bell",
+      "text": "bell",
+      "embed_text": "bell, ringing metal"
+    },
+    {
+      "id": "blanket",
+      "text": "blanket",
+      "embed_text": "blanket, warm bed covering"
+    },
+    {
+      "id": "bridge",
+      "text": "bridge",
+      "embed_text": "bridge, river crossing"
+    },
+    {
+      "id": "broom",
+      "text": "broom",
+      "embed_text": "broom, sweeping tool"
+    },
+    {
+      "id": "bucket",
+      "text": "bucket",
+      "embed_text": "bucket, water carrier"
+    },
+    {
+      "id": "candle",
+      "text": "candle",
+      "embed_text": "candle, wax light"
+    },
+    {
+      "id": "carrot",
+      "text": "carrot",
+      "embed_text": "carrot, orange root"
+    },
+    {
+      "id": "castle",
+      "text": "castle",
+      "embed_text": "castle, fortified home"
+    },
+    {
+      "id": "chair",
+      "text": "chair",
+      "embed_text": "chair, single seat"
+    },
+    {
+      "id": "clock",
+      "text": "clock",
+      "embed_text": "clock, time display"
+    },
+    {
+      "id": "cloud",
+      "text": "cloud",
+      "embed_text": "cloud, sky vapor"
+    },
+    {
+      "id": "compass",
+      "text": "compass",
+      "embed_text": "compass, direction finder"
+    },
+    {
+      "id": "crown",
+      "text": "crown",
+      "embed_text": "crown, royal headwear"
+    },
+    {
+      "id": "drum",
+      "text": "drum",
+      "embed_text": "drum, percussion instrument"
+    },
+    {
+      "id": "feather",
+      "text": "feather",
+      "embed_text": "feather, bird covering"
+    },
+    {
+      "id": "fork",
+      "text": "fork",
+      "embed_text": "fork, pronged utensil"
+    },
+    {
+      "id": "glacier",
+      "text": "glacier",
+      "embed_text": "glacier, slow river of ice"
+    },
+    {
+      "id": "guitar",
+      "text": "guitar",
+      "embed_text": "guitar, strummed strings"
+    },
+    {
+      "id": "hammer",
+      "text": "hammer",
+      "embed_text": "hammer, nail driver"
+    },
+    {
+      "id": "helmet",
+      "text": "helmet",
+      "embed_text": "helmet, protective headwear"
+    },
+    {
+      "id": "island",
+      "text": "island",
+      "embed_text": "island, land surrounded by water"
+    },
+    {
+      "id": "key",
+      "text": "key",
+      "embed_text": "key, lock opener"
+    },
+    {
+      "id": "ladder",
+      "text": "ladder",
+      "embed_text": "ladder, climbing rungs"
+    },
+    {
+      "id": "lantern",
+      "text": "lantern",
+      "embed_text": "lantern, portable light"
+    },
+    {
+      "id": "lemon",
+      "text": "lemon",
+      "embed_text": "lemon, sour yellow fruit"
+    },
+    {
+      "id": "mirror",
+      "text": "mirror",
+      "embed_text": "mirror, reflective glass"
+    },
+    {
+      "id": "needle",
+      "text": "needle",
+      "embed_text": "needle, sewing point"
+    },
+    {
+      "id": "oven",
+      "text": "oven",
+      "embed_text": "oven, baking chamber"
+    },
+    {
+      "id": "pencil",
+      "text": "pencil",
+      "embed_text": "pencil, erasable writing tool"
+    },
+    {
+      "id": "pillow",
+      "text": "pillow",
+      "embed_text": "pillow, head cushion"
+    },
+    {
+      "id": "rope",
+      "text": "rope",
+      "embed_text": "rope, twisted cord"
+    },
+    {
+      "id": "shell",
+      "text": "shell",
+      "embed_text": "shell, mollusk covering"
+    },
+    {
+      "id": "spoon",
+      "text": "spoon",
+      "embed_text": "spoon, soup utensil"
+    },
+    {
+      "id": "tent",
+      "text": "tent",
+      "embed_text": "tent, camping shelter"
+    },
+    {
+      "id": "umbrella",
+      "text": "umbrella",
+      "embed_text": "umbrella, rain shield"
+    },
+    {
+      "id": "wheel",
+      "text": "wheel",
+      "embed_text": "wheel, rolling circle"
+    },
+    {
+      "id": "apricot",
+      "text": "apricot",
+      "embed_text": "apricot, soft orange fruit"
+    },
+    {
+      "id": "avocado",
+      "text": "avocado",
+      "embed_text": "avocado, green creamy flesh"
+    },
+    {
+      "id": "banana",
+      "text": "banana",
+      "embed_text": "banana, yellow curved fruit"
+    },
+    {
+      "id": "blueberry",
+      "text": "blueberry",
+      "embed_text": "blueberry, tiny blue fruit"
+    },
+    {
+      "id": "cherry",
+      "text": "cherry",
+      "embed_text": "cherry, small red fruit"
+    },
+    {
+      "id": "coconut",
+      "text": "coconut",
+      "embed_text": "coconut, tropical hard shell"
+    },
+    {
+      "id": "grape",
+      "text": "grape",
+      "embed_text": "grape, vine fruit"
+    },
+    {
+      "id": "mango",
+      "text": "mango",
+      "embed_text": "mango, tropical orange flesh"
+    },
+    {
+      "id": "peach",
+      "text": "peach",
+      "embed_text": "peach, fuzzy fruit"
+    },
+    {
+      "id": "pear",
+      "text": "pear",
+      "embed_text": "pear, bell shaped fruit"
+    },
+    {
+      "id": "pineapple",
+      "text": "pineapple",
+      "embed_text": "pineapple, spiky tropical fruit"
+    },
+    {
+      "id": "strawberry",
+      "text": "strawberry",
+      "embed_text": "strawberry, red summer berry"
+    },
+    {
+      "id": "watermelon",
+      "text": "watermelon",
+      "embed_text": "watermelon, large striped fruit"
+    },
+    {
+      "id": "broccoli",
+      "text": "broccoli",
+      "embed_text": "broccoli, green vegetable florets"
+    },
+    {
+      "id": "cabbage",
+      "text": "cabbage",
+      "embed_text": "cabbage, leafy vegetable head"
+    },
+    {
+      "id": "corn",
+      "text": "corn",
+      "embed_text": "corn, yellow kernels"
+    },
+    {
+      "id": "cucumber",
+      "text": "cucumber",
+      "embed_text": "cucumber, crisp green vegetable"
+    },
+    {
+      "id": "garlic",
+      "text": "garlic",
+      "embed_text": "garlic, pungent cloves"
+    },
+    {
+      "id": "mushroom",
+      "text": "mushroom",
+      "embed_text": "mushroom, edible fungus"
+    },
+    {
+      "id": "pumpkin",
+      "text": "pumpkin",
+      "embed_text": "pumpkin, orange autumn squash"
+    },
+    {
+      "id": "spinach",
+      "text": "spinach",
+      "embed_text": "spinach, dark leafy greens"
+    },
+    {
+      "id": "bread",
+      "text": "bread",
+      "embed_text": "bread, baked loaf"
+    },
+    {
+      "id": "butter",
+      "text": "butter",
+      "embed_text": "butter, creamy dairy spread"
+    },
+    {
+      "id": "cheese",
+      "text": "cheese",
+      "embed_text": "cheese, aged dairy food"
+    },
+    {
+      "id": "chocolate",
+      "text": "chocolate",
+      "embed_text": "chocolate, cocoa treat"
+    },
+    {
+      "id": "coffee",
+      "text": "coffee",
+      "embed_text": "coffee, roasted bean drink"
+    },
+    {
+      "id": "cookie",
+      "text": "cookie",
+      "embed_text": "cookie, small sweet biscuit"
+    },
+    {
+      "id": "honey",
+      "text": "honey",
+      "embed_text": "honey, bee made sweetness"
+    },
+    {
+      "id": "noodle",
+      "text": "noodle",
+      "embed_text": "noodle, long pasta strand"
+    },
+    {
+      "id": "pancake",
+      "text": "pancake",
+      "embed_text": "pancake, flat breakfast cake"
+    },
+    {
+      "id": "pizza",
+      "text": "pizza",
+      "embed_text": "pizza, topped baked dough"
+    },
+    {
+      "id": "popcorn",
+      "text": "popcorn",
+      "embed_text": "popcorn, puffed kernels"
+    },
+    {
+      "id": "rice",
+      "text": "rice",
+      "embed_text": "rice, small cereal grains"
+    },
+    {
+      "id": "salad",
+      "text": "salad",
+      "embed_text": "salad, mixed raw vegetables"
+    },
+    {
+      "id": "sandwich",
+      "text": "sandwich",
+      "embed_text": "sandwich, filling between slices"
+    },
+    {
+      "id": "soup",
+      "text": "soup",
+      "embed_text": "soup, hot liquid meal"
+    },
+    {
+      "id": "tea",
+      "text": "tea",
+      "embed_text": "tea, steeped leaf drink"
+    },
+    {
+      "id": "yogurt",
+      "text": "yogurt",
+      "embed_text": "yogurt, cultured dairy"
+    },
+    {
+      "id": "ant",
+      "text": "ant",
+      "embed_text": "ant, tiny colony insect"
+    },
+    {
+      "id": "bat",
+      "text": "bat",
+      "embed_text": "bat, flying mammal"
+    },
+    {
+      "id": "bear",
+      "text": "bear",
+      "embed_text": "bear, large furry mammal"
+    },
+    {
+      "id": "bee",
+      "text": "bee",
+      "embed_text": "bee, striped pollinator"
+    },
+    {
+      "id": "butterfly",
+      "text": "butterfly",
+      "embed_text": "butterfly, colorful winged insect"
+    },
+    {
+      "id": "camel",
+      "text": "camel",
+      "embed_text": "camel, desert pack animal"
+    },
+    {
+      "id": "cat",
+      "text": "cat",
+      "embed_text": "cat, purring pet"
+    },
+    {
+      "id": "chicken",
+      "text": "chicken",
+      "embed_text": "chicken, farmyard bird"
+    },
+    {
+      "id": "cow",
+      "text": "cow",
+      "embed_text": "cow, milk producing animal"
+    },
+    {
+      "id": "crab",
+      "text": "crab",
+      "embed_text": "crab, sideways walker"
+    },
+    {
+      "id": "crocodile",
+      "text": "crocodile",
+      "embed_text": "crocodile, toothy river reptile"
+    },
+    {
+      "id": "deer",
+      "text": "deer",
+      "embed_text": "deer, antlered woodland animal"
+    },
+    {
+      "id": "dog",
+      "text": "dog",
+      "embed_text": "dog, barking pet"
+    },
+    {
+      "id": "dolphin",
+      "text": "dolphin",
+      "embed_text": "dolphin, intelligent sea mammal"
+    },
+    {
+      "id": "duck",
+      "text": "duck",
+      "embed_text": "duck, quacking bird"
+    },
+    {
+      "id": "eagle",
+      "text": "eagle",
+      "embed_text": "eagle, large bird of prey"
+    },
+    {
+      "id": "elephant",
+      "text": "elephant",
+      "embed_text": "elephant, trunk and tusks"
+    },
+    {
+      "id": "flamingo",
+      "text": "flamingo",
+      "embed_text": "flamingo, pink wading bird"
+    },
+    {
+      "id": "fox",
+      "text": "fox",
+      "embed_text": "fox, bushy tailed hunter"
+    },
+    {
+      "id": "frog",
+      "text": "frog",
+      "embed_text": "frog, pond amphibian"
+    },
+    {
+      "id": "giraffe",
+      "text": "giraffe",
+      "embed_text": "giraffe, long necked animal"
+    },
+    {
+      "id": "goat",
+      "text": "goat",
+      "embed_text": "goat, bearded farm animal"
+    },
+    {
+      "id": "horse",
+      "text": "horse",
+      "embed_text": "horse, riding animal"
+    },
+    {
+      "id": "jellyfish",
+      "text": "jellyfish",
+      "embed_text": "jellyfish, transparent sea creature"
+    },
+    {
+      "id": "kangaroo",
+      "text": "kangaroo",
+      "embed_text": "kangaroo, hopping marsupial"
+    },
+    {
+      "id": "koala",
+      "text": "koala",
+      "embed_text": "koala, eucalyptus eater"
+    },
+    {
+      "id": "lion",
+      "text": "lion",
+      "embed_text": "lion, mane wearing predator"
+    },
+    {
+      "id": "lobster",
+      "text": "lobster",
+      "embed_text": "lobster, large clawed crustacean"
+    },
+    {
+      "id": "monkey",
+      "text": "monkey",
+      "embed_text": "monkey, tree swinging primate"
+    },
+    {
+      "id": "octopus",
+      "text": "octopus",
+      "embed_text": "octopus, eight armed sea creature"
+    },
+    {
+      "id": "owl",
+      "text": "owl",
+      "embed_text": "owl, nocturnal bird"
+    },
+    {
+      "id": "panda",
+      "text": "panda",
+      "embed_text": "panda, black and white bear"
+    },
+    {
+      "id": "parrot",
+      "text": "parrot",
+      "embed_text": "parrot, talking tropical bird"
+    },
+    {
+      "id": "penguin",
+      "text": "penguin",
+      "embed_text": "penguin, flightless polar bird"
+    },
+    {
+      "id": "pig",
+      "text": "pig",
+      "embed_text": "pig, oinking farm animal"
+    },
+    {
+      "id": "rabbit",
+      "text": "rabbit",
+      "embed_text": "rabbit, long eared hopper"
+    },
+    {
+      "id": "shark",
+      "text": "shark",
+      "embed_text": "shark, toothed ocean predator"
+    },
+    {
+      "id": "sheep",
+      "text": "sheep",
+      "embed_text": "sheep, woolly farm animal"
+    },
+    {
+      "id": "snail",
+      "text": "snail",
+      "embed_text": "snail, slow shelled crawler"
+    },
+    {
+      "id": "snake",
+      "text": "snake",
+      "embed_text": "snake, legless reptile"
+    },
+    {
+      "id": "spider",
+      "text": "spider",
+      "embed_text": "spider, eight legged hunter"
+    },
+    {
+      "id": "squirrel",
+      "text": "squirrel",
+      "embed_text": "squirrel, bushy tailed rodent"
+    },
+    {
+      "id": "tiger",
+      "text": "tiger",
+      "embed_text": "tiger, striped big cat"
+    },
+    {
+      "id": "turtle",
+      "text": "turtle",
+      "embed_text": "turtle, shelled reptile"
+    },
+    {
+      "id": "whale",
+      "text": "whale",
+      "embed_text": "whale, giant sea mammal"
+    },
+    {
+      "id": "wolf",
+      "text": "wolf",
+      "embed_text": "wolf, howling wild canine"
+    },
+    {
+      "id": "zebra",
+      "text": "zebra",
+      "embed_text": "zebra, striped equine"
+    },
+    {
+      "id": "beach",
+      "text": "beach",
+      "embed_text": "beach, sandy shoreline"
+    },
+    {
+      "id": "canyon",
+      "text": "canyon",
+      "embed_text": "canyon, deep rocky gorge"
+    },
+    {
+      "id": "cave",
+      "text": "cave",
+      "embed_text": "cave, underground chamber"
+    },
+    {
+      "id": "desert",
+      "text": "desert",
+      "embed_text": "desert, dry sandy region"
+    },
+    {
+      "id": "forest",
+      "text": "forest",
+      "embed_text": "forest, dense woodland"
+    },
+    {
+      "id": "hill",
+      "text": "hill",
+      "embed_text": "hill, gentle raised land"
+    },
+    {
+      "id": "lake",
+      "text": "lake",
+      "embed_text": "lake, inland body of water"
+    },
+    {
+      "id": "meadow",
+      "text": "meadow",
+      "embed_text": "meadow, grassy open field"
+    },
+    {
+      "id": "mountain",
+      "text": "mountain",
+      "embed_text": "mountain, high rocky peak"
+    },
+    {
+      "id": "ocean",
+      "text": "ocean",
+      "embed_text": "ocean, vast salt water"
+    },
+    {
+      "id": "river",
+      "text": "river",
+      "embed_text": "river, flowing waterway"
+    },
+    {
+      "id": "valley",
+      "text": "valley",
+      "embed_text": "valley, low land between peaks"
+    },
+    {
+      "id": "volcano",
+      "text": "volcano",
+      "embed_text": "volcano, lava spewing peak"
+    },
+    {
+      "id": "waterfall",
+      "text": "waterfall",
+      "embed_text": "waterfall, plunging river"
+    },
+    {
+      "id": "rainbow",
+      "text": "rainbow",
+      "embed_text": "rainbow, colored sky arc"
+    },
+    {
+      "id": "snow",
+      "text": "snow",
+      "embed_text": "snow, frozen white flakes"
+    },
+    {
+      "id": "thunder",
+      "text": "thunder",
+      "embed_text": "thunder, storm rumble"
+    },
+    {
+      "id": "wind",
+      "text": "wind",
+      "embed_text": "wind, moving air"
+    },
+    {
+      "id": "sunrise",
+      "text": "sunrise",
+      "embed_text": "sunrise, dawn glow"
+    },
+    {
+      "id": "sunset",
+      "text": "sunset",
+      "embed_text": "sunset, evening sky colors"
+    },
+    {
+      "id": "moon",
+      "text": "moon",
+      "embed_text": "moon, night sky companion"
+    },
+    {
+      "id": "planet",
+      "text": "planet",
+      "embed_text": "planet, world orbiting a star"
+    },
+    {
+      "id": "comet",
+      "text": "comet",
+      "embed_text": "comet, icy space traveler"
+    },
+    {
+      "id": "star",
+      "text": "star",
+      "embed_text": "star, distant glowing sun"
+    },
+    {
+      "id": "rain",
+      "text": "rain",
+      "embed_text": "rain, falling water drops"
+    },
+    {
+      "id": "acorn",
+      "text": "acorn",
+      "embed_text": "acorn, oak seed"
+    },
+    {
+      "id": "bamboo",
+      "text": "bamboo",
+      "embed_text": "bamboo, tall hollow grass"
+    },
+    {
+      "id": "cactus",
+      "text": "cactus",
+      "embed_text": "cactus, spiny desert plant"
+    },
+    {
+      "id": "daisy",
+      "text": "daisy",
+      "embed_text": "daisy, white petaled flower"
+    },
+    {
+      "id": "fern",
+      "text": "fern",
+      "embed_text": "fern, feathery green plant"
+    },
+    {
+      "id": "ivy",
+      "text": "ivy",
+      "embed_text": "ivy, climbing vine"
+    },
+    {
+      "id": "leaf",
+      "text": "leaf",
+      "embed_text": "leaf, flat green growth"
+    },
+    {
+      "id": "rose",
+      "text": "rose",
+      "embed_text": "rose, thorny flowering plant"
+    },
+    {
+      "id": "sunflower",
+      "text": "sunflower",
+      "embed_text": "sunflower, tall yellow bloom"
+    },
+    {
+      "id": "tree",
+      "text": "tree",
+      "embed_text": "tree, woody trunk and branches"
+    },
+    {
+      "id": "backpack",
+      "text": "backpack",
+      "embed_text": "backpack, bag worn on shoulders"
+    },
+    {
+      "id": "book",
+      "text": "book",
+      "embed_text": "book, bound printed pages"
+    },
+    {
+      "id": "bottle",
+      "text": "bottle",
+      "embed_text": "bottle, narrow necked container"
+    },
+    {
+      "id": "brush",
+      "text": "brush",
+      "embed_text": "brush, bristled grooming tool"
+    },
+    {
+      "id": "camera",
+      "text": "camera",
+      "embed_text": "camera, photograph maker"
+    },
+    {
+      "id": "carpet",
+      "text": "carpet",
+      "embed_text": "carpet, soft floor covering"
+    },
+    {
+      "id": "curtain",
+      "text": "curtain",
+      "embed_text": "curtain, window fabric"
+    },
+    {
+      "id": "desk",
+      "text": "desk",
+      "embed_text": "desk, work surface"
+    },
+    {
+      "id": "door",
+      "text": "door",
+      "embed_text": "door, hinged entrance"
+    },
+    {
+      "id": "envelope",
+      "text": "envelope",
+      "embed_text": "envelope, letter wrapper"
+    },
+    {
+      "id": "eraser",
+      "text": "eraser",
+      "embed_text": "eraser, pencil mark remover"
+    },
+    {
+      "id": "flashlight",
+      "text": "flashlight",
+      "embed_text": "flashlight, battery powered beam"
+    },
+    {
+      "id": "fridge",
+      "text": "fridge",
+      "embed_text": "fridge, chilled food storage"
+    },
+    {
+      "id": "kettle",
+      "text": "kettle",
+      "embed_text": "kettle, water boiling vessel"
+    },
+    {
+      "id": "keyboard",
+      "text": "keyboard",
+      "embed_text": "keyboard, typing keys"
+    },
+    {
+      "id": "lamp",
+      "text": "lamp",
+      "embed_text": "lamp, electric room light"
+    },
+    {
+      "id": "lock",
+      "text": "lock",
+      "embed_text": "lock, security fastener"
+    },
+    {
+      "id": "magnet",
+      "text": "magnet",
+      "embed_text": "magnet, iron attractor"
+    },
+    {
+      "id": "map",
+      "text": "map",
+      "embed_text": "map, drawn geography"
+    },
+    {
+      "id": "mug",
+      "text": "mug",
+      "embed_text": "mug, handled drinking cup"
+    },
+    {
+      "id": "notebook",
+      "text": "notebook",
+      "embed_text": "notebook, blank bound pages"
+    },
+    {
+      "id": "paint",
+      "text": "paint",
+      "embed_text": "paint, colored surface coating"
+    },
+    {
+      "id": "paper",
+      "text": "paper",
+      "embed_text": "paper, thin writing sheet"
+    },
+    {
+      "id": "plate",
+      "text": "plate",
+      "embed_text": "plate, flat dinner dish"
+    },
+    {
+      "id": "scissors",
+      "text": "scissors",
+      "embed_text": "scissors, paired cutting blades"
+    },
+    {
+      "id": "soap",
+      "text": "soap",
+      "embed_text": "soap, washing bar"
+    },
+    {
+      "id": "sofa",
+      "text": "sofa",
+      "embed_text": "sofa, long cushioned seat"
+    },
+    {
+      "id": "sponge",
+      "text": "sponge",
+      "embed_text": "sponge, absorbent cleaning pad"
+    },
+    {
+      "id": "suitcase",
+      "text": "suitcase",
+      "embed_text": "suitcase, travel luggage"
+    },
+    {
+      "id": "toothbrush",
+      "text": "toothbrush",
+      "embed_text": "toothbrush, bristled dental tool"
+    },
+    {
+      "id": "towel",
+      "text": "towel",
+      "embed_text": "towel, absorbent drying cloth"
+    },
+    {
+      "id": "wallet",
+      "text": "wallet",
+      "embed_text": "wallet, pocket money holder"
+    },
+    {
+      "id": "window",
+      "text": "window",
+      "embed_text": "window, glass wall opening"
+    },
+    {
+      "id": "boot",
+      "text": "boot",
+      "embed_text": "boot, sturdy footwear"
+    },
+    {
+      "id": "coat",
+      "text": "coat",
+      "embed_text": "coat, warm outer garment"
+    },
+    {
+      "id": "glove",
+      "text": "glove",
+      "embed_text": "glove, hand covering"
+    },
+    {
+      "id": "hat",
+      "text": "hat",
+      "embed_text": "hat, head covering"
+    },
+    {
+      "id": "scarf",
+      "text": "scarf",
+      "embed_text": "scarf, neck wrapping"
+    },
+    {
+      "id": "shirt",
+      "text": "shirt",
+      "embed_text": "shirt, upper body garment"
+    },
+    {
+      "id": "sock",
+      "text": "sock",
+      "embed_text": "sock, foot covering"
+    },
+    {
+      "id": "bicycle",
+      "text": "bicycle",
+      "embed_text": "bicycle, two wheeled pedal vehicle"
+    },
+    {
+      "id": "bus",
+      "text": "bus",
+      "embed_text": "bus, large passenger vehicle"
+    },
+    {
+      "id": "car",
+      "text": "car",
+      "embed_text": "car, four wheeled vehicle"
+    },
+    {
+      "id": "helicopter",
+      "text": "helicopter",
+      "embed_text": "helicopter, rotor aircraft"
+    },
+    {
+      "id": "rocket",
+      "text": "rocket",
+      "embed_text": "rocket, space launch vehicle"
+    },
+    {
+      "id": "sailboat",
+      "text": "sailboat",
+      "embed_text": "sailboat, wind powered vessel"
+    },
+    {
+      "id": "submarine",
+      "text": "submarine",
+      "embed_text": "submarine, underwater vessel"
+    },
+    {
+      "id": "train",
+      "text": "train",
+      "embed_text": "train, railway transport"
+    },
+    {
+      "id": "truck",
+      "text": "truck",
+      "embed_text": "truck, heavy goods vehicle"
+    },
+    {
+      "id": "ambulance",
+      "text": "ambulance",
+      "embed_text": "ambulance, emergency medical vehicle"
+    },
+    {
+      "id": "airport",
+      "text": "airport",
+      "embed_text": "airport, air travel terminal"
+    },
+    {
+      "id": "bakery",
+      "text": "bakery",
+      "embed_text": "bakery, bread making shop"
+    },
+    {
+      "id": "farm",
+      "text": "farm",
+      "embed_text": "farm, crops and livestock"
+    },
+    {
+      "id": "hospital",
+      "text": "hospital",
+      "embed_text": "hospital, medical care building"
+    },
+    {
+      "id": "library",
+      "text": "library",
+      "embed_text": "library, borrowed book collection"
+    },
+    {
+      "id": "museum",
+      "text": "museum",
+      "embed_text": "museum, exhibit building"
+    },
+    {
+      "id": "park",
+      "text": "park",
+      "embed_text": "park, public green space"
+    },
+    {
+      "id": "school",
+      "text": "school",
+      "embed_text": "school, learning institution"
+    },
+    {
+      "id": "theater",
+      "text": "theater",
+      "embed_text": "theater, live performance hall"
+    },
+    {
+      "id": "zoo",
+      "text": "zoo",
+      "embed_text": "zoo, animal collection"
+    },
+    {
+      "id": "chess",
+      "text": "chess",
+      "embed_text": "chess, strategy board game"
+    },
+    {
+      "id": "dance",
+      "text": "dance",
+      "embed_text": "dance, rhythmic body movement"
+    },
+    {
+      "id": "flute",
+      "text": "flute",
+      "embed_text": "flute, woodwind instrument"
+    },
+    {
+      "id": "kite",
+      "text": "kite",
+      "embed_text": "kite, wind lifted toy"
+    },
+    {
+      "id": "piano",
+      "text": "piano",
+      "embed_text": "piano, keyboard instrument"
+    },
+    {
+      "id": "puzzle",
+      "text": "puzzle",
+      "embed_text": "puzzle, pieces to solve"
+    },
+    {
+      "id": "violin",
+      "text": "violin",
+      "embed_text": "violin, bowed string instrument"
+    },
+    {
+      "id": "whistle",
+      "text": "whistle",
+      "embed_text": "whistle, shrill signaling sound"
+    },
+    {
+      "id": "artist",
+      "text": "artist",
+      "embed_text": "artist, picture creator"
+    },
+    {
+      "id": "astronaut",
+      "text": "astronaut",
+      "embed_text": "astronaut, space traveler"
+    },
+    {
+      "id": "chef",
+      "text": "chef",
+      "embed_text": "chef, professional cook"
+    },
+    {
+      "id": "farmer",
+      "text": "farmer",
+      "embed_text": "farmer, crop grower"
+    },
+    {
+      "id": "firefighter",
+      "text": "firefighter",
+      "embed_text": "firefighter, emergency rescuer"
+    },
+    {
+      "id": "pilot",
+      "text": "pilot",
+      "embed_text": "pilot, aircraft operator"
+    },
+    {
+      "id": "teacher",
+      "text": "teacher",
+      "embed_text": "teacher, classroom guide"
+    }
+  ],
+  "test_set": {
+    "apple": [
+      "orchard fruit",
+      "crisp snack",
+      "cider ingredient"
+    ],
+    "anchor": [
+      "ship weight",
+      "hold a vessel still",
+      "heavy seabed hook"
+    ],
+    "balloon": [
+      "floating party decoration",
+      "helium toy",
+      "inflatable sphere"
+    ],
+    "basket": [
+      "woven container",
+      "picnic carrier",
+      "wicker storage"
+    ],
+    "bell": [
+      "ringing metal",
+      "church chime",
+      "school signal"
+    ],
+    "blanket": [
+      "warm bed covering",
+      "cozy layer",
+      "picnic spread"
+    ],
+    "bridge": [
+      "river crossing",
+      "road over water",
+      "connect two banks"
+    ],
+    "broom": [
+      "sweeping tool",
+      "bristled floor cleaner",
+      "witch transport"
+    ],
+    "bucket": [
+      "water carrier",
+      "pail",
+      "open topped container"
+    ],
+    "candle": [
+      "wax light",
+      "birthday flame",
+      "wick and glow"
+    ],
+    "carrot": [
+      "orange root",
+      "rabbit snack",
+      "crunchy garden vegetable"
+    ],
+    "castle": [
+      "fortified home",
+      "royal fortress",
+      "towers and moat"
+    ],
+    "chair": [
+      "single seat",
+      "sit down",
+      "furniture with legs"
+    ],
+    "clock": [
+      "time display",
+      "ticking dial",
+      "hours and minutes"
+    ],
+    "cloud": [
+      "sky vapor",
+      "rain source",
+      "fluffy overhead shape"
+    ],
+    "compass": [
+      "direction finder",
+      "magnetic needle",
+      "north pointer"
+    ],
+    "crown": [
+      "royal headwear",
+      "monarch symbol",
+      "jeweled circle"
+    ],
+    "drum": [
+      "percussion instrument",
+      "beat maker",
+      "taut musical skin"
+    ],
+    "feather": [
+      "bird covering",
+      "light plume",
+      "quill material"
+    ],
+    "fork": [
+      "pronged utensil",
+      "dinner tool",
+      "spear a bite"
+    ],
+    "glacier": [
+      "slow river of ice",
+      "frozen mountain flow",
+      "crevasse landscape"
+    ],
+    "guitar": [
+      "strummed strings",
+      "six string instrument",
+      "acoustic music"
+    ],
+    "hammer": [
+      "nail driver",
+      "striking tool",
+      "carpenter mallet"
+    ],
+    "helmet": [
+      "protective headwear",
+      "cycling safety gear",
+      "hard shell cap"
+    ],
+    "island": [
+      "land surrounded by water",
+      "isolated shore",
+      "ocean landmass"
+    ],
+    "key": [
+      "lock opener",
+      "small toothed metal",
+      "door access tool"
+    ],
+    "ladder": [
+      "climbing rungs",
+      "reach the roof",
+      "portable steps"
+    ],
+    "lantern": [
+      "portable light",
+      "camping glow",
+      "enclosed flame"
+    ],
+    "lemon": [
+      "sour yellow fruit",
+      "citrus wedge",
+      "tart juice"
+    ],
+    "mirror": [
+      "reflective glass",
+      "see your face",
+      "silvered surface"
+    ],
+    "needle": [
+      "sewing point",
+      "thread guide",
+      "tiny sharp tool"
+    ],
+    "oven": [
+      "baking chamber",
+      "kitchen heat box",
+      "roast dinner appliance"
+    ],
+    "pencil": [
+      "erasable writing tool",
+      "graphite stick",
+      "school drawing tool"
+    ],
+    "pillow": [
+      "head cushion",
+      "soft bed support",
+      "stuffed sleeping comfort"
+    ],
+    "rope": [
+      "twisted cord",
+      "tie a knot",
+      "climbing line"
+    ],
+    "shell": [
+      "mollusk covering",
+      "spiral beach treasure",
+      "hard sea casing"
+    ],
+    "spoon": [
+      "soup utensil",
+      "rounded eating tool",
+      "scoop a bite"
+    ],
+    "tent": [
+      "camping shelter",
+      "fabric outdoor home",
+      "pegs and poles"
+    ],
+    "umbrella": [
+      "rain shield",
+      "folding canopy",
+      "portable weather cover"
+    ],
+    "wheel": [
+      "rolling circle",
+      "axle companion",
+      "round transport part"
+    ],
+    "apricot": [
+      "soft orange fruit",
+      "stone in the middle",
+      "sweet orchard harvest"
+    ],
+    "avocado": [
+      "green creamy flesh",
+      "guacamole ingredient",
+      "large brown pit"
+    ],
+    "banana": [
+      "yellow curved fruit",
+      "peel before eating",
+      "monkey snack"
+    ],
+    "blueberry": [
+      "tiny blue fruit",
+      "muffin ingredient",
+      "summer berry"
+    ],
+    "cherry": [
+      "small red fruit",
+      "pair on a stem",
+      "pie filling"
+    ],
+    "coconut": [
+      "tropical hard shell",
+      "white edible flesh",
+      "island drink"
+    ],
+    "grape": [
+      "vine fruit",
+      "wine ingredient",
+      "bunch of berries"
+    ],
+    "mango": [
+      "tropical orange flesh",
+      "juicy stone fruit",
+      "sweet smoothie ingredient"
+    ],
+    "peach": [
+      "fuzzy fruit",
+      "summer orchard harvest",
+      "soft juicy flesh"
+    ],
+    "pear": [
+      "bell shaped fruit",
+      "sweet orchard crop",
+      "green juicy snack"
+    ],
+    "pineapple": [
+      "spiky tropical fruit",
+      "sweet yellow rings",
+      "prickly crown"
+    ],
+    "strawberry": [
+      "red summer berry",
+      "seeds on the outside",
+      "shortcake topping"
+    ],
+    "watermelon": [
+      "large striped fruit",
+      "pink juicy flesh",
+      "summer picnic slice"
+    ],
+    "broccoli": [
+      "green vegetable florets",
+      "tiny edible trees",
+      "steamed side dish"
+    ],
+    "cabbage": [
+      "leafy vegetable head",
+      "coleslaw ingredient",
+      "layers of crisp leaves"
+    ],
+    "corn": [
+      "yellow kernels",
+      "cob with silk",
+      "popcorn source"
+    ],
+    "cucumber": [
+      "crisp green vegetable",
+      "pickle ingredient",
+      "cool salad slices"
+    ],
+    "garlic": [
+      "pungent cloves",
+      "strong kitchen aroma",
+      "vampire repellent"
+    ],
+    "mushroom": [
+      "edible fungus",
+      "cap and stem",
+      "woodland growth"
+    ],
+    "pumpkin": [
+      "orange autumn squash",
+      "carved Halloween face",
+      "Thanksgiving pie"
+    ],
+    "spinach": [
+      "dark leafy greens",
+      "salad leaves",
+      "Popeye fuel"
+    ],
+    "bread": [
+      "baked loaf",
+      "sandwich slices",
+      "yeast and flour"
+    ],
+    "butter": [
+      "creamy dairy spread",
+      "golden toast topping",
+      "churned cream"
+    ],
+    "cheese": [
+      "aged dairy food",
+      "pizza topping",
+      "wedges and wheels"
+    ],
+    "chocolate": [
+      "cocoa treat",
+      "sweet brown bar",
+      "truffle ingredient"
+    ],
+    "coffee": [
+      "roasted bean drink",
+      "morning caffeine",
+      "espresso cup"
+    ],
+    "cookie": [
+      "small sweet biscuit",
+      "baked dough treat",
+      "crumbly snack"
+    ],
+    "honey": [
+      "bee made sweetness",
+      "golden sticky syrup",
+      "hive harvest"
+    ],
+    "noodle": [
+      "long pasta strand",
+      "broth ingredient",
+      "slurp with chopsticks"
+    ],
+    "pancake": [
+      "flat breakfast cake",
+      "syrup covered stack",
+      "griddle batter"
+    ],
+    "pizza": [
+      "topped baked dough",
+      "round sliced meal",
+      "mozzarella and crust"
+    ],
+    "popcorn": [
+      "puffed kernels",
+      "cinema snack",
+      "buttery movie treat"
+    ],
+    "rice": [
+      "small cereal grains",
+      "sushi ingredient",
+      "steamed staple"
+    ],
+    "salad": [
+      "mixed raw vegetables",
+      "bowl of leafy greens",
+      "dressing on top"
+    ],
+    "sandwich": [
+      "filling between slices",
+      "packed lunch",
+      "bread around a meal"
+    ],
+    "soup": [
+      "hot liquid meal",
+      "broth in a bowl",
+      "eat with a spoon"
+    ],
+    "tea": [
+      "steeped leaf drink",
+      "afternoon brew",
+      "kettle and teacup"
+    ],
+    "yogurt": [
+      "cultured dairy",
+      "tangy creamy snack",
+      "breakfast with granola"
+    ],
+    "ant": [
+      "tiny colony insect",
+      "six legged worker",
+      "picnic invader"
+    ],
+    "bat": [
+      "flying mammal",
+      "echo navigation",
+      "nocturnal cave dweller"
+    ],
+    "bear": [
+      "large furry mammal",
+      "hibernating forest animal",
+      "salmon hunter"
+    ],
+    "bee": [
+      "striped pollinator",
+      "hive insect",
+      "buzzing honey maker"
+    ],
+    "butterfly": [
+      "colorful winged insect",
+      "transformed caterpillar",
+      "fluttering garden visitor"
+    ],
+    "camel": [
+      "desert pack animal",
+      "humped back",
+      "caravan transport"
+    ],
+    "cat": [
+      "purring pet",
+      "whiskered hunter",
+      "feline companion"
+    ],
+    "chicken": [
+      "farmyard bird",
+      "egg layer",
+      "clucking hen"
+    ],
+    "cow": [
+      "milk producing animal",
+      "grazing cattle",
+      "mooing farm resident"
+    ],
+    "crab": [
+      "sideways walker",
+      "beach crustacean",
+      "pinching claws"
+    ],
+    "crocodile": [
+      "toothy river reptile",
+      "armored swamp predator",
+      "long snout and tail"
+    ],
+    "deer": [
+      "antlered woodland animal",
+      "forest grazer",
+      "fawn parent"
+    ],
+    "dog": [
+      "barking pet",
+      "loyal canine",
+      "wagging tail"
+    ],
+    "dolphin": [
+      "intelligent sea mammal",
+      "playful ocean swimmer",
+      "leaping flippers"
+    ],
+    "duck": [
+      "quacking bird",
+      "webbed feet",
+      "pond swimmer"
+    ],
+    "eagle": [
+      "large bird of prey",
+      "soaring hunter",
+      "hooked beak"
+    ],
+    "elephant": [
+      "trunk and tusks",
+      "giant land mammal",
+      "huge flapping ears"
+    ],
+    "flamingo": [
+      "pink wading bird",
+      "one legged stance",
+      "long curved neck"
+    ],
+    "fox": [
+      "bushy tailed hunter",
+      "clever woodland animal",
+      "reddish wild canine"
+    ],
+    "frog": [
+      "pond amphibian",
+      "croaking jumper",
+      "tadpole grown up"
+    ],
+    "giraffe": [
+      "long necked animal",
+      "spotted savanna grazer",
+      "tallest land mammal"
+    ],
+    "goat": [
+      "bearded farm animal",
+      "agile mountain climber",
+      "bleating herd member"
+    ],
+    "horse": [
+      "riding animal",
+      "hooves and mane",
+      "galloping steed"
+    ],
+    "jellyfish": [
+      "transparent sea creature",
+      "stinging tentacles",
+      "drifting ocean bell"
+    ],
+    "kangaroo": [
+      "hopping marsupial",
+      "baby in a pouch",
+      "Australian jumper"
+    ],
+    "koala": [
+      "eucalyptus eater",
+      "Australian tree dweller",
+      "furry marsupial"
+    ],
+    "lion": [
+      "mane wearing predator",
+      "roaring big cat",
+      "pride leader"
+    ],
+    "lobster": [
+      "large clawed crustacean",
+      "seafood shell",
+      "ocean antennae"
+    ],
+    "monkey": [
+      "tree swinging primate",
+      "playful troop member",
+      "long tailed climber"
+    ],
+    "octopus": [
+      "eight armed sea creature",
+      "ink squirting animal",
+      "suction cup limbs"
+    ],
+    "owl": [
+      "nocturnal bird",
+      "hooting hunter",
+      "silent night wings"
+    ],
+    "panda": [
+      "black and white bear",
+      "bamboo eater",
+      "Chinese forest animal"
+    ],
+    "parrot": [
+      "talking tropical bird",
+      "colorful feathers",
+      "mimicking pet"
+    ],
+    "penguin": [
+      "flightless polar bird",
+      "waddling swimmer",
+      "black and white seabird"
+    ],
+    "pig": [
+      "oinking farm animal",
+      "curly tail",
+      "mud loving mammal"
+    ],
+    "rabbit": [
+      "long eared hopper",
+      "burrowing pet",
+      "fluffy short tail"
+    ],
+    "shark": [
+      "toothed ocean predator",
+      "dorsal fin",
+      "cartilaginous fish"
+    ],
+    "sheep": [
+      "woolly farm animal",
+      "bleating flock",
+      "fleece source"
+    ],
+    "snail": [
+      "slow shelled crawler",
+      "slimy garden trail",
+      "spiral home"
+    ],
+    "snake": [
+      "legless reptile",
+      "slithering scales",
+      "forked tongue"
+    ],
+    "spider": [
+      "eight legged hunter",
+      "web spinner",
+      "silk making arachnid"
+    ],
+    "squirrel": [
+      "bushy tailed rodent",
+      "acorn collector",
+      "tree scamperer"
+    ],
+    "tiger": [
+      "striped big cat",
+      "jungle predator",
+      "orange and black fur"
+    ],
+    "turtle": [
+      "shelled reptile",
+      "slow pond swimmer",
+      "protective hard back"
+    ],
+    "whale": [
+      "giant sea mammal",
+      "ocean song",
+      "blowhole spout"
+    ],
+    "wolf": [
+      "howling wild canine",
+      "pack hunter",
+      "gray forest predator"
+    ],
+    "zebra": [
+      "striped equine",
+      "black and white grazer",
+      "savanna herd animal"
+    ],
+    "beach": [
+      "sandy shoreline",
+      "waves and towels",
+      "seaside holiday"
+    ],
+    "canyon": [
+      "deep rocky gorge",
+      "steep valley walls",
+      "river carved landscape"
+    ],
+    "cave": [
+      "underground chamber",
+      "dark rock opening",
+      "stalactite home"
+    ],
+    "desert": [
+      "dry sandy region",
+      "dunes and heat",
+      "arid landscape"
+    ],
+    "forest": [
+      "dense woodland",
+      "many trees",
+      "shaded wilderness"
+    ],
+    "hill": [
+      "gentle raised land",
+      "small summit",
+      "rolling countryside"
+    ],
+    "lake": [
+      "inland body of water",
+      "shore on every side",
+      "freshwater basin"
+    ],
+    "meadow": [
+      "grassy open field",
+      "wildflower pasture",
+      "sunny clearing"
+    ],
+    "mountain": [
+      "high rocky peak",
+      "snowy summit",
+      "steep climbing destination"
+    ],
+    "ocean": [
+      "vast salt water",
+      "deep blue expanse",
+      "tides and waves"
+    ],
+    "river": [
+      "flowing waterway",
+      "stream toward the sea",
+      "banks and bends"
+    ],
+    "valley": [
+      "low land between peaks",
+      "sheltered basin",
+      "river corridor"
+    ],
+    "volcano": [
+      "lava spewing peak",
+      "erupting mountain",
+      "magma outlet"
+    ],
+    "waterfall": [
+      "plunging river",
+      "cascade over a cliff",
+      "roaring falling water"
+    ],
+    "rainbow": [
+      "colored sky arc",
+      "sunlight through droplets",
+      "seven color bridge"
+    ],
+    "snow": [
+      "frozen white flakes",
+      "winter blanket",
+      "powder on the slopes"
+    ],
+    "thunder": [
+      "storm rumble",
+      "sound after lightning",
+      "booming sky"
+    ],
+    "wind": [
+      "moving air",
+      "invisible breeze",
+      "gust through leaves"
+    ],
+    "sunrise": [
+      "dawn glow",
+      "morning horizon",
+      "day beginning"
+    ],
+    "sunset": [
+      "evening sky colors",
+      "daylight fading",
+      "dusk horizon"
+    ],
+    "moon": [
+      "night sky companion",
+      "cratered satellite",
+      "waxing crescent"
+    ],
+    "planet": [
+      "world orbiting a star",
+      "celestial sphere",
+      "solar system member"
+    ],
+    "comet": [
+      "icy space traveler",
+      "bright trailing tail",
+      "orbiting snowball"
+    ],
+    "star": [
+      "distant glowing sun",
+      "twinkling night point",
+      "constellation member"
+    ],
+    "rain": [
+      "falling water drops",
+      "wet weather",
+      "puddle maker"
+    ],
+    "acorn": [
+      "oak seed",
+      "squirrel stash",
+      "tiny capped nut"
+    ],
+    "bamboo": [
+      "tall hollow grass",
+      "panda food",
+      "jointed green stalk"
+    ],
+    "cactus": [
+      "spiny desert plant",
+      "water storing stem",
+      "prickly succulent"
+    ],
+    "daisy": [
+      "white petaled flower",
+      "yellow garden center",
+      "simple meadow bloom"
+    ],
+    "fern": [
+      "feathery green plant",
+      "shady woodland fronds",
+      "spore producing greenery"
+    ],
+    "ivy": [
+      "climbing vine",
+      "green wall covering",
+      "trailing leaves"
+    ],
+    "leaf": [
+      "flat green growth",
+      "photosynthesis surface",
+      "autumn falling shape"
+    ],
+    "rose": [
+      "thorny flowering plant",
+      "romantic bouquet",
+      "fragrant layered petals"
+    ],
+    "sunflower": [
+      "tall yellow bloom",
+      "edible seed head",
+      "large garden disk"
+    ],
+    "tree": [
+      "woody trunk and branches",
+      "rooted shade provider",
+      "forest giant"
+    ],
+    "backpack": [
+      "bag worn on shoulders",
+      "schoolbook carrier",
+      "hiking storage"
+    ],
+    "book": [
+      "bound printed pages",
+      "reading material",
+      "story between covers"
+    ],
+    "bottle": [
+      "narrow necked container",
+      "drink vessel",
+      "capped liquid storage"
+    ],
+    "brush": [
+      "bristled grooming tool",
+      "paint applicator",
+      "hair untangler"
+    ],
+    "camera": [
+      "photograph maker",
+      "lens and shutter",
+      "capture a moment"
+    ],
+    "carpet": [
+      "soft floor covering",
+      "woven room surface",
+      "rug beneath feet"
+    ],
+    "curtain": [
+      "window fabric",
+      "privacy drape",
+      "stage opening cloth"
+    ],
+    "desk": [
+      "work surface",
+      "study furniture",
+      "office table"
+    ],
+    "door": [
+      "hinged entrance",
+      "room access panel",
+      "knock before entering"
+    ],
+    "envelope": [
+      "letter wrapper",
+      "sealed paper pocket",
+      "mail container"
+    ],
+    "eraser": [
+      "pencil mark remover",
+      "rubber school tool",
+      "correct a sketch"
+    ],
+    "flashlight": [
+      "battery powered beam",
+      "handheld torch",
+      "darkness finder"
+    ],
+    "fridge": [
+      "chilled food storage",
+      "cold kitchen appliance",
+      "keep groceries fresh"
+    ],
+    "kettle": [
+      "water boiling vessel",
+      "tea preparation pot",
+      "whistling kitchen container"
+    ],
+    "keyboard": [
+      "typing keys",
+      "computer input",
+      "letters under fingers"
+    ],
+    "lamp": [
+      "electric room light",
+      "bedside glow",
+      "shade and bulb"
+    ],
+    "lock": [
+      "security fastener",
+      "key operated latch",
+      "protect a door"
+    ],
+    "magnet": [
+      "iron attractor",
+      "north and south poles",
+      "fridge note holder"
+    ],
+    "map": [
+      "drawn geography",
+      "route planning sheet",
+      "guide to places"
+    ],
+    "mug": [
+      "handled drinking cup",
+      "hot cocoa vessel",
+      "ceramic beverage holder"
+    ],
+    "notebook": [
+      "blank bound pages",
+      "school notes",
+      "journal for writing"
+    ],
+    "paint": [
+      "colored surface coating",
+      "artist pigment",
+      "wet brush material"
+    ],
+    "paper": [
+      "thin writing sheet",
+      "folded craft material",
+      "tree pulp product"
+    ],
+    "plate": [
+      "flat dinner dish",
+      "meal serving surface",
+      "ceramic tableware"
+    ],
+    "scissors": [
+      "paired cutting blades",
+      "paper trimming tool",
+      "snipping handles"
+    ],
+    "soap": [
+      "washing bar",
+      "bubbly cleanser",
+      "hand cleaning lather"
+    ],
+    "sofa": [
+      "long cushioned seat",
+      "living room furniture",
+      "lounging couch"
+    ],
+    "sponge": [
+      "absorbent cleaning pad",
+      "soak up spills",
+      "porous scrubber"
+    ],
+    "suitcase": [
+      "travel luggage",
+      "packed holiday clothes",
+      "handled baggage"
+    ],
+    "toothbrush": [
+      "bristled dental tool",
+      "morning mouth cleaning",
+      "paste applicator"
+    ],
+    "towel": [
+      "absorbent drying cloth",
+      "bathroom linen",
+      "dry off after swimming"
+    ],
+    "wallet": [
+      "pocket money holder",
+      "cards and cash",
+      "folded leather case"
+    ],
+    "window": [
+      "glass wall opening",
+      "view outside",
+      "daylight entrance"
+    ],
+    "boot": [
+      "sturdy footwear",
+      "ankle covering shoe",
+      "muddy hiking gear"
+    ],
+    "coat": [
+      "warm outer garment",
+      "winter layer",
+      "buttoned overclothing"
+    ],
+    "glove": [
+      "hand covering",
+      "finger protection",
+      "winter grip"
+    ],
+    "hat": [
+      "head covering",
+      "brimmed accessory",
+      "shade for your face"
+    ],
+    "scarf": [
+      "neck wrapping",
+      "winter fabric strip",
+      "warm knitted accessory"
+    ],
+    "shirt": [
+      "upper body garment",
+      "collar and sleeves",
+      "buttoned clothing"
+    ],
+    "sock": [
+      "foot covering",
+      "knitted ankle layer",
+      "inside a shoe"
+    ],
+    "bicycle": [
+      "two wheeled pedal vehicle",
+      "human powered transport",
+      "handlebars and chain"
+    ],
+    "bus": [
+      "large passenger vehicle",
+      "public road transport",
+      "many seats and stops"
+    ],
+    "car": [
+      "four wheeled vehicle",
+      "personal road transport",
+      "steering wheel and engine"
+    ],
+    "helicopter": [
+      "rotor aircraft",
+      "hovering transport",
+      "vertical takeoff"
+    ],
+    "rocket": [
+      "space launch vehicle",
+      "flaming thrust",
+      "astronaut transport"
+    ],
+    "sailboat": [
+      "wind powered vessel",
+      "mast and canvas",
+      "tacking across water"
+    ],
+    "submarine": [
+      "underwater vessel",
+      "diving naval craft",
+      "periscope explorer"
+    ],
+    "train": [
+      "railway transport",
+      "linked carriages",
+      "locomotive journey"
+    ],
+    "truck": [
+      "heavy goods vehicle",
+      "cargo on the road",
+      "large hauling engine"
+    ],
+    "ambulance": [
+      "emergency medical vehicle",
+      "siren to the hospital",
+      "paramedic transport"
+    ],
+    "airport": [
+      "air travel terminal",
+      "runways and departures",
+      "place to board flights"
+    ],
+    "bakery": [
+      "bread making shop",
+      "fresh pastry smell",
+      "oven filled storefront"
+    ],
+    "farm": [
+      "crops and livestock",
+      "rural growing land",
+      "barn and fields"
+    ],
+    "hospital": [
+      "medical care building",
+      "doctors and wards",
+      "place for treatment"
+    ],
+    "library": [
+      "borrowed book collection",
+      "quiet reading place",
+      "shelves of stories"
+    ],
+    "museum": [
+      "exhibit building",
+      "historical collections",
+      "art and artifacts"
+    ],
+    "park": [
+      "public green space",
+      "picnics and paths",
+      "city recreation ground"
+    ],
+    "school": [
+      "learning institution",
+      "classrooms and teachers",
+      "pupils studying"
+    ],
+    "theater": [
+      "live performance hall",
+      "stage and audience",
+      "curtain call venue"
+    ],
+    "zoo": [
+      "animal collection",
+      "wildlife enclosures",
+      "keepers and visitors"
+    ],
+    "chess": [
+      "strategy board game",
+      "kings and pawns",
+      "checkmate contest"
+    ],
+    "dance": [
+      "rhythmic body movement",
+      "steps to music",
+      "ballet or waltz"
+    ],
+    "flute": [
+      "woodwind instrument",
+      "breath across a hole",
+      "high musical pipe"
+    ],
+    "kite": [
+      "wind lifted toy",
+      "string in the sky",
+      "paper diamond aloft"
+    ],
+    "piano": [
+      "keyboard instrument",
+      "black and white keys",
+      "hammers striking strings"
+    ],
+    "puzzle": [
+      "pieces to solve",
+      "brain teasing challenge",
+      "jigsaw picture"
+    ],
+    "violin": [
+      "bowed string instrument",
+      "orchestra fiddle",
+      "chin rest music"
+    ],
+    "whistle": [
+      "shrill signaling sound",
+      "referee mouthpiece",
+      "blown warning"
+    ],
+    "artist": [
+      "picture creator",
+      "painter at an easel",
+      "creative studio worker"
+    ],
+    "astronaut": [
+      "space traveler",
+      "orbital explorer",
+      "suited crew member"
+    ],
+    "chef": [
+      "professional cook",
+      "restaurant kitchen leader",
+      "meal creator"
+    ],
+    "farmer": [
+      "crop grower",
+      "livestock caretaker",
+      "field worker"
+    ],
+    "firefighter": [
+      "emergency rescuer",
+      "blaze extinguisher",
+      "hose and ladder crew"
+    ],
+    "pilot": [
+      "aircraft operator",
+      "cockpit professional",
+      "flight navigator"
+    ],
+    "teacher": [
+      "classroom guide",
+      "lesson planner",
+      "student educator"
+    ]
+  }
+}

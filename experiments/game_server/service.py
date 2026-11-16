@@ -24,6 +24,8 @@ from semaphore_core.game import (
 )
 from semaphore_core.verification import CoreValidationError, dot, load, vector
 
+from .artifacts import sample_round
+
 
 class ProtocolError(Exception):
     def __init__(self, status, code):
@@ -211,6 +213,7 @@ class GameService:
                 if binding is None or binding[0].mode != payload["mode"]:
                     raise ProtocolError(400, "invalid_request")
                 artifact, vectors = binding
+                artifact = sample_round(artifact)
                 ident = secrets.token_urlsafe(24)
                 session = Session(initial_state(artifact, game_id=ident), self.clock(), vectors)
                 self.sessions[ident] = session

@@ -4,19 +4,27 @@ From the repository root, with the frozen Ollama runtime configured via
 `SEMAPHORE_OLLAMA_BASE_URL`:
 
 ```powershell
-uv run python -m experiments.game_server --manifest fixtures/w3/calibration-authored.json --web-root . --host 0.0.0.0 --port 8000
+uv run python -m experiments.game_server --web-root . --host 0.0.0.0 --port 8000
 ```
 
 Open `/web/index.html?transport=http`. The preloaded artifact ID is `default`;
-select the same mode passed to `--mode` (casual by default). Both modes use a
-finite, non-repeating manifest-order word sequence and six initial words. Event
+select the same mode passed to `--mode` (casual by default). Both modes use
+finite, non-repeating word sequences and six initial words. The default pool is
+`packs/everyday.json`: 235 familiar English words with contextual embedding text
+and authored clue examples. Override it with `--manifest path/to/pack.json`.
+Each casual game uniformly samples a fresh sequence without replacement from
+the entire pool, including the opening board. Reconnects and streak refills
+continue that same sequence. A word can appear again in a later game. Event
 mode retains fixed 5-second spawns and capacity 12. Default casual mode uses
 capacity 20, a 5-second base interval, score-dependent acceleration and five-clear
 streak sweeps/cascades; see `contracts/gameplay.md`. Its arrival times depend on
 clears, so it does not provide the event mode's identical schedule across players.
 The server refuses a changed full model fingerprint and never downloads weights.
-A manifest exceeding the ten-minute schedule envelope fails startup; prepare a
-smaller experimental manifest instead. This is an operator-created artifact,
+Rounds select at most 125 words at the default interval to fit the ten-minute
+schedule envelope; all 235 words are eligible in casual mode. Event mode uses
+the first 125 manifest entries in fixed order. The full pool is embedded once
+at startup, so a larger pool increases startup work but adds no embedding calls
+when a new word arrives. This is an operator-created artifact,
 not an upload or publication API. No production accounts or durable scores exist.
 
 `--web-root` points at the repository root, with only `/web/` and
