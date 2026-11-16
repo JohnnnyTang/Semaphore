@@ -352,7 +352,14 @@ def orchestrate(args):
                 raise RuntimeError("verifier_not_ready")
             time.sleep(0.1)
         start = time.time_ns()
-        report["load"] = run(origin, accounts, artifact, clues, commands=args.commands)
+        report["load"] = run(
+            origin,
+            accounts,
+            artifact,
+            clues,
+            commands=args.commands,
+            warmup_commands=args.warmup_commands,
+        )
         finish = time.time_ns()
         report["load_interval"] = {"started_ns": start, "finished_ns": finish}
         report["verifier_exit_was_forced"] = verifier.poll() is None
@@ -366,6 +373,7 @@ def orchestrate(args):
                 overlap(events, sample["started_ns"], sample["finished_ns"])
                 for player in cohort["observations"]
                 for sample in player["samples"]
+                if sample["phase"] == "measured"
             )
         report["server_model_events"] = read_events(args.workspace / "server-model.jsonl")
         report["real_game_inference_observed"] = overlap(
@@ -399,6 +407,7 @@ def main():
     parser.add_argument("--rights-reference")
     parser.add_argument("--server-revision")
     parser.add_argument("--commands", type=int, default=10)
+    parser.add_argument("--warmup-commands", type=int, default=1)
     parser.add_argument("--allow-model-traffic", action="store_true")
     args = parser.parse_args()
     if args.worker:
@@ -421,7 +430,11 @@ def main():
         or args.output.with_suffix(".installation.jsonl").exists()
     ):
         parser.error("workspace and evidence outputs must be new")
-    if not 1 <= args.commands <= 100 or not 1 <= args.port <= 65535:
+    if (
+        not 1 <= args.commands <= 100
+        or not 0 <= args.warmup_commands <= 10
+        or not 1 <= args.port <= 65535
+    ):
         parser.error("invalid command count or port")
     with socket.socket() as check:
         check.bind(("127.0.0.1", args.port))

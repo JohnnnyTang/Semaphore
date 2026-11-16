@@ -87,7 +87,7 @@ def summary(samples):
     }
 
 
-def player(client, artifact, clues, count, gate, *, deadline=10, poll=0.02):
+def player(client, artifact, clues, count, gate, *, deadline=10, poll=0.02, warmup=0):
     """One account, one game, one outstanding command. No create retry."""
     samples, errors = [], []
     game = None
@@ -95,7 +95,7 @@ def player(client, artifact, clues, count, gate, *, deadline=10, poll=0.02):
         envelope = client.request("/games", {"mode": "casual", "artifact_id": artifact})
         game = quote(envelope["snapshot"]["game_id"], safe="")
         gate.wait(timeout=15)
-        for index in range(count):
+        for index in range(count + warmup):
             snapshot = client.request(f"/games/{game}")["snapshot"]
             if snapshot["status"] != "active":
                 errors.append("early_game_end")
@@ -107,7 +107,12 @@ def player(client, artifact, clues, count, gate, *, deadline=10, poll=0.02):
             }
             started_ns = time.time_ns()
             started = time.monotonic()
-            observation = {"index": index, "success": False, "outcome": "request_failed"}
+            observation = {
+                "index": index,
+                "success": False,
+                "outcome": "request_failed",
+                "phase": "warmup" if index < warmup else "measured",
+            }
             try:
                 envelope = client.request(f"/games/{game}/commands", command)
                 while envelope["receipt"]["outcome"] == "pending":
@@ -148,10 +153,21 @@ def player(client, artifact, clues, count, gate, *, deadline=10, poll=0.02):
     return {"samples": samples, "errors": errors, "requested": count}
 
 
-def run(origin, accounts, artifact, clues, *, counts=(1, 4, 8), commands=10, client_factory=Client):
+def run(
+    origin,
+    accounts,
+    artifact,
+    clues,
+    *,
+    counts=(1, 4, 8),
+    commands=10,
+    client_factory=Client,
+    warmup_commands=0,
+):
     """Sequential cohorts; clients log in before timed work and synchronize game starts."""
     report = {
         "kind": "automated_http_load",
+        "warmup_commands_per_player": warmup_commands,
         "human_acceptance": False,
         "model_execution_verified": False,
         "verifier_overlap": False,
@@ -179,16 +195,21 @@ def run(origin, accounts, artifact, clues, *, counts=(1, 4, 8), commands=10, cli
             gate = threading.Barrier(count)
             with ThreadPoolExecutor(max_workers=count) as pool:
                 futures = [
-                    pool.submit(player, client, artifact, clues, commands, gate)
+                    pool.submit(
+                        player, client, artifact, clues, commands, gate, warmup=warmup_commands
+                    )
                     for client in clients[:count]
                 ]
                 players = [f.result() for f in futures]
-            samples = [s for p in players for s in p["samples"]]
+            samples = [s for p in players for s in p["samples"] if s["phase"] == "measured"]
+            warmups = [s for p in players for s in p["samples"] if s["phase"] == "warmup"]
             stats = summary(samples)
             complete = (
                 stats["attempted"] == count * commands
                 and stats["failed"] == 0
                 and not any(p["errors"] for p in players)
+                and len(warmups) == count * warmup_commands
+                and all(s["success"] for s in warmups)
             )
             report["runs"].append(
                 {

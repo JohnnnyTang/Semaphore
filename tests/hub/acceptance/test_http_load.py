@@ -143,3 +143,23 @@ def test_duplicate_server_accounts_fail_before_creating_games():
     report = run("http://test", [{}] * 4, "test", ["clue"], counts=[4], client_factory=Duplicate)
     assert report["setup_error"] == "setup_failed"
     assert report["runs"] == []
+
+
+def test_warmup_is_retained_but_excluded_from_latency_counts():
+    report = run(
+        "http://test",
+        [{}],
+        "test",
+        ["clue"],
+        counts=[1],
+        commands=2,
+        warmup_commands=1,
+        client_factory=ScriptClient,
+    )
+    cohort = report["runs"][0]
+    assert cohort["attempted"] == 2 and cohort["complete"]
+    assert [s["phase"] for s in cohort["observations"][0]["samples"]] == [
+        "warmup",
+        "measured",
+        "measured",
+    ]

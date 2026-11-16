@@ -173,3 +173,10 @@ query batch. It records verifier batches using the configured provider batch siz
 the pinned identity is checked for each batch. Exit zero requires all three cohorts
 complete, observed game inference, successful verifier-call overlap in every cohort,
 and restart checks passing. The 100 ms target remains a separate reported gate.
+
+`real_run` excludes one explicit warmup command per player per cohort from latency
+statistics by default (`--warmup-commands 0..10`). Every sample retains a `phase`
+label and timestamps; warmup failures remain visible and prevent a complete run.
+Per-cohort verifier overlap must intersect a **measured** command interval, not
+just warmup, authentication or game creation. Use a Python environment containing
+psutil for local resource measurements; the runner installs nothing automatically.
