@@ -158,10 +158,34 @@ server to check delayed poll/quit isolation, immediate leave, welcome widths, an
 help focus restoration. Existing browser-refine.js, browser-tutorial.js, and
 browser-motion.js cover themes, warm-up, clears, desktop scaling, and reduced motion.
 
-## Durable account browser (W2)
+## Durable account browser (W4)
 
 Open `/web/durable.html` on the same origin as the durable `/api/v1` service.
-This separate entry preserves the existing experiment. W2 checks use frozen HTTP
-fixtures; real account/game composition is later integration work. See
-[W2 browser evidence](../docs/evidence/s2-w2-browser.md) for behavior, reproduction
-and remaining acceptance. The page has no automatic fixture fallback.
+The coordinator's durable host serves these local assets when launched with
+`serve-durable --web-root web` after the common database/key/asset options in the
+[operator runbook](../docs/operations/durable-hub.md). `/` opens the signed-in room;
+the legacy experiment runs separately. Use the exact configured HTTP origin so
+Host/Origin checks, cookies and CSRF remain consistent. The listener currently
+binds loopback; LAN deployment acceptance remains separate.
+
+Run all client regressions with `node --test tests/web/*.test.mjs`. The existing
+`tests/web/browser-durable.js` intercepts API requests with fixtures and is not
+real-service acceptance. `tests/web/browser-durable-live.js` instead uses actual
+signup, pack selection, game admission, receipt, natural finish, history, board,
+page reload and logout. It also checks 320px/reduced-motion rendering. It never
+intercepts API routes or changes the server score.
+
+Use the live runner only on a disposable W4 database with signup enabled and an
+explicitly accepted artifact that naturally ends within 60 seconds. It creates
+an automated test account and score, so never point it at a real competition.
+Open that host's `/web/durable.html` in the Playwright CLI, then run:
+
+```powershell
+npx --yes --package @playwright/cli playwright-cli -s=w4 run-code --filename=tests/web/browser-durable-live.js
+```
+
+The printed result excludes credentials and clue text. A live-browser pass proves
+service integration only; record whether inference was synthetic or real. Page
+reload is not server restart, automated play is not human acceptance, and a single
+run is not load evidence. See [W4 browser evidence](../docs/evidence/s2-w4-browser.md).
+The page has no automatic fixture fallback.

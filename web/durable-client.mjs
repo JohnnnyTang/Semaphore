@@ -1,5 +1,19 @@
 import { GameStore, validateClue } from './store.mjs';
 const enc = encodeURIComponent;
+// randomUUID is restricted to secure contexts; LAN HTTP still exposes getRandomValues.
+export function commandId(crypto = globalThis.crypto) {
+  if (crypto.randomUUID) return crypto.randomUUID();
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = [...bytes].map(byte => byte.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
+}
+export function boardRows(snapshot) {
+  return snapshot.board.map((id, index) => ({ id, rank: index + 1,
+    label: snapshot.entries[id]?.label || id, target: id === snapshot.target,
+    inZone: index < snapshot.zone_size }));
+}
 export class ApiError extends Error {
   constructor(code, status = 0) { super(code); this.code = code; this.status = status; }
 }
@@ -82,7 +96,7 @@ export class DurableClient {
       this.store.apply(envelope); this.creationUncertain = false; this.uncertainAccountId = null;
     return envelope;
   }
-  async send(clue, id = globalThis.crypto.randomUUID()) {
+  async send(clue, id = commandId()) {
     const problem = validateClue(clue); if (problem) throw new Error(problem);
     const command = this.store.command(clue, id); if (!command) throw new ApiError('command_pending');
     return this.retryCommand();

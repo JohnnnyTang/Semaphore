@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { DurableClient, DurableTransport, FixtureTransport } from '../../web/durable-client.mjs';
+import { DurableClient, DurableTransport, FixtureTransport, boardRows, commandId } from '../../web/durable-client.mjs';
 const payloads = JSON.parse(await readFile(new URL('../../fixtures/durable/payloads.json', import.meta.url)));
 const value = name => structuredClone(payloads.cases.find(item => item.name === name).value);
 function setup(script) { const transport = new FixtureTransport(payloads, script); return { transport, client: new DurableClient(transport) }; }
@@ -137,4 +137,24 @@ test('session restoration preserves same-account commands and clears cross-tab a
   assert.equal(client.creationUncertain, false);
   assert.equal(client.uncertainAccountId, null);
   assert.equal(client.boardQuery, null);
+});
+
+
+test('durable clear zone uses authoritative ranks 1 through zone_size', () => {
+  const snapshot = value('envelope-snapshot').snapshot;
+  snapshot.board = ['a', 'b', 'c', 'd', 'e']; snapshot.entries = {}; snapshot.zone_size = 3;
+  snapshot.target = 'e';
+  const rows = boardRows(snapshot);
+  assert.deepEqual(rows.filter(row => row.inZone).map(row => row.rank), [1, 2, 3]);
+  assert.equal(rows[4].target, true); assert.equal(rows[4].inZone, false);
+  snapshot.board = ['a', 'b'];
+  assert.ok(boardRows(snapshot).every(row => row.inZone));
+});
+
+test('LAN HTTP command IDs use cryptographic randomness without randomUUID', () => {
+  let calls = 0;
+  const id = commandId({ getRandomValues(bytes) { calls++; bytes.fill(255); return bytes; } });
+  assert.equal(calls, 1);
+  assert.equal(id, 'ffffffff-ffff-4fff-bfff-ffffffffffff');
+  assert.equal(commandId({ randomUUID: () => 'native-id' }), 'native-id');
 });

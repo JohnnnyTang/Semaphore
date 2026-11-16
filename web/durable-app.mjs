@@ -1,4 +1,4 @@
-import { DurableClient, DurableTransport } from './durable-client.mjs';
+import { DurableClient, DurableTransport, boardRows } from './durable-client.mjs';
 import { resultText } from './store.mjs';
 const $ = id => document.getElementById(id);
 const client = new DurableClient(new DurableTransport());
@@ -27,9 +27,9 @@ function render() {
   if (!snapshot) return;
   $('score').textContent = `Score ${snapshot.score} · Level ${snapshot.level}`;
   $('target').textContent = snapshot.status === 'over' ? (['interrupted','quit'].includes(snapshot.end_reason) ? 'Round ended without a competitive result.' : `Round complete: ${snapshot.end_reason}. Check your results below.`) : `Target: ${snapshot.entries[snapshot.target]?.label || 'Waiting for a word'}`;
-  $('words').replaceChildren(...snapshot.board.map((id, index) => {
-    const li = document.createElement('li'); li.className = 'word' + (id === snapshot.target ? ' target' : '') + (index >= snapshot.board.length - snapshot.zone_size ? ' zone' : '');
-    li.textContent = `${index + 1}. ${snapshot.entries[id]?.label || id}${id === snapshot.target ? ' — Target' : ''}`; return li;
+  $('words').replaceChildren(...boardRows(snapshot).map(row => {
+    const li = document.createElement('li'); li.className = 'word' + (row.target ? ' target' : '') + (row.inZone ? ' zone' : '');
+    li.textContent = `${row.rank}. ${row.label}${row.target ? ' — Target' : ''}${row.inZone ? ' — Clear zone' : ''}`; return li;
   }));
   const pending = !!client.store.pending || !!snapshot.pending;
   $('send').disabled = pageBusy || pending || snapshot.status !== 'active' || !snapshot.target;
@@ -99,7 +99,7 @@ setInterval(() => {
 }, 1500);
 await run(async () => {
   config = await client.request('/config'); $('signup').hidden = !config.signup_enabled;
-  $('privacy').textContent = `Your clues are saved privately for up to ${config.clue_retention_days} days. Backups may retain them for up to ${config.backup_retention_days} days. They do not appear on the public board.`;
+  $('privacy').textContent = `Your clues are saved privately for up to ${config.clue_retention_days} days. Encrypted backups may retain deleted clues for up to ${config.backup_retention_days} additional days. They do not appear on the public board.`;
   try { await client.restore(); await packs(); await history(); say('Welcome back. Find your current round or start a new one.'); }
   catch (error) { if (error.status !== 401) throw error; say('Sign in to your local room.'); }
 });
