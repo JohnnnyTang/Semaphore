@@ -16,7 +16,9 @@ See the [W1 record](docs/stages/s2-w1-foundation.md) and
 foundation is complete, including operator CLI and real trusted installation. See the [W2 record](docs/stages/s2-w2-foundations.md).
 W3 durable games/results, recovery, scheduled maintenance and real subprocess probes
 are complete locally; see the [W3 closure](docs/stages/s2-w3-durability.md) and
-[operator runbook](docs/operations/durable-hub.md). W4 browser/model/human acceptance remains open.
+[operator runbook](docs/operations/durable-hub.md). W4 has started with parallel browser,
+HTTP probe and operator acceptance work; see the [W4 record](docs/stages/s2-w4-acceptance.md).
+Real-model/human acceptance remains open.
 Stage 1 acceptance remains open; the experiment continues to run unchanged.
 
 Stage 1, Wave 4 is integrated locally: callable core, authoritative experimental server, thin browser and independent probes. See the [Wave 4 record](docs/stages/s1-w4-playable-experiment.md) for validation and W5 gates.

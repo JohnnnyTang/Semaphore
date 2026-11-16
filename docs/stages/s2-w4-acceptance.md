@@ -38,3 +38,31 @@ controlled real-model 1/4/8-player load with verifier overlap, resource/remote-h
 offline evidence and independent content review remain open. Automated or synthetic
 runs cannot close those gates. The inherited p95 <=100 ms target is unchanged.
 No Stage 3 dispatch or release-readiness claim is authorized by this work.
+
+## Integrated helpers
+
+- Browser `b2d0ff6` plus `e117f79`: corrected authoritative clear-zone ranks,
+  cryptographic command IDs on LAN HTTP, self-navigation and backup-retention
+  disclosure; added actual-service browser acceptance flow.
+- Probes `2afc214`: authenticated HTTP 1/4/8-player runner, bounded receipts,
+  exact retries, sample/failure retention and p50/p95. It does not assert verified
+  model execution, verifier overlap or resource acceptance.
+- Operations `88a4de6`: subprocess CLI migration/upgrade, deletion-aware restore,
+  overwrite/lock/missing-ledger checks and fresh operator setup instructions.
+
+All helpers are reviewed and integrated locally. The actual-service browser flow
+passed using synthetic inference; see [browser evidence](../evidence/s2-w4-browser.md).
+The coordinator corrected runbook code-block formatting during integration.
+W4 remains running until its real-model/human and inherited acceptance is resolved.
+
+## Integration validation
+
+- Full Python regression: **476 passed**.
+- Node browser regression: **25 passed**.
+- Ruff lint and formatting: passed (198 files checked for formatting).
+- Source distribution and wheel build: passed.
+- Actual-service Edge browser flow: passed with synthetic inference, including
+  a successful `miss` receipt and natural zero-score history/board result.
+- Diff whitespace: passed. No changes pushed.
+
+This is completion of the first W4 integration slice, not closure of W4 or Stage 2.

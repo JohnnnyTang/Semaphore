@@ -26,3 +26,19 @@ has not been executed in this worker. Coordinator must run it after static host
 integration and disposable installation provisioning, recording model identity.
 Human, real-model latency, server restart and release gates remain open; the
 runner does not claim those checks.
+
+## Coordinator browser execution
+
+The integrated Playwright CLI flow passed in installed Edge against the actual
+loopback DurableHost and SQLite service. The disposable installation used synthetic
+verification and deterministic query vectors with the locked fingerprint shape;
+no remote model ran and this is not semantic evidence. Signup, clear-zone ranks,
+command settlement, natural completion, private history, exact board, page reload,
+320px layout, reduced motion and logout all passed. The strengthened runner
+requires a successful clear/miss receipt; the retained observation was `miss`,
+with an authoritative zero-point natural result on the exact board.
+
+The setup used a five-second empty-schedule accepted test artifact. Runtime data
+and browser sessions remain ignored. Server restart is a separate check; page
+reload does not establish restart persistence. The temporary host/browser were
+stopped after validation. Human/model/offline gates remain open.

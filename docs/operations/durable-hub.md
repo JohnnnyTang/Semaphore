@@ -188,9 +188,9 @@ for name in ("csrf.key", "ledger.key", "backup.key"):
     with (root / name).open("xb") as output:
         output.write(secrets.token_bytes(32))
 with (root / "commands.json").open("x") as output:
-    json.dump({"active": "v1", "keys": {
-        "v1": base64.b64encode(secrets.token_bytes(32)).decode()
-    }}, output)
+    json.dump(
+        {"active": "v1", "keys": {"v1": base64.b64encode(secrets.token_bytes(32)).decode()}}, output
+    )
 ExternalLedger(root / "deletions.jsonl", (root / "ledger.key").read_bytes(), create=True)
 ```
 
