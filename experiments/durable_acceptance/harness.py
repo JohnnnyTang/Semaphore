@@ -124,8 +124,11 @@ def behavior_probe(adapter):
     original = adapter.call("retry", {"variant": "exact"})
     require(original["status"] == 200, "exact_retry_failed")
     for variant in ("clue_case", "clue_whitespace", "expected_revision"):
+        changed = adapter.call("retry", {"variant": variant})
         require(
-            adapter.call("retry", {"variant": variant})["status"] == 409, "changed_retry_accepted"
+            changed.get("status") == 200
+            and changed.get("receipt", {}).get("outcome") == "command_conflict",
+            "changed_retry_accepted",
         )
     for known in (True, False):
         require(

@@ -43,3 +43,7 @@ checks and later acceptance must cover those. The full synthetic adapter protoco
 requires a terminal scenario controlled through the real reducer, not fabricated
 scores or participant data. No model pressure job ran. W4 instrumentation is ready
 but real-model/human acceptance and all named Stage 1 carryovers remain open.
+
+Follow-up contract audit corrected the changed-retry oracle to require HTTP 200
+and a `command_conflict` receipt, per durable OpenAPI, rather than an invented
+HTTP 409 requirement. Defective fake retry acceptance remains detected.

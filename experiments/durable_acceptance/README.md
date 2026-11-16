@@ -47,7 +47,7 @@ Use `ProcessAdapter.close()` when embedding the harness in a longer-lived runner
 | `terminal` | Advance due work to natural `pack_cleared` termination; the primary game must receive one score row, including when score is zero. |
 | `recover` | Run actual pre-traffic recovery; return `{"ready":true}` only on success. |
 | `observe` | Read primary-game projection described below from actual persisted state; no service state changes. |
-| `retry` | `variant`: exact/clue_case/clue_whitespace/expected_revision. Reuse same ID; alter only named field. Return `status` and original clue-free receipt for success; omit current snapshot so equality compares immutable receipt. |
+| `retry` | `variant`: exact/clue_case/clue_whitespace/expected_revision. Reuse same ID; alter only named field. Return `status` and original clue-free receipt for success; omit current snapshot so equality compares immutable receipt. Changed payload returns HTTP 200 with `receipt.outcome=command_conflict`, as frozen durable OpenAPI specifies (not HTTP 409). |
 | `foreign_receipt` | Foreign authenticated principal; `known_command` selects existing or nonexistent receipt. Return exactly `{"status":404}` for either. |
 | `delete_clues` | Execute owner clue-only deletion through operations service. |
 | `board` | Prepare two additional equal-score/equal-time naturally finalized fixture games named `tie-a` and `tie-b` in a dedicated accepted cohort. Return their actual ordered public IDs as `items` and real opaque `next_cursor`; primary-game observations exclude these extra fixtures. Support `cohort=other` with a single changed cohort pin and reject the original cursor with 400. `limit=1`. |

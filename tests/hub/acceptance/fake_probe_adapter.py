@@ -62,7 +62,7 @@ class Fake:
                 s["inference_calls"] += 1
                 self.save()
             if payload["variant"] != "exact" and self.fault != "changed_retry":
-                return {"status": 409}
+                return {"status": 200, "receipt": {"outcome": "command_conflict"}}
             return {"status": 200, "receipt": {"id": "synthetic", "outcome": "completed"}}
         elif operation == "foreign_receipt":
             return {"status": 200 if self.fault == "foreign_access" else 404}
