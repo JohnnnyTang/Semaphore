@@ -1,4 +1,4 @@
-"""Real W2 transaction composition; game and maintenance adapters arrive in W3.
+"""Real transaction composition for integrated account, pack, game and maintenance adapters.
 
 Call migrate/startup recovery before use. This module does not open a listener or
 claim that the complete durable application is ready to serve traffic.
@@ -35,15 +35,12 @@ class FoundationRepositories:
 
     def __init__(self, connection):
         from semaphore_hub.auth import SqliteAccounts
+        from semaphore_hub.games import SQLiteGames
+        from semaphore_hub.operations import SQLiteMaintenance
         from semaphore_hub.packs import SQLitePacks
 
         self.accounts = SqliteAccounts(connection)
         self.packs = SQLitePacks(connection)
 
-    @property
-    def games(self):
-        raise NotImplementedError("durable games require W3 integration")
-
-    @property
-    def maintenance(self):
-        raise NotImplementedError("durable maintenance requires W3 integration")
+        self.games = SQLiteGames(connection)
+        self.maintenance = SQLiteMaintenance(connection)

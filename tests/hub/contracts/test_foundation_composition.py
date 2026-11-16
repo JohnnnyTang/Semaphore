@@ -31,10 +31,8 @@ def test_foundation_domains_commit_and_rollback_together(tmp_path):
             work.packs.reserve(Installation("retry", "owner", "pack", "1", "digest")).install_id
             == "install"
         )
-        with pytest.raises(NotImplementedError):
-            _ = work.games
-        with pytest.raises(NotImplementedError):
-            _ = work.maintenance
+        assert work.games.active_ids() == ()
+        assert work.maintenance.required_hmac_keys(0) == frozenset()
 
 
 def test_transactions_use_thread_owned_connections(tmp_path):

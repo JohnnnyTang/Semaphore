@@ -22,7 +22,10 @@ class FoundationHttp:
         self.packs = packs
 
     def handle(self, method, target, headers, body=b"", peer=""):
-        parsed = urlsplit(target)
+        try:
+            parsed = urlsplit(target)
+        except ValueError:
+            return error(400, "invalid_request")
         if parsed.scheme or parsed.netloc or parsed.fragment:
             return error(400, "invalid_request")
         path = parsed.path

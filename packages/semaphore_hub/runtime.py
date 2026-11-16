@@ -158,3 +158,10 @@ class QueuedInference:
                     except Exception:
                         # Service owns failure closure; never print private exception data.
                         pass
+
+            # Do not retain normalized participant clues/vectors while the worker
+            # waits idle for its next batch (which may be much later).
+            batch.clear()
+            active.clear()
+            rows.clear()
+            item = request = callback = completion = vectors = validated = None
