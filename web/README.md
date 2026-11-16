@@ -189,3 +189,30 @@ service integration only; record whether inference was synthetic or real. Page
 reload is not server restart, automated play is not human acceptance, and a single
 run is not load evidence. See [W4 browser evidence](../docs/evidence/s2-w4-browser.md).
 The page has no automatic fixture fallback.
+
+### Actual process restart acceptance
+
+Use the same disposable host and browser tab throughout. To select a particular
+accepted artifact, append `&artifact=<encoded-artifact-id>` to the prepare URL.
+
+1. Navigate to `/web/durable.html?w4=restart-prepare` and run
+   `tests/web/browser-durable-live.js`. It completes a natural round, records the
+   expected result in this tab's sessionStorage, and leaves the account signed in.
+2. The coordinator stops and restarts the actual hub process using the same
+   database, assets, keys and deletion ledger. Record old/new process IDs and
+   timestamps separately. Keep the browser tab open.
+3. Navigate that same tab to `/web/durable.html?w4=restart-verify`, then invoke the
+   same runner. It checks the terminal snapshot, unchanged final receipt, private
+   result/cohort/completed-at and exactly one matching board score. It signs out
+   and removes its temporary browser evidence after success.
+
+The restart marker contains only IDs, final receipt and expected result fields;
+it stores no login password, session token or clue text. If the marker is missing,
+the origin changed, a request fails, the result changes, or a score is missing or
+duplicated, verification fails. API reads cannot prove process replacement, so
+output explicitly requires external process evidence. The default runner (no
+`w4` query parameter) still performs one complete flow and signs out.
+
+The participant checklist and empty observation template are in
+[W4 human playtest](../docs/evidence/s2-w4-human-playtest.md). Keep automated and
+participant evidence separate and run model pressure checks at a different time.
