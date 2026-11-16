@@ -164,3 +164,18 @@ def test_natural_durable_result_is_competitive():
     result["items"][0]["competitive"] = False
     with pytest.raises(ValidationError):
         validator("durable-http.schema.json#/$defs/history").validate(result)
+
+
+def test_uncertain_create_has_owner_scoped_discovery_without_retry_guarantee():
+    path = SCENARIOS["uncertain_create"]["discovery_path"]
+    assert path == "/api/v1/games/current"
+    operation = API["paths"][path]["get"]
+    assert operation["security"] == [{"sessionCookie": []}]
+    assert "parameters" not in operation
+    assert {"200", "401", "404"} <= operation["responses"].keys()
+    assert operation["responses"]["200"]["content"]["application/json"]["schema"] == {
+        "$ref": "events.schema.json"
+    }
+    assert "static route before" in operation["description"]
+    assert "terminal envelope" in operation["description"]
+    assert "no create retry guarantee" in operation["description"]

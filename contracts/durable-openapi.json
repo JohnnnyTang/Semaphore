@@ -1255,7 +1255,7 @@
     "/api/v1/games": {
       "post": {
         "operationId": "durableCreateGame",
-        "description": "Owner authenticated on every access; unknown and other-owner games are indistinguishable 404. Full snapshots and receipts reuse events.schema.json including its experiment-v1 envelope label; transport is durable-game-v1. Create has no retry guarantee: after a lost/uncertain response do not automatically retry; prompt the player before another creation. Commit owner and all server pins before 201.",
+        "description": "Owner authenticated on every access; unknown and other-owner games are indistinguishable 404. Full snapshots and receipts reuse events.schema.json including its experiment-v1 envelope label; transport is durable-game-v1. Create has no retry guarantee: after a lost/uncertain response do not automatically retry; prompt the player before another creation. Commit owner and all server pins before 201. After an uncertain response, GET /api/v1/games/current may discover an active game. A 404 does not prove the prior create failed (it may have completed); require explicit player choice before creating again.",
         "security": [
           {
             "sessionCookie": []
@@ -2518,6 +2518,145 @@
             }
           }
         ]
+      }
+    },
+    "/api/v1/games/current": {
+      "get": {
+        "operationId": "getCurrentGame",
+        "description": "Owner-scoped lookup of the single active game for the authenticated account. Match this static route before /games/{game_id}. Return 404 not_found when no active game exists. Resolve due work under the common game lock; a game found active may terminalize during that work and its resolved terminal envelope is returned. This is discovery only and provides no create retry guarantee. The client must not automatically retry an uncertain creation.",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authoritative full envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "events.schema.json"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Structured safe error; never echo request bodies or secrets.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "durable-http.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Structured safe error; never echo request bodies or secrets.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "durable-http.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Structured safe error; never echo request bodies or secrets.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Seconds until a bounded admission retry."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "durable-http.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Structured safe error; never echo request bodies or secrets.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "durable-http.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Structured safe error; never echo request bodies or secrets.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "durable-http.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Protocol error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "durable-http.schema.json#/$defs/error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

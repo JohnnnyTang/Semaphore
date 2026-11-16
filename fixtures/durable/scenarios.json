@@ -103,6 +103,20 @@
       "method": "post",
       "path": "/api/v1/auth/logout",
       "status": 204
+    },
+    {
+      "name": "discover-current-game",
+      "method": "get",
+      "path": "/api/v1/games/current",
+      "status": 200,
+      "response_case": "envelope-snapshot"
+    },
+    {
+      "name": "no-current-game",
+      "method": "get",
+      "path": "/api/v1/games/current",
+      "status": 404,
+      "response_case": "not_found"
     }
   ],
   "uncertain_create": {
@@ -111,6 +125,7 @@
     "request_case": "create",
     "transport_outcome": "response_lost",
     "automatic_retry": false,
-    "next_action": "Explain uncertainty and require an explicit player choice before creating again; do not invent a game ID."
+    "next_action": "GET /api/v1/games/current to discover an active game. A 404 is inconclusive; explain uncertainty and require explicit player choice before another creation.",
+    "discovery_path": "/api/v1/games/current"
   }
 }

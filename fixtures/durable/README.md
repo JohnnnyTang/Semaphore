@@ -5,7 +5,11 @@ real accounts, real credentials or participant clue captures. `payloads.json`
 references local schemas. `scenarios.json` maps named payloads to operation paths
 and HTTP outcomes; placeholder path parameters are filled by the test transport.
 The uncertain-create scenario intentionally has no HTTP response: the browser must
-explain the lost response and require an explicit choice before another creation.
+query `GET /api/v1/games/current` to discover the account's active game. A 404 is
+inconclusive because the game may already have ended; explain uncertainty and
+require an explicit choice before another creation. Match this static route before
+the dynamic game-ID route. Due work may terminalize the discovered game, in which
+case return its resolved terminal envelope. This adds no creation retry guarantee.
 
 Game envelopes retain the adopted `experiment-v1` wire label and schemas; durable
 HTTP routing, ownership, persistence and retry guarantees are separate. Existing
