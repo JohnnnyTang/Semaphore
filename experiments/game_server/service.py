@@ -4,6 +4,7 @@ import queue
 import secrets
 import threading
 import time
+from collections import deque
 from dataclasses import dataclass, field
 from urllib.parse import unquote, urlsplit
 
@@ -51,7 +52,7 @@ class GameService:
                 raise ValueError("artifact vector table mismatch")
             self.artifacts[name] = (artifact, freeze({i: vector(row) for i, row in rows.items()}))
         self.embedder, self.clock, self.max_games = embedder, clock, max_games
-        self.sessions, self.tombstones = {}, set()
+        self.sessions, self.tombstones = {}, deque(maxlen=4096)
         self.lock = threading.RLock()
         schemas = load("http.schema.json")["$defs"]
         self.validators = {
@@ -92,7 +93,7 @@ class GameService:
                     and self._now(session) >= session.state.terminal_ms + 900000
                 ):
                     del self.sessions[ident]
-                    self.tombstones.add(ident)
+                    self.tombstones.append(ident)
 
     def _session(self, ident):
         with self.lock:
@@ -107,7 +108,7 @@ class GameService:
                         and self._now(session) >= session.state.terminal_ms + 900000
                     ):
                         del self.sessions[ident]
-                        self.tombstones.add(ident)
+                        self.tombstones.append(ident)
             if ident in self.tombstones:
                 raise ProtocolError(410, "game_expired")
             if ident not in self.sessions:

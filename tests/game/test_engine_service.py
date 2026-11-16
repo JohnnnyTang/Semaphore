@@ -379,3 +379,47 @@ def test_poll_does_not_advance_unrelated_sessions():
         assert other["snapshot"]["board"] == env["snapshot"]["board"]
     finally:
         svc.close()
+
+
+def test_http_security_boundary(tmp_path):
+    svc = GameService({"default": binding()}, FakeEmbedder())
+    (tmp_path / "web").mkdir()
+    (tmp_path / "web/index.html").write_text("<h1>local</h1>")
+    (tmp_path / "web/.private.json").write_text("{}")
+    (tmp_path / "web/notes.md").write_text("operator notes")
+    server = make_server(svc, port=0, web_root=tmp_path)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    origin = f"http://127.0.0.1:{server.server_port}"
+    try:
+        for headers in (
+            {"Content-Type": "text/plain"},
+            {"Content-Type": "application/json", "Origin": "http://evil.invalid"},
+            {"Content-Type": "application/json", "Origin": "http://[broken"},
+            {"Content-Type": "application/json", "Sec-Fetch-Site": "cross-site"},
+        ):
+            with pytest.raises(HTTPError) as caught:
+                urlopen(Request(origin + "/experiment/v1/games", data=b"{}", headers=headers))
+            assert caught.value.code == 400
+        assert not svc.sessions
+        for path in ("/web/.private.json", "/web/notes.md", "/web/%2e%2e/pyproject.toml"):
+            with pytest.raises(HTTPError) as caught:
+                urlopen(origin + path)
+            assert caught.value.code == 404
+        with urlopen(origin + "/web/") as response:
+            assert response.headers["X-Content-Type-Options"] == "nosniff"
+            assert response.headers["Referrer-Policy"] == "no-referrer"
+            assert "frame-ancestors 'none'" in response.headers["Content-Security-Policy"]
+        with urlopen(
+            Request(
+                origin + "/experiment/v1/games",
+                data=b'{"artifact_id":"default","mode":"event"}',
+                headers={"Content-Type": "application/json; charset=utf-8", "Origin": origin},
+            )
+        ) as response:
+            assert response.status == 201
+    finally:
+        server.shutdown()
+        server.server_close()
+        svc.close()
+        thread.join(1)

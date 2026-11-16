@@ -48,7 +48,7 @@ no fabricated timing values; timed-out in-flight work has no timing until it ret
 Timing metadata stays outside the frozen JSON envelope and expires with its game.
 
 Limits: at most 128 retained games, 4096 command IDs per game, 16 KiB request
-bodies, fifteen-minute terminal retention, process-lifetime expired-ID tombstones.
+bodies, fifteen-minute terminal retention, the most recent 4096 expired-ID tombstones. Older expired IDs return 404 rather than 410.
 Reads/submits trigger time advancement and retention collection. No timer thread
 is required for authority: the next observation drains every due event before
 responding, and worker completion drains time before scoring the current board.
@@ -66,3 +66,21 @@ not that duration divided by batch size. Receipt polling advances only the
 requested game; game creation still sweeps retained sessions for expiry.
 
 See the [refinement evidence](../../docs/evidence/feasibility-refinement-2026-11-14.md).
+
+
+## HTTP boundary hardening
+
+The development binding admits at most 32 simultaneous connections, with a
+five-second socket timeout. Excess connections close without starting a thread;
+clients use their existing reconnect path. JSON POSTs require one Content-Length,
+reject transfer encoding and cross-site browser metadata, and validate any Origin
+against Host. Same-origin clients must send Content-Type: application/json.
+
+Static serving is limited to HTML, CSS, JavaScript modules, SVG, and JSON under
+the existing web and protocol-fixture mounts; dotfiles and other file types are
+not exposed. Responses set nosniff, no-referrer, frame denial, and a same-origin
+content security policy. Inline styles remain permitted for board positioning.
+
+This remains an in-memory trusted-LAN experiment, without account authentication,
+TLS termination, or a production reverse proxy. Game IDs are bearer capabilities.
+These safeguards do not make the development server suitable for public hosting.

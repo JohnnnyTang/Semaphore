@@ -18,20 +18,20 @@ button:hover{filter:brightness(.94)}
 .brand-flag{display:inline-block;background:var(--blue);width:26px;height:28px;clip-path:polygon(0 0,100% 0,65% 44%,100% 88%,13% 88%,13% 100%,0 100%)}
 .edition{margin-right:auto;color:var(--muted);font-size:.85rem}
 main{max-width:1280px;margin:auto;padding:2rem 3rem}
-.welcome{display:grid;grid-template-columns:1.35fr 1fr;gap:7rem;align-items:center;min-height:75vh}
+.welcome{display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(3rem,7vw,7rem);align-items:center;min-height:min(75vh,850px)}
 h1,h2,.word{font-family:Bahnschrift,"Arial Narrow","Segoe UI",sans-serif}
 h1{font-size:clamp(3.7rem,6.7vw,6.5rem);font-weight:700;letter-spacing:-.065em;line-height:.98;margin:0 0 1.5rem}
 .intro{font-size:1.15rem;line-height:1.65;max-width:29rem;color:var(--muted)}
-.word-demo{max-width:330px;margin:2rem 0 0 3rem;transform:rotate(-5deg)}
+.word-demo{max-width:360px;margin:2rem 0 0 1rem;border-left:3px solid var(--line);padding-left:1rem}
 .demo-word{display:block;padding:.65rem 1rem;border-bottom:1px solid var(--line);background:var(--surface);font-family:Bahnschrift,sans-serif;font-size:1.25rem}
 .demo-word:first-child{border-radius:12px 12px 0 0}
-.demo-target{background:var(--blue);color:var(--blue-ink);transform:translateX(20px);border:0;box-shadow:0 8px 20px var(--shadow)}
+.demo-target{background:var(--blue);color:var(--blue-ink);transform:translateX(12px);border:0;box-shadow:0 5px 0 var(--shadow)}
 .demo-target small{float:right;font:600 .7rem "Segoe UI",sans-serif;margin-top:.35rem}
 .demo-clue{display:flex;justify-content:space-between;background:var(--zone);color:var(--zone-ink);margin-top:8px;padding:.8rem 1rem;border-radius:0 0 12px 12px}
-.word-demo p{font-size:.75rem;color:var(--muted);transform:rotate(5deg);margin-top:1.5rem}
-.setup{background:var(--surface);padding:2.2rem;border:1px solid var(--line);border-radius:24px;box-shadow:0 16px 0 -8px var(--line)}
+.word-demo p{font-size:.75rem;color:var(--muted);margin-top:1rem;line-height:1.5}
+.setup{background:var(--surface);padding:2.2rem;border:1px solid var(--line);border-top:5px solid var(--blue);border-radius:8px 8px 20px 20px;box-shadow:0 10px 0 -5px var(--line)}
 .setup h2{font-size:2rem;letter-spacing:-.04em;margin:0}
-.setup-intro{color:var(--muted);margin:.5rem 0 2rem}
+.setup-intro{color:var(--muted);margin:.65rem 0 1.8rem;line-height:1.6;max-width:35ch}
 label{display:block;font-size:.85rem;font-weight:650;margin-bottom:.5rem}
 input,select{width:100%;min-width:0;min-height:48px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);padding:.7rem .8rem;margin-bottom:1rem;font-size:1rem}
 .hint{font-size:.8rem;color:var(--muted);line-height:1.5}
@@ -81,7 +81,7 @@ ol{list-style:none;margin:0;padding:0}
 #ending{background:var(--zone);padding:1.5rem;border-radius:16px;margin-top:1rem}
 #ending p{line-height:1.5}
 footer{max-width:1280px;padding:2rem 3rem;margin:auto;color:var(--muted);display:flex;justify-content:space-between;gap:1rem;font-size:.75rem}
-dialog{max-width:min(32rem,90vw);border:1px solid var(--line);border-radius:20px;padding:2rem;color:var(--ink);background:var(--surface);line-height:1.6}
+dialog{width:min(38rem,92vw);max-height:85svh;overflow:auto;border:1px solid var(--line);border-radius:20px;padding:2rem;color:var(--ink);background:var(--surface);line-height:1.6}
 dialog::backdrop{background:#111b32aa;backdrop-filter:blur(5px)}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 [hidden]{display:none!important}
@@ -102,7 +102,7 @@ footer{padding:1.5rem}
 
 @media(max-width:560px){.welcome{grid-template-columns:1fr}
 .welcome-story{padding:1rem 0}
-.welcome h1{font-size:4rem}
+.welcome h1{font-size:clamp(3rem,14vw,4rem)}
 .word-demo{margin:1.5rem auto 0}
 .intro{font-size:1rem}
 .arena{display:flex;flex-direction:column}
@@ -130,13 +130,13 @@ footer{flex-direction:column}
 
 
 /* A tall, twenty-position chute; short screens retain readable phrase sizes. */
-.stack{--slot:clamp(22px, calc((100svh - 380px) / var(--capacity,20)), 52px);min-height:calc(var(--capacity,20) * var(--slot))}
+.stack{--slot:clamp(22px, calc((100svh - 420px) / var(--capacity,20)), 52px);min-height:calc(var(--capacity,20) * var(--slot))}
 .headroom{flex:1;min-height:0;padding:0 1rem;background:repeating-linear-gradient(to top,transparent 0 calc(var(--slot) - 1px),var(--paper) calc(var(--slot) - 1px) var(--slot))}
 .word{min-height:var(--slot);padding:0 1rem;font-size:1rem;line-height:1.25}
 #words{flex:none}
 .word.zone-start{border-top:2px solid var(--zone-ink)}
 .flag{padding:2px 6px;font-size:.6rem}
-.playing .masthead{padding-top:.6rem;padding-bottom:.6rem}
+.playing .masthead{padding-top:.45rem;padding-bottom:.45rem}
 .playing main{padding-top:.5rem}
 .playing .game-top{margin-bottom:.5rem}
 .playing .game-top h1{font-size:1.15rem}
@@ -185,4 +185,35 @@ input::placeholder{color:var(--muted);opacity:1}
   .stack-meta,.ceiling{font-size:.85rem}
   .console h2{font-size:1.8rem}
   #clue{font-size:1.2rem}
+}
+
+/* Navigation and guidance use the same quiet signal language as the playfield. */
+.skip-link{position:fixed;top:8px;left:8px;z-index:20;padding:.8rem 1rem;background:var(--blue);color:var(--blue-ink);border-radius:8px;transform:translateY(-160%)}
+.skip-link:focus{transform:none}
+#main:focus{outline:none}
+.help-steps{list-style:decimal;padding-left:1.5rem;margin:1.5rem 0}
+.help-steps li{padding-left:.5rem;margin:1.1rem 0}
+.help-steps li::marker{color:var(--blue);font-weight:700}
+.help-steps strong,.help-steps span{display:block}
+.help-steps span{color:var(--muted);margin-top:.3rem}
+.help-extra{border-block:1px solid var(--line);padding:.8rem 0}
+summary{cursor:pointer;min-height:32px;align-content:center}
+dialog h2{font-size:2rem;letter-spacing:-.04em;line-height:1.1;margin-top:0}
+dialog form{margin-top:1.5rem}
+#clue[aria-invalid=true]{color:var(--alert)}
+button:disabled:hover{filter:none}
+@media(max-width:380px){
+  .masthead{flex-wrap:wrap;gap:.5rem}
+  .brand{flex:1 0 45%}
+  .masthead button{min-height:44px}
+  .stats{gap:.8rem}
+  .input-dock{flex-wrap:wrap}
+  #send{width:100%;justify-content:center}
+  #clue{flex-basis:100%}
+  .setup{padding:1.2rem}
+}
+@media(forced-colors:active){
+  .word.target{outline:2px solid Highlight;outline-offset:-2px}
+  .word.zone{border-left:3px solid Highlight}
+  .primary,.flag{border:1px solid ButtonText}
 }

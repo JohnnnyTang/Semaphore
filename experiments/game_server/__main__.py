@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import threading
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -12,6 +13,30 @@ from .artifacts import prepare_artifact
 from .service import GameService, ProtocolError
 
 
+class BoundedHTTPServer(ThreadingHTTPServer):
+    """Bound slow clients as well as inference work; excess sockets close immediately."""
+
+    def __init__(self, *args, **kwargs):
+        self.connections = threading.BoundedSemaphore(32)
+        super().__init__(*args, **kwargs)
+
+    def process_request(self, request, client_address):
+        if not self.connections.acquire(blocking=False):
+            self.shutdown_request(request)
+            return
+        try:
+            super().process_request(request, client_address)
+        except Exception:
+            self.connections.release()
+            raise
+
+    def process_request_thread(self, request, client_address):
+        try:
+            super().process_request_thread(request, client_address)
+        finally:
+            self.connections.release()
+
+
 def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
     root = Path(web_root).resolve() if web_root else None
 
@@ -19,6 +44,19 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
         def setup(self):
             super().setup()
             self.connection.settimeout(5)
+
+        def end_headers(self):
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("Referrer-Policy", "no-referrer")
+            self.send_header("X-Frame-Options", "DENY")
+            self.send_header(
+                "Content-Security-Policy",
+                "default-src 'self'; "
+                "script-src 'self'; style-src 'self' 'unsafe-inline'; "
+                "object-src 'none'; base-uri 'none'; frame-ancestors 'none'; "
+                "form-action 'self'",
+            )
+            super().end_headers()
 
         def log_message(self, *_args):
             # Neither URL command IDs nor raw clues go to access logs.
@@ -38,11 +76,20 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
         def _dispatch(self):
             try:
                 if self.headers.get("Origin"):
-                    origin = urlsplit(self.headers["Origin"])
+                    try:
+                        origin = urlsplit(self.headers["Origin"])
+                    except ValueError:
+                        raise ProtocolError(400, "invalid_request") from None
                     if origin.scheme != "http" or origin.netloc != self.headers.get("Host"):
                         raise ProtocolError(400, "invalid_request")
                 raw = b""
                 if self.command == "POST":
+                    if (
+                        self.headers.get_content_type() != "application/json"
+                        or len(self.headers.get_all("Content-Length", [])) != 1
+                        or self.headers.get("Sec-Fetch-Site") == "cross-site"
+                    ):
+                        raise ProtocolError(400, "invalid_request")
                     if self.headers.get("Transfer-Encoding"):
                         raise ProtocolError(400, "invalid_request")
                     try:
@@ -78,7 +125,12 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
                 return
             mount = root / ("web" if path.startswith("/web/") else "fixtures/protocol")
             target = (root / path.lstrip("/")).resolve()
-            if not target.is_relative_to(mount) or not target.is_file():
+            if (
+                not target.is_relative_to(mount)
+                or not target.is_file()
+                or any(part.startswith(".") for part in target.relative_to(root).parts)
+                or target.suffix.lower() not in {".html", ".css", ".mjs", ".svg", ".json"}
+            ):
                 self._json(404, dict(code="not_found", message="not found"))
                 return
             data = target.read_bytes()
@@ -96,7 +148,7 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
         def do_HEAD(self):
             self._json(404, dict(code="not_found", message="not found"))
 
-    return ThreadingHTTPServer((host, port), Handler)
+    return BoundedHTTPServer((host, port), Handler)
 
 
 def main():

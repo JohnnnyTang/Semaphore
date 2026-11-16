@@ -5,29 +5,27 @@ assets, including the flag favicon, are local. No build or package install is ne
 
 ## Launch
 
-From the repository root, start a static server:
+Launch the experiment server with `--web-root <absolute repository root>` using
+[the server instructions](../experiments/game_server/README.md), then open `/web/`.
+Choose a game mode supported by the loaded word pack. The default pack ID is
+`default`; use `?artifact=other-id` or the Word pack ID field for another loaded pack.
+HTTP and assets must share an origin. This browser never calls Ollama or sends
+scores, embeddings, target IDs, entry lists or schedules.
+
+The optional guided warm-up works without a server and waits for the three example
+clues. Starting the actual game requires the server. Scripted practice and its
+scenario picker have been removed; old `transport` query parameters are ignored.
+Recorded protocol fixtures remain development evidence for automated tests only.
+
+For browser QA without Ollama, run the synthetic test server from the repository:
 
 ```powershell
-python -m http.server 18737 --bind 127.0.0.1
+$env:PYTHONPATH = "packages;."
+.venv/Scripts/python.exe -m tests.web.serve-browser-smoke
 ```
 
-Open http://127.0.0.1:18737/web/ and choose **Scripted practice**. The static
-server must serve the repository root, because practice reads the promoted
-`/fixtures/protocol/*.json` evidence. A production asset server is outside this scope.
-
-Practice pauses at the next recorded command. Each explicit clue submission
-advances that command, then polling advances its pending/completion/spawn frames.
-The submitted clue does **not** determine its recorded result. Scores, boards,
-targets, ranks and endings come directly from frozen envelopes. Only command IDs
-are rebound to browser-generated IDs. A sequence without a terminal frame ends
-with **Practice sequence complete**, preserving its last recorded score.
-
-For real play, launch the experiment server using its documented command with
-`--web-root <absolute repository root>`, then open its `/web/?transport=http`.
-Choose **LAN game server**, artifact ID `default`, and a supported mode. An operator
-may preload another artifact; use `?transport=http&artifact=other-id` or edit the
-Artifact ID field. HTTP and assets must share an origin. This browser never calls
-Ollama or sends scores, embeddings, target IDs, entry lists or schedules.
+Open http://127.0.0.1:18739/web/. This server uses authored test vectors, not a real
+semantic model, and is only for development checks.
 
 ## Transport and state
 
@@ -57,16 +55,16 @@ create a local official result.
 node --test tests/web/client.test.mjs
 ```
 
-Six dependency-free tests exercise Unicode code points, one pending command,
+Dependency-free tests exercise Unicode code points, one pending command,
 out-of-order snapshots, older matching receipts, duplicate suppression, terminal
-state, frozen fixture replay, HTTP payloads and structured error handling.
+state, HTTP payloads and structured error handling.
 
 Browser checks use the Playwright CLI (an optional development tool, never a runtime
-dependency). With the static server above running:
+dependency). With the synthetic QA server above running:
 
 ```powershell
 New-Item -ItemType Directory -Force output/playwright | Out-Null
-npx --yes --package @playwright/cli playwright-cli -s=semaphore-g open http://127.0.0.1:18737/web/ --headed
+npx --yes --package @playwright/cli playwright-cli -s=semaphore-g open http://127.0.0.1:18739/web/ --headed
 npx --yes --package @playwright/cli playwright-cli -s=semaphore-g run-code --filename=tests/web/browser-smoke.js
 npx --yes --package @playwright/cli playwright-cli -s=semaphore-g run-code --filename=tests/web/browser-reconnect.js
 ```
@@ -102,7 +100,7 @@ The paced casual ruleset is experiment-arcade-paced-v1. Every five clears
 to the next arrival. The last arrival leaves five seconds before pack exhaustion.
 Event artifacts and old recorded traces retain their existing fixed schedules.
 
-The default scripted preview now uses web/practice/spacious-arcade.json.
+Browser tests use the recorded evidence in web/practice/spacious-arcade.json.
 Regenerate it with:
 python -m experiments.game_server.generate_practice
 This recording comes from the reducer with authored ranking scores. It demonstrates
@@ -139,3 +137,23 @@ Run `tests/web/browser-motion.js` with Playwright CLI against the static preview
 It mocks HTTP snapshots to check visible descent, stationary settled rows, overlapping
 arrivals without animation restarts, desktop sizing through 2560px, mobile overflow,
 and reduced motion. Desktop text scales to 26.4px and slots to 52px on tall displays.
+
+
+## Interface and lifecycle refinement
+
+The welcome screen retains the signal-blue arcade identity with a straight word
+stack, clear host-supplied word pack guidance, and an explicit untimed warm-up.
+Help presents the three gameplay steps first, with streak and mode details folded
+below. Keyboard users have a skip link and a named help dialog; the clue field
+reports over-limit input and pending work. Narrow controls wrap at 320px, while
+large desktop rows retain their readable scale. Forced-color mode preserves the
+target and clear-zone distinction.
+
+Leaving returns to setup immediately, even when quit is delayed or unavailable.
+Late polling errors and quit replies cannot change a replacement game. Malformed
+HTTP error bodies follow the normal unavailable/reconnect path.
+
+Run tests/web/browser-hardening.js with the Playwright CLI against the local QA
+server to check delayed poll/quit isolation, immediate leave, welcome widths, and
+help focus restoration. Existing browser-refine.js, browser-tutorial.js, and
+browser-motion.js cover themes, warm-up, clears, desktop scaling, and reduced motion.

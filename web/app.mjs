@@ -1,6 +1,6 @@
 import { TutorialTransport } from './tutorial.mjs';
 import { GameStore, clueLength, validateClue, resultText } from './store.mjs';
-import { HttpTransport, FixtureTransport } from './transports.mjs';
+import { HttpTransport } from './transports.mjs';
 const $ = id => document.getElementById(id);
 let store = new GameStore(), transport, polling = false, connected = true, composing = false;
 let epoch = 0, rows = new Map(), finished = false, settings, boardSignature = '';
@@ -17,13 +17,7 @@ try { preferredTheme = localStorage.getItem('semaphore-theme'); } catch { /* Opt
 setTheme(['light', 'dark'].includes(preferredTheme) ? preferredTheme : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 $('theme-toggle').onclick = () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
 const params = new URLSearchParams(location.search);
-$('transport').value = params.get('transport') === 'fixture' ? 'fixture' : 'http';
 $('artifact').value = params.get('artifact') || 'default';
-function options() {
-  $('fixture-options').hidden = $('transport').value !== 'fixture';
-  $('http-options').hidden = $('transport').value !== 'http';
-}
-options(); $('transport').addEventListener('change', options);
 $('help-open').onclick = () => $('help').showModal();
 function persist() {
   if (settings?.kind !== 'http' || transport instanceof TutorialTransport) return;
@@ -137,6 +131,7 @@ function updateControls() {
   const pending = !!store.pending || !!s.pending;
   $('clue').readOnly = pending;
   $('send').disabled = pending || !connected || !s.target || s.status !== 'active';
+  $('clue-form').setAttribute('aria-busy', String(pending));
   $('send').firstChild.textContent = pending ? 'Ranking your clue… ' : 'Send clue ';
   $('reconnect').hidden = connected;
   $('connection').textContent = connected ? '' : 'Reconnecting. The game clock is still running. Your clue is kept in this tab.';
@@ -145,14 +140,14 @@ let clockSample = performance.now();
 function drawClock() {
   const s = store.snapshot; if (!s) return;
   const elapsed = s.elapsed_ms + Math.max(0, performance.now() - clockSample);
-  $('next-spawn').textContent = transport instanceof TutorialTransport ? 'Paused for you' : s.status === 'over' ? 'Finished' : settings.kind === 'fixture' ? 'Replay clock · advances with clues' : s.next_spawn_ms === null ? 'No more arrivals' : `Next word in ${Math.max(0, Math.ceil((s.next_spawn_ms - elapsed) / 1000))} s`;
+  $('next-spawn').textContent = transport instanceof TutorialTransport ? 'Paused for you' : s.status === 'over' ? 'Finished' : s.next_spawn_ms === null ? 'No more arrivals' : `Next word in ${Math.max(0, Math.ceil((s.next_spawn_ms - elapsed) / 1000))} s`;
 }
 setInterval(drawClock, 100);
 function render(result) {
   const s = store.snapshot; if (!s) return;
   $('welcome').hidden = true; $('game').hidden = false; document.body.classList.add('playing');
   const tutorial = transport instanceof TutorialTransport;
-  $('source').textContent = tutorial ? 'Guided warm-up / clock paused' : settings.kind === 'fixture' ? 'Scripted practice / recorded outcomes' : `${s.mode === 'event' ? 'Event' : 'Casual'} / LAN game`;
+  $('source').textContent = tutorial ? 'Guided warm-up / clock paused' : `${s.mode === 'event' ? 'Event' : 'Casual'} / LAN game`;
   document.querySelector('.stack').style.setProperty('--capacity', s.capacity);
   document.querySelector('.headroom span').hidden = s.capacity - s.board.length < 2;
   $('capacity-warning').textContent = (s.capacity - s.board.length) + ' spaces left';
@@ -192,12 +187,11 @@ function render(result) {
     $('instruction').textContent = transport.note(!!$('clue').value);
     if (result && transport.done) $('begin-game').focus({ preventScroll: true });
   }
-  const practiceDone = !tutorial && settings.kind === 'fixture' && transport.index === transport.frames.length - 1 && !store.pending;
-  const over = s.status === 'over' || practiceDone;
+  const over = s.status === 'over';
   $('active-controls').hidden = over; $('ending').hidden = !over;
   if (over) {
     const reasons = { overflow: 'The stack filled up', pack_cleared: 'Pack complete', pack_exhausted: 'Pack complete', event_complete: 'Challenge complete', interrupted: 'Game interrupted' };
-    $('end-title').textContent = practiceDone && s.status !== 'over' ? 'Practice sequence complete' : reasons[s.end_reason];
+    $('end-title').textContent = reasons[s.end_reason] || 'Game complete';
     $('end-detail').textContent = `${s.score} points. ${s.clears} word${s.clears === 1 ? '' : 's'} cleared.${s.end_reason === 'interrupted' ? ' This is not an official ranked result.' : ''}`;
     if (!finished) {
       $('end-title').focus({ preventScroll: true }); finished = true;
@@ -218,17 +212,18 @@ function failure(error) {
   }
 }
 async function reconcile() {
-  const id = store.snapshot.game_id, run = epoch;
-  const snapshot = await transport.snapshot(id);
+  const id = store.snapshot.game_id, run = epoch, activeTransport = transport;
+  const snapshot = await activeTransport.snapshot(id);
   if (run !== epoch) return;
   apply(snapshot);
   if (store.pending) {
     const command = store.pending;
-    try { const receipt = await transport.receipt(id, command.command_id); if (run !== epoch) return; apply(receipt); }
+    try { const receipt = await activeTransport.receipt(id, command.command_id); if (run !== epoch) return; apply(receipt); }
     catch (error) {
+      if (run !== epoch) return;
       if (error.code !== 'receipt_not_found') throw error;
       // A lost POST is retried with exactly the original ID, revision and clue.
-      const response = await transport.command(id, command); if (run !== epoch) return; apply(response);
+      const response = await activeTransport.command(id, command); if (run !== epoch) return; apply(response);
     }
   }
   connected = true; updateControls();
@@ -236,7 +231,8 @@ async function reconcile() {
 async function poll() {
   if (polling || !store.snapshot || finished || document.hidden) return;
   polling = true;
-  try { await reconcile(); } catch (error) { failure(error); }
+  const run = epoch;
+  try { await reconcile(); } catch (error) { if (run === epoch) failure(error); }
   finally { polling = false; }
 }
 setInterval(poll, 250);
@@ -245,8 +241,8 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) poll
 async function start(skipTutorial = false) {
   if ($('play').disabled) return;
   const run = ++epoch;
-  const nextSettings = { kind: $('transport').value, scenario: $('scenario').value, artifact: $('artifact').value.trim(), mode: $('mode').value };
-  const nextTransport = !skipTutorial && !$('skip-tutorial').checked ? new TutorialTransport() : nextSettings.kind === 'http' ? new HttpTransport() : new FixtureTransport(nextSettings.scenario);
+  const nextSettings = { kind: 'http', artifact: $('artifact').value.trim(), mode: $('mode').value };
+  const nextTransport = !skipTutorial && !$('skip-tutorial').checked ? new TutorialTransport() : new HttpTransport();
   const errorMessage = $(skipTutorial ? 'begin-error' : 'start-error');
   $('play').disabled = $('begin-game').disabled = true;
   $('start-error').textContent = $('begin-error').textContent = '';
@@ -260,7 +256,7 @@ async function start(skipTutorial = false) {
     apply(envelope); $('clue').focus({ preventScroll: true });
   } catch {
     if (run === epoch) {
-      errorMessage.textContent = 'The game could not start. Check the server and artifact ID, then try again.';
+      errorMessage.textContent = 'The game could not start. Check the server and word pack ID, then try again.';
     }
   } finally {
     $('play').disabled = $('begin-game').disabled = false;
@@ -269,14 +265,22 @@ async function start(skipTutorial = false) {
 }
 $('begin-game').onclick = () => start(true);
 $('start-form').onsubmit = event => { event.preventDefault(); start(); };
-$('again').onclick = () => { $('game').hidden = true; $('welcome').hidden = false; start(); };
-$('leave').onclick = async () => {
-  if (!(transport instanceof TutorialTransport) && settings.kind === 'http' && store.snapshot.status === 'active') {
-    try { apply(await transport.quit(store.snapshot.game_id)); } catch (error) { failure(error); }
-  }
-  epoch++; finished = true; removeSaved(); store = new GameStore(); $('game').hidden = true; $('welcome').hidden = false; document.body.classList.remove('playing'); $('play').focus();
-};
-function updateCount() { $('clue-count').textContent = `${120 - clueLength($('clue').value)} characters available`; }
+$('again').onclick = () => { leaveGame(); start(); };
+function leaveGame() {
+  const previousTransport = transport, previousSnapshot = store.snapshot;
+  const shouldQuit = !(transport instanceof TutorialTransport) && settings?.kind === 'http' && previousSnapshot?.status === 'active';
+  epoch++; finished = true; removeSaved(); store = new GameStore();
+  $('game').hidden = true; $('welcome').hidden = false;
+  document.body.classList.remove('playing'); $('play').focus();
+  // Leave immediately. A late reply belongs only to the abandoned session.
+  if (shouldQuit) previousTransport.quit(previousSnapshot.game_id).catch(() => {});
+}
+$('leave').onclick = leaveGame;
+function updateCount() {
+  const remaining = 120 - clueLength($('clue').value);
+  $('clue-count').textContent = remaining < 0 ? `${-remaining} characters over the limit` : `${remaining} characters available`;
+  $('clue').setAttribute('aria-invalid', String(remaining < 0));
+}
 $('clue').oninput = () => { updateCount(); if (transport instanceof TutorialTransport) $('instruction').textContent = transport.note(!!$('clue').value); persist(); };
 $('clue').addEventListener('compositionstart', () => { composing = true; });
 $('clue').addEventListener('compositionend', () => { composing = false; });
