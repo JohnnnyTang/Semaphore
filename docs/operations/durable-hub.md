@@ -137,7 +137,7 @@ when idle and after incoming connections; cleanup and encrypted backup creation 
 on startup and at least every 24 hours thereafter. Maintenance failures close
 readiness and stop the listener, with a nonzero process exit for supervision.
 HTTP request threads and inference drain before the exclusive process lock releases.
-This API listener does not serve browser static files; W4 owns browser integration.
+Use `serve-durable --web-root web` for same-origin browser assets at `/web/durable.html`; without that option the listener remains API-only.
 
 With the same common options, substitute:
 
@@ -162,3 +162,104 @@ the same asset checks and never cleans shared assets from its temporary snapshot
 Focused host validation: `uv run --no-sync pytest -q tests/hub/test_host.py
 tests/hub/test_durable_host.py`. These checks use synthetic inference or offline
 operator recovery, and do not establish real-model load or human acceptance.
+
+## Fresh local acceptance setup (PowerShell)
+
+Use Python 3.12 and install the locked environment with `uv sync --locked --group dev`.
+This may need package-network access; it is not an offline-install proof.
+Create an operator-only directory using your operating system's filesystem
+permissions before generating secrets. Use ignored `data/w4-local` for acceptance;
+Git ignore rules do not restrict other local users. Keep this directory and its
+ledger outside the browser root.
+
+For a **new installation only**, save this Python snippet as an operator setup
+script and run it with `uv run --no-sync python PATH_TO_SCRIPT`:
+
+```python
+import base64
+import json
+import secrets
+from pathlib import Path
+from semaphore_hub.operations import ExternalLedger
+
+root = Path("data/w4-local")
+root.mkdir(parents=True, exist_ok=False)
+for name in ("csrf.key", "ledger.key", "backup.key"):
+    with (root / name).open("xb") as output:
+        output.write(secrets.token_bytes(32))
+with (root / "commands.json").open("x") as output:
+    json.dump({"active": "v1", "keys": {
+        "v1": base64.b64encode(secrets.token_bytes(32)).decode()
+    }}, output)
+ExternalLedger(root / "deletions.jsonl", (root / "ledger.key").read_bytes(), create=True)
+```
+
+The script refuses an existing directory so a repeat cannot overwrite keys or
+reset a ledger. Secure the parent directory before running it so generated files
+inherit restricted access. Inspect partial setup manually; do not use this script
+to repair an existing deployment.
+
+Set common CLI arguments once (no secret contents appear on the command line):
+
+```powershell
+$hubArgs = @('data/w4-local/hub.db', '--assets', 'data/w4-local/assets',
+  '--csrf-key', 'data/w4-local/csrf.key', '--command-keys', 'data/w4-local/commands.json',
+  '--ledger', 'data/w4-local/deletions.jsonl', '--ledger-key', 'data/w4-local/ledger.key',
+  '--backups', 'data/w4-local/backups', '--backup-key', 'data/w4-local/backup.key',
+  '--origin', 'http://localhost:8080')
+uv run --no-sync python -m semaphore_hub data/w4-local/hub.db migrate
+uv run --no-sync python -m semaphore_hub @hubArgs bootstrap operator Operator
+```
+
+Bootstrap prompts twice for the password and prints the account ID. Retain that ID
+for operator and pack-owner arguments. Empty and checksum-matching v1 databases
+upgrade to schema v2; existing accounts survive and old versions are not silently
+published. Edited, future and unversioned histories fail instead of being adopted.
+Stop the host and retain a restorable deployment before upgrading an existing DB.
+
+Install only rights-cleared content with `install-pack MANIFEST --owner ACCOUNT_ID
+--operator ACCOUNT_ID --rights-reference REFERENCE --accept-publication`, followed
+by `accept-artifact PACK_ID VERSION CONFIGURATION --operator ACCOUNT_ID`. These
+subcommands follow the same `@hubArgs`. The configuration JSON must contain exactly
+`initial_board`, `schedule`, `seed`, and `generator_policy`; use the accepted pack's
+entry IDs. Installation runs real pinned-model verification and may reject content.
+An empty fresh database has no playable packs until installation and acceptance finish.
+
+Once the pinned Ollama provider is configured, launch the integrated browser host:
+
+```powershell
+uv run --no-sync python -m semaphore_hub @hubArgs serve-durable --port 8080 --web-root web
+```
+
+Open `http://localhost:8080/web/durable.html` using the exact configured origin.
+`localhost` and `127.0.0.1` are different origins; changing the port also requires
+changing `--origin`. Keep the root pointed at the repository `web` directory. The
+listener still binds loopback; this local acceptance setup does not establish LAN
+access, HTTPS, remote-host offline readiness or human acceptance.
+
+Stop the listener before this backup/restore drill. Retain the backup path printed
+by `backup`; substitute it for `BACKUP_PATH` below:
+
+```powershell
+uv run --no-sync python -m semaphore_hub @hubArgs backup
+uv run --no-sync python -m semaphore_hub @hubArgs cleanup
+uv run --no-sync python -m semaphore_hub @hubArgs restore BACKUP_PATH data/w4-local/restored.db
+```
+
+For a disposable acceptance account only, run `delete-clues ACCOUNT_ID` or
+`delete-account ACCOUNT_ID` between backup and restore to verify that the newest
+external ledger removes the older snapshot's data. Account deletion is destructive;
+do not use a real operator/player account for a drill. Start the restored deployment
+with its new database path and the same retained assets, keys and current ledger.
+Restore never overwrites an existing destination.
+
+Reproduce the CLI acceptance checks with:
+
+```powershell
+uv run --no-sync pytest -q tests/hub/operations/test_cli_acceptance.py
+```
+
+These checks use isolated temporary databases and generated test keys, without
+model calls or participant data. Service-level populated-game/crash tests cover
+interruption and receipt semantics separately; this operator drill does not prove
+a real-model completed result or a fully offline installation.
