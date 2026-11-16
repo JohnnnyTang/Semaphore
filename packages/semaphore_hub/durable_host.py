@@ -50,8 +50,14 @@ class DurableHost:
         *,
         embedder=None,
         clock=None,
+        web_root=None,
     ):
         self.database, self.assets = Path(database), Path(assets)
+        self.browser = None
+        if web_root is not None:
+            from semaphore_hub.browser_assets import BrowserAssets
+
+            self.browser = BrowserAssets(web_root)
         self.clock = clock or SystemClock()
         self.guard = threading.RLock()
         self.ready = False
@@ -109,6 +115,10 @@ class DurableHost:
         with self.guard:
             if not self.ready:
                 return error(503, "unavailable")
+            if self.browser is not None:
+                response = self.browser.handle(self.dispatcher, *args, **kwargs)
+                if response is not None:
+                    return response
             return self.dispatcher.handle(*args, **kwargs)
 
     def backup(self):

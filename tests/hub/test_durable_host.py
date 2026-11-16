@@ -208,6 +208,9 @@ def test_concrete_listener_runs_scheduler_and_authenticated_dispatch(host, monke
         def identity(self):
             return {"synthetic": True}
 
+    from semaphore_hub.browser_assets import BrowserAssets
+
+    host.browser = BrowserAssets("web")
     host.embedder = IdentityOnly()
     monkeypatch.setattr("semaphore_hub.durable_host.DurableServer", ObservedServer)
 
@@ -226,6 +229,15 @@ def test_concrete_listener_runs_scheduler_and_authenticated_dispatch(host, monke
         with closing(HTTPConnection("127.0.0.1", bound[0], timeout=3)) as client:
             client.request("GET", "/api/v1/history", headers={"Host": "localhost:8080"})
             assert client.getresponse().status == 401
+        with closing(HTTPConnection("127.0.0.1", bound[0], timeout=3)) as client:
+            client.request("GET", "/web/durable.html", headers={"Host": "localhost:8080"})
+            response = client.getresponse()
+            assert response.status == 200
+            assert response.getheader("Content-Type") == "text/html; charset=utf-8"
+            assert b"durable-app.mjs" in response.read()
+        with closing(HTTPConnection("127.0.0.1", bound[0], timeout=3)) as client:
+            client.request("GET", "/web/durable.html", headers={"Host": "attacker.invalid"})
+            assert client.getresponse().status == 403
     finally:
         host.close()
         worker.join(5)

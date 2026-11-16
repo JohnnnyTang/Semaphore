@@ -51,6 +51,7 @@ def main(argv=None) -> None:
     listener.add_argument("--port", type=int, default=8080)
     durable = commands.add_parser("serve-durable")
     durable.add_argument("--port", type=int, default=8080)
+    durable.add_argument("--web-root", help="Directory containing the durable browser assets")
     for name in ("cleanup", "backup"):
         commands.add_parser(name)
     for name in ("delete-clues", "delete-account"):
@@ -182,6 +183,7 @@ def run_durable(args, parser):
         args.backups,
         args.backup_key,
         embedder=embedder,
+        web_root=getattr(args, "web_root", None),
     )
     try:
         if args.command == "serve-durable":

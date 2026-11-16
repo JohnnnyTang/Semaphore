@@ -1,5 +1,10 @@
 # Semaphore project plan
 
+November 16, 2026 W4 dispatch: product acceptance started with three isolated
+parallel subagents from W3 baseline `8711848`. The coordinator owns shared host
+wiring and integration; [W4 record](docs/stages/s2-w4-acceptance.md). Human,
+real-model performance, offline/resource and content gates remain open.
+
 November 16, 2026 W3 completion: durable host startup, scheduled maintenance,
 operator restore with retained key/asset validation and real SQLite subprocess
 crash probes are integrated locally; [closure](docs/stages/s2-w3-durability.md).

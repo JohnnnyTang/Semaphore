@@ -87,14 +87,23 @@ class FoundationHandler(BaseHTTPRequestHandler):
         pass
 
     def _response(self, response):
-        raw = b"" if response.body is None else json.dumps(response.body).encode()
+        raw = (
+            response.body
+            if isinstance(response.body, bytes)
+            else b""
+            if response.body is None
+            else json.dumps(response.body).encode()
+        )
         self.send_response(response.status)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header(
+            "Content-Type", response.headers.get("Content-Type", "application/json; charset=utf-8")
+        )
         self.send_header("Content-Length", str(len(raw)))
         self.send_header("Connection", "close")
         self.send_header("X-Content-Type-Options", "nosniff")
         for key, value in response.headers.items():
-            self.send_header(key, value)
+            if key.lower() != "content-type":
+                self.send_header(key, value)
         self.end_headers()
         self.wfile.write(raw)
         self.close_connection = True

@@ -11,7 +11,7 @@ from .service import AuthError
 @dataclass(frozen=True)
 class Response:
     status: int
-    body: dict | None
+    body: dict | bytes | None
     headers: dict
 
 
