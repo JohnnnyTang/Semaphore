@@ -36,7 +36,7 @@ async (page) => {
     assert(response.ok(), 'owner can read admitted receipt');
     receipt = (await response.json()).receipt;
   }
-  assert(receipt.outcome !== 'pending', 'receipt settled');
+  assert(['clear', 'miss'].includes(receipt.outcome), `clue ranked successfully: ${receipt.outcome}`);
   // This short acceptance artifact must naturally end within 60 seconds.
   await page.waitForFunction(() => document.getElementById('target').textContent.startsWith('Round complete:'), null, { timeout: 60000 });
   await page.getByRole('button', { name: 'Refresh results', exact: true }).click();
@@ -57,7 +57,7 @@ async (page) => {
   await page.getByRole('button', { name: 'Sign out', exact: true }).click();
   await page.getByRole('heading', { name: 'Sign in to play', exact: true }).waitFor();
   assert(await page.locator('#results li').count() === 0, 'logout clears private history');
-  console.log(JSON.stringify({ kind: 'automated-real-service-browser', game_id: gameId,
+  return { kind: 'automated-real-service-browser', game_id: gameId,
     artifact_id: artifact, receipt_outcome: receipt.outcome, score: result.score,
-    human_acceptance: false, server_restart_tested: false }));
+    human_acceptance: false, server_restart_tested: false };
 }
