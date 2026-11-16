@@ -79,3 +79,45 @@ or query embedding calls. It records elapsed monotonic time, batch size and a
 success flag; it never captures text, vectors or exception contents. `summary()`
 returns successful p95 and measurements. No model is loaded or invoked by import
 or this harness. This instrumentation is not a latency/throughput acceptance run.
+
+## W4 opt-in authenticated HTTP load
+
+`http_load` exercises the deployed durable HTTP boundary with independent cookies
+and CSRF tokens. Prepare a **disposable test installation**, eight distinct test
+accounts and an accepted immutable artifact. Natural endings can create durable
+scores: never use a participant installation or real participant accounts. The
+runner does not install or publish synthetic packs, create users or restart hosts.
+Ensure no other model consumers run during the measurement window.
+
+Keep credentials in an ignored operator-only JSON file containing objects with
+`login_name` and `password`. Keep a separate JSON array of synthetic clue strings.
+The clues must be legal for the selected artifact; rejection outcomes are failures,
+not fast inference samples. No supplied credentials or clue strings enter output.
+
+```powershell
+uv run --no-sync python -m experiments.durable_acceptance.http_load --origin http://127.0.0.1:8080 --accounts data/probes/accounts.json --clues data/probes/clues.json --artifact ACCEPTED_ARTIFACT --server-revision FULL_40_CHARACTER_COMMIT_SHA --players 1 4 8 --commands 10 --output data/probes/FRESH_HTTP_REPORT.json --disposable-test-installation
+```
+
+The output file must not exist. Cohorts run sequentially. Each player's game is
+created once; a lost create response is never retried. Players synchronize before
+timed commands. Each player has at most one unresolved command; the runner polls
+receipts, verifies exact retries and quits its own game on completion/failure.
+A create with an uncertain response may leave an active test game; inspect the
+installation before another run. Cleanup failures remain visible in the report.
+
+Reported latency is command POST through the observed final receipt (20 ms poll
+interval plus HTTP overhead), excluding login/create and exact-retry validation.
+Only `clear`/`miss` count as successful inference-path outcomes. Rejections,
+timeouts, partial samples, early game endings and errors remain visible. p50/p95
+use nearest-rank successful samples; `complete` additionally requires every planned
+command and no player error. Exit status is nonzero for incomplete runs. A complete
+run can still miss the 100 ms target; inspect `latency_target_met`.
+
+This first slice has **no concurrent verifier workload, remote resource collection,
+queue/embedding breakdown, restart orchestration or proof of real model execution**.
+Public artifact cohort pins are captured; the server commit is operator-declared,
+not remotely verified. Host metadata describes the load generator. Do not call this
+Stage 2 acceptance or compare its timings directly with embedding-only measurements.
+No successful fake run establishes model latency. The independent subprocess crash
+runner remains the existing restart/deletion proof; real browser/human acceptance
+and controlled verifier-overlap measurements remain W4 work.
