@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { DurableClient, DurableTransport, FixtureTransport, boardRows, commandId } from '../../web/durable-client.mjs';
+import { DurableClient, DurableTransport, FixtureTransport, boardRows, commandId, validateAccount } from '../../web/durable-client.mjs';
 const payloads = JSON.parse(await readFile(new URL('../../fixtures/durable/payloads.json', import.meta.url)));
 const value = name => structuredClone(payloads.cases.find(item => item.name === name).value);
 function setup(script) { const transport = new FixtureTransport(payloads, script); return { transport, client: new DurableClient(transport) }; }
@@ -157,4 +157,22 @@ test('LAN HTTP command IDs use cryptographic randomness without randomUUID', () 
   assert.equal(calls, 1);
   assert.equal(id, 'ffffffff-ffff-4fff-bfff-ffffffffffff');
   assert.equal(commandId({ randomUUID: () => 'native-id' }), 'native-id');
+});
+
+
+test('signup validates account policy before sending without normalizing passwords', () => {
+  const body = { login_name: 'Player_123', password: ' 1234567890 ', display_name: '玩家' };
+  assert.equal(validateAccount('signup', body), null);
+  assert.equal(body.password, ' 1234567890 ');
+  for (const login_name of ['ab', '玩家名', 'has space', 'a'.repeat(33)])
+    assert.equal(validateAccount('signup', { ...body, login_name }).field, 'login');
+  for (const password of ['short', '😀'.repeat(129), '\uD800'])
+    assert.equal(validateAccount('signup', { ...body, password }).field, 'password');
+  assert.equal(validateAccount('signup', { ...body, password: '😀'.repeat(128) }), null);
+  for (const display_name of ['', '   ', 'x'.repeat(65), 'hidden\u200b', '\ufeff'])
+    assert.equal(validateAccount('signup', { ...body, display_name }).field, 'display');
+  assert.equal(validateAccount('signup', { ...body, display_name: '  Full　Width  ' }), null);
+  assert.equal(validateAccount('signup', { ...body, display_name: '😀'.repeat(64) }), null);
+  // Existing login policy permits short passwords and does not require a display name.
+  assert.equal(validateAccount('login', { login_name: 'player', password: 'x' }), null);
 });

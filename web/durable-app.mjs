@@ -1,4 +1,4 @@
-import { DurableClient, DurableTransport, boardRows } from './durable-client.mjs';
+import { DurableClient, DurableTransport, boardRows, validateAccount } from './durable-client.mjs';
 import { resultText } from './store.mjs';
 const $ = id => document.getElementById(id);
 const client = new DurableClient(new DurableTransport());
@@ -8,6 +8,7 @@ $('clue').addEventListener('compositionend', () => { composing = false; });
 let config, packCursor, historyCursor, boardCursor, pageBusy = false, boardArtifact = null;
 const say = text => { $('notice').textContent = text; };
 const errorText = error => ({ unauthenticated: 'Your session expired. Sign in again.', invalid_credentials: 'Login name or password was not recognized.',
+  invalid_request: 'Check your account details: login names use 3–32 letters A–Z, numbers or underscores; new passwords need 12–128 characters and new accounts need a display name.',
   signup_disabled: 'New accounts are disabled in this room.', creation_uncertain: 'The round may have started. Find your current round before choosing to start another.',
   unavailable: 'Connection interrupted. Reconnect to check what happened.', receipt_not_found: 'The clue receipt is not available. Retry the same clue to check admission.',
   not_found: 'Nothing was found. After an uncertain start, this does not prove the round never started.',
@@ -70,9 +71,11 @@ async function board(append = false) {
   boardCursor = data.next_cursor; boardArtifact = artifact; $('more-board').hidden = !boardCursor;
 }
 $('auth').addEventListener('submit', event => {
-  event.preventDefault(); const kind = event.submitter?.value || 'login';
+  event.preventDefault(); if (pageBusy) return; const kind = event.submitter?.value || 'login';
   const body = { login_name: $('login').value, password: $('password').value };
   if (kind === 'signup') body.display_name = $('display').value;
+  const problem = validateAccount(kind, body);
+  if (problem) { say(problem.message); $(problem.field).focus(); return; }
   $('password').value = '';
   run(async () => { await client.authenticate(kind, body); $('consent').checked = false; await packs(); await history(); say('Signed in. Choose an installed round.'); });
 });

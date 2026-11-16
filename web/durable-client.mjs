@@ -14,6 +14,27 @@ export function boardRows(snapshot) {
     label: snapshot.entries[id]?.label || id, target: id === snapshot.target,
     inZone: index < snapshot.zone_size }));
 }
+export function validateAccount(kind, body) {
+  if (!/^[A-Za-z0-9_]{3,32}$/.test(body.login_name)) {
+    return { field: 'login', message: 'Use 3–32 letters A–Z, numbers or underscores for your login name.' };
+  }
+  const minimum = kind === 'signup' ? 12 : 1;
+  const length = [...body.password].length;
+  if (length < minimum || length > 128 || /[\uD800-\uDFFF]/u.test(body.password)) {
+    return { field: 'password', message: kind === 'signup'
+      ? 'Choose a password with 12–128 characters. Spaces count; your password is never trimmed.'
+      : 'Enter your password using 1–128 valid characters.' };
+  }
+  if (kind === 'signup') {
+    const display = body.display_name;
+    // Match Python str.split whitespace after NFKC, including its four extra separators.
+    const normalized = display.normalize('NFKC').replace(/[\p{White_Space}\u001c-\u001f]+/gu, ' ').replace(/^ | $/g, '');
+    if (![display, normalized].every(value => [...value].length >= 1 && [...value].length <= 64) || /\p{C}/u.test(normalized)) {
+      return { field: 'display', message: 'Add a display name with 1–64 visible characters. Spaces alone and hidden control characters are not allowed.' };
+    }
+  }
+  return null;
+}
 export class ApiError extends Error {
   constructor(code, status = 0) { super(code); this.code = code; this.status = status; }
 }
