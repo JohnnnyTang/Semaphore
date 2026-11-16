@@ -2,7 +2,9 @@
 
 Planned November 16, 2026 (Asia/Shanghai).
 Status: W1-A integrated locally on November 16; executable boundaries frozen at
-`92aaffb0594ea329489b3df1eeea6336312edda3`. W2 remains blocked on Stage 1 disposition.
+`92aaffb0594ea329489b3df1eeea6336312edda3`. W2 is running under the owner's
+explicit bounded-work instruction; named Stage 1 carryovers remain open in the
+[W2 dispatch record](s2-w2-foundations.md).
 Planning snapshot: `67334c2c7fbc1b2840ff06f7141087f9a450490d`.
 This is an inspection baseline, not a dispatch commit. Each wave records its own
 reviewed, committed baseline before workers start.
@@ -276,6 +278,6 @@ A planning-only edit requires link/consistency and diff checks, not runtime test
 | Wave | Baseline SHA | State | Handoff |
 | --- | --- | --- | --- |
 | W1 | `92aaffb0594ea329489b3df1eeea6336312edda3` | Integrated locally | [Evidence and contract baseline](s2-w1-foundation.md); [worker briefs](s2-w1-session-briefs.md) |
-| W2 | To issue after entry decision | Blocked | W1 complete; Stage 1 closure or explicit named carryover disposition still required |
+| W2 | `8ac07292ed469be28f755edd28dd4e711ed79c75` | Running | [Owner authorization, parallel dispatch and retained carryovers](s2-w2-foundations.md) |
 | W3 | After W2 integration | Blocked | Integrated accounts, packs and browser fixtures |
 | W4 | After W3 integration | Blocked | Integrated durable service/operations and independent probes |

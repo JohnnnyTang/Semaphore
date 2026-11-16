@@ -5,7 +5,8 @@ integration skeleton are frozen at `92aaffb0594ea329489b3df1eeea6336312edda3`.
 Three isolated W1 helpers were reviewed and integrated locally. Validation passed:
 355 Python tests, 7 browser tests, lint/format, fresh locked install and packaged
 runtime/repository/schema smoke. See [W1 evidence](docs/stages/s2-w1-foundation.md)
-and [implementation briefs](docs/stages/s2-w1-session-briefs.md). W2 is not dispatched;
+and [implementation briefs](docs/stages/s2-w1-session-briefs.md). W2 is now dispatched
+under the owner's explicit bounded-work request; see the [W2 record](docs/stages/s2-w2-foundations.md).
 Stage 1's 100 ms, human, offline/resource and content gates remain open. Earlier
 status paragraphs below are historical.
 

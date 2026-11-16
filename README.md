@@ -13,7 +13,8 @@ Stage 2 W1 is integrated locally: durable schemas/fixtures, account/runtime
 policies, migrations, repository interfaces and a runnable fake composition.
 See the [W1 record](docs/stages/s2-w1-foundation.md) and
 [worker briefs](docs/stages/s2-w1-session-briefs.md). This does not yet provide
-production account or durable game HTTP services; W2 remains gated.
+a complete durable game HTTP service. W2 accounts, installed packs and browser
+work is running in parallel; see the [W2 record](docs/stages/s2-w2-foundations.md).
 Stage 1 acceptance remains open; the experiment continues to run unchanged.
 
 Stage 1, Wave 4 is integrated locally: callable core, authoritative experimental server, thin browser and independent probes. See the [Wave 4 record](docs/stages/s1-w4-playable-experiment.md) for validation and W5 gates.
