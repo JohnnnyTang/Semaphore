@@ -121,3 +121,55 @@ Stage 2 acceptance or compare its timings directly with embedding-only measureme
 No successful fake run establishes model latency. The independent subprocess crash
 runner remains the existing restart/deletion proof; real browser/human acceptance
 and controlled verifier-overlap measurements remain W4 work.
+
+## Fresh real-model orchestration
+
+`real_run` provisions a new disposable installation and independent random keys,
+uses the real trusted installer/verifier, starts an actual `DurableHost` subprocess,
+and runs HTTP load concurrently with repeated actual `verify_pack` calls against
+the same pinned Ollama service. It never copies a live database or strips content
+tags. Supply the exact rights-cleared manifest and an explicit accepted casual
+configuration (`initial_board`, `schedule`, optional `seed`/`generator_policy`).
+The configuration should last long enough for all planned commands. A separate
+five-second artifact is accepted for the natural-ending/restart check.
+
+Use only after obtaining an exclusive model-pressure window: it competes with
+human play and other model users. `SEMAPHORE_OLLAMA_BASE_URL` must identify the intended
+pinned model endpoint (see the adapter environment documentation). The workspace
+and output paths must be new, inside an operator-restricted private directory.
+Keys, SQLite data and generated disposable credentials must never enter Git.
+Credentials remain in memory; generated keys and private test data remain on disk
+for inspection. The runner stops all its subprocesses when finished.
+
+```powershell
+uv run --no-sync python -m experiments.durable_acceptance.real_run --workspace data/w4/FRESH_INSTALL --manifest packs/everyday.json --configuration data/w4/configuration.json --clues data/w4/synthetic-clues.json --rights-reference docs/evidence/s2-w2-installation.md --server-revision FULL_COMMIT_SHA --output data/w4/FRESH_REPORT.json --commands 10 --port 18084 --allow-model-traffic
+```
+
+Installation telemetry is stored beside the report; server and verifier telemetry
+is inside the new workspace. Reports contain model identity, manifest digest,
+artifact/cohort pins, per-cohort start/end timestamps, completed model-call intervals
+and failures. `verified_overlap` requires an observed successful completed model
+call intersecting the corresponding HTTP load interval. Starting a verifier process
+alone cannot establish overlap. Calls interrupted by forced verifier termination
+remain as unmatched start events; the exit status and forced-stop flag are retained.
+This is direct verifier pressure on the same endpoint, not a production upload queue.
+
+If `psutil` is available, timestamped hub subprocess RSS and cumulative CPU are
+sampled every 100 ms. Remote model-server resources and queue-delay breakdown are
+not measured. Do not mistake load-generator/hub metrics for remote GPU/CPU evidence.
+No dependency is installed implicitly. After load, one short game ends naturally;
+its terminal snapshot, history and exactly-one score are checked after process
+termination/restart. A second active game must instead become interrupted with no
+score. This is automated persistence evidence, not human play acceptance. Existing
+crash probes cover the narrower SQL transaction fault boundaries.
+
+The final report is written even on caught setup/run failures, with safe exception
+class labels rather than private exception text. Review both `load` completeness
+and latency, actual overlap, inference events and `restart.passed`; a successful
+runner exit alone is never a Stage 2 acceptance or sub-100 ms claim.
+
+Before timed load the runner waits up to 180 seconds for a successful verifier
+query batch. It records verifier batches using the configured provider batch size;
+the pinned identity is checked for each batch. Exit zero requires all three cohorts
+complete, observed game inference, successful verifier-call overlap in every cohort,
+and restart checks passing. The 100 ms target remains a separate reported gate.

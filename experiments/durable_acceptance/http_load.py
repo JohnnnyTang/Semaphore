@@ -105,6 +105,7 @@ def player(client, artifact, clues, count, gate, *, deadline=10, poll=0.02):
                 "expected_revision": snapshot["revision"],
                 "clue": clues[index % len(clues)],
             }
+            started_ns = time.time_ns()
             started = time.monotonic()
             observation = {"index": index, "success": False, "outcome": "request_failed"}
             try:
@@ -119,6 +120,8 @@ def player(client, artifact, clues, count, gate, *, deadline=10, poll=0.02):
             except ProbeError as exc:
                 observation["outcome"] = str(exc)
             finally:
+                observation["started_ns"] = started_ns
+                observation["finished_ns"] = time.time_ns()
                 observation["elapsed_ms"] = (time.monotonic() - started) * 1000
                 samples.append(observation)
             if observation["outcome"] in {"clear", "miss"}:
@@ -172,6 +175,7 @@ def run(origin, accounts, artifact, clues, *, counts=(1, 4, 8), commands=10, cli
             clients.append(client)
         report["artifact"] = clients[0].request("/artifacts/" + quote(artifact, safe=""))
         for count in counts:
+            cohort_started = time.time_ns()
             gate = threading.Barrier(count)
             with ThreadPoolExecutor(max_workers=count) as pool:
                 futures = [
@@ -189,6 +193,8 @@ def run(origin, accounts, artifact, clues, *, counts=(1, 4, 8), commands=10, cli
             report["runs"].append(
                 {
                     "players": count,
+                    "started_ns": cohort_started,
+                    "finished_ns": time.time_ns(),
                     "observations": players,
                     **stats,
                     "complete": complete,
