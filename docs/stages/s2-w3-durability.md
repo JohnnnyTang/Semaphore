@@ -1,6 +1,7 @@
 # Stage 2 W3 — Durable services and independent probes
 
-November 16, 2026. State: preparing parallel dispatch after W2 completion.
+November 16, 2026. State: three isolated workers running after W2 completion.
+Common dispatch baseline: `2a00a4334227274abfdf29ea9eb86c3571b95057`.
 W2 closure commit: `dc32882`. The owner requested finishing W2 then starting W3
 with parallel subagents. All named Stage 1 and W4 gates remain open.
 
