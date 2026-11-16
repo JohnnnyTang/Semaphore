@@ -1,6 +1,6 @@
 # Stage 2 W2 — Parallel implementation
 
-November 16, 2026 (Asia/Shanghai). State: running; three isolated workers dispatched.
+November 16, 2026 (Asia/Shanghai). State: first implementation slice integrated locally; W2 acceptance remains open.
 Common baseline: `8ac07292ed469be28f755edd28dd4e711ed79c75`.
 
 The owner requested “get started with W2 using parallel sub agents”. This explicitly
@@ -17,9 +17,53 @@ W1 interfaces. Shared changes remain coordinator-owned.
 
 | Session | Owned paths | State |
 | --- | --- | --- |
-| B accounts | `packages/semaphore_hub/auth/`, `tests/hub/auth/`, account evidence | Running |
-| C packs | `packages/semaphore_hub/packs/`, `tests/hub/packs/`, pack evidence | Running |
-| D browser | `web/`, `tests/web/`, browser evidence | Running |
+| B accounts | `packages/semaphore_hub/auth/`, `tests/hub/auth/`, account evidence | Integrated locally |
+| C packs | `packages/semaphore_hub/packs/`, `tests/hub/packs/`, pack evidence | Integrated locally |
+| D browser | `web/`, `tests/web/`, browser evidence | Integrated locally |
 
 Detailed scope and acceptance: [implementation briefs](s2-w1-session-briefs.md).
 No W3 dispatch, real-model/human acceptance or production readiness is claimed.
+
+
+## Integrated implementation slice
+
+All three workers used the same dispatch commit in isolated worktrees:
+accounts `8718153`, packs `d321b93`, browser `08861a9`. The coordinator reviewed
+and integrated their work, plus real shared SQLite transaction composition and
+an authenticated framework-neutral account/pack HTTP dispatcher. No network
+listener or fake game-service fallback is introduced. The transaction integration
+checks cover account/pack rollback together, reopen persistence and independent
+thread-owned connections. HTTP integration checks prove persisted sessions guard
+pack reads and logout revokes access.
+
+Worker evidence: [accounts](../evidence/s2-w2-accounts.md),
+[packs](../evidence/s2-w2-packs.md), [browser](../evidence/s2-w2-browser.md).
+Independent review corrected cookie lifetime, account-switch response races,
+same-game uncertain-command recovery, artifact count limits and retirement during
+verification. The existing experiment entry and regression tests are retained.
+
+## Remaining W2 acceptance and later waves
+
+The implementation is a bounded foundation slice, not a complete playable durable
+server. Coordinator host CLI/listener composition and an actual trusted installation
+with accepted content/report/artifact provenance remain open before W2 closure.
+The authored MIT everyday pack is a candidate, not automatically published content.
+W3 durable games, lifecycle/recovery and independent fault probes are not dispatched.
+W4 still owns real browser/service wiring and signed-in real-model/human acceptance.
+The browser currently has fixture evidence; uncertain clue bodies remain memory-only
+across page reload. The installer needs a bounded underlying model transport and
+holds its slot until synchronous work returns; timeout cannot kill a blocked call.
+All named Stage 1 carryovers above remain open. Nothing has been pushed.
+
+## Combined validation
+
+- `uv run --no-sync pytest -q`: 387 passed.
+- `node --test tests/web/*.test.mjs`: 20 passed.
+- `uv run --no-sync ruff check .`: passed.
+- `uv run --no-sync ruff format --check .`: 144 files formatted.
+- `git diff --check`: passed.
+- `uv build --no-build-isolation`: wheel and source distribution built.
+- Worker Playwright fixture browser journey passed; details in browser evidence.
+
+These results cover the integrated code, including coordinator composition checks.
+They do not imply real-model, human, complete-service or Stage 1 acceptance.

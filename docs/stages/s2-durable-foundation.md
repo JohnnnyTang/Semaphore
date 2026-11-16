@@ -278,6 +278,6 @@ A planning-only edit requires link/consistency and diff checks, not runtime test
 | Wave | Baseline SHA | State | Handoff |
 | --- | --- | --- | --- |
 | W1 | `92aaffb0594ea329489b3df1eeea6336312edda3` | Integrated locally | [Evidence and contract baseline](s2-w1-foundation.md); [worker briefs](s2-w1-session-briefs.md) |
-| W2 | `8ac07292ed469be28f755edd28dd4e711ed79c75` | Running | [Owner authorization, parallel dispatch and retained carryovers](s2-w2-foundations.md) |
+| W2 | `8ac07292ed469be28f755edd28dd4e711ed79c75` | First slice integrated; acceptance open | [Owner authorization, parallel dispatch and retained carryovers](s2-w2-foundations.md) |
 | W3 | After W2 integration | Blocked | Integrated accounts, packs and browser fixtures |
 | W4 | After W3 integration | Blocked | Integrated durable service/operations and independent probes |

@@ -1,0 +1,49 @@
+"""Real W2 transaction composition; game and maintenance adapters arrive in W3.
+
+Call migrate/startup recovery before use. This module does not open a listener or
+claim that the complete durable application is ready to serve traffic.
+"""
+
+from collections.abc import Iterator
+from contextlib import closing, contextmanager
+from pathlib import Path
+
+from semaphore_hub.storage import connect, transaction
+
+
+class FoundationDatabase:
+    """Open a thread-owned connection for each short service transaction."""
+
+    def __init__(self, path: str | Path):
+        if str(path) == ":memory:":
+            raise ValueError("foundation composition requires a persistent database path")
+        self.path = Path(path).resolve()
+
+    @contextmanager
+    def transaction(self):
+        with closing(connect(self.path)) as connection, transaction(connection):
+            yield connection
+
+    @contextmanager
+    def unit_of_work(self) -> Iterator["FoundationRepositories"]:
+        with self.transaction() as connection:
+            yield FoundationRepositories(connection)
+
+
+class FoundationRepositories:
+    """Transaction-scoped real adapters; deliberately no fake W3 fallback."""
+
+    def __init__(self, connection):
+        from semaphore_hub.auth import SqliteAccounts
+        from semaphore_hub.packs import SQLitePacks
+
+        self.accounts = SqliteAccounts(connection)
+        self.packs = SQLitePacks(connection)
+
+    @property
+    def games(self):
+        raise NotImplementedError("durable games require W3 integration")
+
+    @property
+    def maintenance(self):
+        raise NotImplementedError("durable maintenance requires W3 integration")
