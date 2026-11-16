@@ -1,6 +1,6 @@
 # Stage 2 W4 — Product acceptance
 
-November 16, 2026. State: running; Stage 2 acceptance is not complete.
+November 16, 2026. State: revise within W4 after real-model measurement; Stage 2 acceptance is not complete.
 
 The owner requested starting W4 using parallel subagents. W3's completed local
 changes were preserved at common baseline
@@ -66,3 +66,35 @@ W4 remains running until its real-model/human and inherited acceptance is resolv
 - Diff whitespace: passed. No changes pushed.
 
 This is completion of the first W4 integration slice, not closure of W4 or Stage 2.
+
+
+## Continued acceptance — November 16
+
+Three isolated helpers continued from `b7f686a`: real-model/load/restart orchestration,
+fresh locked/installed-wheel verification, and human/restart browser evidence.
+All are integrated locally. The owner supplied the model endpoint and completed
+a real round (1,000 points, level 3, pack_exhausted), then confirmed the unchanged
+result and board after process restart. Signup validation was corrected after
+the owner encountered invalid_request. Polling is now guarded at 250 ms.
+
+Fresh locked install, independent installed-wheel resources, supported migrations
+and cached-offline checks passed. Real-model 1/4/8 cohorts with verifier overlap
+produced successful-command p95 of 625/1,344/2,406 ms; the eight-player cohort
+had 12 stale-revision rejections among 40 measured commands. Automated natural
+result/one-score persistence and active-game interruption after restart passed.
+The CPU/RSS samples captured a Windows launcher and are explicitly invalid for
+hub resource claims. Remote model resources/offline operation remain unmeasured.
+
+Decision: revise within W4; preserve the 100 ms target and correct revision
+semantics. No Stage 3 dispatch. See [current report](../evidence/stage-2-report.md),
+[human evidence](../evidence/s2-w4-human-playtest.md),
+[installation evidence](../evidence/s2-w4-installation.md) and
+[real-model results](../evidence/s2-w4-real-results.json).
+Validation before the resource-sampler correction: 482 Python and 27 Node tests,
+lint/format and wheel/source build passed.
+
+The Windows resource sampler was corrected in `eed4531` to include interpreter
+children; thirteen focused tests passed after integration, plus lint/format/diff.
+Read-only idle process-tree validation confirms selection of the real interpreter.
+No second load was run solely to replace that instrumentation failure; valid
+load-time resources remain part of the next performance correction run.

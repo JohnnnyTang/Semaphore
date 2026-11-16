@@ -280,4 +280,4 @@ A planning-only edit requires link/consistency and diff checks, not runtime test
 | W1 | `92aaffb0594ea329489b3df1eeea6336312edda3` | Integrated locally | [Evidence and contract baseline](s2-w1-foundation.md); [worker briefs](s2-w1-session-briefs.md) |
 | W2 | `8ac07292ed469be28f755edd28dd4e711ed79c75` | Complete; Stage 1/W4 gates retained | [Owner authorization, parallel dispatch and retained carryovers](s2-w2-foundations.md) |
 | W3 | `2a00a4334227274abfdf29ea9eb86c3571b95057` | Complete locally; W4 gates retained | [Parallel dispatch and handoff](s2-w3-durability.md) |
-| W4 | `871184892bfa6e4f9a007060394463a797b0097e` | Running; parallel acceptance helpers | [Dispatch and retained gates](s2-w4-acceptance.md) |
+| W4 | `871184892bfa6e4f9a007060394463a797b0097e` | Revise: human/restart pass; real load target failed | [Dispatch and retained gates](s2-w4-acceptance.md) |

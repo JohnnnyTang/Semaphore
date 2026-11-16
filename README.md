@@ -18,7 +18,10 @@ W3 durable games/results, recovery, scheduled maintenance and real subprocess pr
 are complete locally; see the [W3 closure](docs/stages/s2-w3-durability.md) and
 [operator runbook](docs/operations/durable-hub.md). W4 has started with parallel browser,
 HTTP probe and operator acceptance work; see the [W4 record](docs/stages/s2-w4-acceptance.md).
-Real-model/human acceptance remains open.
+The owner completed a real-model round and retrieved its 1,000-point result after
+restart. Real 1/4/8-player verifier-overlap load failed the 100 ms target;
+[W4 disposition](docs/evidence/stage-2-report.md) is revise, with resource/offline
+and broader human/content gates retained.
 Stage 1 acceptance remains open; the experiment continues to run unchanged.
 
 Stage 1, Wave 4 is integrated locally: callable core, authoritative experimental server, thin browser and independent probes. See the [Wave 4 record](docs/stages/s1-w4-playable-experiment.md) for validation and W5 gates.

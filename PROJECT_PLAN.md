@@ -1,5 +1,12 @@
 # Semaphore project plan
 
+November 16, 2026 W4 acceptance update: owner real-model completion and 1,000-point
+result retrieval after restart passed; fresh installation and automated durability
+checks passed. Real 1/4/8-player verifier-overlap load missed the 100 ms target
+and eight-player play had stale-revision rejections. Disposition: revise within W4;
+[Stage 2 report](docs/evidence/stage-2-report.md). Remote resource/offline and
+broader human/content gates remain open.
+
 November 16, 2026 W4 dispatch: product acceptance started with three isolated
 parallel subagents from W3 baseline `8711848`. The coordinator owns shared host
 wiring and integration; [W4 record](docs/stages/s2-w4-acceptance.md). Human,

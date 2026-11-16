@@ -1,8 +1,8 @@
 # W4 signed-in human playtest record
 
-Status: prepared November 16, 2026; **not yet observed**. Do not mark a row passed
-until the named person actually performs it. Automated browser runs and generated
-clues are separate evidence and cannot fill the observations below.
+Status: one owner-reported real-model round and restart retrieval observed on
+November 16, 2026. Automated checks remain separate; unreported usability and
+quality observations stay open.
 
 ## Before the participant starts
 
@@ -20,15 +20,15 @@ IDs and aggregate observations rather than raw participant clue text.
 
 | Session field | Observed value |
 | --- | --- |
-| Date/time and timezone | Pending |
-| Participant alias / consent to play | Pending |
-| Application commit / browser | Pending |
-| Hub host / OS / CPU / RAM | Pending |
-| Exact HTTP origin | Pending |
-| Pack ID / version / manifest digest | Pending |
-| Artifact ID / config digest | Pending |
-| Model fingerprint / endpoint host identity | Pending |
-| Real inference readiness evidence | Pending |
+| Date/time and timezone | November 16, 2026, Asia/Shanghai |
+| Participant alias / consent to play | Owner; explicitly agreed in this chat |
+| Application commit / browser | `3c76d66` human-serving code; participant browser not collected |
+| Hub host / OS / CPU / RAM | Windows 10, i5-13490F, 10 cores / 16 logical processors, 34,164,101,120 bytes physical RAM; remote model hardware unmeasured |
+| Exact HTTP origin | `http://localhost:18747` |
+| Pack ID / version / manifest digest | Everyday discoveries 1.0.0; exact digest in W2 installation evidence |
+| Artifact ID / config digest | W2 accepted artifact `f321eb5386b446acba1e9a7996d47bf1`; config digest in W2 evidence |
+| Model fingerprint / endpoint host identity | Pinned Qwen3-Embedding 4B; fingerprint below; owner-supplied endpoint |
+| Real inference readiness evidence | Ollama check passed; PinnedEmbedder in actual serve-durable process |
 
 ## Participant flow
 
@@ -53,13 +53,13 @@ IDs and aggregate observations rather than raw participant clue text.
 
 | Observation | Result: pass / fail / not observed | Notes without raw clues |
 | --- | --- | --- |
-| Signup/login and pack choice understandable | Not observed | |
+| Signup/login and pack choice understandable | Initial failure; signup corrected | Owner reported generic invalid_request. Visible policy hints and local field validation added; owner then created an account. Ease of pack choice not separately rated. |
 | Target and clear-zone ranks understood unaided | Not observed | |
 | Real clue response and target movement understandable | Not observed | |
 | Rejection/miss/clear feedback, as encountered | Not observed | |
-| Natural terminal reason and authoritative score visible | Not observed | |
-| Exact-artifact board agrees with result | Not observed | |
-| Same result retrieved after actual host process restart | Not observed | |
+| Natural terminal reason and authoritative score visible | Pass | Owner reported Score 1000, Level 3, pack_exhausted. |
+| Exact-artifact board agrees with result | Pass | Owner confirmed 1,000 in both results and board after restart. |
+| Same result retrieved after actual host process restart | Pass | Process stopped and replaced; owner reloaded and confirmed both views. Read-only SQL comparison found one unchanged 1,000-point score row. |
 | Signout clears private display | Not observed | |
 | Overall enjoyment / confusing associations | Not observed | |
 
@@ -78,8 +78,30 @@ browser cannot independently prove that the server process was replaced.
 
 ## Disposition
 
-Pending actual participant observations. Record proceed / revise / stop, reasons,
-issues and follow-up owners after the session. A one-person successful game may
+Disposition: revise within W4 for the failed performance gate; the reported
+one-person completion and restart retrieval pass. A one-person successful game may
 satisfy this signed-in product observation, but does not close Stage 1's broader
 human acceptance, controlled 1/4/8-player latency, 100 ms p95, remote-host offline,
 resource-envelope or independent content/source-yield gates. Keep those separate.
+
+
+## Observed session details
+
+Owner authorized the playtest in this chat and used the local HTTP origin
+`http://localhost:18747`. The pinned Qwen3-Embedding 4B provider was confirmed at
+fingerprint `657120305f464d0fb6a6006b9dbc8152af04ba30317dadcef1b41af0aa2941a4`.
+The separate playtest database reused the exact W2 accepted Everyday discoveries
+v1.0.0 manifest/assets/artifact described in [installation evidence](s2-w2-installation.md).
+Retained immutable assets stayed at their original absolute path; a copied asset
+root correctly failed startup validation before traffic. No synthetic inference
+was used. Controlled load did not begin until the owner reported completion.
+
+The corrected signup and 250 ms polling assets were served at `3c76d66`; backend
+was unchanged through `b6e8046`. Host process exec sessions changed from `86152`
+to `61254` for the restart, with a completed stop before replacement startup.
+Before/after private score comparison remains ignored under `data/s2-w4-human/`;
+no credentials, participant clue text or key files are retained in Git.
+
+Disposition: the single-person completion/result/restart observation passes.
+Target/clear-zone comprehension, perceived delay, enjoyment and signout were not
+reported and remain unobserved; broader Stage 1 human acceptance remains open.

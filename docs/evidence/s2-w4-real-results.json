@@ -1,0 +1,890 @@
+{
+  "kind": "real_model_durable_acceptance",
+  "source_commit": "b6e8046a45dcfce6910efd7218b9966368dd227a",
+  "provenance_correction": {
+    "original_declared_revision": "b6e8046e0a0000000000000000000000000000000",
+    "reason": "Coordinator typed an invalid revision argument; verified git HEAD before and after execution was source_commit. Runtime source was unchanged. Original raw report retained locally."
+  },
+  "human_acceptance_in_this_automated_run": false,
+  "stage_acceptance": false,
+  "manifest_sha256": "f947edeac031f3181d116941393202cd68ef5865809d6f97be25f45256baefc0",
+  "model_fingerprint_sha256": "657120305f464d0fb6a6006b9dbc8152af04ba30317dadcef1b41af0aa2941a4",
+  "model": "qwen3-embedding:4b",
+  "model_digest": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907",
+  "host": "Windows-10-10.0.19045-SP0",
+  "remote_model_resources": "not collected",
+  "local_hub_resource_summary": {
+    "samples": 494,
+    "peak_rss_bytes": 3690496,
+    "cpu_seconds_delta": 0.0,
+    "sample_interval_ms": 100,
+    "valid_hub_measurement": false,
+    "limitation": "Windows virtualenv launcher PID was sampled without interpreter descendants; this is not a hub resource measurement."
+  },
+  "real_game_inference_observed": true,
+  "verified_overlap": true,
+  "restart": {
+    "terminal_snapshot_preserved": true,
+    "completed_history_preserved": true,
+    "exactly_one_score": true,
+    "active_interrupted": true,
+    "interrupted_without_score": true,
+    "passed": true
+  },
+  "load": {
+    "kind": "automated_http_load",
+    "warmup_commands_per_player": 1,
+    "human_acceptance": false,
+    "model_execution_verified": false,
+    "verifier_overlap": false,
+    "queue_and_embedding_timing_available": false,
+    "resource_measurements": null,
+    "latency_definition": "command POST through final receipt, including polling",
+    "target_p95_ms": 100,
+    "load_generator_host": "Windows-10-10.0.19045-SP0",
+    "runs": [
+      {
+        "players": 1,
+        "started_ns": 1794809963733701500,
+        "finished_ns": 1794809968143708900,
+        "observations": [
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809964178455500,
+                "finished_ns": 1794809964761122400,
+                "elapsed_ms": 577.9999997466803
+              },
+              {
+                "index": 1,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809964825407900,
+                "finished_ns": 1794809965448607700,
+                "elapsed_ms": 625.0
+              },
+              {
+                "index": 2,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809965513291700,
+                "finished_ns": 1794809966065676400,
+                "elapsed_ms": 547.0000002533197
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809966131906000,
+                "finished_ns": 1794809966759166600,
+                "elapsed_ms": 625.0
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809966828537100,
+                "finished_ns": 1794809967400606000,
+                "elapsed_ms": 578.0000002123415
+              },
+              {
+                "index": 5,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809967466505800,
+                "finished_ns": 1794809968065788200,
+                "elapsed_ms": 594.0000000409782
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          }
+        ],
+        "attempted": 5,
+        "successful": 5,
+        "failed": 0,
+        "p50_ms": 594.0000000409782,
+        "p95_ms": 625.0,
+        "complete": true,
+        "latency_target_met": false,
+        "verified_overlap": true
+      },
+      {
+        "players": 4,
+        "started_ns": 1794809968143708900,
+        "finished_ns": 1794809979799243100,
+        "observations": [
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809969255144900,
+                "finished_ns": 1794809970065885100,
+                "elapsed_ms": 797.0000002533197
+              },
+              {
+                "index": 1,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809970672232200,
+                "finished_ns": 1794809971505676600,
+                "elapsed_ms": 842.9999998770654
+              },
+              {
+                "index": 2,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809972472875200,
+                "finished_ns": 1794809973152820600,
+                "elapsed_ms": 688.0000000819564
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809974117201300,
+                "finished_ns": 1794809974938955600,
+                "elapsed_ms": 811.9999999180436
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809975721147300,
+                "finished_ns": 1794809976898635800,
+                "elapsed_ms": 1188.0000000819564
+              },
+              {
+                "index": 5,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809977701816000,
+                "finished_ns": 1794809978529777500,
+                "elapsed_ms": 828.0000002123415
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          },
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809969271174100,
+                "finished_ns": 1794809970512944600,
+                "elapsed_ms": 1233.999999705702
+              },
+              {
+                "index": 1,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809970962198400,
+                "finished_ns": 1794809971976112300,
+                "elapsed_ms": 1015.9999998286366
+              },
+              {
+                "index": 2,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809972652007300,
+                "finished_ns": 1794809973583508800,
+                "elapsed_ms": 936.9999999180436
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809974329972200,
+                "finished_ns": 1794809975206758900,
+                "elapsed_ms": 875.0
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809976066176200,
+                "finished_ns": 1794809977232035100,
+                "elapsed_ms": 1171.9999997876585
+              },
+              {
+                "index": 5,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809977944928500,
+                "finished_ns": 1794809978939440700,
+                "elapsed_ms": 984.0000001713634
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          },
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809969356140200,
+                "finished_ns": 1794809970565081400,
+                "elapsed_ms": 1203.0000002123415
+              },
+              {
+                "index": 1,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809971154235500,
+                "finished_ns": 1794809972228002500,
+                "elapsed_ms": 1077.9999997466803
+              },
+              {
+                "index": 2,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809972838092400,
+                "finished_ns": 1794809974191854900,
+                "elapsed_ms": 1344.0000000409782
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809975084036600,
+                "finished_ns": 1794809975777681600,
+                "elapsed_ms": 688.0000000819564
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809976479345700,
+                "finished_ns": 1794809977428746300,
+                "elapsed_ms": 953.0000002123415
+              },
+              {
+                "index": 5,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809978156978500,
+                "finished_ns": 1794809979147837600,
+                "elapsed_ms": 1000.0
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          },
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809969413765000,
+                "finished_ns": 1794809970620040700,
+                "elapsed_ms": 1203.0000002123415
+              },
+              {
+                "index": 1,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809971248129100,
+                "finished_ns": 1794809972602913200,
+                "elapsed_ms": 1358.999999705702
+              },
+              {
+                "index": 2,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809973415155000,
+                "finished_ns": 1794809974277116500,
+                "elapsed_ms": 859.0000001713634
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809975136171100,
+                "finished_ns": 1794809976333798000,
+                "elapsed_ms": 1203.0000002123415
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809977136901600,
+                "finished_ns": 1794809977890780300,
+                "elapsed_ms": 750.0
+              },
+              {
+                "index": 5,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809978805824100,
+                "finished_ns": 1794809979627691200,
+                "elapsed_ms": 813.0000000819564
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          }
+        ],
+        "attempted": 20,
+        "successful": 20,
+        "failed": 0,
+        "p50_ms": 936.9999999180436,
+        "p95_ms": 1344.0000000409782,
+        "complete": true,
+        "latency_target_met": false,
+        "verified_overlap": true
+      },
+      {
+        "players": 8,
+        "started_ns": 1794809979799243100,
+        "finished_ns": 1794810003010537900,
+        "observations": [
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809982466484400,
+                "finished_ns": 1794809985011233800,
+                "elapsed_ms": 2546.9999997876585
+              },
+              {
+                "index": 1,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809986382281600,
+                "finished_ns": 1794809988538165400,
+                "elapsed_ms": 2157.0000001229346
+              },
+              {
+                "index": 2,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809990464375400,
+                "finished_ns": 1794809992212582400,
+                "elapsed_ms": 1750.0
+              },
+              {
+                "index": 3,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794809994548885600,
+                "finished_ns": 1794809995538467700,
+                "elapsed_ms": 1000.0
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809996219236100,
+                "finished_ns": 1794809998257718200,
+                "elapsed_ms": 2046.9999997876585
+              },
+              {
+                "index": 5,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794810000240216000,
+                "finished_ns": 1794810002114330400,
+                "elapsed_ms": 1875.0
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          },
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809982380520300,
+                "finished_ns": 1794809984800130200,
+                "elapsed_ms": 2407.0000001229346
+              },
+              {
+                "index": 1,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809986301389900,
+                "finished_ns": 1794809988389693700,
+                "elapsed_ms": 2092.9999998770654
+              },
+              {
+                "index": 2,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794809990373525000,
+                "finished_ns": 1794809991149441900,
+                "elapsed_ms": 780.9999999590218
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809992129230500,
+                "finished_ns": 1794809994429627600,
+                "elapsed_ms": 2311.9999999180436
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809996138286200,
+                "finished_ns": 1794809998053314300,
+                "elapsed_ms": 1922.0000002533197
+              },
+              {
+                "index": 5,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794810000152589100,
+                "finished_ns": 1794810001100002800,
+                "elapsed_ms": 952.9999997466803
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          },
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809982295574000,
+                "finished_ns": 1794809984696780100,
+                "elapsed_ms": 2405.999999959022
+              },
+              {
+                "index": 1,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809986219320100,
+                "finished_ns": 1794809988282974600,
+                "elapsed_ms": 2063.0000000819564
+              },
+              {
+                "index": 2,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809990283518800,
+                "finished_ns": 1794809992047796000,
+                "elapsed_ms": 1765.9999998286366
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809994209095800,
+                "finished_ns": 1794809996054898200,
+                "elapsed_ms": 1844.0000000409782
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809997926458400,
+                "finished_ns": 1794809999994634100,
+                "elapsed_ms": 2078.0000002123415
+              },
+              {
+                "index": 5,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794810001942104600,
+                "finished_ns": 1794810002944593000,
+                "elapsed_ms": 1015.9999998286366
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          },
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809982724409700,
+                "finished_ns": 1794809985279308500,
+                "elapsed_ms": 2547.0000002533197
+              },
+              {
+                "index": 1,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809986626139800,
+                "finished_ns": 1794809988858134600,
+                "elapsed_ms": 2233.999999705702
+              },
+              {
+                "index": 2,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794809990710281200,
+                "finished_ns": 1794809991795239000,
+                "elapsed_ms": 1078.999999910593
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809992455136700,
+                "finished_ns": 1794809994860835900,
+                "elapsed_ms": 2405.999999959022
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809996467179300,
+                "finished_ns": 1794809998693745900,
+                "elapsed_ms": 2234.999999869615
+              },
+              {
+                "index": 5,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794810000501441600,
+                "finished_ns": 1794810001681248700,
+                "elapsed_ms": 1186.9999999180436
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          },
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809982637709900,
+                "finished_ns": 1794809985188421600,
+                "elapsed_ms": 2547.0000002533197
+              },
+              {
+                "index": 1,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809986545357200,
+                "finished_ns": 1794809988771161000,
+                "elapsed_ms": 2234.0000001713634
+              },
+              {
+                "index": 2,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794809990627333200,
+                "finished_ns": 1794809991677181700,
+                "elapsed_ms": 1061.9999999180436
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809992375210800,
+                "finished_ns": 1794809994779062100,
+                "elapsed_ms": 2405.999999959022
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809996383597500,
+                "finished_ns": 1794809998612803600,
+                "elapsed_ms": 2219.000000040978
+              },
+              {
+                "index": 5,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794810000415180300,
+                "finished_ns": 1794810001571007700,
+                "elapsed_ms": 1155.9999999590218
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          },
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809982808559000,
+                "finished_ns": 1794809985371426800,
+                "elapsed_ms": 2563.0000000819564
+              },
+              {
+                "index": 1,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809986707286900,
+                "finished_ns": 1794809988945316500,
+                "elapsed_ms": 2250.0
+              },
+              {
+                "index": 2,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794809990793513600,
+                "finished_ns": 1794809991885269400,
+                "elapsed_ms": 1092.9999998770654
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809992536352800,
+                "finished_ns": 1794809994955378900,
+                "elapsed_ms": 2405.999999959022
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809996548265500,
+                "finished_ns": 1794809998710687200,
+                "elapsed_ms": 2171.000000089407
+              },
+              {
+                "index": 5,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794810000586321800,
+                "finished_ns": 1794810001706363000,
+                "elapsed_ms": 1109.9999998696148
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          },
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809982210491000,
+                "finished_ns": 1794809984492493200,
+                "elapsed_ms": 2282.0000001229346
+              },
+              {
+                "index": 1,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794809986137620100,
+                "finished_ns": 1794809986796438300,
+                "elapsed_ms": 657.0000001229346
+              },
+              {
+                "index": 2,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809988095367800,
+                "finished_ns": 1794809990195406100,
+                "elapsed_ms": 2109.999999869615
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809991966176900,
+                "finished_ns": 1794809994062306100,
+                "elapsed_ms": 2094.000000040978
+              },
+              {
+                "index": 4,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809995973375900,
+                "finished_ns": 1794809997844903800,
+                "elapsed_ms": 1875.0
+              },
+              {
+                "index": 5,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809999978417000,
+                "finished_ns": 1794810001860933700,
+                "elapsed_ms": 1875.0
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          },
+          {
+            "samples": [
+              {
+                "index": 0,
+                "success": true,
+                "outcome": "clear",
+                "phase": "warmup",
+                "started_ns": 1794809982551403700,
+                "finished_ns": 1794809985098368000,
+                "elapsed_ms": 2546.000000089407
+              },
+              {
+                "index": 1,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794809986463397200,
+                "finished_ns": 1794809987477322400,
+                "elapsed_ms": 1015.9999998286366
+              },
+              {
+                "index": 2,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809988688418600,
+                "finished_ns": 1794809990546048000,
+                "elapsed_ms": 1859.9999998696148
+              },
+              {
+                "index": 3,
+                "success": true,
+                "outcome": "clear",
+                "phase": "measured",
+                "started_ns": 1794809992294259600,
+                "finished_ns": 1794809994696885900,
+                "elapsed_ms": 2405.999999959022
+              },
+              {
+                "index": 4,
+                "success": false,
+                "outcome": "stale_revision",
+                "phase": "measured",
+                "started_ns": 1794809996301364200,
+                "finished_ns": 1794809997346085400,
+                "elapsed_ms": 1046.000000089407
+              },
+              {
+                "index": 5,
+                "success": true,
+                "outcome": "miss",
+                "phase": "measured",
+                "started_ns": 1794809998394087400,
+                "finished_ns": 1794810000329804400,
+                "elapsed_ms": 1938.0000000819564
+              }
+            ],
+            "errors": [],
+            "requested": 5
+          }
+        ],
+        "attempted": 40,
+        "successful": 28,
+        "failed": 12,
+        "p50_ms": 2092.9999998770654,
+        "p95_ms": 2405.999999959022,
+        "complete": false,
+        "latency_target_met": false,
+        "verified_overlap": true
+      }
+    ],
+    "artifact": {
+      "artifact_id": "1344a83bcdef4143bb8d749ca4b8b37e",
+      "cohort": {
+        "mode": "casual",
+        "pack_id": "everyday",
+        "version": "1.0.0",
+        "manifest_digest": "f947edeac031f3181d116941393202cd68ef5865809d6f97be25f45256baefc0",
+        "fingerprint_hash": "657120305f464d0fb6a6006b9dbc8152af04ba30317dadcef1b41af0aa2941a4",
+        "ruleset_id": "experiment-arcade-paced-v1",
+        "config_digest": "d79ed416d19fb4c254c8481a6f31aea58c3148bc810aac902eab58153bb8db3a",
+        "challenge_digest": null
+      }
+    },
+    "stage_acceptance": false
+  },
+  "started_ns": 1794809899798257000,
+  "finished_ns": 1794810010122533800,
+  "raw_report_sha256": "a3cdfbcce27ecd7c2328777bd205faf36b61fa4e6a3c093ba28ad612d003458d"
+}
