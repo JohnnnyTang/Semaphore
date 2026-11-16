@@ -1,6 +1,6 @@
 # Stage 2 — Implementation dispatch briefs
 
-Prepared during W1 on November 16, 2026. **W2 is dispatched; W3 remains blocked.**
+Prepared during W1 on November 16, 2026. **W2 is complete; W3 is dispatched under the owner request.**
 See the [W2 record](s2-w2-foundations.md) for authorization and the common baseline.
 The coordinator records a full integrated baseline SHA in the W1 record after
 review. Every worker in a wave uses that same commit in an isolated `.worktrees/`
