@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [build-system]
-requires = ["uv_build==0.9.18"]
+requires = ["uv_build==0.13.8"]
 build-backend = "uv_build"
 
 [dependency-groups]
@@ -20,7 +20,7 @@ dev = [
     "jsonschema>=4.26,<5",
     "pytest>=8.4,<10",
     "ruff>=0.14,<1",
-    "uv_build==0.9.18",
+    "uv_build==0.13.8",
 ]
 model-eval = [
     "psutil>=7,<8",
