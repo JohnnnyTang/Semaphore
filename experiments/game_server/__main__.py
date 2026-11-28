@@ -129,7 +129,8 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
                 not target.is_relative_to(mount)
                 or not target.is_file()
                 or any(part.startswith(".") for part in target.relative_to(root).parts)
-                or target.suffix.lower() not in {".html", ".css", ".mjs", ".svg", ".json"}
+                or target.suffix.lower()
+                not in {".html", ".css", ".js", ".mjs", ".svg", ".json", ".webp", ".woff2"}
             ):
                 self._json(404, dict(code="not_found", message="not found"))
                 return
@@ -137,7 +138,7 @@ def make_server(service, *, host="127.0.0.1", port=8000, web_root=None):
             self.send_response(200)
             content_type = (
                 "text/javascript"
-                if target.suffix.lower() == ".mjs"
+                if target.suffix.lower() in {".js", ".mjs"}
                 else self.guess_type(str(target))
             )
             self.send_header("Content-Type", content_type)

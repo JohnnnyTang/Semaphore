@@ -1,3 +1,4 @@
+import './theme.mjs';
 import { DurableClient, DurableTransport, boardRows, validateAccount } from './durable-client.mjs';
 import { resultText } from './store.mjs';
 const $ = id => document.getElementById(id);
@@ -6,7 +7,11 @@ let composing = false;
 $('clue').addEventListener('compositionstart', () => { composing = true; });
 $('clue').addEventListener('compositionend', () => { composing = false; });
 let config, packCursor, historyCursor, boardCursor, pageBusy = false, boardArtifact = null;
-const say = text => { $('notice').textContent = text; };
+let previousBoard = '';
+const say = text => {
+  $('notice').textContent = text;
+  $('play-notice').textContent = text;
+};
 const errorText = error => ({ unauthenticated: 'Your session expired. Sign in again.', invalid_credentials: 'Login name or password was not recognized.',
   invalid_request: 'Check your account details: login names use 3–32 letters A–Z, numbers or underscores; new passwords need 12–128 characters and new accounts need a display name.',
   signup_disabled: 'New accounts are disabled in this room.', creation_uncertain: 'The round may have started. Find your current round before choosing to start another.',
@@ -25,14 +30,41 @@ function render() {
   $('new-confirm').disabled = pageBusy || !$('consent').checked || !$('packs').value;
   const snapshot = client.store.snapshot;
   $('play').hidden = !snapshot || !signedIn;
-  if (!snapshot) return;
+  $('notice').hidden = !$('play').hidden;
+  if (!snapshot || !signedIn) {
+    previousBoard = '';
+    if (!signedIn) $('round-options').open = true;
+    return;
+  }
   $('score').textContent = `Score ${snapshot.score} · Level ${snapshot.level}`;
   $('target').textContent = snapshot.status === 'over' ? (['interrupted','quit'].includes(snapshot.end_reason) ? 'Round ended without a competitive result.' : `Round complete: ${snapshot.end_reason}. Check your results below.`) : `Target: ${snapshot.entries[snapshot.target]?.label || 'Waiting for a word'}`;
-  $('words').replaceChildren(...boardRows(snapshot).map(row => {
-    const li = document.createElement('li'); li.className = 'word' + (row.target ? ' target' : '') + (row.inZone ? ' zone' : '');
-    li.textContent = `${row.rank}. ${row.label}${row.target ? ' — Target' : ''}${row.inZone ? ' — Clear zone' : ''}`; return li;
-  }));
+  const ranked = boardRows(snapshot).reverse();
+  const signature = JSON.stringify(ranked);
+  if (previousBoard !== signature) {
+    $('words').replaceChildren(...ranked.map(row => {
+      const li = document.createElement('li');
+      li.className = 'word' + (row.target ? ' target' : '') + (row.inZone ? ' zone' : '');
+      const rank = document.createElement('span');
+      rank.className = 'rank-number'; rank.textContent = String(row.rank).padStart(2, '0');
+      const label = document.createElement('span');
+      label.className = 'label'; label.textContent = row.label;
+      li.append(rank, label);
+      if (row.inZone) {
+        const zone = document.createElement('span');
+        zone.className = 'zone-badge'; zone.textContent = 'Clear zone'; li.append(zone);
+      }
+      if (row.target) {
+        const flag = document.createElement('span');
+        flag.className = 'flag'; flag.textContent = 'Target'; li.append(flag);
+      }
+      return li;
+    }));
+    previousBoard = signature;
+  }
   const pending = !!client.store.pending || !!snapshot.pending;
+  $('clue').readOnly = pending;
+  $('clue-form').hidden = snapshot.status !== 'active';
+  $('send').textContent = pending ? 'Ranking…' : 'Send clue';
   $('send').disabled = pageBusy || pending || snapshot.status !== 'active' || !snapshot.target;
   $('retry').hidden = !client.store.pending; $('retry').disabled = pageBusy;
   $('quit').disabled = pageBusy || snapshot.status !== 'active';
@@ -84,9 +116,13 @@ $('consent').onchange = render;
 $('packs').onchange = () => { boardCursor = null; boardArtifact = null; client.boardQuery = null; $('scores').replaceChildren(); $('more-board').hidden = true; render(); };
 for (const [id, fn] of [['more-packs',()=>packs(true)],['history',()=>history()],['more-history',()=>history(true)],['board',()=>board()],['more-board',()=>board(true)]]) $(id).onclick = () => run(fn);
 for (const [id, explicit] of [['start',false],['new-confirm',true]]) $(id).onclick = () => run(async () => {
-  await client.create($('packs').value, explicit); say('Round started. Find an association for the target.'); $('clue').focus();
+  await client.create($('packs').value, explicit); $('round-options').open = false; render();
+  say('Round started. Find an association for the target.'); $('clue').focus();
 });
-$('discover').onclick = () => run(async () => { await client.discover(); say('Current round recovered.'); });
+$('discover').onclick = () => run(async () => {
+  await client.discover(); $('round-options').open = false; render();
+  say('Current round recovered.'); $('clue').focus();
+});
 $('refresh').onclick = () => run(async () => { const change = await client.refresh(); say(change?.result ? resultText(change.result) : 'Round synchronized.'); });
 $('retry').onclick = () => run(async () => { const change = await client.retryCommand(); say(change?.result ? resultText(change.result) : 'Checking the same clue…'); });
 $('quit').onclick = () => run(async () => { await client.quit(); await history(); say('Round ended.'); });

@@ -1,3 +1,4 @@
+import './theme.mjs';
 import { TutorialTransport } from './tutorial.mjs';
 import { GameStore, clueLength, validateClue, resultText } from './store.mjs';
 import { HttpTransport } from './transports.mjs';
@@ -5,17 +6,6 @@ const $ = id => document.getElementById(id);
 let store = new GameStore(), transport, polling = false, connected = true, composing = false;
 let epoch = 0, rows = new Map(), finished = false, settings, boardSignature = '';
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-function setTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  const next = theme === 'dark' ? 'light' : 'dark';
-  $('theme-toggle').textContent = next === 'dark' ? 'Dark theme' : 'Light theme';
-  $('theme-toggle').setAttribute('aria-label', 'Switch to ' + next + ' theme');
-  try { localStorage.setItem('semaphore-theme', theme); } catch { /* Optional preference. */ }
-}
-let preferredTheme;
-try { preferredTheme = localStorage.getItem('semaphore-theme'); } catch { /* Optional. */ }
-setTheme(['light', 'dark'].includes(preferredTheme) ? preferredTheme : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-$('theme-toggle').onclick = () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
 const params = new URLSearchParams(location.search);
 $('artifact').value = params.get('artifact') || 'default';
 $('help-open').onclick = () => $('help').showModal();
@@ -112,7 +102,7 @@ function clearEffects(result, snapshot) {
         { opacity: 0, transform: `translate(${direction * (35 + n * 7)}px,${-70 - (n % 4) * 20}px) rotate(${direction * 110}deg)` }],
         { duration: 850, delay: Math.min(index * 140, 1800), fill: 'both', easing: 'ease-out' }).finished.catch(() => {}).finally(() => particle.remove());
     });
-    const points = document.createElement('span'); points.className = 'clear-points'; points.textContent = '+100'; points.setAttribute('aria-hidden', 'true');
+    const points = document.createElement('span'); points.className = 'clear-points'; points.textContent = result.score_delta > 0 ? '+100' : 'Clear'; points.setAttribute('aria-hidden', 'true');
     Object.assign(points.style, { right: '24px', top: `${rect.top - bounds.top}px` }); stack.append(points);
     points.animate([{ opacity: 1, transform: 'translateY(0) scale(.8)' }, { opacity: 1, offset: .3, transform: 'translateY(-20px) scale(1.15)' }, { opacity: 0, transform: 'translateY(-65px) scale(1)' }], { duration: 1000, delay: Math.min(index * 140, 1800), fill: 'both' }).finished.catch(() => {}).finally(() => points.remove());
     ghost.className = 'word clear-echo'; ghost.setAttribute('aria-hidden', 'true');
@@ -149,7 +139,7 @@ function render(result) {
   const tutorial = transport instanceof TutorialTransport;
   $('source').textContent = tutorial ? 'Guided warm-up / clock paused' : `${s.mode === 'event' ? 'Event' : 'Casual'} / LAN game`;
   document.querySelector('.stack').style.setProperty('--capacity', s.capacity);
-  document.querySelector('.headroom span').hidden = s.capacity - s.board.length < 2;
+  $('game').classList.toggle('training', tutorial);
   $('capacity-warning').textContent = (s.capacity - s.board.length) + ' spaces left';
   $('occupancy').textContent = `${s.board.length} of ${s.capacity} words`;
   drawClock();
@@ -162,6 +152,19 @@ function render(result) {
   $('instruction').hidden = !tutorial;
   $('streak').textContent = `${s.streak || 0} / 5`;
   $('streak-stat').hidden = tutorial || !paced;
+  $('warmup-map').hidden = !tutorial;
+  if (tutorial) {
+    $('warmup-step').textContent = `${transport.step} / 3 complete`;
+    document.querySelectorAll('.checkpoints li').forEach((item, index) => {
+      item.classList.toggle('cleared', index < transport.step);
+      if (index === transport.step) item.setAttribute('aria-current', 'step');
+      else item.removeAttribute('aria-current');
+    });
+  }
+  $('pace-note').hidden = tutorial;
+  $('clue-form').hidden = tutorial && transport.done;
+  document.querySelector('.target-cue').hidden = tutorial && transport.done;
+  document.querySelector('.ceiling').classList.toggle('near-limit', s.capacity - s.board.length <= s.zone_size);
   $('begin-game').hidden = !tutorial || !transport.done;
   const details = { 'Pack version digest': s.identities.pack_digest, 'Challenge': s.identities.challenge_digest || 'No event challenge',
     'Rules': s.identities.ruleset_id, 'Model': s.identities.model_fingerprint, 'Revision': s.revision };
@@ -253,7 +256,7 @@ async function start(skipTutorial = false) {
     finished = false; connected = true; boardSignature = ''; rows.clear(); $('words').replaceChildren();
     store = new GameStore(); removeSaved(); $('result').textContent = ''; $('clue').value = '';
     settings = nextSettings; transport = nextTransport;
-    apply(envelope); $('clue').focus({ preventScroll: true });
+    apply(envelope); window.scrollTo(0, 0); $('clue').focus({ preventScroll: true });
   } catch {
     if (run === epoch) {
       errorMessage.textContent = 'The game could not start. Check the server and word pack ID, then try again.';

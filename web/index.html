@@ -1,26 +1,91 @@
 <!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="./favicon.svg"><meta name="color-scheme" content="light dark"><title>Semaphore · Word arcade</title><link rel="stylesheet" href="./styles.css"></head>
+<html lang="en" data-type="software" data-motion>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="gaming">
+  <meta name="theme-color" content="#102527">
+  <meta name="description" content="Play Semaphore, a word-association arcade game. Send a clue and bring the flagged word into the clear zone.">
+  <meta property="og:title" content="Semaphore · Word arcade">
+  <meta property="og:description" content="Play Semaphore, a word-association arcade game. Send a clue and bring the flagged word into the clear zone.">
+  <meta property="og:image" content="./signal-ridge.webp">
+  <title>Semaphore · Word arcade</title>
+  <link rel="icon" href="./favicon.svg">
+  <link rel="preload" href="./silkscreen.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./assets/motion/motion.css">
+  <script src="./entrance.js"></script>
+</head>
 <body>
 <a class="skip-link" href="#main">Skip to game</a>
-<header class="masthead"><a href="./" class="brand" aria-label="Semaphore home"><span class="brand-flag" aria-hidden="true"></span>Semaphore</a><span class="edition">The word-association arcade</span><button id="theme-toggle" class="quiet theme-toggle" aria-label="Switch to dark theme">Dark theme</button><button id="help-open" class="quiet">How to play</button></header>
+<header class="masthead nav"><div class="mast-inner wrap">
+  <a href="./" class="brand" aria-label="Semaphore home"><span class="brand-mark"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#flag"></use></svg></span>Semaphore</a>
+  <span class="edition">Word arcade</span>
+  <div class="nav-actions">
+    <button id="theme-toggle" class="quiet theme-toggle" aria-label="Switch to dark theme"><svg class="icon moon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#moon"></use></svg><svg class="icon sun" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#sun"></use></svg></button>
+    <button id="help-open" class="quiet"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#book"></use></svg>How to play</button>
+  </div>
+</div></header>
 <main id="main" tabindex="-1">
 <section id="welcome" class="welcome">
-  <div class="welcome-story"><h1>Make the<br>connection.</h1><p class="intro">Find a clue that connects to the flagged word. Bring it into the clear zone before the stack fills up.</p><div class="word-demo" aria-label="Example: the clue orbit connects to moon"><span class="demo-word">telescope</span><span class="demo-word demo-target">moon <small>Target</small></span><span class="demo-word">midnight</span><div class="demo-clue"><span>orbit</span><span aria-hidden="true">↵</span></div><p>“Orbit” brings “moon” into the clear zone.</p></div></div>
-  <form id="start-form" class="setup"><h2>Ready to connect?</h2><p class="setup-intro">Start with a short, untimed warm-up. Then keep the stack under control.</p><div id="http-options"><label for="artifact">Word pack ID</label><input id="artifact" value="default" autocomplete="off" maxlength="128" aria-describedby="pack-hint"><label for="mode">Game mode</label><select id="mode"><option value="casual">Casual</option><option value="event">Event</option></select><p class="hint" id="pack-hint">Use the pack ID supplied by your host. Most games use “default”.</p></div><label class="skip-option"><input type="checkbox" id="skip-tutorial"> Skip guided warm-up</label><button class="primary" id="play">Play</button><p id="start-error" role="alert"></p></form>
+  <div class="wrap lobby">
+  <div class="key-art hero" data-enter>
+    <div class="station-light" aria-hidden="true" data-moment="cursor-spotlight" data-moment-opts='{"rest":[0.86,0.33],"radius":230,"grid":false}'></div>
+    <img class="landscape" src="./signal-ridge.webp" srcset="./signal-ridge-small.webp 720w, ./signal-ridge.webp 1536w" sizes="(max-width: 660px) 100vw, (max-width: 1264px) 72vw, 864px" alt="" width="1536" height="1024" fetchpriority="high">
+    <div class="hero-copy">
+      <h1><span class="signal-label"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#signal"></use></svg> Word association arcade</span><span class="game-name">Semaphore</span></h1>
+      <p class="intro">Find a clue for the flagged word.<br>Every word you clear earns 100 points.</p>
+      <div class="example" aria-label="Example clue orbit connects to target moon">
+        <span class="example-word"><small>Clue</small>orbit</span><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#arrow"></use></svg>
+        <span class="example-word"><small>Target</small>moon</span>
+      </div>
+    </div>
+  </div>
+  <div class="lobby-panels">
+    <form id="start-form" class="panel setup">
+      <h2 class="panel-heading"><span class="heading-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#pad"></use></svg></span>Game setup</h2>
+      <div class="settings-fields" id="http-options">
+        <div><label for="mode">Game mode</label><select id="mode"><option value="casual">Casual</option><option value="event">Event</option></select></div>
+        <div><label for="artifact">Word pack ID</label><input id="artifact" value="default" autocomplete="off" maxlength="128" aria-describedby="pack-hint"></div>
+      </div>
+      <p class="hint" id="pack-hint">Use “default” or enter the pack ID from your host.</p>
+      <label class="skip-option"><input type="checkbox" id="skip-tutorial"><span>Skip guided warm-up</span></label>
+      <button class="btn btn--xl primary launch" id="play"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#play"></use></svg>Play</button>
+      <p id="start-error" role="alert"></p>
+    </form>
+    <section class="panel guide" aria-labelledby="guide-title">
+      <h2 class="panel-heading" id="guide-title"><span class="heading-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#book"></use></svg></span>Field guide</h2>
+      <ol class="guide-rows">
+        <li><span class="tile orange"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#flag"></use></svg></span><div><h3>Spot the target</h3><p>Look for the flagged word in the stack.</p></div></li>
+        <li><span class="tile mint"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#link"></use></svg></span><div><h3>Send a clue</h3><p>Choose a related word. Try “orbit” for “moon”.</p></div></li>
+        <li><span class="tile sky"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#stack"></use></svg></span><div><h3>Clear the zone</h3><p>Bring the target into the bottom ranks to score.</p></div></li>
+      </ol>
+    </section>
+  </div>
+  </div>
 </section>
 <section id="game" hidden>
-  <div class="game-top"><div><p id="source" class="hint"></p><h1 id="pack-name">Follow the flag</h1></div><button id="leave" class="quiet">Leave game</button></div>
-  <div class="arena"><div class="stats"><span>Score <strong id="score">0</strong></span><span>Level <strong id="level">1</strong></span><span id="streak-stat">Streak <strong id="streak">0 / 5</strong></span><span class="pace-tip" id="pace-note"></span></div>
-    <section class="stack-panel" aria-label="Word stack"><div class="stack-meta"><span id="occupancy"></span><span id="next-spawn"></span></div><div class="ceiling"><span>Ceiling</span><span id="capacity-warning"></span></div><div class="stack"><div class="headroom" aria-hidden="true"><span></span></div><ol id="words" aria-label="Words, top to bottom"></ol></div><p id="zone-note" class="hint"></p></section>
-    <section class="console"><div id="active-controls"><div class="target-cue"><p class="target-label">Connect to</p><h2 id="target" aria-live="polite"></h2></div><p id="instruction" role="status" hidden></p><button type="button" id="begin-game" class="primary" hidden>Start game</button><p id="begin-error" role="alert"></p><p id="connection" role="status"></p><button id="reconnect" class="quiet" hidden>Reconnect</button><form id="clue-form"><label for="clue" class="sr-only">Your clue</label><div class="input-dock"><input id="clue" autocomplete="off" spellcheck="false" aria-describedby="clue-count result" placeholder="Find an association…"><button class="primary" id="send">Send clue <span aria-hidden="true">↵</span></button></div><div id="clue-count" class="hint">120 characters available</div></form><p id="result" role="status" aria-live="polite"></p></div>
+  <div class="game-top"><div><p id="source" class="hint"></p><h1 id="pack-name">Word stack</h1></div><button id="leave" class="quiet">Leave game</button></div>
+  <div class="arena"><div class="stats"><span class="stat"><span class="stat-name"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#star"></use></svg>Score</span><strong id="score">0</strong></span><span class="stat"><span class="stat-name"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#signal"></use></svg>Level</span><strong id="level">1</strong></span><span id="streak-stat" class="stat"><span class="stat-name"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#bolt"></use></svg>Streak</span><strong id="streak">0 / 5</strong></span><span class="pace-tip" id="pace-note"></span></div>
+    <section class="stack-panel" aria-label="Word stack"><div class="stack-meta"><span id="occupancy"></span><span id="next-spawn"></span></div><div class="ceiling"><span>Ceiling</span><span id="capacity-warning"></span></div><div class="stack"><div class="headroom"><div id="warmup-map" hidden>
+      <p class="training-label">Warm-up <span id="warmup-step"></span></p>
+      <ol class="checkpoints" aria-label="Warm-up targets">
+        <li><span class="checkpoint"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#moon"></use></svg></span>moon</li>
+        <li><span class="checkpoint"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#wave"></use></svg></span>wave</li>
+        <li><span class="checkpoint"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#tree"></use></svg></span>tree</li>
+      </ol>
+    </div></div><ol id="words" aria-label="Words, top to bottom"></ol></div><p id="zone-note" class="hint"></p></section>
+    <section class="console"><div id="active-controls"><div class="target-cue"><p class="target-label"><svg class="icon" aria-hidden="true" focusable="false"><use href="./arcade-icons.svg#flag"></use></svg> Connect to</p><h2 id="target" aria-live="polite"></h2></div><p id="instruction" role="status" hidden></p><button type="button" id="begin-game" class="primary" hidden>Start game</button><p id="begin-error" role="alert"></p><p id="connection" role="status"></p><button id="reconnect" class="quiet" hidden>Reconnect</button><form id="clue-form"><label for="clue" class="sr-only">Your clue</label><div class="input-dock"><input id="clue" autocomplete="off" spellcheck="false" aria-describedby="clue-count result" placeholder="Find an association…"><button class="primary" id="send">Send clue <span aria-hidden="true">↵</span></button></div><div id="clue-count" class="hint">120 characters available</div></form><p id="result" role="status" aria-live="polite"></p></div>
     <div id="ending" role="alert" hidden><h2 id="end-title" tabindex="-1"></h2><p id="end-detail"></p><button id="again" class="primary">Play again</button></div>
     <details class="identities"><summary>Game details</summary><dl id="details"></dl></details></section>
   </div>
 </section>
 </main>
-<footer>A game of unexpected connections.<span>Semaphore / Word arcade</span></footer>
 <dialog id="help" aria-labelledby="help-title"><h2 id="help-title">Follow the flag</h2><p>Send a clue associated with the target. The server ranks all words by their association with your clue, placing the closest at the bottom.</p><ol class="help-steps"><li><strong>Find an association.</strong><span>Use a clue like “orbit” for the target “moon”. Avoid the target itself or its word forms.</span></li><li><strong>Bring the flag into range.</strong><span>The closest words move to the bottom. In casual arcade, land the target in positions 1–3 to clear it for 100 points.</span></li><li><strong>Keep room in the stack.</strong><span>New words arrive as you play. A full, 20-word stack ends the game.</span></li></ol>
 <details class="help-extra"><summary>Streaks, pace, and other modes</summary><p>Five consecutive successful clues sweep the clear zone. Surviving words move down, and each new target also clears while it is in range and the same clue is legal. Each removed word earns 100 points.</p><p>A miss, invalid clue, or service failure resets the streak. Casual arrivals speed up every 500 points, from five seconds down to two.</p><p>Event games keep target-only clears. Events use their own fixed schedules.</p></details><p class="hint">In live games, the clock keeps running while a clue is ranked or the connection recovers. The guided warm-up is untimed.</p><form method="dialog"><button class="primary">Back to play</button></form></dialog>
 <script type="module" src="./app.mjs"></script>
+<script type="module" src="./assets/motion/motion.js"></script>
+<script type="module" src="./assets/moments/moments.js"></script>
 </body></html>

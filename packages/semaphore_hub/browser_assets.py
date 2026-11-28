@@ -14,6 +14,11 @@ ASSETS = {
     "durable.css": "text/css; charset=utf-8",
     "styles.css": "text/css; charset=utf-8",
     "favicon.svg": "image/svg+xml",
+    "arcade-icons.svg": "image/svg+xml",
+    "signal-ridge.webp": "image/webp",
+    "signal-ridge-small.webp": "image/webp",
+    "silkscreen.woff2": "font/woff2",
+    "theme.mjs": "text/javascript; charset=utf-8",
 }
 MAX_ASSET_BYTES = 2 * 1024 * 1024
 

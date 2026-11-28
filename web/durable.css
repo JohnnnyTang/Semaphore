@@ -1,2 +1,48 @@
-.durable{max-width:1050px}.durable h1{font-size:clamp(2.8rem,7vw,5rem)}.durable p{max-width:68ch;line-height:1.6}.durable #auth{max-width:420px}.toolbar{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin:1rem 0}.toolbar h2{margin-right:auto}.consent{display:flex;align-items:center;gap:.6rem}.consent input{width:24px;min-height:24px;margin:0}.records{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem}.records li{padding:.8rem 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}#words{max-width:650px;margin:1rem 0}#clue-form{max-width:650px}#notice{min-height:2rem;color:var(--zone-ink)}[hidden]{display:none!important}@media(max-width:650px){.records{grid-template-columns:1fr;gap:1rem}.durable{padding:1.2rem}.masthead{padding:1rem}.toolbar{gap:.5rem}.edition{display:none}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-.durable .word{min-height:48px;padding:.7rem 1rem;font-size:1.15rem;line-height:1.4}.durable #clue{border:1px solid var(--line);background:var(--surface);margin-bottom:1rem;padding:.7rem .8rem}.durable #clue:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+.durable { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; gap: 16px 22px; }
+.room-art { grid-column: 1; grid-row: 1; min-height: 444px; align-items: flex-start; }
+.room-art .landscape { object-fit: cover; object-position: 70% center; }
+.room-art .hero-copy { width: 100%; padding: clamp(24px, 3vw, 42px); }
+.room-art h1 { font-size: clamp(2.6rem, 4.5vw, 4.3rem); max-width: 8ch; }
+.room-art .intro { max-width: 26ch; }
+#signed-out { grid-column: 2; grid-row: 1 / 3; }
+.durable #notice { grid-column: 1; align-self: start; margin: 0; padding: 12px 16px; border-left: 3px solid var(--zone-ink); background: var(--zone); color: var(--zone-ink); border-radius: 3px 8px 8px 3px; font-size: .9rem; overflow-wrap: anywhere; }
+.durable p { line-height: 1.55; }
+.durable #auth p { color: var(--muted); font-size: .78rem; margin: 5px 0 16px; }
+.durable:has(#signed-in:not([hidden])) { display: block; }
+.durable:has(#signed-in:not([hidden])) .room-art { display: none; }
+.durable:has(#signed-in:not([hidden])) #notice { margin-bottom: 16px; }
+.toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.toolbar :is(h1,h2) { overflow-wrap: anywhere; min-width: 0; margin-right: auto; letter-spacing: -.04em; font-size: 1.5rem; }
+#round-options { margin-top: 12px; border-top: 1px solid var(--line); }
+#round-options > summary { font-weight: 650; }
+#play-notice { padding: 10px 12px; margin-top: 14px; color: var(--zone-ink); background: var(--zone); border-radius: 6px; }
+#play-notice:empty { display: none; }
+.room-setup #privacy { margin: 14px 0 0; max-width: 72ch; color: var(--muted); font-size: .88rem; }
+.room-setup .consent { margin: 4px 0 16px; }
+.room-setup #packs { margin-bottom: 12px; }
+.room-board { margin-block: 16px; }
+.room-board .toolbar { margin-bottom: 16px; }
+.room-board #score { font: 1.05rem var(--pixel); color: var(--zone-ink); }
+.room-board #target { margin: 8px 0 14px; font-weight: 650; overflow-wrap: anywhere; }
+.room-board #words { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.room-board #words:empty { display: none; }
+.room-board .word { min-height: 36px; padding: .35rem .8rem; font-size: 1rem; }
+.zone-badge { flex: none; color: var(--zone-ink); font: .68rem var(--mono); }
+.room-board #clue-form { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 7px 8px; margin-top: 16px; }
+.room-board #clue-form label { grid-column: 1 / -1; margin: 0; }
+.records { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.records p { margin: 0 0 12px; color: var(--muted); font-size: .88rem; }
+.records li { padding: .8rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.records ol { margin-top: .4rem; }
+@media (max-width: 760px) {
+  .durable { display: flex; flex-direction: column; align-items: stretch; gap: 14px; }
+  .room-art { min-height: 210px; }
+  .room-art h1 { max-width: none; }
+  .room-art .hero-copy { padding: 22px; }
+}
+@media (max-width:650px) {
+  .records { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .room-board:not([hidden]) { animation: settle-in 200ms ease-out; }
+}
