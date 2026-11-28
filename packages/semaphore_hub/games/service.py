@@ -260,10 +260,18 @@ class GameService:
         live = self.live.get(game.game_id)
         if live is None:
             raise GameError(503, "unavailable")  # recovery must run before traffic
-        state = advance(
+        transition = advance(
             live.state, now_ms=max(live.state.elapsed_ms, self.clock.monotonic_ms() - live.origin)
-        ).state
-        return self._persist(game, state)
+        )
+        if not transition.changed:
+            # Clock-only reads need a fresh projection, not a durable write. Recovery
+            # interrupts active games; elapsed time alone is not a recoverable event.
+            live.state = transition.state
+            return replace(
+                game,
+                snapshot_json=json.dumps(snapshot(live.state, now_ms=live.state.elapsed_ms)),
+            )
+        return self._persist(game, transition.state)
 
     def tick(self):
         """Host scheduler hook: advance all live games without a client request."""

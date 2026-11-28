@@ -63,6 +63,7 @@ def service():
     server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
     thread = threading.Thread(target=lambda: server.serve_forever(poll_interval=0.01), daemon=True)
     thread.start()
+    state["handler"] = Handler
     state["url"] = f"http://127.0.0.1:{server.server_port}"
     yield state
     server.shutdown()
@@ -235,3 +236,32 @@ def test_environment_configuration_has_no_implicit_host_or_model_override():
     ):
         with pytest.raises(ValueError):
             OllamaConfig("http://server", **kwargs)
+
+
+def test_transport_ignores_machine_proxy_configuration(service, monkeypatch):
+    for name in ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "http_proxy", "https_proxy"):
+        monkeypatch.setenv(name, "http://127.0.0.1:1")
+    monkeypatch.setenv("NO_PROXY", "")
+    client = OllamaEmbedder(OllamaConfig(service["url"]))
+    assert len(client.embed_queries(["ocean"])) == 1
+    assert len(service["requests"]) == 1
+
+
+def test_keepalive_reuses_connection_and_error_discards_it(service):
+    service["handler"].protocol_version = "HTTP/1.1"
+    client = OllamaEmbedder(OllamaConfig(service["url"]))
+    try:
+        client.identity()
+        sock = client._connection.sock
+        assert sock is not None
+        client.embed_queries(["ocean"])
+        assert client._connection.sock is sock
+        service["status"] = 500
+        with pytest.raises(EmbeddingHTTPError):
+            client.identity()
+        assert client._connection is None
+        service["status"] = 200
+        assert client.identity()["model"] == MODEL
+    finally:
+        client.close()
+    assert client._connection is None

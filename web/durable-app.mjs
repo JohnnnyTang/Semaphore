@@ -127,7 +127,9 @@ $('refresh').onclick = () => run(async () => { const change = await client.refre
 $('retry').onclick = () => run(async () => { const change = await client.retryCommand(); say(change?.result ? resultText(change.result) : 'Checking the same clue…'); });
 $('quit').onclick = () => run(async () => { await client.quit(); await history(); say('Round ended.'); });
 $('clue-form').onsubmit = event => { event.preventDefault(); if (composing) return; run(async () => {
-  const change = await client.send($('clue').value); $('clue').value = ''; say(change?.result ? resultText(change.result) : 'Ranking your clue…');
+  const change = await client.send($('clue').value);
+  if (change?.result?.outcome !== 'stale_revision') $('clue').value = '';
+  say(change?.result ? resultText(change.result) : 'Ranking your clue…');
 }); };
 // Match the experiment's 250 ms cadence; one request at a time and hidden tabs pause polling. Revisions and receipt IDs deduplicate results.
 setInterval(() => {

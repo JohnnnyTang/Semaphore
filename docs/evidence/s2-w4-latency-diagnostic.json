@@ -1,0 +1,27 @@
+[
+  {
+    "identity_ms": 54.34599984437227,
+    "provider_query_ms": 121.95640010759234,
+    "pinned_query_ms": 273.1669000349939
+  },
+  {
+    "identity_ms": 65.9715998917818,
+    "provider_query_ms": 70.61009993776679,
+    "pinned_query_ms": 176.56229995191097
+  },
+  {
+    "identity_ms": 69.76230023428798,
+    "provider_query_ms": 68.06189985945821,
+    "pinned_query_ms": 168.10650005936623
+  },
+  {
+    "identity_ms": 51.9981998950243,
+    "provider_query_ms": 68.91900021582842,
+    "pinned_query_ms": 188.12059983611107
+  },
+  {
+    "identity_ms": 47.75740019977093,
+    "provider_query_ms": 68.06989992037416,
+    "pinned_query_ms": 167.80330007895827
+  }
+]

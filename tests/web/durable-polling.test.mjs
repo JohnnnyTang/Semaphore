@@ -14,11 +14,13 @@ test('durable polling stays responsive without overlapping slow requests or poll
       addEventListener() {}, replaceChildren() {}, append() {}, focus() {} });
     return elements.get(id);
   } };
-  let client, tick, cadence, settle, reject, calls = 0;
+  let client, tick, cadence, settle, reject, calls = 0, sends = 0;
+  let outcome = 'stale_revision';
   class Client {
     constructor() { client = this; this.store = { snapshot: null }; }
     async request() { return { signup_enabled: true, clue_retention_days: 30, backup_retention_days: 30 }; }
     async restore() { this.session = { account: { display_name: 'Test player' } }; }
+    async send() { sends++; return { result: { outcome } }; }
     async page() { return { items: [], next_cursor: null }; }
     async refresh() { calls++; return new Promise((resolve, fail) => { settle = resolve; reject = fail; }); }
   }
@@ -41,4 +43,15 @@ test('durable polling stays responsive without overlapping slow requests or poll
   client.store.snapshot.status = 'over'; tick(); assert.equal(calls, 2);
   client.store.snapshot.status = 'active'; tick(); assert.equal(calls, 3, 'failed poll releases request guard');
   settle(); await setImmediate();
+  const input = document.getElementById('clue');
+  input.value = 'my association';
+  document.getElementById('clue-form').onsubmit({ preventDefault() {} });
+  await setImmediate();
+  assert.equal(input.value, 'my association', 'stale rejection preserves the draft');
+  assert.equal(sends, 1, 'no automatic resubmission after board changes');
+  outcome = 'pending';
+  document.getElementById('clue-form').onsubmit({ preventDefault() {} });
+  await setImmediate();
+  assert.equal(input.value, '', 'explicit accepted submission clears the draft');
+  assert.equal(sends, 2);
 });

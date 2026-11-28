@@ -1,5 +1,13 @@
 # Semaphore project plan
 
+November 16, 2026 W4 correction: model HTTP keep-alive and stale-clue draft recovery
+implemented; final isolated p95 is 329/641/735 ms at 1/4/8 players, with two stale
+rejections at eight players. Restart checks and 487 Python / 27 Node tests pass.
+W4 acceptance stays open: unchanged 100 ms target missed, remote offline startup
+deferred by the owner, reference-resource and broader human/content gates retained.
+See [current evidence](docs/evidence/s2-w4-performance-correction.md).
+
+
 November 16, 2026 W4 acceptance update: owner real-model completion and 1,000-point
 result retrieval after restart passed; fresh installation and automated durability
 checks passed. Real 1/4/8-player verifier-overlap load missed the 100 ms target

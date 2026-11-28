@@ -10,12 +10,11 @@ import json
 import math
 import os
 import re
+import threading
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from http.client import HTTPException
-from urllib.error import HTTPError, URLError
+from http.client import HTTPConnection, HTTPException, HTTPSConnection
 from urllib.parse import urlsplit
-from urllib.request import HTTPRedirectHandler, ProxyHandler, Request, build_opener
 
 MODEL = "qwen3-embedding:4b"
 DIMENSIONS = 2560
@@ -44,11 +43,6 @@ class EmbeddingHTTPError(EmbeddingError):
     def __init__(self, status: int) -> None:
         self.status = status
         super().__init__(f"Ollama returned HTTP {status}; no embeddings accepted")
-
-
-class _NoRedirect(HTTPRedirectHandler):
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        return None
 
 
 @dataclass(frozen=True)
@@ -101,25 +95,54 @@ class OllamaEmbedder:
 
     def __init__(self, config: OllamaConfig) -> None:
         self.config = config
+        self._http_lock = threading.Lock()
+        self._connection = None
+
+    def close(self):
+        with self._http_lock:
+            if self._connection is not None:
+                self._connection.close()
+                self._connection = None
 
     def _request(self, path: str, payload: dict | None = None) -> dict:
-        request = Request(
-            self.config.base_url.rstrip("/") + path,
-            data=None if payload is None else json.dumps(payload, allow_nan=False).encode("utf-8"),
-            headers={"Content-Type": "application/json", "Accept": "application/json"},
-        )
-        # LAN traffic must not accidentally follow machine-wide proxy settings.
-        opener = build_opener(ProxyHandler({}), _NoRedirect())
+        with self._http_lock:
+            return self._request_locked(path, payload)
+
+    def _request_locked(self, path: str, payload: dict | None = None) -> dict:
+        origin = urlsplit(self.config.base_url)
+        # One bounded, serialized connection avoids repeated TCP setup while
+        # retaining per-request identity checks. Never retry an uncertain request.
+        connection_type = HTTPSConnection if origin.scheme == "https" else HTTPConnection
+        if self._connection is None:
+            self._connection = connection_type(
+                origin.hostname, origin.port, timeout=self.config.timeout_seconds
+            )
+        connection = self._connection
         try:
-            with opener.open(request, timeout=self.config.timeout_seconds) as response:
-                raw = response.read(MAX_RESPONSE_BYTES + 1)
-        except HTTPError as exc:
-            exc.close()
-            # Service bodies can contain input text; never echo them in errors.
-            raise EmbeddingHTTPError(exc.code) from None
-        except (URLError, OSError, HTTPException):
+            connection.request(
+                "GET" if payload is None else "POST",
+                path,
+                body=None
+                if payload is None
+                else json.dumps(payload, allow_nan=False).encode("utf-8"),
+                headers={"Content-Type": "application/json", "Accept": "application/json"},
+            )
+            response = connection.getresponse()
+            if not 200 <= response.status < 300:
+                # No redirects, retries, or response bodies in diagnostic errors.
+                raise EmbeddingHTTPError(response.status)
+            raw = response.read(MAX_RESPONSE_BYTES + 1)
+        except (OSError, HTTPException):
+            connection.close()
+            self._connection = None
             raise EmbeddingUnavailable("Ollama unavailable or request timed out") from None
+        except Exception:
+            connection.close()
+            self._connection = None
+            raise
         if len(raw) > MAX_RESPONSE_BYTES:
+            connection.close()
+            self._connection = None
             raise EmbeddingResponseError("Ollama response exceeds the size limit")
         try:
             result = json.loads(raw)

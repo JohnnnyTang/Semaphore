@@ -356,3 +356,55 @@ def test_route_malformed_url_and_out_of_range_cursor(hub):
     )
     gid = create(hub)
     assert http.handle(principal, "POST", f"/api/v1/games/{gid}/quit", b" { } ").status == 200
+
+
+def test_clock_only_poll_does_not_write_but_terminal_tick_does(hub):
+    tx, service, inference, clock, artifact = hub
+    gid = create(hub)
+    with tx() as db:
+        before = db.execute("SELECT snapshot_json FROM games WHERE game_id=?", (gid,)).fetchone()[0]
+    clock.now = 100
+    response = service.get("owner", gid)
+    service.tick()
+    assert service.live[gid].state.elapsed_ms == 100
+    assert response["snapshot"]["revision"] == 0
+    with tx() as db:
+        assert (
+            db.execute("SELECT snapshot_json FROM games WHERE game_id=?", (gid,)).fetchone()[0]
+            == before
+        )
+    clock.now = 5000
+    service.tick()
+    with tx() as db:
+        assert (
+            db.execute("SELECT status FROM games WHERE game_id=?", (gid,)).fetchone()[0] == "over"
+        )
+        assert db.execute("SELECT count(*) FROM scores WHERE game_id=?", (gid,)).fetchone()[0] == 1
+
+
+def test_scheduled_board_change_rejects_stale_command_without_inference(hub, tmp_path):
+    from semaphore_hub.packs import PackService
+
+    tx, service, inference, clock, artifact = hub
+    body = json.loads(artifact.artifact_json)
+    with tx() as db:
+        row = db.execute(
+            "SELECT pack_id,version FROM pack_versions WHERE version_id=?", (artifact.version_id,)
+        ).fetchone()
+    scheduled = PackService(tx, tmp_path / "unused-assets", None).accept_casual_artifact(
+        *row,
+        operator_id="admin",
+        initial_board=body["initial_board"][:4],
+        schedule=[{"at_ms": 100, "entry_id": body["initial_board"][4]}],
+    )
+    initial = service.create("owner", dict(artifact_id=scheduled.artifact_id, mode="casual"))
+    gid = initial["snapshot"]["game_id"]
+    command = clue(revision=initial["snapshot"]["revision"])
+    clock.now = 100
+    rejected = service.command("owner", gid, command)
+    assert rejected["receipt"]["outcome"] == "stale_revision"
+    assert inference.jobs == []
+    assert service.command("owner", gid, command)["receipt"] == rejected["receipt"]
+    accepted = service.command("owner", gid, clue("new-command", rejected["snapshot"]["revision"]))
+    assert accepted["receipt"]["outcome"] == "pending"
+    assert len(inference.jobs) == 1

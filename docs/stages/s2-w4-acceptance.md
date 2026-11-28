@@ -1,5 +1,15 @@
 # Stage 2 W4 — Product acceptance
 
+Latest November 16 correction: keep-alive model transport and stale-clue draft
+recovery are implemented. Final isolated 1/4/8-player p95: **329/641/735 ms**,
+with two eight-player stale rejections; all restart checks passed. Validation:
+487 Python tests, 27 Node tests, lint/format/build/diff passed. **W4 remains open**:
+100 ms target unmet; offline startup remains explicitly deferred; inherited
+reference-resource and human/content gates remain unfulfilled. See the
+[latest correction](../evidence/s2-w4-performance-correction.md#latest-correction--persistent-model-transport).
+Earlier measurements below remain historical evidence.
+
+
 November 16, 2026. State: revise within W4 after real-model measurement; Stage 2 acceptance is not complete.
 
 The owner requested starting W4 using parallel subagents. W3's completed local
@@ -98,3 +108,16 @@ children; thirteen focused tests passed after integration, plus lint/format/diff
 Read-only idle process-tree validation confirms selection of the real interpreter.
 No second load was run solely to replace that instrumentation failure; valid
 load-time resources remain part of the next performance correction run.
+
+
+## Performance/resource follow-up — November 16
+
+Clock-only GET/tick no longer rewrites durable game snapshots. Full regression:
+484 Python tests and 27 Node tests passed; lint/format/diff checks passed. Two
+controlled reruns retained all failures; the repeat p95 was 610/906/1,484 ms for
+1/4/8 players, with four eight-player stale-revision rejections. Restart checks
+passed. Local and remote model process-tree/GPU measurements are now retained,
+with sampling limitations; resource-envelope acceptance is not declared. The user
+explicitly deferred remote offline startup. W4 remains open with the unchanged
+100 ms target. See [correction evidence](../evidence/s2-w4-performance-correction.md)
+for source hashes, results, resource scope, and next work.

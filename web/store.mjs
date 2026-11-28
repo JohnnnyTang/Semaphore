@@ -6,7 +6,7 @@ export function validateClue(text) {
 }
 export function resultText(receipt) {
   const messages = {
-    stale_revision: 'The target changed. Check it before sending again.',
+    stale_revision: 'The board changed. Your clue was not used. Check the target and send again.',
     no_target: 'Next word arriving soon.', clue_empty: 'Type a clue first.',
     clue_too_long: 'Use 120 characters or fewer.',
     clue_control_character: 'Remove control characters from your clue.',

@@ -1,0 +1,493 @@
+{
+ "start": "2026-11-28T06:44:21.120Z",
+ "round": 3,
+ "idle": 0,
+ "errors": 0,
+ "status": "open",
+ "history": [
+  {
+   "at": "2026-11-28T06:52:38.585Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 23,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-28T06:59:26.117Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 13,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-28T07:01:49.082Z",
+   "mode": "manual",
+   "status": "open",
+   "fails": 11,
+   "round": 3,
+   "reused": false,
+   "stopHookActive": false
+  }
+ ],
+ "max": 3,
+ "marker": {
+  "page": "web/index.html",
+  "url": null,
+  "root": null,
+  "kind": "gaming",
+  "category": "word arcade",
+  "primary": "Play",
+  "rounds": 3,
+  "start": "2026-11-28T06:44:21.120Z",
+  "by": "gate.mjs --start"
+ },
+ "manual": true,
+ "roundKey": "23464640619d87e1:da39a3ee",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "23464640619d87e1",
+ "page": "web/index.html",
+ "found": {
+  "fails": [
+   {
+    "check": "section-height",
+    "where": "section#welcome \"Word association arcadeSemaphore Find a \"",
+    "msg": "the section starts at 71px, 71px below the screen grid (0 x 900px): sections start on whole screens (SR-2)",
+    "fix": "make every section above it exactly one or two screens tall, so this one starts on a whole screen",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-height",
+     "screen-short"
+    ],
+    "wheres": [
+     "section#welcome \"Word association arcadeSemaphore Find a \"",
+     "#welcome section.welcome \"Word association arcadeSemaphore\""
+    ]
+   },
+   {
+    "check": "one-heading",
+    "where": "form#start-form > h2.panel-heading \"Game setup\"",
+    "msg": "the hero holds an h2 (2): its heading is the h1, and an h2 opens the next section (SR-5)",
+    "fix": "give each section one h2, first in its .wrap, and the hero only its h1",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-heading"
+    ],
+    "wheres": [
+     "form#start-form > h2.panel-heading \"Game setup\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "a.skip-link \"Skip to game\"",
+    "msg": "a <a> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)",
+    "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "a.skip-link \"Skip to game\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "section#welcome > div.wrap.lobby \"Word association arcadeSemaphore Find a \"",
+    "msg": "the hero's .wrap holds 2 children, 0 of them .hero-text: one .hero-text and at most one strip (SR-6)",
+    "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "section#welcome > div.wrap.lobby \"Word association arcadeSemaphore Find a \""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "h2#guide-title \"Field guide\"",
+    "msg": "the h2 starts 684px right of the container's left: every h1 and h2 starts on it, 2px either way (SR-6)",
+    "fix": "start the text on the container's left, or on the one split line every split shares",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "h2#guide-title \"Field guide\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "div.wrap.lobby > div.key-art.hero > div.hero-copy > h1 \"Word association arcadeSemaphore\"",
+    "msg": "2 text blocks start on a left line at x 180, 60px from the container's left: text starts on the container's left, or on one split line (x 630, 732, 834) (also \"Find a clue for the flagged word\") (SR-6)",
+    "fix": "start the text on the container's left, or on the one split line every split shares",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "div.wrap.lobby > div.key-art.hero > div.hero-copy > h1 \"Word association arcadeSemaphore\""
+    ]
+   },
+   {
+    "check": "menu-toggle",
+    "where": "button#theme-toggle \"Switch to dark theme\"",
+    "msg": "the menu button (\"Switch to dark theme\") has no aria-expanded: a screen reader cannot tell the menu is open or shut",
+    "fix": "use the starter's button: <button class=\"nav__toggle\" type=\"button\" aria-expanded=\"false\" aria-label=\"Menu\">; system.js flips it",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "menu-toggle"
+    ],
+    "wheres": [
+     "button#theme-toggle \"Switch to dark theme\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#welcome h1 \"Word association arcadeSemaphore\"",
+    "msg": "starts at x 180; the lines are 120 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#welcome h1 \"Word association arcadeSemaphore\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#welcome p.intro \"Find a clue for the flagged word\"",
+    "msg": "starts at x 180; the lines are 120 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#welcome p.intro \"Find a clue for the flagged word\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#welcome section.panel.guide \"Field guide Spot the targetLook \"",
+    "msg": "starts at x 771.2; the lines are 120 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#welcome section.panel.guide \"Field guide Spot the targetLook \""
+    ]
+   },
+   {
+    "check": "hero-fold",
+    "where": "#welcome section.welcome \"Word association arcadeSemaphore\"",
+    "msg": "ends at y 993, past the fold (844): 1.10 screens tall",
+    "fix": "the hero fills the first screen alone, its button inside it",
+    "widths": [
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "hero-fold"
+    ],
+    "wheres": [
+     "#welcome section.welcome \"Word association arcadeSemaphore\""
+    ]
+   }
+  ],
+  "warns": [
+   {
+    "check": "nav",
+    "where": "header.masthead.nav > div.mast-inner.wrap > a.brand \"Semaphore\"",
+    "msg": "the nav is lopsided: its first item starts 6px inside the content's edge (120px), while its last ends on the other edge",
+    "fix": "start the nav's first item and end its last on the content's two edges",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-buttons",
+    "where": "button#help-open \"How to play\"",
+    "msg": "\"How to play\" does not start with a verb (book, buy, try, start, get, see...) (and 1 more like it: \"Play\")",
+    "fix": "label buttons with a verb and what the visitor gets (\"Book a room\", \"Start free trial\")",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "share-meta",
+    "where": "head",
+    "msg": "the head lacks twitter:card: a shared link shows no picture or title of its own",
+    "fix": "copy the head block of starter.html: og tags, twitter:card, the icon and theme-color (references/system.md, Head)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "form-fields",
+    "where": "form#start-form",
+    "msg": "the form has no status line (role=\"status\"): sending, sent and errors are never read out",
+    "fix": "give each field its type, autocomplete and inputmode, never block paste or disable the button before a submit, and add the status line (references/system.md, Forms)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "fold-cut",
+    "where": "ol.guide-rows > li:nth-of-type(2) > div > p \"Choose a related word. Try “orbit” for “\"",
+    "msg": "a line of the hero text is sliced by the bottom of the first screen",
+    "fix": "size the hero so the heading ends above the fold, or starts below it",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "fold-cut",
+    "where": "button#play \"Play\"",
+    "msg": "the hero's button \"Play\" is cut by the bottom of the first screen (23px of its 47px below the fold)",
+    "fix": "size the hero so the heading ends above the fold, or starts below it",
+    "widths": [
+     320
+    ],
+    "from": "consistency"
+   }
+  ],
+  "crashed": [],
+  "seconds": {
+   "consistency": 49,
+   "layout": 14
+  }
+ },
+ "open": [
+  {
+   "check": "section-height",
+   "where": "section#welcome \"Word association arcadeSemaphore Find a \"",
+   "msg": "the section starts at 71px, 71px below the screen grid (0 x 900px): sections start on whole screens (SR-2)",
+   "fix": "make every section above it exactly one or two screens tall, so this one starts on a whole screen",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-height",
+    "screen-short"
+   ],
+   "wheres": [
+    "section#welcome \"Word association arcadeSemaphore Find a \"",
+    "#welcome section.welcome \"Word association arcadeSemaphore\""
+   ]
+  },
+  {
+   "check": "one-heading",
+   "where": "form#start-form > h2.panel-heading \"Game setup\"",
+   "msg": "the hero holds an h2 (2): its heading is the h1, and an h2 opens the next section (SR-5)",
+   "fix": "give each section one h2, first in its .wrap, and the hero only its h1",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-heading"
+   ],
+   "wheres": [
+    "form#start-form > h2.panel-heading \"Game setup\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "a.skip-link \"Skip to game\"",
+   "msg": "a <a> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)",
+   "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "a.skip-link \"Skip to game\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "section#welcome > div.wrap.lobby \"Word association arcadeSemaphore Find a \"",
+   "msg": "the hero's .wrap holds 2 children, 0 of them .hero-text: one .hero-text and at most one strip (SR-6)",
+   "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "section#welcome > div.wrap.lobby \"Word association arcadeSemaphore Find a \""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "h2#guide-title \"Field guide\"",
+   "msg": "the h2 starts 684px right of the container's left: every h1 and h2 starts on it, 2px either way (SR-6)",
+   "fix": "start the text on the container's left, or on the one split line every split shares",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "h2#guide-title \"Field guide\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "div.wrap.lobby > div.key-art.hero > div.hero-copy > h1 \"Word association arcadeSemaphore\"",
+   "msg": "2 text blocks start on a left line at x 180, 60px from the container's left: text starts on the container's left, or on one split line (x 630, 732, 834) (also \"Find a clue for the flagged word\") (SR-6)",
+   "fix": "start the text on the container's left, or on the one split line every split shares",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "div.wrap.lobby > div.key-art.hero > div.hero-copy > h1 \"Word association arcadeSemaphore\""
+   ]
+  },
+  {
+   "check": "menu-toggle",
+   "where": "button#theme-toggle \"Switch to dark theme\"",
+   "msg": "the menu button (\"Switch to dark theme\") has no aria-expanded: a screen reader cannot tell the menu is open or shut",
+   "fix": "use the starter's button: <button class=\"nav__toggle\" type=\"button\" aria-expanded=\"false\" aria-label=\"Menu\">; system.js flips it",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "menu-toggle"
+   ],
+   "wheres": [
+    "button#theme-toggle \"Switch to dark theme\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#welcome h1 \"Word association arcadeSemaphore\"",
+   "msg": "starts at x 180; the lines are 120 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#welcome h1 \"Word association arcadeSemaphore\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#welcome p.intro \"Find a clue for the flagged word\"",
+   "msg": "starts at x 180; the lines are 120 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#welcome p.intro \"Find a clue for the flagged word\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#welcome section.panel.guide \"Field guide Spot the targetLook \"",
+   "msg": "starts at x 771.2; the lines are 120 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#welcome section.panel.guide \"Field guide Spot the targetLook \""
+   ]
+  },
+  {
+   "check": "hero-fold",
+   "where": "#welcome section.welcome \"Word association arcadeSemaphore\"",
+   "msg": "ends at y 993, past the fold (844): 1.10 screens tall",
+   "fix": "the hero fills the first screen alone, its button inside it",
+   "widths": [
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "hero-fold"
+   ],
+   "wheres": [
+    "#welcome section.welcome \"Word association arcadeSemaphore\""
+   ]
+  }
+ ],
+ "waived": [],
+ "warnCount": 6,
+ "at": "2026-11-28T07:01:49.084Z",
+ "openTold": true
+}
